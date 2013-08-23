@@ -4,28 +4,42 @@
 
 requirejs.config({
     shim: {
+        'vendor/backbone': {
+            deps: ['vendor/underscore', 'jquery'],
+            exports: 'Backbone'
+        },
         'vendor/underscore': {
             exports: '_'
         },
-        'kinvey': [ 'vendor/jquery', 'vendor/underscore' ]
+        'vendor/backbone-associations': [ "vendor/backbone" ],
+        'kinvey': [ 'vendor/jquery', 'vendor/underscore', 'vendor/backbone' ],
+        'vendor/bootstrap': [ 'jquery' ]
     },
     paths: {
-        'jquery': [
+        jquery: [
             "http://code.jquery.com/jquery",
             "vendor/jquery"
         ],
         'kinvey': [
-            '//da189i1jfloii.cloudfront.net/js/kinvey-html5-1.0.4.min',
+            '//da189i1jfloii.cloudfront.net/js/kinvey-backbone-1.0.4.min',
             'vendor/kinvey'
-        ]
+        ],
+        'moment': "vendor/moment"
     }
 });
 
 require([
     'jquery',
     'vendor/underscore',
-    'kinvey'
-], function ($, _, Kinvey) {
+    'vendor/backbone',
+    'vendor/backbone-associations',
+    'vendor/bootstrap',
+    'moment',
+    'kinvey',
+    'app',
+    'router',
+    'models/player'
+], function ($, _, Backbone, Associations, Bootstrap, moment, Kinvey, App, AppRouter, PlayerModel) {
 
     "use strict";
 
@@ -54,9 +68,22 @@ require([
         appSecret: "a29a208ce80c41a295cc5cd9bfd6ab20"
     })
         .then(function (activeUser) {
+            // the Kinvey.init function returns a promise which resolves to the active user
+            // data (or null if there is no active user). Note: when logged in, activeUser
+            // here is *not* an instance of Kinvey.Backbone.User, but just the attributes of
+            // the user. You must instantiate the User yourself (to allow for custom subclasses).
+            App.user = App.player = new PlayerModel(activeUser);
 
-            App.user = Kinvey.getActiveUser();
-            console.log(App.user);
+            /*
+            * Backbone init
+            *
+            * Create an instance of our router to use for calling `navigate`, and kick everything off by
+            * by starting the Backbone history. We hold off on this until the active user state is resolved
+            * so we know whether the user is logged in or not.
+            */
+
+            App.router = new AppRouter();
+            Backbone.history.start();
 
         });
 

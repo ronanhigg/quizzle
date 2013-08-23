@@ -1,7 +1,10 @@
 /* Directives for jslint */
 /*global define */
 
-define(['jquery', 'vendor/underscore'], function($, _) {
+define([
+    'jquery',
+    'vendor/underscore'
+], function($, _) {
 
     "use strict";
 
