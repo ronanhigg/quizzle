@@ -26,6 +26,8 @@ return array(
             'main' => array(
                 'files' => array(
                     'vendor/bootstrap.min.css',
+                    'vendor/datepicker.css',
+                    'vendor/typeahead.js-bootstrap.css',
                     'main.css',
                 ),
             ),

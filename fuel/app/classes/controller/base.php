@@ -19,6 +19,7 @@ class Controller_Base extends Controller_Template
         $this->template->set_global('current_user', $this->current_user);
         $this->template->set_global('is_logged_in', Auth::check());*/
         $this->template->set_global('is_logged_in', true);
+        $this->template->set_global('appname', 'Quizzle');
 
         $this->template->navigation = View_Navigation::find_all(Request::active());
     }

@@ -6,7 +6,9 @@ requirejs.config({
         'vendor/underscore': {
             exports: '_'
         },
-        'vendor/bootstrap': [ 'jquery' ]
+        'vendor/bootstrap': [ 'jquery' ],
+        'vendor/bootstrap-datepicker': [ 'jquery' ],
+        'vendor/typeahead': [ 'jquery' ]
     },
     paths: {
         jquery: [
@@ -17,13 +19,29 @@ requirejs.config({
     }
 });
 
-require([
+requirejs([
     'jquery',
     'vendor/underscore',
     'vendor/bootstrap',
     'moment',
-], function ($, _, Bootstrap, moment) {
+
+    'forms',
+    'tables'
+
+], function (
+    $,
+    _,
+    Bootstrap,
+    moment,
+
+    Forms,
+    Tables
+
+) {
 
     "use strict";
+
+    Tables.init();
+    Forms.init();
 
 });

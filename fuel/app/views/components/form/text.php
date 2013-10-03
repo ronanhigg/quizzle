@@ -1,0 +1,1 @@
+<input type="text" class="form-control" id="<?=$key?>" name="<?=$key?>" value="<?=Input::post($key, $value)?>">

@@ -4,7 +4,7 @@ class Controller_Navigation extends Controller_Base
 {
 	public function action_dashboard()
 	{
-		$this->template->title = 'Quizzle Operator Dashboard';
+		$this->template->title = $this->template->appname . ' Operator Dashboard';
 		$this->template->content = View::forge('navigation/dashboard');
 	}
 

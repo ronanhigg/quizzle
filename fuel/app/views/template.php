@@ -33,7 +33,7 @@
                         <span class="icon-bar"></span>
                     </button>
 
-                    <a class="navbar-brand" href="/">Quizzle</a>
+                    <a class="navbar-brand" href="/"><?=$appname?></a>
 
                 </div>
 
@@ -97,7 +97,7 @@
 
             <footer>
 
-                Quizzle Operator Dashboard is running in the <em><?=Fuel::$env?></em> environment.
+                <?=$appname?> Operator Dashboard is running in the <em><?=Fuel::$env?></em> environment.
 
             </footer>
 
@@ -105,8 +105,8 @@
 
     </div>
 
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
-        <script>window.jQuery || document.write('<script src="/assets/js/vendor/jquery.js"><\/script>')</script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="/assets/js/vendor/jquery.js"><\/script>')</script>
 
     <script data-main="/assets/js/init" src="/assets/js/vendor/require.js"></script>
 

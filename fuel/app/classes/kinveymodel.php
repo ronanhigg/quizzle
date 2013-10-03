@@ -2,7 +2,10 @@
 
 class KinveyModel
 {
-    protected static $base_url = 'http://baas.kinvey.com/appdata/kid_PVgDjNCWFJ/';
+    protected static function get_base_url()
+    {
+        return Config::get('kinvey.base_url') . 'appdata' . DS . Config::get('kinvey.appkey') . DS . static::$kinvey_name;
+    }
 
     public static function create($params)
     {
@@ -14,9 +17,9 @@ class KinveyModel
 
     public static function find($id)
     {
-        $curl = Request::forge(static::$base_url . static::$kinvey_name . '/' . $id, 'curl');
+        $curl = Request::forge(static::get_base_url() . DS . $id, 'curl');
         $curl->set_method('GET');
-        $curl->http_login('conor.smith', 'password');
+        $curl->http_login(Config::get('kinvey.username'), Config::get('kinvey.password'));
 
         $curl->execute();
 
@@ -44,17 +47,17 @@ class KinveyModel
 
         if (isset($this->id)) {
             unset($params['id']);
-            $url = static::$base_url . static::$kinvey_name . '/' . $this->id;
+            $url = static::get_base_url() . DS . $this->id;
             $method = 'PUT';
         } else {
-            $url = static::$base_url . static::$kinvey_name;
+            $url = static::get_base_url();
             $method = 'POST';
         }
 
         $curl = Request::forge($url, 'curl');
         $curl->set_method($method);
         $curl->set_mime_type('json');
-        $curl->http_login('conor.smith', 'password');
+        $curl->http_login(Config::get('kinvey.username'), Config::get('kinvey.password'));
 
         $curl->set_params($params);
 
@@ -67,10 +70,10 @@ class KinveyModel
 
     public function delete()
     {
-        $curl = Request::forge(static::$base_url . static::$kinvey_name . '/' . $this->id, 'curl');
+        $curl = Request::forge(static::get_base_url() . DS . $this->id, 'curl');
         $curl->set_method('DELETE');
         $curl->set_mime_type('json');
-        $curl->http_login('conor.smith', 'password');
+        $curl->http_login(Config::get('kinvey.username'), Config::get('kinvey.password'));
 
         $curl->execute();
     }

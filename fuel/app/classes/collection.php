@@ -17,9 +17,11 @@ class Collection implements Iterator
     public function fetch_all()
     {
         $class = static::$model_class;
-        $curl = Request::forge('http://baas.kinvey.com/appdata/kid_PVgDjNCWFJ/' . $class::$kinvey_name, 'curl');
+        $url = Config::get('kinvey.base_url') . 'appdata' . DS . Config::get('kinvey.appkey') . DS . $class::$kinvey_name;
+        
+        $curl = Request::forge($url, 'curl');
         $curl->set_method('GET');
-        $curl->http_login('conor.smith', 'password');
+        $curl->http_login(Config::get('kinvey.username'), Config::get('kinvey.password'));
 
         $curl->execute();
 

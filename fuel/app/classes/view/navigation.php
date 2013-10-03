@@ -41,7 +41,7 @@ class View_Navigation
         'main' => array(
             array(
                 'label' => 'Home',
-                'route' => 'dashboard',
+                'route' => '',
             ),
             array(
                 'label' => 'Ads',
