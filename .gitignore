@@ -17,3 +17,4 @@ build
 nbproject/
 /public/files/*
 /public/assets/cache/*
+/public/coverage/*

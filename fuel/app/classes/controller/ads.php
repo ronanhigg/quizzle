@@ -28,24 +28,31 @@ class Controller_Ads extends Controller_Base
             return;
         }
 
+        $rollback = new Rollback;
+        $uploader = new Uploader('Upload');
+
         try {
-            Uploader::process();
+            $uploader->process();
         } catch (UploaderException $e) {
             Session::set_flash('error', $e->getMessage());
             return;
         }
 
         try {
-            $storyboard_url = Upload_Storyboard::process();
+            $storyboard_uploader = new Upload_Storyboard($uploader, 'S3', 'File');
+            $storyboard_url = $storyboard_uploader->process();
+            $rollback->add_call($storyboard_uploader, 'remove', $storyboard_url);
         } catch (Upload_StoryboardException $e) {
             Session::set_flash('error', $e->getMessage());
             return;
         }
 
         try {
-            $video_url = Upload_Video::process();
+            $video_uploader = new Upload_Video($uploader, 'S3', 'File');
+            $video_url = $video_uploader->process();
+            $rollback->add_call($video_uploader, 'remove', $video_url);
         } catch (Upload_VideoException $e) {
-            Upload_Storyboard::remove($storyboard_url);
+            $rollback->execute();
 
             Session::set_flash('error', $e->getMessage());
             return;
@@ -57,21 +64,40 @@ class Controller_Ads extends Controller_Base
                 'storyboard_url' => $storyboard_url,
                 'video_url' => $video_url,
                 'advertiser' => Input::post('advertiser'),
-                'campaign' => Input::post('campaign'),
+                /*'campaign' => Input::post('campaign'),
                 'campaign_desktop_url' => Input::post('campaign_desktop_url'),
                 'campaign_mobile_url' => Input::post('campaign_mobile_url'),
-                'campaign_first_seen' => Input::post('campaign_first_seen'),
+                'campaign_first_seen' => Input::post('campaign_first_seen'),*/
                 'title' => Input::post('title'),
                 'ad_first_seen' => Input::post('ad_first_seen'),
                 'description' => Input::post('description'),
                 'agency' => Input::post('agency'),
             ));
+            $rollback->add_call($ad, 'delete');
+
         } catch (Model_AdException $e) {
-            Upload_Storyboard::remove($storyboard_url);
-            Upload_Video::remove($video_url);
+            $rollback->execute();
 
             Session::set_flash('error', $e->getMessage());
             return;
+        }
+
+        if (Input::post('campaign')) {
+            try {
+                $adcampaign = Model_AdCampaign::create(array(
+                    'name' => Input::post('name'),
+                    'desktop_url' => Input::post('desktop_url'),
+                    'mobile_url' => Input::post('mobile_url'),
+                    'first_seen' => Input::post('first_seen'),
+                ));
+                $rollback->add_call($adcampaign, 'delete');
+
+            } catch (Model_AdCampaignException $e) {
+                $rollback->execute();
+
+                Session::set_flash('error', $e->getMessage());
+                return;
+            }
         }
 
         Session::set_flash('success', 'The ad has been saved successfully');
@@ -82,6 +108,8 @@ class Controller_Ads extends Controller_Base
     {
         try {
             $ad = Model_Ad::find($id);
+            $unmodified_ad = Model_Ad::find($id);
+
         } catch (Model_AdException $e) {
             throw new HttpNotFoundException;
         }
@@ -95,12 +123,27 @@ class Controller_Ads extends Controller_Base
             return;
         }
 
+        $rollback = new Rollback;
+        $uploader = new Uploader('Upload');
+
         try {
-            $storyboard_url = Upload_Storyboard::process();
-            $original_storyboard_url = $ad->storyboard_url;
+            $uploader->process();
+        } catch (UploaderException $e) {
+            Session::set_flash('error', $e->getMessage());
+            return;
+        }
+
+        try {
+            $storyboard_uploader = new Upload_Storyboard($uploader, 'S3', 'File');
+            $storyboard_url_to_save = $storyboard_uploader->process();
+            $storyboard_url_to_remove = $ad->storyboard_url;
+
+            $rollback->add_call($storyboard_uploader, 'remove', $storyboard_url_to_save);
 
         } catch (Upload_StoryboardNoFileException $e) {
-            $storyboard_url = $ad->storyboard_url;
+
+            $storyboard_url_to_save = $ad->storyboard_url;
+            $storyboard_url_to_remove = null;
 
         } catch (Upload_StoryboardException $e) {
             Session::set_flash('error', $e->getMessage());
@@ -108,22 +151,26 @@ class Controller_Ads extends Controller_Base
         }
 
         try {
-            $video_url = Upload_Video::process();
-            $original_video_url = $ad->video_url;
+            $video_uploader = new Upload_Video($uploader, 'S3', 'File');
+            $video_url_to_save = $video_uploader->process();
+            $video_url_to_remove = $ad->video_url;
+
+            $rollback->add_call($video_uploader, 'remove', $video_url_to_save);
 
         } catch (Upload_VideoNoFileException $e) {
-            $video_url = $ad->video_url;
+            $video_url_to_save = $ad->video_url;
+            $video_url_to_remove = null;
 
         } catch (Upload_VideoException $e) {
-            Upload_Storyboard::remove($storyboard_url);
+            $rollback->execute();
 
             Session::set_flash('error', $e->getMessage());
             return;
         }
 
         $ad->ad_detection_identifier = Input::post('ad_detection_identifier');
-        $ad->storyboard_url = $storyboard_url;
-        $ad->video_url = $video_url;
+        $ad->storyboard_url = $storyboard_url_to_save;
+        $ad->video_url = $video_url_to_save;
         $ad->advertiser = Input::post('advertiser');
         $ad->campaign = Input::post('campaign');
         $ad->campaign_desktop_url = Input::post('campaign_desktop_url');
@@ -136,21 +183,37 @@ class Controller_Ads extends Controller_Base
 
         try {
             $ad->save();
-
-            if (isset($original_storyboard_url)) {
-                Upload_Storyboard::remove($original_storyboard_url);
-            }
-
-            if (isset($original_video_url)) {
-                Upload_Video::remove($original_video_url);
-            }
+            $rollback->add_call($unmodified_ad, 'save');
 
         } catch (Model_AdException $e) {
-            Upload_Storyboard::remove($storyboard_url);
-            Upload_Video::remove($video_url);
+            $rollback->execute();
 
             Session::set_flash('error', $e->getMessage());
             return;
+        }
+
+        if ( ! is_null($storyboard_url_to_remove)) {
+            try {
+                $storyboard_uploader->remove($storyboard_url_to_remove);
+
+            } catch (Upload_StoryboardException $e) {
+                $rollback->execute();
+                
+                Session::set_flash('error', 'An error occurred while saving the ad. ' . $e->getMessage());
+                return;
+            }
+        }
+
+        if ( ! is_null($video_url_to_remove)) {
+            try {
+                $video_uploader->remove($video_url_to_remove);
+
+            } catch (Upload_VideoException $e) {
+                $rollback->execute();
+                
+                Session::set_flash('error', 'An error occurred while saving the ad. ' . $e->getMessage());
+                return;
+            }
         }
 
         Session::set_flash('success', 'The ad has been saved successfully');
@@ -161,22 +224,34 @@ class Controller_Ads extends Controller_Base
     {
         try {
             $ad = Model_Ad::find($id);
+            $unmodified_ad = Model_Ad::find($id);
+
         } catch (Model_AdException $e) {
             throw new HttpNotFoundException;
         }
 
+        $rollback = new Rollback;
+        $uploader = new Uploader('Upload');
+
         $ad->delete();
+        $rollback->add_call($unmodified_ad, 'save');
 
         try {
-            Upload_Storyboard::remove($ad->storyboard_url);
+            $storyboard_uploader = new Upload_Storyboard($uploader, 'S3', 'File');
+            $storyboard_uploader->remove($ad->storyboard_url);
         } catch (Upload_StoryboardException $e) {
+            $rollback->execute();
+
             Session::set_flash('error', $e->getMessage());
             return;
         }
 
         try {
-            Upload_Video::remove($ad->video_url);
-        } catch (Upload_StoryboardException $e) {
+            $video_uploader = new Upload_Video($uploader, 'S3', 'File');
+            $video_uploader->remove($ad->video_url);
+        } catch (Upload_VideoException $e) {
+            $rollback->execute();
+
             Session::set_flash('error', $e->getMessage());
             return;
         }
@@ -195,10 +270,14 @@ class Controller_Ads extends Controller_Base
             new View_Form_Typeahead('Advertiser', 'advertiser'),
             // Advertiser Logo selection should go here
 
-            new View_Form_Typeahead('Campaign', 'campaign'),
+            new View_Form_Typeahead('Campaign', 'name'),
+            new View_Form_Text('Campaign Desktop URL', 'desktop_url'),
+            new View_Form_Text('Campaign Mobile URL', 'mobile_url'),
+            new View_Form_Date('Campaign First Seen', 'first_seen'),
+            /*new View_Form_Typeahead('Campaign', 'campaign'),
             new View_Form_Text('Campaign Desktop URL', 'campaign_desktop_url'),
             new View_Form_Text('Campaign Mobile URL', 'campaign_mobile_url'),
-            new View_Form_Date('Campaign First Seen', 'campaign_first_seen'),
+            new View_Form_Date('Campaign First Seen', 'campaign_first_seen'),*/
 
             new View_Form_Text('Ad Title', 'title'),
             new View_Form_Date('Ad First Seen', 'ad_first_seen'),
@@ -207,6 +286,9 @@ class Controller_Ads extends Controller_Base
             new View_Form_Typeahead('Agency', 'agency'),
         );
 
+        /* DRAGON - Will need to accept AdCampaign object as well as Ad
+                    -- Conor
+        */
         if ( ! is_null($ad)) {
             foreach ($components as $component) {
                 if (isset($ad->{$component->key})) {
