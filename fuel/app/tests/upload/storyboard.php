@@ -12,7 +12,7 @@ class Test_Upload_Storyboard extends TestCase
 
     private function setUpStoryboardUploader($uploader)
     {
-        return new Upload_Storyboard($uploader, 'Mock_S3', 'Mock_File');
+        return new Upload_Storyboard($uploader, 'MockS3', 'MockFile');
     }
 
     private function setUpMockUploader()
@@ -45,8 +45,8 @@ class Test_Upload_Storyboard extends TestCase
         $uploader = $this->setUpMockUploader();
         $uploader = $this->addMethodFindUploadWithFieldName($uploader);
 
-        Mock_S3::setForProcessExecutingCorrectly();
-        Mock_File::setForProcessExecutingCorrectly();
+        MockS3::setForProcessExecutingCorrectly();
+        MockFile::setForProcessExecutingCorrectly();
 
         $storyboardUploader = $this->setUpStoryboardUploader($uploader);
 
@@ -88,8 +88,8 @@ class Test_Upload_Storyboard extends TestCase
         $uploader = $this->setUpMockUploader();
         $uploader = $this->addMethodFindUploadWithFieldName($uploader);
 
-        Mock_S3::setForProcessThrowingExceptionOnPutObject();
-        Mock_File::setForProcessExecutingCorrectly();
+        MockS3::setForProcessThrowingExceptionOnPutObject();
+        MockFile::setForProcessExecutingCorrectly();
 
         $storyboardUploader = $this->setUpStoryboardUploader($uploader);
 
@@ -105,8 +105,8 @@ class Test_Upload_Storyboard extends TestCase
         $uploader = $this->setUpMockUploader();
         $uploader = $this->addMethodFindUploadWithFieldName($uploader);
 
-        Mock_S3::setForProcessExecutingCorrectly();
-        Mock_File::setForProcessThrowingExceptionOnDelete();
+        MockS3::setForProcessExecutingCorrectly();
+        MockFile::setForProcessThrowingExceptionOnDelete();
 
         $storyboardUploader = $this->setUpStoryboardUploader($uploader);
 
@@ -120,8 +120,8 @@ class Test_Upload_Storyboard extends TestCase
     {
         $uploader = $this->setUpMockUploader();
 
-        Mock_S3::setForProcessExecutingCorrectly();
-        Mock_File::setForProcessExecutingCorrectly();
+        MockS3::setForProcessExecutingCorrectly();
+        MockFile::setForProcessExecutingCorrectly();
 
         $storyboardUploader = $this->setUpStoryboardUploader($uploader);
 
@@ -136,8 +136,8 @@ class Test_Upload_Storyboard extends TestCase
     {
         $uploader = $this->setUpMockUploader();
 
-        Mock_S3::setForProcessThrowingExceptionOnDeleteObject();
-        Mock_File::setForProcessExecutingCorrectly();
+        MockS3::setForProcessThrowingExceptionOnDeleteObject();
+        MockFile::setForProcessExecutingCorrectly();
 
         $storyboardUploader = $this->setUpStoryboardUploader($uploader);
 

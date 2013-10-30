@@ -7,7 +7,7 @@ class Test_Uploader extends TestCase
 {
     public function setUp()
     {
-        $this->uploader = new Uploader('Mock_Upload');
+        $this->uploader = new Uploader('MockUpload');
     }
 
     /**
@@ -15,7 +15,7 @@ class Test_Uploader extends TestCase
      */
     public function constructorCorrectlyInitialisesAndProcessWorks()
     {
-        Mock_Upload::setForProcessExecutingCorrectly();
+        MockUpload::setForProcessExecutingCorrectly();
         $this->uploader->process();
 
         $this->assertInstanceOf(
@@ -31,7 +31,7 @@ class Test_Uploader extends TestCase
      */
     public function processHandlesUploadUtilityHavingNoFiles()
     {
-        Mock_Upload::setForProcessThrowingNoFilesException();
+        MockUpload::setForProcessThrowingNoFilesException();
         $this->uploader->process();
     }
 
@@ -41,7 +41,7 @@ class Test_Uploader extends TestCase
      */
     public function processHandlesUploadUtiliyThrowingAnException()
     {
-        Mock_Upload::setForProcessThrowingException();
+        MockUpload::setForProcessThrowingException();
         $this->uploader->process();
     }
 
@@ -50,7 +50,7 @@ class Test_Uploader extends TestCase
      */
     public function findUploadWithFieldNameReturnsFileData()
     {
-        $expectedFileData = Mock_Upload::setForFindUploadWithFieldNameFindingFieldNamed('test_upload_field');
+        $expectedFileData = MockUpload::setForFindUploadWithFieldNameFindingFieldNamed('test_upload_field');
         $actualFileData = $this->uploader->find_upload_with_field_name('test_upload_field');
 
         $this->assertEquals(
@@ -66,7 +66,7 @@ class Test_Uploader extends TestCase
      */
     public function findUploadWithFieldNameHandlesNonexistantFieldName()
     {
-        Mock_Upload::setForFindUploadWithFieldNameFindingNoFieldNamed('test_upload_field');
+        MockUpload::setForFindUploadWithFieldNameFindingNoFieldNamed('test_upload_field');
         $this->uploader->find_upload_with_field_name('test_upload_field');
     }
 }

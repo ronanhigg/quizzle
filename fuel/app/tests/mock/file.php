@@ -1,6 +1,6 @@
 <?php
 
-class Mock_File
+class MockFile
 {
     private static $deleteReturnValue = true;
 

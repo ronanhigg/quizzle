@@ -1,6 +1,6 @@
 <?php
 
-class Mock_Upload
+class MockUpload
 {
     private static $isValidReturnValue = true;
     private static $getErrorsReturnValue = array();

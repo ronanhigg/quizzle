@@ -1,6 +1,6 @@
 <?php
 
-class Mock_S3
+class MockS3
 {
     private static $putObjectReturnValue = true;
     private static $deleteObjectReturnValue = true;
