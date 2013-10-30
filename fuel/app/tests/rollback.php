@@ -86,6 +86,54 @@ class Test_Rollback extends TestCase
     /**
      * @test
      */
+    public function executeWorksWhenOneCallHasBeenAddedWithParameterArray()
+    {
+        $calledObject = $this->setUpMockCalledObject();
+
+        $calledObject->expects($this->once())
+            ->method($this->calledMethod)
+            ->with(
+                $this->equalTo('paramA'),
+                $this->equalTo('paramB'),
+                $this->equalTo('paramC')
+            );
+
+        $rollback = new Rollback;
+
+        $rollback->add_call($calledObject, $this->calledMethod, array('paramA', 'paramB', 'paramC'));
+        $rollback->execute();
+
+        $this->assertTrue(
+            $rollback->has_executed_successfully(),
+            'Rollback::has_executed_successfully() did not return true after normal execution'
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function executeWorksWhenOneCallHasBeenAddedWithAParameterThatsAnArray()
+    {
+        $calledObject = $this->setUpMockCalledObject();
+
+        $calledObject->expects($this->once())
+            ->method($this->calledMethod)
+            ->with($this->equalTo(array('elA', 'elB', 'elC')));
+
+        $rollback = new Rollback;
+
+        $rollback->add_call_with_single_param($calledObject, $this->calledMethod, array('elA', 'elB', 'elC'));
+        $rollback->execute();
+
+        $this->assertTrue(
+            $rollback->has_executed_successfully(),
+            'Rollback::has_executed_successfully() did not return true after normal execution'
+        );
+    }
+
+    /**
+     * @test
+     */
     public function executeWorksWhenTheAddedCallThrowsAnExceptionBeforeRunningSuccessfully()
     {
         $calledObject = $this->setUpMockCalledObject();

@@ -82,7 +82,7 @@ class Controller_Ads extends Controller_Base
             return;
         }
 
-        if (Input::post('campaign')) {
+        if (Input::post('name') || Input::post('desktop_url') || Input::post('mobile_url') || Input::post('first_seen')) {
             try {
                 $adcampaign = Model_AdCampaign::create(array(
                     'name' => Input::post('name'),
@@ -100,6 +100,16 @@ class Controller_Ads extends Controller_Base
             }
         }
 
+        try {
+            $ad->add_relation('adcampaign', 'adCampaigns', $adcampaign->id);
+            $rollback->add_call($ad, 'remove_relation', 'adcampaign');
+        } catch (Model_AdException $e) {
+            $rollback->execute();
+
+            Session::set_flash('error', $e->getMessage());
+            return;
+        }
+
         Session::set_flash('success', 'The ad has been saved successfully');
         Response::redirect('/ads');
     }
@@ -114,9 +124,21 @@ class Controller_Ads extends Controller_Base
             throw new HttpNotFoundException;
         }
 
+        try {
+            $adcampaign = $ad->get_relation('adcampaign');
+            $unmodified_adcampaign = $ad->get_relation('adcampaign');
+
+        } catch (KinveyModelException $e) {
+            $adcampaign = null;
+            $unmodified_adcampaign = null;
+        }
+
         $this->template->title = 'Update Ad';
         $this->template->content = View::forge('ads/form', array(
-            'components' => $this->generate_form_components($ad),
+            'components' => $this->generate_form_components(array(
+                'Ad' => $ad,
+                'AdCampaign' => $adcampaign,
+            )),
         ));
 
         if (Input::method() !== 'POST') {
@@ -128,6 +150,9 @@ class Controller_Ads extends Controller_Base
 
         try {
             $uploader->process();
+
+        } catch (UploaderNoFileException $e) {
+
         } catch (UploaderException $e) {
             Session::set_flash('error', $e->getMessage());
             return;
@@ -172,14 +197,17 @@ class Controller_Ads extends Controller_Base
         $ad->storyboard_url = $storyboard_url_to_save;
         $ad->video_url = $video_url_to_save;
         $ad->advertiser = Input::post('advertiser');
-        $ad->campaign = Input::post('campaign');
-        $ad->campaign_desktop_url = Input::post('campaign_desktop_url');
-        $ad->campaign_mobile_url = Input::post('campaign_mobile_url');
-        $ad->campaign_first_seen = Input::post('campaign_first_seen');
         $ad->title = Input::post('title');
         $ad->ad_first_seen = Input::post('ad_first_seen');
         $ad->description = Input::post('description');
         $ad->agency = Input::post('agency');
+
+        if ($adcampaign) {
+            $adcampaign->name = Input::post('name');
+            $adcampaign->desktop_url = Input::post('desktop_url');
+            $adcampaign->mobile_url = Input::post('mobile_url');
+            $adcampaign->first_seen = Input::post('first_seen');
+        }
 
         try {
             $ad->save();
@@ -192,7 +220,65 @@ class Controller_Ads extends Controller_Base
             return;
         }
 
-        if ( ! is_null($storyboard_url_to_remove)) {
+        if (Input::post('name')
+            || Input::post('desktop_url')
+            || Input::post('mobile_url')
+            || Input::post('first_seen')) {
+            try {
+                if (is_null($adcampaign)) {
+                    $adcampaign = Model_AdCampaign::create(array(
+                        'name' => Input::post('name'),
+                        'desktop_url' => Input::post('desktop_url'),
+                        'mobile_url' => Input::post('mobile_url'),
+                        'first_seen' => Input::post('first_seen'),
+                    ));
+                    $rollback->add_call($adcampaign, 'delete');
+                } else {
+                    $adcampaign->save();
+                    $rollback->add_call($unmodified_adcampaign, 'save');
+                }
+            } catch (Model_AdCampaignException $e) {
+                $rollback->execute();
+
+                Session::set_flash('error', $e->getMessage());
+                return;
+            }
+        } else if ($adcampaign) {
+            try {
+                $adcampaign->delete();
+                $rollback->add_call($unmodified_adcampaign, 'save');
+            } catch (KinveyModelException $e) {
+                $rollback->execute();
+
+                Session::set_flash ('error', $e->getMessage());
+                return;
+            }
+
+            try {
+                $ad->remove_relation('adcampaign');
+                $rollback->add_call($ad, 'add_relation', array('adcampaign', 'adCampaigns', $unmodified_adcampaign->id));
+
+            } catch (Model_AdException $e) {
+                $rollback->execute();
+
+                Session::set_flash('error', $e->getMessage());
+                return;
+            }
+        }
+
+        if ($adcampaign && is_null($unmodified_adcampaign)) {
+            try {
+                $ad->add_relation('adcampaign', 'adCampaigns', $adcampaign->id);
+                $rollback->add_call($ad, 'remove_relation', 'adcampaign');
+            } catch (Model_AdException $e) {
+                $rollback->execute();
+
+                Session::set_flash('error', $e->getMessage());
+                return;
+            }
+        }
+
+        if ($storyboard_url_to_remove) {
             try {
                 $storyboard_uploader->remove($storyboard_url_to_remove);
 
@@ -204,7 +290,7 @@ class Controller_Ads extends Controller_Base
             }
         }
 
-        if ( ! is_null($video_url_to_remove)) {
+        if ($video_url_to_remove) {
             try {
                 $video_uploader->remove($video_url_to_remove);
 
@@ -217,7 +303,7 @@ class Controller_Ads extends Controller_Base
         }
 
         Session::set_flash('success', 'The ad has been saved successfully');
-        Response::redirect('/ads');
+        Response::redirect('/ads/update/' . $ad->id);
     }
 
     public function action_delete($id)
@@ -230,11 +316,39 @@ class Controller_Ads extends Controller_Base
             throw new HttpNotFoundException;
         }
 
+        try {
+            $adcampaign = $ad->get_relation('adcampaign');
+            $unmodified_adcampaign = $ad->get_relation('adcampaign');
+
+        } catch (KinveyModelException $e) {
+            $adcampaign = null;
+            $unmodified_adcampaign = null;
+        }
+
         $rollback = new Rollback;
         $uploader = new Uploader('Upload');
 
-        $ad->delete();
-        $rollback->add_call($unmodified_ad, 'save');
+        try {
+            $ad->delete();
+            $rollback->add_call($unmodified_ad, 'save');
+
+        } catch (KinveyModelException $e) {
+            $rollback->execute();
+
+            Session::set_flash('error', $e->getMessage());
+            return;
+        }
+
+        try {
+            $adcampaign->delete();
+            $rollback->add_call($unmodified_adcampaign, 'save');
+
+        } catch (KinveyModelException $e) {
+            $rollback->execute();
+
+            Session::set_flash('error', $e->getMessage());
+            return;
+        }
 
         try {
             $storyboard_uploader = new Upload_Storyboard($uploader, 'S3', 'File');
@@ -260,42 +374,93 @@ class Controller_Ads extends Controller_Base
         Response::redirect('/ads');
     }
 
-    private function generate_form_components($ad = null)
+    //private function generate_form_components($ad = null)
+    private function generate_form_components($models = null)
     {
-        $components = array(
-            new View_Form_Text('Ad Detection Identifier', 'ad_detection_identifier'),
-            new View_Form_Upload_Video('Video', 'video_url'),
-            new View_Form_Upload_Image('Ad Storyboard', 'storyboard_url'),
+        $form_elements = array(
+            array(
+                'component' => new View_Form_Text('Ad Detection Identifier', 'ad_detection_identifier'),
+                'model' => 'Ad',
+            ),
+            array(
+                'component' => new View_Form_Upload_Video('Video', 'video_url'),
+                'model' => 'Ad',
+            ),
+            array(
+                'component' => new View_Form_Upload_Image('Ad Storyboard', 'storyboard_url'),
+                'model' => 'Ad',
+            ),
 
-            new View_Form_Typeahead('Advertiser', 'advertiser'),
+            array(
+                'component' => new View_Form_Typeahead('Advertiser', 'advertiser'),
+                'model' => 'Ad',
+            ),
             // Advertiser Logo selection should go here
 
-            new View_Form_Typeahead('Campaign', 'name'),
-            new View_Form_Text('Campaign Desktop URL', 'desktop_url'),
-            new View_Form_Text('Campaign Mobile URL', 'mobile_url'),
-            new View_Form_Date('Campaign First Seen', 'first_seen'),
+            array(
+                'component' => new View_Form_Typeahead('Campaign Name', 'name'),
+                'model' => 'AdCampaign',
+            ),
+            array(
+                'component' => new View_Form_Text('Campaign Desktop URL', 'desktop_url'),
+                'model' => 'AdCampaign',
+            ),
+            array(
+                'component' => new View_Form_Text('Campaign Mobile URL', 'mobile_url'),
+                'model' => 'AdCampaign',
+            ),
+            array(
+                'component' => new View_Form_Date('Campaign First Seen', 'first_seen'),
+                'model' => 'AdCampaign',
+            ),
             /*new View_Form_Typeahead('Campaign', 'campaign'),
             new View_Form_Text('Campaign Desktop URL', 'campaign_desktop_url'),
             new View_Form_Text('Campaign Mobile URL', 'campaign_mobile_url'),
             new View_Form_Date('Campaign First Seen', 'campaign_first_seen'),*/
 
-            new View_Form_Text('Ad Title', 'title'),
-            new View_Form_Date('Ad First Seen', 'ad_first_seen'),
-            new View_Form_Text_Multiline('Ad Description', 'description'),
+            array(
+                'component' => new View_Form_Text('Ad Title', 'title'),
+                'model' => 'Ad',
+            ),
+            array(
+                'component' => new View_Form_Date('Ad First Seen', 'ad_first_seen'),
+                'model' => 'Ad',
+            ),
+            array(
+                'component' => new View_Form_Text_Multiline('Ad Description', 'description'),
+                'model' => 'Ad',
+            ),
 
-            new View_Form_Typeahead('Agency', 'agency'),
+            array(
+                'component' => new View_Form_Typeahead('Agency', 'agency'),
+                'model' => 'Ad',
+            ),
         );
 
         /* DRAGON - Will need to accept AdCampaign object as well as Ad
                     -- Conor
         */
-        if ( ! is_null($ad)) {
+        if ( ! is_null($models)) {
+            foreach ($form_elements as $form_element) {
+                $model = $form_element['model'];
+                $component = $form_element['component'];
+                if (isset($models[$model]->{$component->key})) {
+                    $component->set_value($models[$model]->{$component->key});
+                }
+            }
+        }
+
+        $components = array_map(function ($form_element) {
+            return $form_element['component'];
+        }, $form_elements);
+
+        /*if ( ! is_null($ad)) {
             foreach ($components as $component) {
                 if (isset($ad->{$component->key})) {
                     $component->set_value($ad->{$component->key});
                 }
             }
-        }
+        }*/
 
         return $components;
     }

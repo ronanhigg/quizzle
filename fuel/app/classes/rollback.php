@@ -19,10 +19,25 @@ class Rollback
 
     public function add_call($object, $function, $parameter = null)
     {
+        if (is_array($parameter)) {
+            $param_array = $parameter;
+        } else {
+            $param_array = array($parameter);
+        }
+        $this->_add_call($object, $function, $param_array);
+    }
+
+    public function add_call_with_single_param($object, $function, $parameter)
+    {
+        $this->_add_call($object, $function, array($parameter));
+    }
+
+    private function _add_call($object, $function, $param_array)
+    {
         $this->calls[] = array(
             'object' => $object,
             'function' => $function,
-            'parameter' => $parameter,
+            'param_array' => $param_array,
         );
     }
 
@@ -55,10 +70,10 @@ class Rollback
         $this->call_counter++;
 
         try {
-            if (is_null($call['parameter'])) {
+            if (is_null($call['param_array'])) {
                 call_user_func(array($call['object'], $call['function']));
             } else {
-                call_user_func(array($call['object'], $call['function']), $call['parameter']);
+                call_user_func_array(array($call['object'], $call['function']), $call['param_array']);
             }
         } catch (Exception $e) {
             $this->execute_call($call);

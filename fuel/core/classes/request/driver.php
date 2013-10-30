@@ -244,6 +244,7 @@ abstract class Request_Driver
 		}
 
 		$this->set_header('Accept', $mime);
+		$this->set_header('Content-Type', $mime);
 		return $this;
 	}
 
