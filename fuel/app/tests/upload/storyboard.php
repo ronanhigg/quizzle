@@ -37,7 +37,10 @@ class Test_Upload_Storyboard extends TestCase
         return $uploader;
     }
 
-    public function testProcess()
+    /**
+     * @test
+     */
+    public function processReturnsStoryboardURL()
     {
         $uploader = $this->setUpMockUploader();
         $uploader = $this->addMethodFindUploadWithFieldName($uploader);
@@ -59,9 +62,10 @@ class Test_Upload_Storyboard extends TestCase
     }
 
     /**
+     * @test
      * @expectedException Upload_StoryboardNoFileException
      */
-    public function testProcessThrowingUploaderException()
+    public function processHandlesUploaderThrowingAnException()
     {
         $uploader = $this->setUpMockUploader();
 
@@ -76,9 +80,10 @@ class Test_Upload_Storyboard extends TestCase
     }
 
     /**
+     * @test
      * @expectedException Upload_StoryboardException
      */
-    public function testProcessThrowingCloudStorageException()
+    public function processHandlesCloudStorageServiceThrowingAnException()
     {
         $uploader = $this->setUpMockUploader();
         $uploader = $this->addMethodFindUploadWithFieldName($uploader);
@@ -92,9 +97,10 @@ class Test_Upload_Storyboard extends TestCase
     }
 
     /**
+     * @test
      * @expectedException Upload_StoryboardException
      */
-    public function testProcessThrowingFileDeletionException()
+    public function processHandlesFileUtilityThrowingAnException()
     {
         $uploader = $this->setUpMockUploader();
         $uploader = $this->addMethodFindUploadWithFieldName($uploader);
@@ -107,7 +113,10 @@ class Test_Upload_Storyboard extends TestCase
         $storyboardUploader->process();
     }
 
-    public function testRemove()
+    /**
+     * @test
+     */
+    public function removeWorks()
     {
         $uploader = $this->setUpMockUploader();
 
@@ -120,9 +129,10 @@ class Test_Upload_Storyboard extends TestCase
     }
 
     /**
+     * @test
      * @expectedException Upload_StoryboardException
      */
-    public function testRemoveThrowingException()
+    public function removeHandlesCloudStorageServiceThrowingAnException()
     {
         $uploader = $this->setUpMockUploader();
 

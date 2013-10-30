@@ -10,18 +10,12 @@ class Test_Uploader extends TestCase
         $this->uploader = new Uploader('Mock_Upload');
     }
 
-    public function testProcess()
+    /**
+     * @test
+     */
+    public function constructorCorrectlyInitialisesAndProcessWorks()
     {
         Mock_Upload::setForProcessExecutingCorrectly();
-        $this->uploader->process();
-    }
-
-    /**
-     * @expectedException UploaderNoFileException
-     */
-    public function testProcessThrowingNoFilesException()
-    {
-        Mock_Upload::setForProcessThrowingNoFilesException();
         $this->uploader->process();
 
         $this->assertInstanceOf(
@@ -32,15 +26,29 @@ class Test_Uploader extends TestCase
     }
 
     /**
+     * @test
+     * @expectedException UploaderNoFileException
+     */
+    public function processHandlesUploadUtilityHavingNoFiles()
+    {
+        Mock_Upload::setForProcessThrowingNoFilesException();
+        $this->uploader->process();
+    }
+
+    /**
+     * @test
      * @expectedException UploaderException
      */
-    public function testProcessThrowingException()
+    public function processHandlesUploadUtiliyThrowingAnException()
     {
         Mock_Upload::setForProcessThrowingException();
         $this->uploader->process();
     }
 
-    public function testFindUploadWithFieldName()
+    /**
+     * @test
+     */
+    public function findUploadWithFieldNameReturnsFileData()
     {
         $expectedFileData = Mock_Upload::setForFindUploadWithFieldNameFindingFieldNamed('test_upload_field');
         $actualFileData = $this->uploader->find_upload_with_field_name('test_upload_field');
@@ -53,9 +61,10 @@ class Test_Uploader extends TestCase
     }
 
     /**
+     * @test
      * @expectedException UploaderException
      */
-    public function testFindUploadWithFieldNameThrowingException()
+    public function findUploadWithFieldNameHandlesNonexistantFieldName()
     {
         Mock_Upload::setForFindUploadWithFieldNameFindingNoFieldNamed('test_upload_field');
         $this->uploader->find_upload_with_field_name('test_upload_field');

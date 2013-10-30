@@ -21,7 +21,10 @@ class Test_Rollback extends TestCase
         return $calledObject;
     }
 
-    public function testConstructor()
+    /**
+     * @test
+     */
+    public function constructorCorrectlyInitialises()
     {
         $rollback = new Rollback;
 
@@ -37,7 +40,10 @@ class Test_Rollback extends TestCase
         );
     }
 
-    public function testAddCallAndExecuteWithoutParam()
+    /**
+     * @test
+     */
+    public function executeWorksWhenOneCallHasBeenAddedWithNoParameter()
     {
         $calledObject = $this->setUpMockCalledObject();
 
@@ -55,7 +61,10 @@ class Test_Rollback extends TestCase
         );
     }
 
-    public function testAddCallAndExecuteWithParam()
+    /**
+     * @test
+     */
+    public function executeWorksWhenOneCallHasBeenAddedWithAParameter()
     {
         $calledObject = $this->setUpMockCalledObject();
 
@@ -74,7 +83,10 @@ class Test_Rollback extends TestCase
         );
     }
 
-    public function testAddCallAndExecuteWithMethodThrowingAnExceptionOnce()
+    /**
+     * @test
+     */
+    public function executeWorksWhenTheAddedCallThrowsAnExceptionBeforeRunningSuccessfully()
     {
         $calledObject = $this->setUpMockCalledObject();
 
@@ -98,7 +110,10 @@ class Test_Rollback extends TestCase
         );
     }
 
-    public function testAddCallAndExecuteWithMethodAlwaysThrowingAnException()
+    /**
+     * @test
+     */
+    public function executeWorksWhenTheAddedCallCannotRunSuccessfully()
     {
         $calledObject = $this->setUpMockCalledObject();
 
@@ -119,9 +134,10 @@ class Test_Rollback extends TestCase
     }
 
     /**
+     * @test
      * @expectedException LogicException
      */
-    public function testExecuteCanOnlyRunOnce()
+    public function executeCanOnlyRunOnce()
     {
         $calledObject = $this->setUpMockCalledObject();
 
