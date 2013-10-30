@@ -1,5 +1,7 @@
 <?php
 
+class Controller_AdsException extends Exception {}
+
 class Controller_Ads extends Controller_Base
 {
     public function action_index()
@@ -29,33 +31,55 @@ class Controller_Ads extends Controller_Base
         }
 
         $rollback = new Rollback;
+
+        try {
+            $this->_post_create($rollback);
+        } catch (Controller_AdsException $e) {
+            $rollback->execute();
+
+            Session::set_flash('error', $e->getMessage());
+            return;
+        }
+
+        Session::set_flash('success', 'The ad has been saved successfully');
+        Response::redirect('/ads');
+    }
+
+    private function _post_create($rollback)
+    {
         $uploader = new Uploader('Upload');
 
         try {
             $uploader->process();
         } catch (UploaderException $e) {
-            Session::set_flash('error', $e->getMessage());
-            return;
+            throw new Controller_AdsException($e->getMessage());
+        }
+
+        $image_uploader = new Upload_Image($uploader, 'S3', 'File');
+
+        try {
+            $storyboard_url = $image_uploader->process('storyboard_url');
+            $rollback->add_call($image_uploader, 'remove', $storyboard_url);
+
+        } catch (Upload_ImageException $e) {
+            throw new Controller_AdsException($e->getMessage());
         }
 
         try {
-            $storyboard_uploader = new Upload_Storyboard($uploader, 'S3', 'File');
-            $storyboard_url = $storyboard_uploader->process();
-            $rollback->add_call($storyboard_uploader, 'remove', $storyboard_url);
-        } catch (Upload_StoryboardException $e) {
-            Session::set_flash('error', $e->getMessage());
-            return;
+            $logo_url = $image_uploader->process('logo_url');
+            $rollback->add_call($image_uploader, 'remove', $logo_url);
+
+        } catch (Upload_ImageException $e) {
+            throw new Controller_AdsException($e->getMessage());
         }
 
         try {
             $video_uploader = new Upload_Video($uploader, 'S3', 'File');
             $video_url = $video_uploader->process();
             $rollback->add_call($video_uploader, 'remove', $video_url);
-        } catch (Upload_VideoException $e) {
-            $rollback->execute();
 
-            Session::set_flash('error', $e->getMessage());
-            return;
+        } catch (Upload_VideoException $e) {
+            throw new Controller_AdsException($e->getMessage());
         }
 
         try {
@@ -64,10 +88,7 @@ class Controller_Ads extends Controller_Base
                 'storyboard_url' => $storyboard_url,
                 'video_url' => $video_url,
                 'advertiser' => Input::post('advertiser'),
-                /*'campaign' => Input::post('campaign'),
-                'campaign_desktop_url' => Input::post('campaign_desktop_url'),
-                'campaign_mobile_url' => Input::post('campaign_mobile_url'),
-                'campaign_first_seen' => Input::post('campaign_first_seen'),*/
+                'logo_url' => $logo_url,
                 'title' => Input::post('title'),
                 'ad_first_seen' => Input::post('ad_first_seen'),
                 'description' => Input::post('description'),
@@ -76,10 +97,7 @@ class Controller_Ads extends Controller_Base
             $rollback->add_call($ad, 'delete');
 
         } catch (Model_AdException $e) {
-            $rollback->execute();
-
-            Session::set_flash('error', $e->getMessage());
-            return;
+            throw new Controller_AdsException($e->getMessage());
         }
 
         if (Input::post('name') || Input::post('desktop_url') || Input::post('mobile_url') || Input::post('first_seen')) {
@@ -93,10 +111,7 @@ class Controller_Ads extends Controller_Base
                 $rollback->add_call($adcampaign, 'delete');
 
             } catch (Model_AdCampaignException $e) {
-                $rollback->execute();
-
-                Session::set_flash('error', $e->getMessage());
-                return;
+                throw new Controller_AdsException($e->getMessage());
             }
         }
 
@@ -104,14 +119,8 @@ class Controller_Ads extends Controller_Base
             $ad->add_relation('adcampaign', 'adCampaigns', $adcampaign->id);
             $rollback->add_call($ad, 'remove_relation', 'adcampaign');
         } catch (Model_AdException $e) {
-            $rollback->execute();
-
-            Session::set_flash('error', $e->getMessage());
-            return;
+            throw new Controller_AdsException($e->getMessage());
         }
-
-        Session::set_flash('success', 'The ad has been saved successfully');
-        Response::redirect('/ads');
     }
 
     public function action_update($id)
@@ -158,21 +167,32 @@ class Controller_Ads extends Controller_Base
             return;
         }
 
+        $image_uploader = new Upload_Image($uploader, 'S3', 'File');
+
         try {
-            $storyboard_uploader = new Upload_Storyboard($uploader, 'S3', 'File');
-            $storyboard_url_to_save = $storyboard_uploader->process();
+            $storyboard_url_to_save = $image_uploader->process('storyboard_url');
             $storyboard_url_to_remove = $ad->storyboard_url;
+            $rollback->add_call($image_uploader, 'remove', $storyboard_url_to_save);
 
-            $rollback->add_call($storyboard_uploader, 'remove', $storyboard_url_to_save);
-
-        } catch (Upload_StoryboardNoFileException $e) {
-
+        } catch (Upload_ImageNoFileException $e) {
             $storyboard_url_to_save = $ad->storyboard_url;
             $storyboard_url_to_remove = null;
 
-        } catch (Upload_StoryboardException $e) {
-            Session::set_flash('error', $e->getMessage());
-            return;
+        } catch (Upload_ImageException $e) {
+            throw new Controller_AdsException($e->getMessage());
+        }
+
+        try {
+            $logo_url_to_save = $image_uploader->process('logo_url');
+            $logo_url_to_remove = $ad->logo_url;
+            $rollback->add_call($image_uploader, 'remove', $logo_url_to_save);
+
+        } catch (Upload_ImageNoFileException $e) {
+            $logo_url_to_save = $ad->storyboard_url;
+            $logo_url_to_remove = null;
+
+        } catch (Upload_ImageException $e) {
+            throw new Controller_AdsException($e->getMessage());
         }
 
         try {
@@ -197,6 +217,7 @@ class Controller_Ads extends Controller_Base
         $ad->storyboard_url = $storyboard_url_to_save;
         $ad->video_url = $video_url_to_save;
         $ad->advertiser = Input::post('advertiser');
+        $ad->logo_url = $logo_url_to_save;
         $ad->title = Input::post('title');
         $ad->ad_first_seen = Input::post('ad_first_seen');
         $ad->description = Input::post('description');
@@ -280,9 +301,21 @@ class Controller_Ads extends Controller_Base
 
         if ($storyboard_url_to_remove) {
             try {
-                $storyboard_uploader->remove($storyboard_url_to_remove);
+                $image_uploader->remove($storyboard_url_to_remove);
 
-            } catch (Upload_StoryboardException $e) {
+            } catch (Upload_ImageException $e) {
+                $rollback->execute();
+                
+                Session::set_flash('error', 'An error occurred while saving the ad. ' . $e->getMessage());
+                return;
+            }
+        }
+
+        if ($logo_url_to_remove) {
+            try {
+                $image_uploader->remove($logo_url_to_remove);
+
+            } catch (Upload_ImageException $e) {
                 $rollback->execute();
                 
                 Session::set_flash('error', 'An error occurred while saving the ad. ' . $e->getMessage());
@@ -350,10 +383,20 @@ class Controller_Ads extends Controller_Base
             return;
         }
 
+        $image_uploader = new Upload_Image($uploader, 'S3', 'File');
+
         try {
-            $storyboard_uploader = new Upload_Storyboard($uploader, 'S3', 'File');
-            $storyboard_uploader->remove($ad->storyboard_url);
-        } catch (Upload_StoryboardException $e) {
+            $image_uploader->remove($ad->storyboard_url);
+        } catch (Upload_ImageException $e) {
+            $rollback->execute();
+
+            Session::set_flash('error', $e->getMessage());
+            return;
+        }
+
+        try {
+            $image_uploader->remove($ad->logo_url);
+        } catch (Upload_ImageException $e) {
             $rollback->execute();
 
             Session::set_flash('error', $e->getMessage());
@@ -395,7 +438,10 @@ class Controller_Ads extends Controller_Base
                 'component' => new View_Form_Typeahead('Advertiser', 'advertiser'),
                 'model' => 'Ad',
             ),
-            // Advertiser Logo selection should go here
+            array(
+                'component' => new View_Form_Upload_Image('Advertiser Logo', 'logo_url'),
+                'model' => 'Ad',
+            ),
 
             array(
                 'component' => new View_Form_Typeahead('Campaign Name', 'name'),

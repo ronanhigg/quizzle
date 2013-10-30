@@ -46,6 +46,11 @@ class KinveyModel
         }
     }
 
+    public function __get($attr)
+    {
+        return '';
+    }
+
     public function save()
     {
         $params = get_object_vars($this);

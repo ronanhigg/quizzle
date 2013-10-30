@@ -3,16 +3,16 @@
 /**
  * @group App
  */
-class Test_Upload_Video extends TestCase
+class Test_Upload_Image extends TestCase
 {
     public function setUp()
     {
         $this->savedAsValue = 'randomfilename';
     }
 
-    private function setUpVideoUploader($uploader)
+    private function setUpImageUploader($uploader)
     {
-        return new Upload_Video($uploader, 'MockS3', 'MockFile');
+        return new Upload_Image($uploader, 'MockS3', 'MockFile');
     }
 
     private function setUpMockUploader()
@@ -29,7 +29,7 @@ class Test_Upload_Video extends TestCase
     {
         $uploader->expects($this->once())
             ->method('find_upload_with_field_name')
-            ->with($this->equalTo('video_url'))
+            ->with($this->equalTo('url_field_name'))
             ->will($this->returnValue(array(
                 'saved_as' => $this->savedAsValue,
             )));
@@ -40,7 +40,7 @@ class Test_Upload_Video extends TestCase
     /**
      * @test
      */
-    public function processReturnsVideoURL()
+    public function processReturnsImageURL()
     {
         $uploader = $this->setUpMockUploader();
         $uploader = $this->addMethodFindUploadWithFieldName($uploader);
@@ -48,22 +48,22 @@ class Test_Upload_Video extends TestCase
         MockS3::setForProcessExecutingCorrectly();
         MockFile::setForProcessExecutingCorrectly();
 
-        $videoUploader = $this->setUpVideoUploader($uploader);
+        $imageUploader = $this->setUpImageUploader($uploader);
 
-        $actualResult = $videoUploader->process();
+        $actualResult = $imageUploader->process('url_field_name');
 
-        $expectedResult = 'https://' . Config::get('s3.endpoint') . '/' . Upload_Video::BUCKET . '/' . $this->savedAsValue;
+        $expectedResult = 'https://' . Config::get('s3.endpoint') . '/' . Upload_Image::BUCKET . '/' . $this->savedAsValue;
 
         $this->assertEquals(
             $expectedResult,
             $actualResult,
-            'Upload_Video::process() did not return expected URL'
+            'Upload_Image::process() did not return expected URL'
         );
     }
 
     /**
      * @test
-     * @expectedException Upload_VideoNoFileException
+     * @expectedException Upload_ImageNoFileException
      */
     public function processHandlesUploaderThrowingAnException()
     {
@@ -71,17 +71,17 @@ class Test_Upload_Video extends TestCase
 
         $uploader->expects($this->once())
             ->method('find_upload_with_field_name')
-            ->with($this->equalTo('video_url'))
+            ->with($this->equalTo('url_field_name'))
             ->will($this->throwException(new UploaderException));
 
-        $videoUploader = $this->setUpVideoUploader($uploader);
+        $imageUploader = $this->setUpImageUploader($uploader);
 
-        $videoUploader->process();
+        $imageUploader->process('url_field_name');
     }
 
     /**
      * @test
-     * @expectedException Upload_VideoException
+     * @expectedException Upload_ImageException
      */
     public function processHandlesCloudStorageServiceThrowingAnException()
     {
@@ -91,14 +91,14 @@ class Test_Upload_Video extends TestCase
         MockS3::setForProcessThrowingExceptionOnPutObject();
         MockFile::setForProcessExecutingCorrectly();
 
-        $videoUploader = $this->setUpVideoUploader($uploader);
+        $imageUploader = $this->setUpImageUploader($uploader);
 
-        $videoUploader->process();
+        $imageUploader->process('url_field_name');
     }
 
     /**
      * @test
-     * @expectedException Upload_VideoException
+     * @expectedException Upload_ImageException
      */
     public function processHandlesFileUtilityThrowingAnException()
     {
@@ -108,9 +108,9 @@ class Test_Upload_Video extends TestCase
         MockS3::setForProcessExecutingCorrectly();
         MockFile::setForProcessThrowingExceptionOnDelete();
 
-        $videoUploader = $this->setUpVideoUploader($uploader);
+        $imageUploader = $this->setUpImageUploader($uploader);
 
-        $videoUploader->process();
+        $imageUploader->process('url_field_name');
     }
 
     /**
@@ -123,14 +123,14 @@ class Test_Upload_Video extends TestCase
         MockS3::setForProcessExecutingCorrectly();
         MockFile::setForProcessExecutingCorrectly();
 
-        $videoUploader = $this->setUpVideoUploader($uploader);
+        $imageUploader = $this->setUpImageUploader($uploader);
 
-        $videoUploader->remove('not a real URL');
+        $imageUploader->remove('not a real URL');
     }
 
     /**
      * @test
-     * @expectedException Upload_VideoException
+     * @expectedException Upload_ImageException
      */
     public function removeHandlesCloudStorageServiceThrowingAnException()
     {
@@ -139,9 +139,9 @@ class Test_Upload_Video extends TestCase
         MockS3::setForProcessThrowingExceptionOnDeleteObject();
         MockFile::setForProcessExecutingCorrectly();
 
-        $videoUploader = $this->setUpVideoUploader($uploader);
+        $imageUploader = $this->setUpImageUploader($uploader);
 
-        $videoUploader->remove('not a real URL');
+        $imageUploader->remove('not a real URL');
 
     }
 }
