@@ -25,6 +25,7 @@ requirejs([
     'vendor/bootstrap',
     'moment',
 
+    'views',
     'forms',
     'tables'
 
@@ -34,6 +35,7 @@ requirejs([
     Bootstrap,
     moment,
 
+    Views,
     Forms,
     Tables
 
@@ -41,6 +43,7 @@ requirejs([
 
     "use strict";
 
+    Views.init();
     Tables.init();
     Forms.init();
 

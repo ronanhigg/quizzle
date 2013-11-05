@@ -5,6 +5,7 @@ class Model_AdException extends Exception {}
 class Model_Ad extends KinveyModel
 {
     public static $kinvey_name = 'ads';
+    public static $field_name = 'ad';
 
     protected static function validate($params)
     {

@@ -7,6 +7,7 @@ class KinveyModel
     protected static $models = array(
         'ads' => 'Model_Ad',
         'adCampaigns' => 'Model_AdCampaign',
+        'quizzes' => 'Model_Quiz',
     );
 
     protected static function get_base_url()
@@ -28,7 +29,11 @@ class KinveyModel
         $curl->set_method('GET');
         $curl->http_login(Config::get('kinvey.username'), Config::get('kinvey.password'));
 
-        $curl->execute();
+        try {
+            $curl->execute();
+        } catch (Exception $e) {
+            throw new KinveyModelException('The request to Kinvey failed. The cURL response is "' . $e->getMessage() . '".');
+        }
 
         $response_data = json_decode($curl->response()->body);
 
@@ -125,5 +130,18 @@ class KinveyModel
     {
         unset($this->{$name});
         $this->save();
+    }
+
+    public function get_relations($collection_class)
+    {
+        $collection = new $collection_class;
+        $collection->fetch_where(array(
+            static::$field_name => array(
+                '_type' => 'KinveyRef',
+                '_collection' => static::$kinvey_name,
+                '_id' => $this->id,
+            ),
+        ));
+        return $collection;
     }
 }
