@@ -54,7 +54,7 @@ class Upload
 	 * STATIC PROPERTIES
 	 * --------------------------------------------------------------------------- */
 	/**
-	 * @var object FuelPHP\Upload\Upload object
+	 * @var object Fuel\Upload\Upload object
 	 */
 	protected static $upload = null;
 
@@ -87,7 +87,7 @@ class Upload
 		$config['langCallback'] = '\\Upload::lang_callback';
 
 		// get an upload instance
-		static::$upload = new \FuelPHP\Upload\Upload($config);
+		static::$upload = new \Fuel\Upload\Upload($config);
 
 		// and load the uploaded files
 		static::$upload->processFiles();
@@ -98,7 +98,7 @@ class Upload
 	/**
 	 * return the Upload instance
 	 *
-	 * @return	\FuelPHP\Upload\Upload
+	 * @return	\Fuel\Upload\Upload
 	 */
 	public static function instance()
 	{
