@@ -48,8 +48,6 @@ class Uploader
     {
         $upload_class = $this->upload_class;
 
-        var_dump($upload_class::get_files());exit;
-
         $files = $upload_class::get_files();
         foreach ($files as $file_data) {
             if ($file_data['field'] == $name) {
