@@ -7,6 +7,7 @@ class KinveyModel
     protected static $models = array(
         'ads' => 'Model_Ad',
         'adCampaigns' => 'Model_AdCampaign',
+        'advertisers' => 'Model_Advertiser',
         'quizzes' => 'Model_Quiz',
     );
 

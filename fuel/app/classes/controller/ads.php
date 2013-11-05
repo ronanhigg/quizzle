@@ -114,8 +114,6 @@ class Controller_Ads extends Controller_Base
                 'ad_detection_identifier' => Input::post('ad_detection_identifier'),
                 'storyboard_url' => $storyboard_url,
                 'video_url' => $video_url,
-                'advertiser' => Input::post('advertiser'),
-                'logo_url' => $logo_url,
                 'title' => Input::post('title'),
                 'ad_first_seen' => Input::post('ad_first_seen'),
                 'description' => Input::post('description'),
@@ -123,6 +121,22 @@ class Controller_Ads extends Controller_Base
             ));
             $rollback->add_call($ad, 'delete');
 
+        } catch (Model_AdException $e) {
+            throw new Controller_AdsException($e->getMessage());
+        }
+
+        try {
+            $advertiser = Model_Advertiser::create(array(
+                'name' => Input::post('advertiser_name'),
+                'logo_url' => $logo_url,
+            ));
+        } catch (Model_AdvertiserException $e) {
+            throw new Controller_AdsException($e->getMessage());
+        }
+
+        try {
+            $ad->add_relation('advertiser', 'advertisers', $advertiser->id);
+            $rollback->add_call($ad, 'remove_relation', 'advertiser');
         } catch (Model_AdException $e) {
             throw new Controller_AdsException($e->getMessage());
         }
@@ -192,6 +206,15 @@ class Controller_Ads extends Controller_Base
         }
 
         try {
+            $advertiser = $ad->get_relation('advertiser');
+            $unmodified_advertiser = $ad->get_relation('advertiser');
+
+        } catch (KinveyModelException $e) {
+            $advertiser = null;
+            $unmodified_advertiser = null;
+        }
+
+        try {
             $adcampaign = $ad->get_relation('adcampaign');
             $unmodified_adcampaign = $ad->get_relation('adcampaign');
 
@@ -225,6 +248,7 @@ class Controller_Ads extends Controller_Base
         $this->template->content = View::forge('ads/form', array(
             'components' => $this->generate_main_form_components(array(
                 'Ad' => $ad,
+                'Advertiser' => $advertiser,
                 'AdCampaign' => $adcampaign,
             )),
             'bonus_quizzes' => $bonus_quizzes,
@@ -599,9 +623,13 @@ class Controller_Ads extends Controller_Base
                     $model = $form_element['model'];
                     $component = $form_element['component'];
 
-                    $key = $component->key;
-                    if (substr($key, -2) == '[]') {
-                        $key = substr($key, 0, -2);
+                    if (array_key_exists('property', $form_element)) {
+                        $key = $form_element['property'];
+                    } else {
+                        $key = $component->key;
+                        if (substr($key, -2) == '[]') {
+                            $key = substr($key, 0, -2);
+                        }
                     }
 
                     if (isset($models[$model]->{$key})) {
@@ -699,12 +727,13 @@ class Controller_Ads extends Controller_Base
                 'component' => new View_Form_Heading('Advertiser'),
             ),
             array(
-                'component' => new View_Form_Typeahead('Advertiser Name', 'advertiser'),
-                'model' => 'Ad',
+                'component' => new View_Form_Typeahead('Advertiser Name', 'advertiser_name'),
+                'model' => 'Advertiser',
+                'property' => 'name',
             ),
             array(
                 'component' => new View_Form_Upload_Image('Advertiser Logo', 'logo_url'),
-                'model' => 'Ad',
+                'model' => 'Advertiser',
             ),
 
             array(
