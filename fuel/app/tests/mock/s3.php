@@ -5,18 +5,18 @@ class MockS3
     private static $putObjectReturnValue = true;
     private static $deleteObjectReturnValue = true;
 
-    public static function setForProcessExecutingCorrectly()
+    public static function setForStoreExecutingCorrectly()
     {
         self::$putObjectReturnValue = true;
         self::$deleteObjectReturnValue = true;
     }
 
-    public static function setForProcessThrowingExceptionOnPutObject()
+    public static function setForStoreThrowingExceptionOnPutObject()
     {
         self::$putObjectReturnValue = false;
     }
 
-    public static function setForProcessThrowingExceptionOnDeleteObject()
+    public static function setForStoreThrowingExceptionOnDeleteObject()
     {
         self::$deleteObjectReturnValue = false;
     }

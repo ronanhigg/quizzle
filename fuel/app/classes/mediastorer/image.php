@@ -19,7 +19,7 @@ class MediaStorer_Image
         $this->file_class = $file_class;
     }
 
-    public function process($field_name)
+    public function store($field_name)
     {
         try {
             $file_data = $this->uploader->find_upload_with_field_name($field_name);

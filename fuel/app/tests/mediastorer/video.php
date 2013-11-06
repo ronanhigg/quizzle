@@ -40,24 +40,24 @@ class Test_MediaStorer_Video extends TestCase
     /**
      * @test
      */
-    public function processReturnsVideoURL()
+    public function storeReturnsVideoURL()
     {
         $uploader = $this->setUpMockUploader();
         $uploader = $this->addMethodFindUploadWithFieldName($uploader);
 
-        MockS3::setForProcessExecutingCorrectly();
-        MockFile::setForProcessExecutingCorrectly();
+        MockS3::setForStoreExecutingCorrectly();
+        MockFile::setForStoreExecutingCorrectly();
 
         $videoStorer = $this->setUpVideoStorer($uploader);
 
-        $actualResult = $videoStorer->process();
+        $actualResult = $videoStorer->store();
 
         $expectedResult = 'https://' . Config::get('s3.endpoint') . '/' . MediaStorer_Video::BUCKET . '/' . $this->savedAsValue;
 
         $this->assertEquals(
             $expectedResult,
             $actualResult,
-            'MediaStorer_Video::process() did not return expected URL'
+            'MediaStorer_Video::store() did not return expected URL'
         );
     }
 
@@ -65,7 +65,7 @@ class Test_MediaStorer_Video extends TestCase
      * @test
      * @expectedException MediaStorer_VideoNoFileException
      */
-    public function processHandlesUploaderThrowingAnException()
+    public function storeHandlesUploaderThrowingAnException()
     {
         $uploader = $this->setUpMockUploader();
 
@@ -76,41 +76,41 @@ class Test_MediaStorer_Video extends TestCase
 
         $videoStorer = $this->setUpVideoStorer($uploader);
 
-        $videoStorer->process();
+        $videoStorer->store();
     }
 
     /**
      * @test
      * @expectedException MediaStorer_VideoException
      */
-    public function processHandlesCloudStorageServiceThrowingAnException()
+    public function storeHandlesCloudStorageServiceThrowingAnException()
     {
         $uploader = $this->setUpMockUploader();
         $uploader = $this->addMethodFindUploadWithFieldName($uploader);
 
-        MockS3::setForProcessThrowingExceptionOnPutObject();
-        MockFile::setForProcessExecutingCorrectly();
+        MockS3::setForStoreThrowingExceptionOnPutObject();
+        MockFile::setForStoreExecutingCorrectly();
 
         $videoStorer = $this->setUpVideoStorer($uploader);
 
-        $videoStorer->process();
+        $videoStorer->store();
     }
 
     /**
      * @test
      * @expectedException MediaStorer_VideoException
      */
-    public function processHandlesFileUtilityThrowingAnException()
+    public function storeHandlesFileUtilityThrowingAnException()
     {
         $uploader = $this->setUpMockUploader();
         $uploader = $this->addMethodFindUploadWithFieldName($uploader);
 
-        MockS3::setForProcessExecutingCorrectly();
-        MockFile::setForProcessThrowingExceptionOnDelete();
+        MockS3::setForStoreExecutingCorrectly();
+        MockFile::setForStoreThrowingExceptionOnDelete();
 
         $videoStorer = $this->setUpVideoStorer($uploader);
 
-        $videoStorer->process();
+        $videoStorer->store();
     }
 
     /**
@@ -120,8 +120,8 @@ class Test_MediaStorer_Video extends TestCase
     {
         $uploader = $this->setUpMockUploader();
 
-        MockS3::setForProcessExecutingCorrectly();
-        MockFile::setForProcessExecutingCorrectly();
+        MockS3::setForStoreExecutingCorrectly();
+        MockFile::setForStoreExecutingCorrectly();
 
         $videoStorer = $this->setUpVideoStorer($uploader);
 
@@ -136,8 +136,8 @@ class Test_MediaStorer_Video extends TestCase
     {
         $uploader = $this->setUpMockUploader();
 
-        MockS3::setForProcessThrowingExceptionOnDeleteObject();
-        MockFile::setForProcessExecutingCorrectly();
+        MockS3::setForStoreThrowingExceptionOnDeleteObject();
+        MockFile::setForStoreExecutingCorrectly();
 
         $videoStorer = $this->setUpVideoStorer($uploader);
 

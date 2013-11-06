@@ -19,7 +19,7 @@ class MediaStorer_Video
         $this->file_class = $file_class;
     }
 
-    public function process()
+    public function store()
     {
         //throw new MediaStorer_VideoException('Fake error to see if rollback is working...');
 

@@ -47,6 +47,10 @@ class View_Navigation
                 'label' => 'Ads',
                 'route' => 'ads',
             ),
+            array(
+                'label' => 'Advertisers',
+                'route' => 'advertisers',
+            ),
         ),
     );
 }

@@ -127,6 +127,20 @@ class KinveyModel
         $this->save();
     }
 
+    public function modify_relation($name, $foreign_id)
+    {
+        //$relation = $this->{$name};
+
+        $this->{$name} = array(
+            '_type' => 'KinveyRef',
+            //'_collection' => $relation['_collection'],
+            '_collection' => $this->{$name}->_collection,
+            '_id' => $foreign_id,
+        );
+
+        $this->save();
+    }
+
     public function remove_relation($name)
     {
         unset($this->{$name});

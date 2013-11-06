@@ -4,12 +4,12 @@ class MockFile
 {
     private static $deleteReturnValue = true;
 
-    public static function setForProcessExecutingCorrectly()
+    public static function setForStoreExecutingCorrectly()
     {
         self::$deleteReturnValue = true;
     }
 
-    public static function setForProcessThrowingExceptionOnDelete()
+    public static function setForStoreThrowingExceptionOnDelete()
     {
         self::$deleteReturnValue = false;
     }

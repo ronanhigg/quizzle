@@ -40,24 +40,24 @@ class Test_MediaStorer_Image extends TestCase
     /**
      * @test
      */
-    public function processReturnsImageURL()
+    public function storeReturnsImageURL()
     {
         $uploader = $this->setUpMockUploader();
         $uploader = $this->addMethodFindUploadWithFieldName($uploader);
 
-        MockS3::setForProcessExecutingCorrectly();
-        MockFile::setForProcessExecutingCorrectly();
+        MockS3::setForStoreExecutingCorrectly();
+        MockFile::setForStoreExecutingCorrectly();
 
         $imageStorer = $this->setUpImageStorer($uploader);
 
-        $actualResult = $imageStorer->process('url_field_name');
+        $actualResult = $imageStorer->store('url_field_name');
 
         $expectedResult = 'https://' . Config::get('s3.endpoint') . '/' . MediaStorer_Image::BUCKET . '/' . $this->savedAsValue;
 
         $this->assertEquals(
             $expectedResult,
             $actualResult,
-            'MediaStorer_Image::process() did not return expected URL'
+            'MediaStorer_Image::store() did not return expected URL'
         );
     }
 
@@ -65,7 +65,7 @@ class Test_MediaStorer_Image extends TestCase
      * @test
      * @expectedException MediaStorer_ImageNoFileException
      */
-    public function processHandlesUploaderThrowingAnException()
+    public function storeHandlesUploaderThrowingAnException()
     {
         $uploader = $this->setUpMockUploader();
 
@@ -76,41 +76,41 @@ class Test_MediaStorer_Image extends TestCase
 
         $imageStorer = $this->setUpImageStorer($uploader);
 
-        $imageStorer->process('url_field_name');
+        $imageStorer->store('url_field_name');
     }
 
     /**
      * @test
      * @expectedException MediaStorer_ImageException
      */
-    public function processHandlesCloudStorageServiceThrowingAnException()
+    public function storeHandlesCloudStorageServiceThrowingAnException()
     {
         $uploader = $this->setUpMockUploader();
         $uploader = $this->addMethodFindUploadWithFieldName($uploader);
 
-        MockS3::setForProcessThrowingExceptionOnPutObject();
-        MockFile::setForProcessExecutingCorrectly();
+        MockS3::setForStoreThrowingExceptionOnPutObject();
+        MockFile::setForStoreExecutingCorrectly();
 
         $imageStorer = $this->setUpImageStorer($uploader);
 
-        $imageStorer->process('url_field_name');
+        $imageStorer->store('url_field_name');
     }
 
     /**
      * @test
      * @expectedException MediaStorer_ImageException
      */
-    public function processHandlesFileUtilityThrowingAnException()
+    public function storeHandlesFileUtilityThrowingAnException()
     {
         $uploader = $this->setUpMockUploader();
         $uploader = $this->addMethodFindUploadWithFieldName($uploader);
 
-        MockS3::setForProcessExecutingCorrectly();
-        MockFile::setForProcessThrowingExceptionOnDelete();
+        MockS3::setForStoreExecutingCorrectly();
+        MockFile::setForStoreThrowingExceptionOnDelete();
 
         $imageStorer = $this->setUpImageStorer($uploader);
 
-        $imageStorer->process('url_field_name');
+        $imageStorer->store('url_field_name');
     }
 
     /**
@@ -120,8 +120,8 @@ class Test_MediaStorer_Image extends TestCase
     {
         $uploader = $this->setUpMockUploader();
 
-        MockS3::setForProcessExecutingCorrectly();
-        MockFile::setForProcessExecutingCorrectly();
+        MockS3::setForStoreExecutingCorrectly();
+        MockFile::setForStoreExecutingCorrectly();
 
         $imageStorer = $this->setUpImageStorer($uploader);
 
@@ -136,8 +136,8 @@ class Test_MediaStorer_Image extends TestCase
     {
         $uploader = $this->setUpMockUploader();
 
-        MockS3::setForProcessThrowingExceptionOnDeleteObject();
-        MockFile::setForProcessExecutingCorrectly();
+        MockS3::setForStoreThrowingExceptionOnDeleteObject();
+        MockFile::setForStoreExecutingCorrectly();
 
         $imageStorer = $this->setUpImageStorer($uploader);
 

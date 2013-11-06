@@ -13,11 +13,17 @@ define([
                 var $this = $(this),
                     templateName = $this.data('view-template'),
                     targetName = $this.data('view-target'),
+                    focusTargetName = $this.data('focus-target'),
 
                     $template = $('.js-view-template[data-name="' + templateName + '"]'),
                     $target = $('.js-view-holder[data-view-holder="' + targetName + '"]');
 
                 $target.append(_.template($template.html()));
+
+                if (focusTargetName) {
+                    $target.find('[name="' + focusTargetName + '"]').focus();
+                }
+
                 return false;
             });
 

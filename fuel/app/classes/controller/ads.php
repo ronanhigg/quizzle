@@ -33,7 +33,7 @@ class Controller_Ads extends Controller_Base
     {
         $bonus_quizzes = array();
         if (Input::method() === 'POST') {
-            foreach (Input::post('question') as $i => $input_question) {
+            foreach (Input::post('question', array()) as $i => $input_question) {
                 $bonus_quizzes[] = $this->generate_bonus_quiz_form_components(array(
                     'Quiz' => (object) array(
                         'question' => Input::post("question.$i"),
@@ -74,6 +74,20 @@ class Controller_Ads extends Controller_Base
 
     private function _post_create($rollback)
     {
+        $advertiser_id = Input::post('advertiser_id');
+
+        if ($advertiser_id) {
+            try {
+                $advertiser = Model_Advertiser::find($advertiser_id);
+                $unmodified_advertiser = Model_Advertiser::find($advertiser_id);
+            } catch (KinveyModelException $e) {
+                $rollback->execute();
+
+                Session::set_flash('error', $e->getMessage());
+                return;
+            }
+        }
+
         $uploader = new Uploader('Upload');
 
         try {
@@ -82,28 +96,35 @@ class Controller_Ads extends Controller_Base
             throw new Controller_AdsException($e->getMessage());
         }
 
-        $image_uploader = new MediaStorer_Image($uploader, 'S3', 'File');
+        $image_storer = new MediaStorer_Image($uploader, 'S3', 'File');
 
         try {
-            $storyboard_url = $image_uploader->process('storyboard_url');
-            $rollback->add_call($image_uploader, 'remove', $storyboard_url);
+            $storyboard_url = $image_storer->store('storyboard_url');
+            $rollback->add_call($image_storer, 'remove', $storyboard_url);
 
         } catch (MediaStorer_ImageException $e) {
             throw new Controller_AdsException($e->getMessage());
         }
 
         try {
-            $logo_url = $image_uploader->process('logo_url');
-            $rollback->add_call($image_uploader, 'remove', $logo_url);
+            $logo_url = $image_storer->store('logo_url');
+            $rollback->add_call($image_storer, 'remove', $logo_url);
+
+        } catch (MediaStorer_ImageNoFileException $e) {
+            if ($advertiser_id) {
+                $logo_url = $advertiser->logo_url;
+            } else {
+                throw new Controller_AdsException($e->getMessage());
+            }
 
         } catch (MediaStorer_ImageException $e) {
             throw new Controller_AdsException($e->getMessage());
         }
 
         try {
-            $video_uploader = new MediaStorer_Video($uploader, 'S3', 'File');
-            $video_url = $video_uploader->process();
-            $rollback->add_call($video_uploader, 'remove', $video_url);
+            $video_storer = new MediaStorer_Video($uploader, 'S3', 'File');
+            $video_url = $video_storer->store();
+            $rollback->add_call($video_storer, 'remove', $video_url);
 
         } catch (MediaStorer_VideoException $e) {
             throw new Controller_AdsException($e->getMessage());
@@ -125,13 +146,27 @@ class Controller_Ads extends Controller_Base
             throw new Controller_AdsException($e->getMessage());
         }
 
-        try {
-            $advertiser = Model_Advertiser::create(array(
-                'name' => Input::post('advertiser_name'),
-                'logo_url' => $logo_url,
-            ));
-        } catch (Model_AdvertiserException $e) {
-            throw new Controller_AdsException($e->getMessage());
+        if ($advertiser_id) {
+            $advertiser->name = Input::post('advertiser_name');
+            $advertiser->logo_url = $logo_url;
+
+            try {
+                $advertiser->save();
+                $rollback->add_call($unmodified_advertiser, 'save');
+            } catch (Model_AdvertiserException $e) {
+                throw new Controller_AdsException($e->getMessage());   
+            }
+        } else {
+            try {
+                $advertiser = Model_Advertiser::create(array(
+                    'name' => Input::post('advertiser_name'),
+                    'logo_url' => $logo_url,
+                ));
+                $rollback->add_call($advertiser, 'delete');
+
+            } catch (Model_AdvertiserException $e) {
+                throw new Controller_AdsException($e->getMessage());
+            }
         }
 
         try {
@@ -144,7 +179,7 @@ class Controller_Ads extends Controller_Base
         if ($this->has_input_for_adcampaign()) {
             try {
                 $adcampaign = Model_AdCampaign::create(array(
-                    'name' => Input::post('name'),
+                    'name' => Input::post('campaign_name'),
                     'desktop_url' => Input::post('desktop_url'),
                     'mobile_url' => Input::post('mobile_url'),
                     'first_seen' => Input::post('first_seen'),
@@ -163,8 +198,11 @@ class Controller_Ads extends Controller_Base
             }
         }
 
-        foreach (Input::post('question') as $i => $question_input) {
-            if ($this->has_input_for_quiz($i)) {
+        $postinput = new PostInput;
+
+        foreach (Input::post('question', array()) as $i => $question_input) {
+            if ($postinput->exists_for_quiz($i)) {
+            //if ($this->has_input_for_quiz($i)) {
 
                 try {
                     $quiz = Model_Quiz::create(array(
@@ -225,7 +263,7 @@ class Controller_Ads extends Controller_Base
 
         $bonus_quizzes = array();
         if (Input::method() === 'POST') {
-            foreach (Input::post('question') as $i => $input_question) {
+            foreach (Input::post('question', array()) as $i => $input_question) {
                 $bonus_quizzes[] = $this->generate_bonus_quiz_form_components(array(
                     'Quiz' => (object) array(
                         'question' => Input::post("question.$i"),
@@ -272,12 +310,12 @@ class Controller_Ads extends Controller_Base
             return;
         }
 
-        $image_uploader = new MediaStorer_Image($uploader, 'S3', 'File');
+        $image_storer = new MediaStorer_Image($uploader, 'S3', 'File');
 
         try {
-            $storyboard_url_to_save = $image_uploader->process('storyboard_url');
+            $storyboard_url_to_save = $image_storer->store('storyboard_url');
             $storyboard_url_to_remove = $ad->storyboard_url;
-            $rollback->add_call($image_uploader, 'remove', $storyboard_url_to_save);
+            $rollback->add_call($image_storer, 'remove', $storyboard_url_to_save);
 
         } catch (MediaStorer_ImageNoFileException $e) {
             $storyboard_url_to_save = $ad->storyboard_url;
@@ -288,12 +326,12 @@ class Controller_Ads extends Controller_Base
         }
 
         try {
-            $logo_url_to_save = $image_uploader->process('logo_url');
-            $logo_url_to_remove = $ad->logo_url;
-            $rollback->add_call($image_uploader, 'remove', $logo_url_to_save);
+            $logo_url_to_save = $image_storer->store('logo_url');
+            $logo_url_to_remove = $advertiser->logo_url;
+            $rollback->add_call($image_storer, 'remove', $logo_url_to_save);
 
         } catch (MediaStorer_ImageNoFileException $e) {
-            $logo_url_to_save = $ad->storyboard_url;
+            $logo_url_to_save = $advertiser->logo_url;
             $logo_url_to_remove = null;
 
         } catch (MediaStorer_ImageException $e) {
@@ -301,11 +339,11 @@ class Controller_Ads extends Controller_Base
         }
 
         try {
-            $video_uploader = new MediaStorer_Video($uploader, 'S3', 'File');
-            $video_url_to_save = $video_uploader->process();
+            $video_storer = new MediaStorer_Video($uploader, 'S3', 'File');
+            $video_url_to_save = $video_storer->store();
             $video_url_to_remove = $ad->video_url;
 
-            $rollback->add_call($video_uploader, 'remove', $video_url_to_save);
+            $rollback->add_call($video_storer, 'remove', $video_url_to_save);
 
         } catch (MediaStorer_VideoNoFileException $e) {
             $video_url_to_save = $ad->video_url;
@@ -321,15 +359,15 @@ class Controller_Ads extends Controller_Base
         $ad->ad_detection_identifier = Input::post('ad_detection_identifier');
         $ad->storyboard_url = $storyboard_url_to_save;
         $ad->video_url = $video_url_to_save;
-        $ad->advertiser = Input::post('advertiser');
-        $ad->logo_url = $logo_url_to_save;
+        //$ad->advertiser = Input::post('advertiser');
+        //$ad->logo_url = $logo_url_to_save;
         $ad->title = Input::post('title');
         $ad->ad_first_seen = Input::post('ad_first_seen');
         $ad->description = Input::post('description');
         $ad->agency = Input::post('agency');
 
         if ($adcampaign) {
-            $adcampaign->name = Input::post('name');
+            $adcampaign->name = Input::post('campaign_name');
             $adcampaign->desktop_url = Input::post('desktop_url');
             $adcampaign->mobile_url = Input::post('mobile_url');
             $adcampaign->first_seen = Input::post('first_seen');
@@ -346,11 +384,78 @@ class Controller_Ads extends Controller_Base
             return;
         }
 
+        $advertiser_id = Input::post('advertiser_id');
+
+        if ($advertiser_id) {
+            if ($advertiser_id != $advertiser->id) {
+                try {
+                    $advertiser = Model_Advertiser::find($advertiser_id);
+                    $unmodified_advertiser = Model_Advertiser::find($advertiser_id);
+                } catch (KinveyModelException $e) {
+                    $rollback->execute();
+
+                    Session::set_flash('error', $e->getMessage());
+                    return;
+                }
+
+                if (is_null($logo_url_to_remove)) {
+                    $logo_url_to_save = $advertiser->logo_url;
+                }
+
+                try {
+                    $ad->modify_relation('advertiser', $advertiser->id);
+                    $rollback->add_call($ad, 'modify_relation', array('advertiser', $unmodified_advertiser->id));
+                } catch (Model_AdException $e) {
+                    $rollback->execute();
+
+                    Session::set_flash('error', $e->getMessage());
+                    return;
+                }
+            }
+
+            $advertiser->name = Input::post('advertiser_name');
+            $advertiser->logo_url = $logo_url_to_save;
+
+            try {
+                $advertiser->save();
+                $rollback->add_call($unmodified_advertiser, 'save');
+
+            } catch (Model_AdvertiserException $e) {
+                $rollback->execute();
+
+                Session::set_flash('error', $e->getMessage());
+                return;
+            }
+        } else {
+            try {
+                $advertiser = Model_Advertiser::create(array(
+                    'name' => Input::post('advertiser_name'),
+                    'logo_url' => $logo_url_to_save,
+                ));
+                $rollback->add_call($advertiser, 'delete');
+            } catch (Model_AdvertiserException $e) {
+                $rollback->execute();
+
+                Session::set_flash('error', $e->getMessage());
+                return;
+            }
+
+            try {
+                $ad->add_relation('advertiser', 'advertisers', $advertiser->id);
+                $rollback->add_call($ad, 'remove_relation', 'advertiser');
+            } catch (Model_AdException $e) {
+                $rollback->execute();
+
+                Session::set_flash('error', $e->getMessage());
+                return;
+            }
+        }
+
         if ($this->has_input_for_adcampaign()) {
             try {
                 if (is_null($adcampaign)) {
                     $adcampaign = Model_AdCampaign::create(array(
-                        'name' => Input::post('name'),
+                        'name' => Input::post('campaign_name'),
                         'desktop_url' => Input::post('desktop_url'),
                         'mobile_url' => Input::post('mobile_url'),
                         'first_seen' => Input::post('first_seen'),
@@ -407,8 +512,10 @@ class Controller_Ads extends Controller_Base
             $quizzes = $ad->get_relations('Collection_Quizzes');
         }
 
-        foreach (Input::post('question') as $i => $question_input) {
-            if ($this->has_input_for_quiz($i)) {
+        $postinput = new PostInput;
+
+        foreach (Input::post('question', array()) as $i => $question_input) {
+            if ($postinput->exists_for_quiz($i)) {
 
                 $id = Input::post("id.$i");
 
@@ -457,7 +564,10 @@ class Controller_Ads extends Controller_Base
                         $quiz->add_relation('ad', 'ads', $ad->id);
                         $rollback->add_call($quiz, 'remove_relation', 'ad');
                     } catch (Model_QuizException $e) {
-                        throw new Controller_AdsException($e->getMessage());
+                        $rollback->execute();
+
+                        Session::set_flash('error', $e->getMessage());
+                        return;
                     }
                 }
             }
@@ -482,7 +592,7 @@ class Controller_Ads extends Controller_Base
 
         if ($storyboard_url_to_remove) {
             try {
-                $image_uploader->remove($storyboard_url_to_remove);
+                $image_storer->remove($storyboard_url_to_remove);
 
             } catch (MediaStorer_ImageException $e) {
                 $rollback->execute();
@@ -494,7 +604,7 @@ class Controller_Ads extends Controller_Base
 
         if ($logo_url_to_remove) {
             try {
-                $image_uploader->remove($logo_url_to_remove);
+                $image_storer->remove($logo_url_to_remove);
 
             } catch (MediaStorer_ImageException $e) {
                 $rollback->execute();
@@ -506,7 +616,7 @@ class Controller_Ads extends Controller_Base
 
         if ($video_url_to_remove) {
             try {
-                $video_uploader->remove($video_url_to_remove);
+                $video_storer->remove($video_url_to_remove);
 
             } catch (MediaStorer_VideoException $e) {
                 $rollback->execute();
@@ -553,15 +663,17 @@ class Controller_Ads extends Controller_Base
             return;
         }
 
-        try {
-            $adcampaign->delete();
-            $rollback->add_call($unmodified_adcampaign, 'save');
+        if ($adcampaign) {
+            try {
+                $adcampaign->delete();
+                $rollback->add_call($unmodified_adcampaign, 'save');
 
-        } catch (KinveyModelException $e) {
-            $rollback->execute();
+            } catch (KinveyModelException $e) {
+                $rollback->execute();
 
-            Session::set_flash('error', $e->getMessage());
-            return;
+                Session::set_flash('error', $e->getMessage());
+                return;
+            }
         }
 
         $quizzes = $ad->get_relations('Collection_Quizzes');
@@ -581,10 +693,10 @@ class Controller_Ads extends Controller_Base
             }
         }
 
-        $image_uploader = new MediaStorer_Image($uploader, 'S3', 'File');
+        $image_storer = new MediaStorer_Image($uploader, 'S3', 'File');
 
         try {
-            $image_uploader->remove($ad->storyboard_url);
+            $image_storer->remove($ad->storyboard_url);
         } catch (MediaStorer_ImageException $e) {
             $rollback->execute();
 
@@ -593,17 +705,8 @@ class Controller_Ads extends Controller_Base
         }
 
         try {
-            $image_uploader->remove($ad->logo_url);
-        } catch (MediaStorer_ImageException $e) {
-            $rollback->execute();
-
-            Session::set_flash('error', $e->getMessage());
-            return;
-        }
-
-        try {
-            $video_uploader = new MediaStorer_Video($uploader, 'S3', 'File');
-            $video_uploader->remove($ad->video_url);
+            $video_storer = new MediaStorer_Video($uploader, 'S3', 'File');
+            $video_storer->remove($ad->video_url);
         } catch (MediaStorer_VideoException $e) {
             $rollback->execute();
 
@@ -615,7 +718,7 @@ class Controller_Ads extends Controller_Base
         Response::redirect('/ads');
     }
 
-    private function generate_form_components($models, $form_elements)
+    /*private function generate_form_components($models, $form_elements)
     {
         if ( ! is_null($models)) {
             foreach ($form_elements as $form_element) {
@@ -644,11 +747,13 @@ class Controller_Ads extends Controller_Base
         }, $form_elements);
 
         return $components;
-    }
+    }*/
 
     private function generate_bonus_quiz_form_components($models = null)
     {
-        return $this->generate_form_components($models, array(
+        $formcomponentgenerator = new FormComponentGenerator;
+        return $formcomponentgenerator->generate($models, array(
+        //return $this->generate_form_components($models, array(
             array(
                 'component' => new View_Form_Heading('Bonus Quiz Question'),
             ),
@@ -689,7 +794,9 @@ class Controller_Ads extends Controller_Base
 
     private function generate_main_form_components($models = null)
     {
-        return $this->generate_form_components($models, array(
+        $formcomponentgenerator = new FormComponentGenerator;
+        return $formcomponentgenerator->generate($models, array(
+        //return $this->generate_form_components($models, array(
             array(
                 'component' => new View_Form_Heading('Ad Details'),
             ),
@@ -727,6 +834,11 @@ class Controller_Ads extends Controller_Base
                 'component' => new View_Form_Heading('Advertiser'),
             ),
             array(
+                'component' => new View_Form_Hidden('advertiser_id'),
+                'model' => 'Advertiser',
+                'property' => 'id',
+            ),
+            array(
                 'component' => new View_Form_Typeahead('Advertiser Name', 'advertiser_name'),
                 'model' => 'Advertiser',
                 'property' => 'name',
@@ -740,8 +852,9 @@ class Controller_Ads extends Controller_Base
                 'component' => new View_Form_Heading('Ad Campaign'),
             ),
             array(
-                'component' => new View_Form_Typeahead('Campaign Name', 'name'),
+                'component' => new View_Form_Typeahead('Campaign Name', 'campaign_name'),
                 'model' => 'AdCampaign',
+                'property' => 'name',
             ),
             array(
                 'component' => new View_Form_Text('Campaign Desktop URL', 'desktop_url'),
@@ -766,14 +879,14 @@ class Controller_Ads extends Controller_Base
             || Input::post('first_seen');
     }
 
-    private function has_input_for_quiz($i)
+    /*private function has_input_for_quiz($i)
     {
         return Input::post("question.$i")
             || Input::post("correct_answer.$i")
             || Input::post("incorrect_answer_1.$i")
             || Input::post("incorrect_answer_2.$i")
             || Input::post("incorrect_answer_3.$i");
-    }
+    }*/
 }
 
 /* DRAGON - Code below was used in initial attempt to use Kinvey's file storage
