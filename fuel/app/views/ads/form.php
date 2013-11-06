@@ -19,7 +19,7 @@
 
   <div class="form-group">
     <div class="col-lg-offset-2 col-lg-10">
-      <button type="button" class="btn btn-default btn-sm js-load-view" data-view-template="bonus-quiz" data-view-target="bonus-quiz">Add a Bonus Quiz question for this Ad</button>
+      <button type="button" class="btn btn-default btn-sm js-load-view" data-view-template="bonus-quiz" data-view-target="bonus-quiz" data-focus-target="question[]">Add a Bonus Quiz question for this Ad</button>
     </div>
   </div>
 
