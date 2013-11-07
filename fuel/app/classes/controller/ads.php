@@ -261,6 +261,8 @@ class Controller_Ads extends Controller_Base
             $unmodified_adcampaign = null;
         }
 
+        $had_initial_adcampaign = ! is_null($adcampaign);
+
         $bonus_quizzes = array();
         if (Input::method() === 'POST') {
             foreach (Input::post('question', array()) as $i => $input_question) {
@@ -366,13 +368,6 @@ class Controller_Ads extends Controller_Base
         $ad->description = Input::post('description');
         $ad->agency = Input::post('agency');
 
-        if ($adcampaign) {
-            $adcampaign->name = Input::post('campaign_name');
-            $adcampaign->desktop_url = Input::post('desktop_url');
-            $adcampaign->mobile_url = Input::post('mobile_url');
-            $adcampaign->first_seen = Input::post('first_seen');
-        }
-
         try {
             $ad->save();
             $rollback->add_call($unmodified_ad, 'save');
@@ -451,6 +446,23 @@ class Controller_Ads extends Controller_Base
             }
         }
 
+        $adcampaign_id = Input::post('adcampaign_id');
+
+        //if ($adcampaign_id && (is_null($adcampaign) || $adcampaign->id != $adcampaign_id)) {
+        if ($adcampaign_id) {
+            try {
+                $adcampaign = Model_AdCampaign::find($adcampaign_id);
+                $unmodified_adcampaign = Model_AdCampaign::find($adcampaign_id);
+            } catch (KinveyModelException $e) {
+                $rollback->execute();
+
+                Session::set_flash('error', $e->getMessage());
+                return;
+            }
+        } else {
+            $adcampaign = null;
+        }
+
         if ($this->has_input_for_adcampaign()) {
             try {
                 if (is_null($adcampaign)) {
@@ -462,6 +474,11 @@ class Controller_Ads extends Controller_Base
                     ));
                     $rollback->add_call($adcampaign, 'delete');
                 } else {
+                    $adcampaign->name = Input::post('campaign_name');
+                    $adcampaign->desktop_url = Input::post('desktop_url');
+                    $adcampaign->mobile_url = Input::post('mobile_url');
+                    $adcampaign->first_seen = Input::post('first_seen');
+
                     $adcampaign->save();
                     $rollback->add_call($unmodified_adcampaign, 'save');
                 }
@@ -471,8 +488,34 @@ class Controller_Ads extends Controller_Base
                 Session::set_flash('error', $e->getMessage());
                 return;
             }
-        } else if ($adcampaign) {
-            try {
+
+            if ($had_initial_adcampaign) {
+                try {
+                    $ad->modify_relation('adcampaign', $adcampaign->id);
+                    $rollback->add_call($ad, 'modify_relation', array('adcampaign', $unmodified_adcampaign->id));
+                } catch (Model_AdException $e) {
+                    $rollback->execute();
+
+                    Session::set_flash('error', $e->getMessage());
+                    return;
+                }
+            } else {
+                try {
+                    $ad->add_relation('adcampaign', 'adCampaigns', $adcampaign->id);
+                    $rollback->add_call($ad, 'remove_relation', 'adcampaign');
+                } catch (Model_AdException $e) {
+                    $rollback->execute();
+
+                    Session::set_flash('error', $e->getMessage());
+                    return;
+                }
+            }
+
+        } else if ($had_initial_adcampaign) {
+            /* DRAGON - This shouldn't delete the campaign anymore
+                        -- Conor
+            */
+            /*try {
                 $adcampaign->delete();
                 $rollback->add_call($unmodified_adcampaign, 'save');
             } catch (KinveyModelException $e) {
@@ -480,24 +523,12 @@ class Controller_Ads extends Controller_Base
 
                 Session::set_flash ('error', $e->getMessage());
                 return;
-            }
+            }*/
 
             try {
                 $ad->remove_relation('adcampaign');
                 $rollback->add_call($ad, 'add_relation', array('adcampaign', 'adCampaigns', $unmodified_adcampaign->id));
 
-            } catch (Model_AdException $e) {
-                $rollback->execute();
-
-                Session::set_flash('error', $e->getMessage());
-                return;
-            }
-        }
-
-        if ($adcampaign && is_null($unmodified_adcampaign)) {
-            try {
-                $ad->add_relation('adcampaign', 'adCampaigns', $adcampaign->id);
-                $rollback->add_call($ad, 'remove_relation', 'adcampaign');
             } catch (Model_AdException $e) {
                 $rollback->execute();
 
