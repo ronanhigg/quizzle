@@ -12,7 +12,9 @@ define([
     'views/login',
     'views/register',
     'views/stream',
+    'views/streampanel',
 
+    'collections/addetections',
     'collections/airings',
     'collections/checkins',
 
@@ -32,7 +34,9 @@ define([
     LoginView,
     RegisterView,
     StreamView,
+    StreamPanelView,
 
+    AdDetectionsCollection,
     AiringsCollection,
     CheckInsCollection,
 
@@ -47,7 +51,7 @@ define([
 
     var ensureLogin = function (originalRoute) {
         return function () {
-            if (App.player && App.player.isLoggedIn()) {
+            /*if (App.player && App.player.isLoggedIn()) {
 
                 if ($('#player-name').is(':empty')) {
                     $('#player-name').html(App.player.get('name'));
@@ -60,7 +64,8 @@ define([
                     App.main = new LoginView({complete: originalRoute});
                     $('#main').html(App.main.render().el);
                 }
-            }
+            }*/
+            originalRoute.apply(this, arguments);
         };
     };
 
@@ -75,7 +80,7 @@ define([
         },
 
         index: ensureLogin(function () {
-            var _this = this;
+            /*var _this = this;
             App.player.getCurrentCheckIns()
                 .then(function (checkIns) {
                     if (checkIns.length > 0) {
@@ -87,7 +92,10 @@ define([
                             trigger: true
                         });
                     }
-                });
+                });*/
+            this.navigate('stream', {
+                trigger: true
+            });
         }),
 
         login: function () {
@@ -157,8 +165,54 @@ define([
         }),
 
         stream: ensureLogin(function () {
-            var streamView = new StreamView();
+            /*var adDetections = new AdDetectionsCollection(),
+                query = new Kinvey.Query(),
+                streamView = new StreamView();
+
             $('#main').html(streamView.render().el);
+
+            adDetections.fetch({
+                query: query
+                    .limit(10)
+                    .descending('_kmd.ect'),
+                success: function (collection, response, options) {
+                    $('#stream-panels').empty();
+
+                    collection.each(function (model) {
+                        console.log(model);
+                        var streamPanelView = new StreamPanelView({
+                            model: model
+                        });
+                        $('#stream-panels').append(streamPanelView.render().el);
+                    });
+
+                }
+            })
+                .then(function (response, status, xhr) {
+                    //console.log(response);
+                }, function (xhr, status, error) {
+                    console.error('PROMISE ERROR 1', xhr, status, error);
+                });*/
+            var streamView = new StreamView();
+
+            $('#main').html(streamView.render().el);
+
+            Kinvey.execute('fetchAdDetections', {
+                'amount': 10
+            })
+                .then(function (response) {
+                    console.log(response);
+                    $('#stream-panels').empty();
+
+                    _.each(response.docs, function (doc) {
+                        var streamPanelView = new StreamPanelView({
+                            doc: doc
+                        });
+                        $('#stream-panels').append(streamPanelView.render().el);
+                    });
+                }, function (xhr, status, error) {
+                    console.error('PROMISE ERROR 1', xhr, status, error);
+                });
         }),
 
         /* DRAGON - The below function is not used in the application */

@@ -119,12 +119,82 @@
 
       <h2>Stream</h2>
 
+      <div id="stream-panels">
+        Loading...
+      </div>
+
+    </script>
+
+    <script type="text/html" id="stream-panel-template">
+
       <div class="panel panel-default">
         <div class="panel-heading">
-          <h3 class="panel-title">Stream Pane</h3>
+          <h3 class="panel-title"><%= channelName %></h3>
         </div>
         <div class="panel-body">
-          Lorem ipsum ...
+
+          <% if (hasAdData) { %>
+
+            <div style="width: 166px; height: 96px; background-image: url(<%= storyboardURL %>); background-position: <%= storyboardBackgroundPosition %>; margin: 0 auto;"></div>
+
+            <hr>
+
+            <h4 style="text-align: center; margin-bottom: 1em;">
+              Tap the logo of the company from this ad
+            </h4>
+
+            <div class="row" style="margin-bottom: 1em;">
+              <div class="col-xs-6" style="text-align: center;">
+                <a href="#"><img src="<%= logos[0] %>" width="176" height="108"></a>
+              </div>
+              <div class="col-xs-6" style="text-align: center;">
+                <a href="#"><img src="<%= logos[1] %>" width="176" height="108"></a>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-xs-6" style="text-align: center;">
+                <a href="#"><img src="<%= logos[2] %>" width="176" height="108"></a>
+              </div>
+              <div class="col-xs-6" style="text-align: center;">
+                <a href="#"><img src="<%= logos[3] %>" width="176" height="108"></a>
+              </div>
+            </div>
+
+            <% if (hasQuizData) { %>
+
+              <hr>
+
+              <h4 style="text-align: center; margin-bottom: 1em;">
+                <%= question %>
+              </h4>
+
+              <div class="row" style="margin-bottom: 1em;">
+                <div class="col-xs-6" style="text-align: center;">
+                  <a href="#" class="btn btn-lg btn-block btn-default"><%= answers[0] %></a>
+                </div>
+                <div class="col-xs-6" style="text-align: center;">
+                  <a href="#" class="btn btn-lg btn-block btn-default"><%= answers[1] %></a>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-xs-6" style="text-align: center;">
+                  <a href="#" class="btn btn-lg btn-block btn-default"><%= answers[2] %></a>
+                </div>
+                <div class="col-xs-6" style="text-align: center;">
+                  <a href="#" class="btn btn-lg btn-block btn-default"><%= answers[3] %></a>
+                </div>
+              </div>
+
+            <% } %>
+
+          <% } else { %>
+            No ad data entered for <em><%= adIdentifier %></em>
+          <% } %>
+
+        </div>
+        <div class="panel-footer">
+          <small><%= startingAt %></small>
         </div>
       </div>
 
