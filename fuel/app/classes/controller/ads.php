@@ -831,7 +831,7 @@ class Controller_Ads extends Controller_Base
             ),
 
             array(
-                'component' => new View_Form_Heading('Advertiser'),
+                'component' => new View_Form_Heading('Advertiser', 'advertiser_status'),
             ),
             array(
                 'component' => new View_Form_Hidden('advertiser_id'),
@@ -849,7 +849,12 @@ class Controller_Ads extends Controller_Base
             ),
 
             array(
-                'component' => new View_Form_Heading('Ad Campaign'),
+                'component' => new View_Form_Heading('Ad Campaign', 'adcampaign_status'),
+            ),
+            array(
+                'component' => new View_Form_Hidden('adcampaign_id'),
+                'model' => 'AdCampaign',
+                'property' => 'id',
             ),
             array(
                 'component' => new View_Form_Typeahead('Campaign Name', 'campaign_name'),

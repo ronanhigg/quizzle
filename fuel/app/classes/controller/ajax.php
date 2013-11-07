@@ -10,7 +10,8 @@ class Controller_Ajax extends Controller
 
     public function action_campaign_name()
     {
-        return $this->get_values_for_model_property('Collection_AdCampaigns', 'name');
+        //return $this->get_values_for_model_property('Collection_AdCampaigns', 'name');
+        return $this->get_collection('Collection_AdCampaigns');
     }
 
     public function action_agency()
@@ -28,6 +29,7 @@ class Controller_Ajax extends Controller
         foreach ($collection as $model) {
             if ( ! array_key_exists($model->id, $values)) {
                 $values[$model->id] = $model;
+                $values[$model->id]->_model_name = get_class($model);
             }
         }
 
@@ -35,7 +37,7 @@ class Controller_Ajax extends Controller
 
     }
 
-    private function get_values_for_model_property($collection_name, $property)
+    /*private function get_values_for_model_property($collection_name, $property)
     {
         $collection = new $collection_name;
         $collection->fetch_all();
@@ -49,7 +51,7 @@ class Controller_Ajax extends Controller
         }
 
         return Response::forge(json_encode($values));
-    }
+    }*/
 
     private function get_values_for_ad_property($property)
     {
