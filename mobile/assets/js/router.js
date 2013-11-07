@@ -175,7 +175,7 @@ define([
                 'amount': 10
             })
                 .then(function (response) {
-                    console.log(response);
+                    //console.log(response);
 
                     $('#stream-panels').empty();
                     $('.js-stream-load').removeClass('hide');
@@ -189,7 +189,7 @@ define([
                         $('#stream-panels').append(streamPanelView.render().el);
                     });
                 }, function (xhr, status, error) {
-                    console.error('PROMISE ERROR 1', xhr, status, error);
+                    //console.error('PROMISE ERROR 1', xhr, status, error);
                 });
 
             $('.js-stream-load').on('click', function () {
@@ -198,7 +198,7 @@ define([
                     'lastAdDetectionID': lastAdDetectionID
                 })
                     .then(function (response) {
-                        console.log(response);
+                        //console.log(response);
 
                         _.each(response.docs, function (doc) {
                             var streamPanelView = new StreamPanelView({
@@ -209,7 +209,7 @@ define([
                             $('#stream-panels').append(streamPanelView.render().el);
                         });
                     }, function (xhr, status, error) {
-                        console.error('PROMISE ERROR 1', xhr, status, error);
+                        //console.error('PROMISE ERROR 1', xhr, status, error);
                     });
                 return false;
             });
@@ -256,14 +256,14 @@ define([
 
             channel.fetch()
                 .then(function (response, status, xhr) {
-                    console.log(response, status, xhr, airing);
+                    //console.log(response, status, xhr, airing);
 
                     return show.fetch();
                 }, function (xhr, status, error) {
-                    console.error('PROMISE ERROR 1', xhr, status, error);
+                    //console.error('PROMISE ERROR 1', xhr, status, error);
                 })
                 .then(function (response, status, xhr) {
-                    console.log(response, status, xhr, airing);
+                    //console.log(response, status, xhr, airing);
 
                     return airing.save({
                         starting_at: "2013-08-29T18:01:00.000Z",
@@ -274,13 +274,13 @@ define([
                     });
 
                 }, function (xhr, status, error) {
-                    console.error('PROMISE ERROR 2', xhr, status, error);
+                    //console.error('PROMISE ERROR 2', xhr, status, error);
                 })
                 .then(function (response, status, xhr) {
-                    console.log(3, response, status, xhr);
-                    console.log(4, airing);
+                    //console.log(3, response, status, xhr);
+                    //console.log(4, airing);
                 }, function (xhr, status, error) {
-                    console.error('PROMISE ERROR 3', xhr, status, error);
+                    //console.error('PROMISE ERROR 3', xhr, status, error);
                 });
         }),
 
@@ -292,7 +292,7 @@ define([
 
             airing.fetch()
                 .then(function (response, status, xhr) {
-                    console.log(response, status, xhr);
+                    //console.log(response, status, xhr);
 
                     return checkin.save({
                         is_active: true,
@@ -301,13 +301,13 @@ define([
                         player: App.player
                     });
                 }, function (xhr, status, error) {
-                    console.error('PROMISE ERROR 1', xhr, status, error);
+                    //console.error('PROMISE ERROR 1', xhr, status, error);
                 })
                 .then(function (response, status, xhr) {
-                    console.log(response, status, xhr);
-                    console.log(checkin);
+                    //console.log(response, status, xhr);
+                    //console.log(checkin);
                 }, function (xhr, status, error) {
-                    console.error('PROMISE ERROR 2', xhr, status, error);
+                    //console.error('PROMISE ERROR 2', xhr, status, error);
                 });
 
         })
