@@ -176,26 +176,58 @@ class Controller_Ads extends Controller_Base
             throw new Controller_AdsException($e->getMessage());
         }
 
+        $adcampaign_id = Input::post('adcampaign_id');
+
+        if ($adcampaign_id) {
+            try {
+                $adcampaign = Model_AdCampaign::find($adcampaign_id);
+                $unmodified_adcampaign = Model_AdCampaign::find($adcampaign_id);
+            } catch (KinveyModelException $e) {
+                $rollback->execute();
+
+                Session::set_flash('error', $e->getMessage());
+                return;
+            }
+        } else {
+            $adcampaign = null;
+        }
+
         if ($this->has_input_for_adcampaign()) {
             try {
-                $adcampaign = Model_AdCampaign::create(array(
-                    'name' => Input::post('campaign_name'),
-                    'desktop_url' => Input::post('desktop_url'),
-                    'mobile_url' => Input::post('mobile_url'),
-                    'first_seen' => Input::post('first_seen'),
-                ));
-                $rollback->add_call($adcampaign, 'delete');
+                if (is_null($adcampaign)) {
+                    $adcampaign = Model_AdCampaign::create(array(
+                        'name' => Input::post('campaign_name'),
+                        'desktop_url' => Input::post('desktop_url'),
+                        'mobile_url' => Input::post('mobile_url'),
+                        'first_seen' => Input::post('first_seen'),
+                    ));
+                    $rollback->add_call($adcampaign, 'delete');
+                } else {
+                    $adcampaign->name = Input::post('campaign_name');
+                    $adcampaign->desktop_url = Input::post('desktop_url');
+                    $adcampaign->mobile_url = Input::post('mobile_url');
+                    $adcampaign->first_seen = Input::post('first_seen');
 
+                    $adcampaign->save();
+                    $rollback->add_call($unmodified_adcampaign, 'save');
+                }
             } catch (Model_AdCampaignException $e) {
-                throw new Controller_AdsException($e->getMessage());
+                $rollback->execute();
+
+                Session::set_flash('error', $e->getMessage());
+                return;
             }
 
             try {
                 $ad->add_relation('adcampaign', 'adCampaigns', $adcampaign->id);
                 $rollback->add_call($ad, 'remove_relation', 'adcampaign');
             } catch (Model_AdException $e) {
-                throw new Controller_AdsException($e->getMessage());
+                $rollback->execute();
+
+                Session::set_flash('error', $e->getMessage());
+                return;
             }
+
         }
 
         $postinput = new PostInput;
@@ -512,18 +544,6 @@ class Controller_Ads extends Controller_Base
             }
 
         } else if ($had_initial_adcampaign) {
-            /* DRAGON - This shouldn't delete the campaign anymore
-                        -- Conor
-            */
-            /*try {
-                $adcampaign->delete();
-                $rollback->add_call($unmodified_adcampaign, 'save');
-            } catch (KinveyModelException $e) {
-                $rollback->execute();
-
-                Session::set_flash ('error', $e->getMessage());
-                return;
-            }*/
 
             try {
                 $ad->remove_relation('adcampaign');
