@@ -26,17 +26,6 @@ define([
 
         render: function () {
 
-            /*var startingAt = this.model.get('broadcast_starting_at');
-
-            startingAt = moment(startingAt.toString(), "YYYYMMDDTHHmmssZ");
-            startingAt = startingAt.format('HH:mm - ddd D MMM YYYY');
-
-            this.$el.html(this.template({
-                'channelIdentifier': this.model.get('channel_identifier'),
-                'startingAt': startingAt,
-                'adIdentifier': this.model.get('ad_identifier')
-            }));*/
-
             var startingAt, storyboardBackgroundPosition, logos, answers, question,
 
                 positions = [
@@ -62,11 +51,15 @@ define([
 
             storyboardBackgroundPosition = positions[_.random(0, 8)];
 
+            this.options.panels[doc._id] = {};
+
             if (hasAdData) {
                 logos = _.clone(doc.otherLogos);
                 logos.push(doc.advertiserLogo);
                 logos = _.shuffle(logos);
             }
+
+            this.options.panels[doc._id].correctLogoIndex = _.indexOf(logos, doc.advertiserLogo);
 
             if (hasQuizData) {
                 question = doc.question.question;
@@ -77,10 +70,12 @@ define([
                     doc.question.incorrect_answer_3
                 ];
                 answers = _.shuffle(answers);
+
+                this.options.panels[doc._id].correctTriviaIndex = _.indexOf(answers, doc.question.correct_answer);
             }
 
-
             this.$el.html(this.template({
+                'id': doc._id,
                 'hasAdData': hasAdData,
                 'hasQuizData': hasQuizData,
                 'channelName': doc.channelName,

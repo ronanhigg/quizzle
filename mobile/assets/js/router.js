@@ -166,6 +166,7 @@ define([
 
         stream: ensureLogin(function () {
             var lastAdDetectionID,
+                panels = [],
                 streamView = new StreamView();
 
             $('#main').html(streamView.render().el);
@@ -181,6 +182,7 @@ define([
 
                     _.each(response.docs, function (doc) {
                         var streamPanelView = new StreamPanelView({
+                            panels: panels,
                             doc: doc
                         });
                         lastAdDetectionID = doc._id;
@@ -200,6 +202,7 @@ define([
 
                         _.each(response.docs, function (doc) {
                             var streamPanelView = new StreamPanelView({
+                                panels: panels,
                                 doc: doc
                             });
                             lastAdDetectionID = doc._id;
@@ -208,6 +211,38 @@ define([
                     }, function (xhr, status, error) {
                         console.error('PROMISE ERROR 1', xhr, status, error);
                     });
+                return false;
+            });
+
+            $('#main').on('click', '.js-stream-logo-guess', function () {
+                var $stream = $(this).parents('.js-stream'),
+                    id = $stream.data('id'),
+                    guessIndex = $(this).data('index');
+
+                $(this).parents('.js-stream-logos').addClass('hide');
+
+                if (guessIndex === panels[id].correctLogoIndex) {
+                    $stream.find('.js-stream-trivia').removeClass('hide');
+                } else {
+                    $stream.find('.js-stream-failure').removeClass('hide');
+                }
+
+                return false;
+            });
+
+            $('#main').on('click', '.js-stream-trivia-guess', function () {
+                var $stream = $(this).parents('.js-stream'),
+                    id = $stream.data('id'),
+                    guessIndex = $(this).data('index');
+
+                $(this).parents('.js-stream-trivia').addClass('hide');
+
+                if (guessIndex === panels[id].correctTriviaIndex) {
+                    $stream.find('.js-stream-success').removeClass('hide');
+                } else {
+                    $stream.find('.js-stream-failure').removeClass('hide');
+                }
+
                 return false;
             });
         }),
