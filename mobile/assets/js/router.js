@@ -165,35 +165,8 @@ define([
         }),
 
         stream: ensureLogin(function () {
-            /*var adDetections = new AdDetectionsCollection(),
-                query = new Kinvey.Query(),
+            var lastAdDetectionID,
                 streamView = new StreamView();
-
-            $('#main').html(streamView.render().el);
-
-            adDetections.fetch({
-                query: query
-                    .limit(10)
-                    .descending('_kmd.ect'),
-                success: function (collection, response, options) {
-                    $('#stream-panels').empty();
-
-                    collection.each(function (model) {
-                        console.log(model);
-                        var streamPanelView = new StreamPanelView({
-                            model: model
-                        });
-                        $('#stream-panels').append(streamPanelView.render().el);
-                    });
-
-                }
-            })
-                .then(function (response, status, xhr) {
-                    //console.log(response);
-                }, function (xhr, status, error) {
-                    console.error('PROMISE ERROR 1', xhr, status, error);
-                });*/
-            var streamView = new StreamView();
 
             $('#main').html(streamView.render().el);
 
@@ -202,17 +175,41 @@ define([
             })
                 .then(function (response) {
                     console.log(response);
+
                     $('#stream-panels').empty();
+                    $('.js-stream-load').removeClass('hide');
 
                     _.each(response.docs, function (doc) {
                         var streamPanelView = new StreamPanelView({
                             doc: doc
                         });
+                        lastAdDetectionID = doc._id;
                         $('#stream-panels').append(streamPanelView.render().el);
                     });
                 }, function (xhr, status, error) {
                     console.error('PROMISE ERROR 1', xhr, status, error);
                 });
+
+            $('.js-stream-load').on('click', function () {
+                Kinvey.execute('fetchAdDetections', {
+                    'amount': 10,
+                    'lastAdDetectionID': lastAdDetectionID
+                })
+                    .then(function (response) {
+                        console.log(response);
+
+                        _.each(response.docs, function (doc) {
+                            var streamPanelView = new StreamPanelView({
+                                doc: doc
+                            });
+                            lastAdDetectionID = doc._id;
+                            $('#stream-panels').append(streamPanelView.render().el);
+                        });
+                    }, function (xhr, status, error) {
+                        console.error('PROMISE ERROR 1', xhr, status, error);
+                    });
+                return false;
+            });
         }),
 
         /* DRAGON - The below function is not used in the application */

@@ -48,7 +48,7 @@ define([
                     '330px 95px',
                     '0px 190px',
                     '165px 190px',
-                    '330px 190px'
+                    //'330px 190px' - Remove this frame
                 ],
 
                 doc = this.options.doc,

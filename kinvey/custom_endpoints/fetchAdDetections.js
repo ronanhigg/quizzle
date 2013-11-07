@@ -21,7 +21,15 @@ function onRequest(request, response, modules){
     amount = 1;
   }
 
-  fetchAdDetections = function () {
+  init = function () {
+    if (lastAdDetectionID) {
+      fetchAdDetectionsEarlierThan(lastAdDetectionID);
+    } else {
+      fetchLatestAdDetections();
+    }
+  };
+
+  fetchLatestAdDetections = function () {
     adDetectionsCollection.find({}, {
       limit: amount,
       sort: [['_kmd.ect', -1]]
@@ -44,6 +52,45 @@ function onRequest(request, response, modules){
         response.complete(200);
       });
     });
+  };
+
+  fetchAdDetectionsEarlierThan = function (adDetectionID) {
+    adDetectionsCollection.findOne({
+      '_id': adDetectionsCollection.objectID(adDetectionID)
+    }, function (err, doc) {
+      if (err) {
+        return response.error('An error occurred while trying to find last ad detection.');
+      }
+
+      if (!doc) {
+        fetchLatestAdDetections();
+      }
+
+      adDetectionsCollection.find({
+        '_kmd.ect': {"$lt": doc._kmd.ect}
+      }, {
+        limit: amount,
+        sort: [['_kmd.ect', -1]]
+      }, function (err, docs) {
+        if (err) {
+          return response.error('An error occurred while trying to find ad detections.');
+        }
+
+        async.each(docs, fetchRelationalData, function (err) {
+          if (err) {
+            return response.error('An error occurred while trying to find relational data for ad detections.');
+          }
+
+          response.body = {
+            'amount': amount,
+            'lastAdDetectionID': lastAdDetectionID,
+            'docs': docs
+          };
+          
+          response.complete(200);
+        });
+      });
+    })
   };
 
   fetchRelationalData = function (adDetection, asyncCallback) {
@@ -149,5 +196,5 @@ function onRequest(request, response, modules){
     });
   };
 
-  fetchAdDetections();
+  init();
 }
