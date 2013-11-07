@@ -7,10 +7,11 @@ class View_Form_Heading extends View_FormElement
 
     public $text;
 
-    public function __construct($text)
+    public function __construct($text, $status_label = null)
     {
         parent::__construct('', '');
 
         $this->text = $text;
+        $this->status_label = $status_label;
     }
 }
