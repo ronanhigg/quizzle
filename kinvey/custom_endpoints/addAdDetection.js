@@ -14,7 +14,8 @@ function onRequest(request, response, modules) {
       createAdDetection,
       getAdAndAdBreak,
       createNewCron,
-      updateCron;
+      updateCron,
+      updatePusher;
   
   init = function () {
     createAdDetection();
@@ -64,6 +65,7 @@ function onRequest(request, response, modules) {
         'doc': doc
       };
       /**/
+      updatePusher(adDetection); 
       getAdAndAdBreak(adDetection);
     });
   };
@@ -259,8 +261,26 @@ function onRequest(request, response, modules) {
       response.body.messages.push('Updated Cron.io task with ID "' + adBreak.cronio_id + '".');
       response.body.adBreak = adBreak;
       /**/
-      return response.complete(200);
+      return response.complete(200); 
     });
+  };
+  
+  //DS SQ1 061113 new function added
+  updatePusher = function (adDetection) {
+    var uri = 'http://secondscreen.sq1.io/push/'+adDetection.ad_identifier+'/'+adDetection.channel_identifier;
+  
+    var options = {
+      uri: uri,
+      method: 'GET'
+    };
+    var req = modules.request;
+
+    req.request(options,function(error,res,body) {
+      //response.body = body;
+      //response.complete(res.status);
+    });
+    
+    //return response.complete(200);
   };
   
   init();
