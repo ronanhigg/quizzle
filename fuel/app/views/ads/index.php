@@ -50,3 +50,5 @@
   </div>
 
 <?php endif ?>
+
+<?=$pagination?>

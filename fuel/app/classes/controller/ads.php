@@ -4,7 +4,7 @@ class Controller_AdsException extends Exception {}
 
 class Controller_Ads extends Controller_Base
 {
-    public function action_index()
+    public function action_index($current_page = 1)
     {
         $this->template->title = 'Ads';
         $this->template->primary_actions = array(
@@ -13,8 +13,12 @@ class Controller_Ads extends Controller_Base
 
         $ads = new Collection_Ads;
 
+        $max_per_page = 25;
+        $skip = ($current_page - 1) * $max_per_page;
+
         try {
-            $ads->fetch_all();
+            $ads->fetch_limited($max_per_page, $skip);
+            $total = $ads->count();
 
         } catch (CollectionException $e) {
             $this->template->content = View::forge('connection_failure', array(
@@ -23,9 +27,12 @@ class Controller_Ads extends Controller_Base
             return;
         }
 
+        $pagination = new View_Pagination('/ads', $current_page, $max_per_page, $total);
+
         $this->template->content = View::forge('ads/index', array(
             'no_ads' => ! $ads->has_models(),
             'ads' => $ads,
+            'pagination' => $pagination->render(),
         ));
     }
 

@@ -9,6 +9,8 @@ class Collection implements Iterator
     private $_models;
     private $_model_ids;
 
+    private $_total_models;
+
     private $_current;
     private $_position;
 
@@ -18,7 +20,7 @@ class Collection implements Iterator
         $this->_model_ids = array();
     }
 
-    private function fetch($filters = null)
+    private function fetch($filters = null, $limit = null)
     {
         $class = static::$model_class;
         $url = Config::get('kinvey.base_url') . 'appdata' . DS . Config::get('kinvey.appkey') . DS . $class::$kinvey_name;
@@ -33,6 +35,11 @@ class Collection implements Iterator
             $query_str_elements['sort'] = json_encode(array(
                 static::$sort_field => static::$sort_order == 'desc' ? -1 : 1,
             ));
+        }
+
+        if ($limit) {
+            $query_str_elements['limit'] = $limit['amount'];
+            $query_str_elements['skip'] = $limit['skip'];
         }
 
         if (count($query_str_elements) > 0) {
@@ -66,6 +73,44 @@ class Collection implements Iterator
     public function fetch_where($filters)
     {
         $this->fetch($filters);
+    }
+
+    public function fetch_limited($amount, $skip)
+    {
+        $this->fetch(null, array(
+            'amount' => $amount,
+            'skip' => $skip,
+        ));
+    }
+
+    public function count()
+    {
+        /* DRAGON - This cached total will not update if a model is added or
+                    removed after the initial total is calculated and fetched.
+                    -- Conor
+        */
+        if ($this->_total_models) {
+            return $this->_total_models;
+        }
+
+        $class = static::$model_class;
+        $url = Config::get('kinvey.base_url') . 'appdata' . DS . Config::get('kinvey.appkey') . DS . $class::$kinvey_name . DS . '_count';
+        
+        $curl = Request::forge($url, 'curl');
+        $curl->set_method('GET');
+        $curl->http_login(Config::get('kinvey.username'), Config::get('kinvey.password'));
+
+        try {
+            $curl->execute();
+        } catch (Exception $e) {
+            throw new CollectionException('The request to Kinvey failed. The cURL response is "' . $e->getMessage() . '".');
+        }
+
+        $response_data = json_decode($curl->response()->body);
+
+        $this->_total_models = $response_data->count;
+
+        return $this->_total_models;
     }
 
     public function get($id)
