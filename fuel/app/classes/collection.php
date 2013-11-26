@@ -23,8 +23,20 @@ class Collection implements Iterator
         $class = static::$model_class;
         $url = Config::get('kinvey.base_url') . 'appdata' . DS . Config::get('kinvey.appkey') . DS . $class::$kinvey_name;
 
+        $query_str_elements = array();
+
         if ($filters) {
-            $url .= '/?query=' . json_encode($filters);
+            $query_str_elements['query'] = json_encode($filters);
+        }
+
+        if (static::$sort_field) {
+            $query_str_elements['sort'] = json_encode(array(
+                static::$sort_field => static::$sort_order == 'desc' ? -1 : 1,
+            ));
+        }
+
+        if (count($query_str_elements) > 0) {
+            $url .= '/?' . http_build_query($query_str_elements);
         }
         
         $curl = Request::forge($url, 'curl');
