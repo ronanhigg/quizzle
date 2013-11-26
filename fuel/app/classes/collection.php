@@ -83,7 +83,7 @@ class Collection implements Iterator
         ));
     }
 
-    public function count()
+    public function count_all()
     {
         /* DRAGON - This cached total will not update if a model is added or
                     removed after the initial total is calculated and fetched.

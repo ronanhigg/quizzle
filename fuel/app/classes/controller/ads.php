@@ -18,7 +18,7 @@ class Controller_Ads extends Controller_Base
 
         try {
             $ads->fetch_limited($max_per_page, $skip);
-            $total = $ads->count();
+            $total = $ads->count_all();
 
         } catch (CollectionException $e) {
             $this->template->content = View::forge('connection_failure', array(
