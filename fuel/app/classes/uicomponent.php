@@ -6,6 +6,6 @@ class UIComponent
 
     public function render()
     {
-        return View::forge($this->template, (array) $this);
+        return View::forge($this->template, get_object_vars($this));
     }
 }

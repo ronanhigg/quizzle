@@ -12,7 +12,7 @@ class Test_MediaStorer_Image extends TestCase
 
     private function setUpImageStorer($uploader)
     {
-        return new MediaStorer_Image($uploader, 'MockS3', 'MockFile');
+        return new MediaStorer_Image($uploader);
     }
 
     private function setUpMockUploader()
@@ -45,8 +45,19 @@ class Test_MediaStorer_Image extends TestCase
         $uploader = $this->setUpMockUploader();
         $uploader = $this->addMethodFindUploadWithFieldName($uploader);
 
-        MockS3::setForStoreExecutingCorrectly();
-        MockFile::setForStoreExecutingCorrectly();
+        $mockS3 = Mockery::mock('alias:S3');
+        $mockS3
+            ->shouldReceive('inputFile')
+            ->once();
+        $mockS3
+            ->shouldReceive('putObject')
+            ->once()
+            ->andReturn(true);
+
+        Mockery::mock('alias:File')
+            ->shouldReceive('delete')
+            ->once()
+            ->andReturn(true);
 
         $imageStorer = $this->setUpImageStorer($uploader);
 
@@ -88,8 +99,19 @@ class Test_MediaStorer_Image extends TestCase
         $uploader = $this->setUpMockUploader();
         $uploader = $this->addMethodFindUploadWithFieldName($uploader);
 
-        MockS3::setForStoreThrowingExceptionOnPutObject();
-        MockFile::setForStoreExecutingCorrectly();
+        $mockS3 = Mockery::mock('alias:S3');
+        $mockS3
+            ->shouldReceive('inputFile')
+            ->once();
+        $mockS3
+            ->shouldReceive('putObject')
+            ->once()
+            ->andReturn(false);
+
+        Mockery::mock('alias:File')
+            ->shouldReceive('delete')
+            ->once()
+            ->andReturn(true);
 
         $imageStorer = $this->setUpImageStorer($uploader);
 
@@ -105,8 +127,19 @@ class Test_MediaStorer_Image extends TestCase
         $uploader = $this->setUpMockUploader();
         $uploader = $this->addMethodFindUploadWithFieldName($uploader);
 
-        MockS3::setForStoreExecutingCorrectly();
-        MockFile::setForStoreThrowingExceptionOnDelete();
+        $mockS3 = Mockery::mock('alias:S3');
+        $mockS3
+            ->shouldReceive('inputFile')
+            ->once();
+        $mockS3
+            ->shouldReceive('putObject')
+            ->once()
+            ->andReturn(true);
+
+        Mockery::mock('alias:File')
+            ->shouldReceive('delete')
+            ->once()
+            ->andReturn(false);
 
         $imageStorer = $this->setUpImageStorer($uploader);
 
@@ -120,8 +153,15 @@ class Test_MediaStorer_Image extends TestCase
     {
         $uploader = $this->setUpMockUploader();
 
-        MockS3::setForStoreExecutingCorrectly();
-        MockFile::setForStoreExecutingCorrectly();
+        Mockery::mock('alias:S3')
+            ->shouldReceive('deleteObject')
+            ->once()
+            ->andReturn(true);
+
+        Mockery::mock('alias:File')
+            ->shouldReceive('delete')
+            ->once()
+            ->andReturn(true);
 
         $imageStorer = $this->setUpImageStorer($uploader);
 
@@ -136,8 +176,15 @@ class Test_MediaStorer_Image extends TestCase
     {
         $uploader = $this->setUpMockUploader();
 
-        MockS3::setForStoreThrowingExceptionOnDeleteObject();
-        MockFile::setForStoreExecutingCorrectly();
+        Mockery::mock('alias:S3')
+            ->shouldReceive('deleteObject')
+            ->once()
+            ->andReturn(false);
+
+        Mockery::mock('alias:File')
+            ->shouldReceive('delete')
+            ->once()
+            ->andReturn(true);
 
         $imageStorer = $this->setUpImageStorer($uploader);
 

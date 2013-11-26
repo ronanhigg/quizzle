@@ -22,7 +22,8 @@
     },
     "require-dev": {
         "phpunit/phpunit": "3.7.*",
-        "phpunit/php-code-coverage": ">=1.2.10,<1.3.0"
+        "phpunit/php-code-coverage": ">=1.2.10,<1.3.0",
+        "mockery/mockery": "dev-master@dev"
     },
     "suggest": {
         "mustache/mustache": "Allow Mustache templating with the Parser package",

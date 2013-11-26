@@ -70,11 +70,7 @@ class Rollback
         $this->call_counter++;
 
         try {
-            if (is_null($call['param_array'])) {
-                call_user_func(array($call['object'], $call['function']));
-            } else {
-                call_user_func_array(array($call['object'], $call['function']), $call['param_array']);
-            }
+            call_user_func_array(array($call['object'], $call['function']), $call['param_array']);
         } catch (Exception $e) {
             $this->execute_call($call);
         }
