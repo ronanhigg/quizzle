@@ -18,7 +18,7 @@ function onRequest(request, response, modules) {
       updatePusher;
   
   init = function () {
-    createAdDetection();
+    setupResponse();
   };
   
   createRelation = function (collection, id) {
@@ -27,6 +27,36 @@ function onRequest(request, response, modules) {
       _collection: collection,
       _id: id,
     };
+  };
+
+  setupResponse = function () {
+    response.body = {
+      'messages': []
+    };
+
+    checkIfAdHasBeenDetected();
+  };
+
+  checkIfAdHasBeenDetected = function () {
+    var requestData = request.body,
+        adDetectionsCollection = modules.collectionAccess.collection('adDetections');
+
+    adDetectionsCollection.find({
+      'ad_detection_id': requestData.detid
+    }, function (err, docs) {
+      if (err) {
+        return response.error('An error occurred while trying to find ad with detection ID "' + requestData.detid + '".');
+      }
+      
+      if (docs.length > 0) {
+        /**/
+        response.body.messages.push('An ad detection already exists in the system with the detection ID "' + requestData.detid + '".');
+        /**/
+        return response.complete(200);
+      }
+
+      createAdDetection();
+    });
   };
   
   createAdDetection = function () {
@@ -37,9 +67,7 @@ function onRequest(request, response, modules) {
     
     if (requestData.type !== 'start') {
       /**/
-      response.body = {
-        'messages': ['No adDetection created as this request has type "' + requestData.type + '".']
-      };
+      response.body.messages.push('No adDetection created as this request has type "' + requestData.type + '".');
       /**/
       return response.complete(200);
     }
@@ -58,12 +86,10 @@ function onRequest(request, response, modules) {
       }
   
       /**/
-      response.body = {
-        'messages': ['New adDetection created with ID "' + adDetection._id + '".'],
-        'adDetection': adDetection,
-        'err': err,
-        'doc': doc
-      };
+      response.body.messags.push('New adDetection created with ID "' + adDetection._id + '".');
+      response.body.adDetection = adDetection;
+      response.body.err = err;
+      response.body.doc = doc;
       /**/
       updatePusher(adDetection); 
       getAdAndAdBreak(adDetection);
