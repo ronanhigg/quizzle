@@ -1,8 +1,7 @@
 # Quizzle
 
-__Version: 0__
-
-* [Website](http://quizzle.ie/)
+* [Operator Website](http://operator.secondscreenmedia.net/ads)
+* [Mobile Game](http://quizzleoperator.cloudapp.net/)
 
 ## Contents
 
@@ -14,14 +13,6 @@ __Version: 0__
 * Kinvey Business Logic Backup
     * /kinvey
 
-## Version Log
-
-*No releases* 
-
-## Hotfix Log
-
-*No hotfixes*
-
 ## Known Bugs
 
-* Video or image files with a hyphen in the filename will cause upload to fail
+*None as of yet*
