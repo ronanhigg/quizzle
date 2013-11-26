@@ -31,7 +31,7 @@ class Collection implements Iterator
             $query_str_elements['query'] = json_encode($filters);
         }
 
-        if (static::$sort_field) {
+        if (isset(static::$sort_field)) {
             $query_str_elements['sort'] = json_encode(array(
                 static::$sort_field => static::$sort_order == 'desc' ? -1 : 1,
             ));
