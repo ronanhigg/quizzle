@@ -1,5 +1,5 @@
 function onRequest(request, response, modules){
-  var i,
+  var i, totalAmount,
 
       async = modules.async,
       collectionAccess = modules.collectionAccess,
@@ -13,6 +13,7 @@ function onRequest(request, response, modules){
       quizzesCollection = collectionAccess.collection('quizzes'),
 
       amount = request.body.amount,
+      includeAdlessDetections = request.body.includeAdlessDetections,
       lastAdDetectionID = request.body.lastAdDetectionID;
 
   if (amount > 25) {
@@ -21,17 +22,49 @@ function onRequest(request, response, modules){
     amount = 1;
   }
 
+  totalAmount = amount;
+  adDetectionsToReturn = [];
+
+  if (includeAdlessDetections === undefined) {
+    includeAdlessDetections = false;
+  }
+
   init = function () {
+    async.doWhilst(fetchAdDetections, function () {
+      return adDetectionsToReturn.length < totalAmount;
+
+    }, function (err) {
+      if (err) {
+        return response.error('An error occurred while trying to find ad detections.');
+      }
+
+      response.body = {
+        'amount': amount,
+        'lastAdDetectionID': lastAdDetectionID,
+        'docs': adDetectionsToReturn
+      };
+      
+      response.complete(200);
+    });
+  };
+
+  fetchAdDetections = function (asyncLoopCallback) {
     if (lastAdDetectionID) {
-      fetchAdDetectionsEarlierThan(lastAdDetectionID);
+      fetchAdDetectionsEarlierThan(lastAdDetectionID, asyncLoopCallback);
     } else {
-      fetchLatestAdDetections();
+      fetchLatestAdDetections(asyncLoopCallback);
     }
   };
 
-  fetchLatestAdDetections = function () {
+  fetchLatestAdDetections = function (asyncLoopCallback) {
+    if (includeAdlessDetections) {
+      limit = amount;
+    } else {
+      limit = amount * 10;
+    }
+
     adDetectionsCollection.find({}, {
-      limit: amount,
+      limit: limit,
       sort: [['_kmd.ect', -1]]
     }, function (err, docs) {
       if (err) {
@@ -39,24 +72,18 @@ function onRequest(request, response, modules){
       }
 
       async.each(docs, fetchRelationalData, function (err) {
-        if (err) {
-          return response.error('An error occurred while trying to find relational data for ad detections.');
-        }
-
-        response.body = {
-          'amount': amount,
-          'lastAdDetectionID': lastAdDetectionID,
-          'docs': docs
-        };
-        
-        response.complete(200);
+        addDocsToAdDetectionToReturn(err, docs, asyncLoopCallback);
       });
     });
   };
 
-  fetchAdDetectionsEarlierThan = function (adDetectionID) {
+  fetchAdDetectionsEarlierThan = function (adDetectionID, asyncLoopCallback) {
+    if (typeof adDetectionID === 'string') {
+      adDetectionID = adDetectionsCollection.objectID(adDetectionID);
+    }
+
     adDetectionsCollection.findOne({
-      '_id': adDetectionsCollection.objectID(adDetectionID)
+      '_id': adDetectionID
     }, function (err, doc) {
       if (err) {
         return response.error('An error occurred while trying to find last ad detection.');
@@ -66,10 +93,16 @@ function onRequest(request, response, modules){
         fetchLatestAdDetections();
       }
 
+      if (includeAdlessDetections) {
+        limit = amount;
+      } else {
+        limit = amount * 10;
+      }
+
       adDetectionsCollection.find({
         '_kmd.ect': {"$lt": doc._kmd.ect}
       }, {
-        limit: amount,
+        limit: limit,
         sort: [['_kmd.ect', -1]]
       }, function (err, docs) {
         if (err) {
@@ -77,20 +110,37 @@ function onRequest(request, response, modules){
         }
 
         async.each(docs, fetchRelationalData, function (err) {
-          if (err) {
-            return response.error('An error occurred while trying to find relational data for ad detections.');
-          }
-
-          response.body = {
-            'amount': amount,
-            'lastAdDetectionID': lastAdDetectionID,
-            'docs': docs
-          };
-          
-          response.complete(200);
+          addDocsToAdDetectionToReturn(err, docs, asyncLoopCallback);
         });
       });
-    })
+    });
+  };
+
+  addDocsToAdDetectionToReturn = function (err, docs, asyncLoopCallback) {
+    var adlessDetections = 0;
+
+    if (err) {
+      return response.error('An error occurred while trying to find relational data for ad detections.');
+    }
+
+    if (includeAdlessDetections) {
+      adDetectionsToReturn = docs;
+
+    } else {
+
+      for (i = 0; i < docs.length && adDetectionsToReturn.length < totalAmount; i++) {
+        if (docs[i].noAdData) {
+          adlessDetections++;
+        } else {
+          adDetectionsToReturn.push(docs[i]);
+        }
+      }
+
+      lastAdDetectionID = adDetectionsToReturn[adDetectionsToReturn.length -1]._id;
+      amount = adlessDetections;
+    }
+
+    asyncLoopCallback();
   };
 
   fetchRelationalData = function (adDetection, asyncCallback) {

@@ -167,12 +167,14 @@ define([
         stream: ensureLogin(function () {
             var lastAdDetectionID,
                 panels = [],
-                streamView = new StreamView();
+                streamView = new StreamView(),
+                $debugModeBtn = $('.js-debug-mode');
 
             $('#main').html(streamView.render().el);
 
             Kinvey.execute('fetchAdDetections', {
-                'amount': 10
+                'amount': 10,
+                'includeAdlessDetections': $debugModeBtn.hasClass('active')
             })
                 .then(function (response) {
                     //console.log(response);
@@ -195,7 +197,8 @@ define([
             $('.js-stream-load').on('click', function () {
                 Kinvey.execute('fetchAdDetections', {
                     'amount': 10,
-                    'lastAdDetectionID': lastAdDetectionID
+                    'lastAdDetectionID': lastAdDetectionID,
+                    'includeAdlessDetections': $debugModeBtn.hasClass('active')
                 })
                     .then(function (response) {
                         //console.log(response);
