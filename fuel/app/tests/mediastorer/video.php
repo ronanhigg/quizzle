@@ -1,18 +1,20 @@
 <?php
 
 /**
+ * @group FullApp
  * @group App
  */
 class Test_MediaStorer_Video extends TestCase
 {
     public function setUp()
     {
-        $this->savedAsValue = 'randomfilename';
-    }
+        $this->uploader = $this->setUpMockUploader();
+        $this->cloudStorageAdapter = $this->setUpMockCloudStorageAdapter();
+        $this->fileAdapter = $this->setUpMockFileAdapter();
 
-    private function setUpVideoStorer($uploader)
-    {
-        return new MediaStorer_Video($uploader);
+        $this->videoStorer = new MediaStorer_Video($this->uploader, $this->cloudStorageAdapter, $this->fileAdapter);
+
+        $this->savedAsValue = 'randomfilename';
     }
 
     private function setUpMockUploader()
@@ -25,43 +27,51 @@ class Test_MediaStorer_Video extends TestCase
         return $uploader;
     }
 
-    private function addMethodFindUploadWithFieldName($uploader)
+    private function setUpMockCloudStorageAdapter()
     {
-        $uploader->expects($this->once())
+        return Mockery::mock('Adapter_CloudStorage');
+    }
+
+    private function setUpMockFileAdapter()
+    {
+        return Mockery::mock('Adapter_File');
+    }
+
+    private function prepareMockUploaderForSuccessfulStore()
+    {
+        $this->uploader->expects($this->once())
             ->method('find_upload_with_field_name')
             ->with($this->equalTo('video_url'))
             ->will($this->returnValue(array(
                 'saved_as' => $this->savedAsValue,
             )));
+    }
 
-        return $uploader;
+    private function prepareMockCloudStorageAdapterForSuccessfulStore()
+    {
+        $this->cloudStorageAdapter
+            ->shouldReceive('input_file')
+            ->once();
+        $this->cloudStorageAdapter
+            ->shouldReceive('put_object')
+            ->once()
+            ->andReturn(true);
     }
 
     /**
      * @test
      */
-    public function storeReturnsVideoURL()
+    public function storeReturnsImageURL()
     {
-        $uploader = $this->setUpMockUploader();
-        $uploader = $this->addMethodFindUploadWithFieldName($uploader);
+        $this->prepareMockUploaderForSuccessfulStore();
+        $this->prepareMockCloudStorageAdapterForSuccessfulStore();
 
-        $mockS3 = Mockery::mock('alias:S3');
-        $mockS3
-            ->shouldReceive('inputFile')
-            ->once();
-        $mockS3
-            ->shouldReceive('putObject')
-            ->once()
-            ->andReturn(true);
-
-        Mockery::mock('alias:File')
+        $this->fileAdapter
             ->shouldReceive('delete')
             ->once()
             ->andReturn(true);
 
-        $videoStorer = $this->setUpVideoStorer($uploader);
-
-        $actualResult = $videoStorer->store();
+        $actualResult = $this->videoStorer->store();
 
         $expectedResult = 'https://' . Config::get('s3.endpoint') . '/' . MediaStorer_Video::BUCKET . '/' . $this->savedAsValue;
 
@@ -78,16 +88,12 @@ class Test_MediaStorer_Video extends TestCase
      */
     public function storeHandlesUploaderThrowingAnException()
     {
-        $uploader = $this->setUpMockUploader();
-
-        $uploader->expects($this->once())
+        $this->uploader->expects($this->once())
             ->method('find_upload_with_field_name')
             ->with($this->equalTo('video_url'))
             ->will($this->throwException(new UploaderException));
 
-        $videoStorer = $this->setUpVideoStorer($uploader);
-
-        $videoStorer->store();
+        $this->videoStorer->store();
     }
 
     /**
@@ -96,26 +102,17 @@ class Test_MediaStorer_Video extends TestCase
      */
     public function storeHandlesCloudStorageServiceThrowingAnException()
     {
-        $uploader = $this->setUpMockUploader();
-        $uploader = $this->addMethodFindUploadWithFieldName($uploader);
+        $this->prepareMockUploaderForSuccessfulStore();
 
-        $mockS3 = Mockery::mock('alias:S3');
-        $mockS3
-            ->shouldReceive('inputFile')
+        $this->cloudStorageAdapter
+            ->shouldReceive('input_file')
             ->once();
-        $mockS3
-            ->shouldReceive('putObject')
+        $this->cloudStorageAdapter
+            ->shouldReceive('put_object')
             ->once()
             ->andReturn(false);
 
-        Mockery::mock('alias:File')
-            ->shouldReceive('delete')
-            ->once()
-            ->andReturn(true);
-
-        $videoStorer = $this->setUpVideoStorer($uploader);
-
-        $videoStorer->store();
+        $this->videoStorer->store();
     }
 
     /**
@@ -124,26 +121,15 @@ class Test_MediaStorer_Video extends TestCase
      */
     public function storeHandlesFileUtilityThrowingAnException()
     {
-        $uploader = $this->setUpMockUploader();
-        $uploader = $this->addMethodFindUploadWithFieldName($uploader);
+        $this->prepareMockUploaderForSuccessfulStore();
+        $this->prepareMockCloudStorageAdapterForSuccessfulStore();
 
-        $mockS3 = Mockery::mock('alias:S3');
-        $mockS3
-            ->shouldReceive('inputFile')
-            ->once();
-        $mockS3
-            ->shouldReceive('putObject')
-            ->once()
-            ->andReturn(true);
-
-        Mockery::mock('alias:File')
+        $this->fileAdapter
             ->shouldReceive('delete')
             ->once()
             ->andReturn(false);
 
-        $videoStorer = $this->setUpVideoStorer($uploader);
-
-        $videoStorer->store();
+        $this->videoStorer->store();
     }
 
     /**
@@ -151,21 +137,12 @@ class Test_MediaStorer_Video extends TestCase
      */
     public function removeWorks()
     {
-        $uploader = $this->setUpMockUploader();
-
-        Mockery::mock('alias:S3')
-            ->shouldReceive('deleteObject')
+        $this->cloudStorageAdapter
+            ->shouldReceive('delete_object')
             ->once()
             ->andReturn(true);
 
-        Mockery::mock('alias:File')
-            ->shouldReceive('delete')
-            ->once()
-            ->andReturn(true);
-
-        $videoStorer = $this->setUpVideoStorer($uploader);
-
-        $videoStorer->remove('not a real URL');
+        $this->videoStorer->remove('not a real URL');
     }
 
     /**
@@ -174,21 +151,12 @@ class Test_MediaStorer_Video extends TestCase
      */
     public function removeHandlesCloudStorageServiceThrowingAnException()
     {
-        $uploader = $this->setUpMockUploader();
-
-        Mockery::mock('alias:S3')
-            ->shouldReceive('deleteObject')
+        $this->cloudStorageAdapter
+            ->shouldReceive('delete_object')
             ->once()
             ->andReturn(false);
 
-        Mockery::mock('alias:File')
-            ->shouldReceive('delete')
-            ->once()
-            ->andReturn(true);
-
-        $videoStorer = $this->setUpVideoStorer($uploader);
-
-        $videoStorer->remove('not a real URL');
-
+        $this->videoStorer->remove('not a real URL');
     }
 }
+

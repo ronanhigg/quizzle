@@ -1,6 +1,7 @@
 <?php
 
 /**
+ * @group FullApp
  * @group App
  */
 class Test_View_Separator extends TestCase

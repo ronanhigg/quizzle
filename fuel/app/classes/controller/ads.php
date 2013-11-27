@@ -96,6 +96,8 @@ class Controller_Ads extends Controller_Base
         }
 
         $uploader = new Uploader('Upload');
+        $file_adapter = new Adapter_File;
+        $cloud_storage_adapter = new Adapter_CloudStorage;
 
         try {
             $uploader->process();
@@ -103,7 +105,7 @@ class Controller_Ads extends Controller_Base
             throw new Controller_AdsException($e->getMessage());
         }
 
-        $image_storer = new MediaStorer_Image($uploader);
+        $image_storer = new MediaStorer_Image($uploader, $cloud_storage_adapter, $file_adapter);
 
         try {
             $storyboard_url = $image_storer->store('storyboard_url');
@@ -129,7 +131,7 @@ class Controller_Ads extends Controller_Base
         }
 
         try {
-            $video_storer = new MediaStorer_Video($uploader);
+            $video_storer = new MediaStorer_Video($uploader, $cloud_storage_adapter, $file_adapter);
             $video_url = $video_storer->store();
             $rollback->add_call($video_storer, 'remove', $video_url);
 
@@ -340,6 +342,8 @@ class Controller_Ads extends Controller_Base
 
         $rollback = new Rollback;
         $uploader = new Uploader('Upload');
+        $file_adapter = new Adapter_File;
+        $cloud_storage_adapter = new Adapter_CloudStorage;
 
         try {
             $uploader->process();
@@ -351,7 +355,7 @@ class Controller_Ads extends Controller_Base
             return;
         }
 
-        $image_storer = new MediaStorer_Image($uploader);
+        $image_storer = new MediaStorer_Image($uploader, $cloud_storage_adapter, $file_adapter);
 
         try {
             $storyboard_url_to_save = $image_storer->store('storyboard_url');
@@ -380,7 +384,7 @@ class Controller_Ads extends Controller_Base
         }
 
         try {
-            $video_storer = new MediaStorer_Video($uploader);
+            $video_storer = new MediaStorer_Video($uploader, $cloud_storage_adapter, $file_adapter);
             $video_url_to_save = $video_storer->store();
             $video_url_to_remove = $ad->video_url;
 
@@ -709,6 +713,8 @@ class Controller_Ads extends Controller_Base
 
         $rollback = new Rollback;
         $uploader = new Uploader('Upload');
+        $file_adapter = new Adapter_File;
+        $cloud_storage_adapter = new Adapter_CloudStorage;
 
         try {
             $ad->delete();
@@ -751,7 +757,7 @@ class Controller_Ads extends Controller_Base
             }
         }
 
-        $image_storer = new MediaStorer_Image($uploader);
+        $image_storer = new MediaStorer_Image($uploader, $cloud_storage_adapter, $file_adapter);
 
         try {
             $image_storer->remove($ad->storyboard_url);
@@ -763,7 +769,7 @@ class Controller_Ads extends Controller_Base
         }
 
         try {
-            $video_storer = new MediaStorer_Video($uploader);
+            $video_storer = new MediaStorer_Video($uploader, $cloud_storage_adapter, $file_adapter);
             $video_storer->remove($ad->video_url);
         } catch (MediaStorer_VideoException $e) {
             $rollback->execute();

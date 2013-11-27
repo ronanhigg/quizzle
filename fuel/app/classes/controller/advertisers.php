@@ -90,6 +90,8 @@ class Controller_Advertisers extends Controller_Base
 
         $rollback = new Rollback;
         $uploader = new Uploader('Upload');
+        $file_adapter = new Adapter_File;
+        $cloud_storage_adapter = new Adapter_CloudStorage;
 
         try {
             $uploader->process();
@@ -101,7 +103,7 @@ class Controller_Advertisers extends Controller_Base
             return;
         }
 
-        $image_storer = new MediaStorer_Image($uploader, 'S3', 'File');
+        $image_storer = new MediaStorer_Image($uploader, $cloud_storage_adapter, $file_adapter);
 
         try {
             $logo_url_to_save = $image_storer->store('logo_url');
