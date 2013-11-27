@@ -11,6 +11,11 @@ class Test_Adapter_CloudStorage extends TestCase
         $this->cloudStorageAdapter = new Adapter_CloudStorage;
     }
 
+    public function tearDown()
+    {
+        Mockery::close();
+    }
+
     /**
      * @test
      */

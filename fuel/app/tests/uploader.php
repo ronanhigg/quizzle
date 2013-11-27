@@ -8,22 +8,39 @@ class Test_Uploader extends TestCase
 {
     public function setUp()
     {
-        $this->uploader = new Uploader('MockUpload');
+        $this->uploadAdapter = $this->setUpMockUploadAdapter();
+        $this->uploader = new Uploader($this->uploadAdapter);
+    }
+
+    public function tearDown()
+    {
+        Mockery::close();
+    }
+
+    public function setUpMockUploadAdapter()
+    {
+        return Mockery::mock('Adapter_Upload');
     }
 
     /**
      * @test
      */
-    public function constructorCorrectlyInitialisesAndProcessWorks()
+    public function processWorks()
     {
-        MockUpload::setForProcessExecutingCorrectly();
-        $this->uploader->process();
+        $this->uploadAdapter
+            ->shouldReceive('process')
+            ->once();
 
-        $this->assertInstanceOf(
-            'Uploader',
-            $this->uploader,
-            'Uploader::__construct() did not return an Uploader object'
-        );
+        $this->uploadAdapter
+            ->shouldReceive('is_valid')
+            ->once()
+            ->andReturn(true);
+
+        $this->uploadAdapter
+            ->shouldReceive('save')
+            ->once();
+
+        $this->uploader->process();
     }
 
     /**
@@ -32,7 +49,50 @@ class Test_Uploader extends TestCase
      */
     public function processHandlesUploadUtilityHavingNoFiles()
     {
-        MockUpload::setForProcessThrowingNoFilesException();
+        $this->uploadAdapter
+            ->shouldReceive('process')
+            ->once();
+
+        $this->uploadAdapter
+            ->shouldReceive('is_valid')
+            ->once()
+            ->andReturn(false);
+
+        $this->uploadAdapter
+            ->shouldReceive('get_errors')
+            ->once()
+            ->andReturn(array(
+                array(
+                    'errors' => array(
+                        array(
+                            'error' => 9999,
+                            'message' => 'Mock message 1',
+                        ),
+                        array(
+                            'error' => 9999,
+                            'message' => 'Mock message 2',
+                        ),
+                    ),
+                ),
+                array(
+                    'errors' => array(
+                        array(
+                            'error' => 9999,
+                            'message' => 'Mock message 3',
+                        ),
+                        array(
+                            'error' => 9999,
+                            'message' => 'Mock message 4',
+                        ),
+                    ),
+                ),
+            ));
+
+        $this->uploadAdapter
+            ->shouldReceive('is_no_file_error')
+            ->times(4)
+            ->andReturn(true);
+
         $this->uploader->process();
     }
 
@@ -42,7 +102,46 @@ class Test_Uploader extends TestCase
      */
     public function processHandlesUploadUtiliyThrowingAnException()
     {
-        MockUpload::setForProcessThrowingException();
+        $this->uploadAdapter
+            ->shouldReceive('process')
+            ->once();
+
+        $this->uploadAdapter
+            ->shouldReceive('is_valid')
+            ->once()
+            ->andReturn(false);
+
+        $this->uploadAdapter
+            ->shouldReceive('get_errors')
+            ->once()
+            ->andReturn(array(
+                array(
+                    'errors' => array(
+                        array(
+                            'error' => 1111,
+                            'message' => 'Mock message 1',
+                        ),
+                        array(
+                            'error' => 4444,
+                            'message' => 'Mock message 2',
+                        ),
+                    ),
+                ),
+                array(
+                    'errors' => array(
+                        array(
+                            'error' => 8888,
+                            'message' => 'Mock message 3',
+                        ),
+                    ),
+                ),
+            ));
+
+        $this->uploadAdapter
+            ->shouldReceive('is_no_file_error')
+            ->times(3)
+            ->andReturn(true, false, true);
+
         $this->uploader->process();
     }
 
@@ -51,12 +150,30 @@ class Test_Uploader extends TestCase
      */
     public function findUploadWithFieldNameReturnsFileData()
     {
-        $expectedFileData = MockUpload::setForFindUploadWithFieldNameFindingFieldNamed('test_upload_field');
-        $actualFileData = $this->uploader->find_upload_with_field_name('test_upload_field');
+        $field_name = 'test_upload_field';
+
+        $this->uploadAdapter
+            ->shouldReceive('get_files')
+            ->once()
+            ->andReturn(array(
+                array(
+                    'field' => $field_name,
+                    'other_data' => 3,
+                ),
+                array(
+                    'field' => 'a_field_not_called_test_upload_field',
+                    'other_data' => 67,
+                ),
+            ));
+
+        $actualFileData = $this->uploader->find_upload_with_field_name($field_name);
 
         $this->assertEquals(
+            array(
+                'field' => $field_name,
+                'other_data' => 3,
+            ),
             $actualFileData,
-            $expectedFileData,
             'Uploader::find_upload_with_field_name() does not return the expected file data'
         );
     }
@@ -67,7 +184,16 @@ class Test_Uploader extends TestCase
      */
     public function findUploadWithFieldNameHandlesNonexistantFieldName()
     {
-        MockUpload::setForFindUploadWithFieldNameFindingNoFieldNamed('test_upload_field');
+        $this->uploadAdapter
+            ->shouldReceive('get_files')
+            ->once()
+            ->andReturn(array(
+                array(
+                    'field' => 'a_field_not_called_test_upload_field',
+                    'other_data' => 67,
+                ),
+            ));
+
         $this->uploader->find_upload_with_field_name('test_upload_field');
     }
 }

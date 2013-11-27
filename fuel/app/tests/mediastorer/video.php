@@ -17,6 +17,11 @@ class Test_MediaStorer_Video extends TestCase
         $this->savedAsValue = 'randomfilename';
     }
 
+    public function tearDown()
+    {
+        Mockery::close();
+    }
+
     private function setUpMockUploader()
     {
         $uploader = $this->getMockBuilder('Uploader')

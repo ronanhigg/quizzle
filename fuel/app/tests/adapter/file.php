@@ -11,6 +11,11 @@ class Test_Adapter_File extends TestCase
         $this->fileAdapter = new Adapter_File;
     }
 
+    public function tearDown()
+    {
+        Mockery::close();
+    }
+
     /**
      * @test
      */

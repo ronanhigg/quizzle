@@ -95,9 +95,10 @@ class Controller_Ads extends Controller_Base
             }
         }
 
-        $uploader = new Uploader('Upload');
         $file_adapter = new Adapter_File;
         $cloud_storage_adapter = new Adapter_CloudStorage;
+        $upload_adapter = new Adapter_Upload;
+        $uploader = new Uploader($upload_adapter);
 
         try {
             $uploader->process();
@@ -344,9 +345,10 @@ class Controller_Ads extends Controller_Base
         }
 
         $rollback = new Rollback;
-        $uploader = new Uploader('Upload');
         $file_adapter = new Adapter_File;
         $cloud_storage_adapter = new Adapter_CloudStorage;
+        $upload_adapter = new Adapter_Upload;
+        $uploader = new Uploader($upload_adapter);
 
         try {
             $uploader->process();
@@ -715,9 +717,10 @@ class Controller_Ads extends Controller_Base
         }
 
         $rollback = new Rollback;
-        $uploader = new Uploader('Upload');
         $file_adapter = new Adapter_File;
         $cloud_storage_adapter = new Adapter_CloudStorage;
+        $upload_adapter = new Adapter_Upload;
+        $uploader = new Uploader($upload_adapter);
 
         try {
             $ad->delete();
