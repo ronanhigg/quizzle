@@ -135,6 +135,9 @@ class Controller_Ads extends Controller_Base
             $video_url = $video_storer->store();
             $rollback->add_call($video_storer, 'remove', $video_url);
 
+        } catch (MediaStorer_VideoNoFileException $e) {
+            $video_url = null;
+
         } catch (MediaStorer_VideoException $e) {
             throw new Controller_AdsException($e->getMessage());
         }
