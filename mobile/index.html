@@ -118,8 +118,6 @@
 
     <script type="text/html" id="stream-template">
 
-      <h2>Stream</h2>
-
       <div id="stream-panels"></div>
 
       <div class="panel panel-default js-loading">
@@ -137,18 +135,18 @@
     <script type="text/html" id="stream-panel-template">
 
       <div class="panel panel-default js-stream" data-id="<%= id %>">
-        <div class="panel-heading">
-          <h3 class="panel-title"><%= channelName %></h3>
-        </div>
+      
+        <% if (hasAdData) { %>
+          <div class="panel-heading" style="padding: 0;">
+            <div style="width: 323px; height: 182px; background-image: url(<%= storyboardURL %>); background-position: <%= storyboardBackgroundPosition %>; background-size: 999px 578px; margin: 0 auto;"></div>
+          </div>
+        <% } %>
+          
         <div class="panel-body">
 
           <% if (hasAdData) { %>
 
-            <div style="width: 166px; height: 96px; background-image: url(<%= storyboardURL %>); background-position: <%= storyboardBackgroundPosition %>; margin: 0 auto;"></div>
-
             <div class="js-stream-logos">
-
-              <hr>
 
               <h4 style="text-align: center; margin-bottom: 1em;">
                 Tap the logo of the company from this ad
@@ -186,26 +184,24 @@
 
               <div class="js-stream-trivia hide">
 
-                <hr>
-
                 <h4 style="text-align: center; margin-bottom: 1em;">
                   <%= question %>
                 </h4>
 
                 <div class="row" style="margin-bottom: 1em;">
                   <div class="col-xs-6" style="text-align: center;">
-                    <a href="#" class="btn btn-lg btn-block btn-default js-stream-trivia-guess" data-index="0"><%= answers[0] %></a>
+                    <a href="#" class="btn btn-lg btn-block btn-info js-stream-trivia-guess" style="white-space: normal;" data-index="0"><%= answers[0] %></a>
                   </div>
                   <div class="col-xs-6" style="text-align: center;">
-                    <a href="#" class="btn btn-lg btn-block btn-default js-stream-trivia-guess" data-index="1"><%= answers[1] %></a>
+                    <a href="#" class="btn btn-lg btn-block btn-info js-stream-trivia-guess" style="white-space: normal;" data-index="1"><%= answers[1] %></a>
                   </div>
                 </div>
                 <div class="row">
                   <div class="col-xs-6" style="text-align: center;">
-                    <a href="#" class="btn btn-lg btn-block btn-default js-stream-trivia-guess" data-index="2"><%= answers[2] %></a>
+                    <a href="#" class="btn btn-lg btn-block btn-info js-stream-trivia-guess" style="white-space: normal;" data-index="2"><%= answers[2] %></a>
                   </div>
                   <div class="col-xs-6" style="text-align: center;">
-                    <a href="#" class="btn btn-lg btn-block btn-default js-stream-trivia-guess" data-index="3"><%= answers[3] %></a>
+                    <a href="#" class="btn btn-lg btn-block btn-info js-stream-trivia-guess" style="white-space: normal;" data-index="3"><%= answers[3] %></a>
                   </div>
                 </div>
 
@@ -215,9 +211,7 @@
 
               <div class="js-stream-trivia hide">
 
-                <hr>
-
-                <div class="alert alert-warning" style="text-align: center;">
+                <div class="alert alert-warning" style="text-align: center; margin-bottom: 0;">
                   <h3 style="margin-top: 0;">
                     There are no trivia questions available
                   </h3>
@@ -232,9 +226,7 @@
 
             <div class="js-stream-success hide">
 
-              <hr>
-
-              <div class="alert alert-success" style="text-align: center;">
+              <div class="alert alert-success" style="text-align: center; margin-bottom: 0;">
                 <h3 style="margin: 0;">
                   You win <strong>500</strong> points
                 </h3>
@@ -244,9 +236,7 @@
 
             <div class="js-stream-failure hide">
 
-              <hr>
-
-              <div class="alert alert-danger" style="text-align: center;">
+              <div class="alert alert-danger" style="text-align: center; margin-bottom: 0;">
                 <h3 style="margin: 0;">
                   Wrong
                 </h3>
@@ -260,7 +250,7 @@
 
         </div>
         <div class="panel-footer">
-          <small><%= startingAt %></small>
+          <small><%= channelName %> &ndash; <%= startingAt %></small>
         </div>
       </div>
 

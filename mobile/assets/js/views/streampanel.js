@@ -29,15 +29,15 @@ define([
             var startingAt, storyboardBackgroundPosition, logos, answers, question,
 
                 positions = [
-                    '0px 0px',
-                    '165px 0px',
-                    '330px 0px',
-                    '0px 95px',
-                    '165px 95px',
-                    '330px 95px',
-                    '0px 190px',
-                    '165px 190px',
-                    //'330px 190px' - Remove this frame
+                    '661px -7px',
+                    '330px -7px',
+                    '-7px -7px',
+                    '661px -198px',
+                    '330px -198px',
+                    '-7px -198px',
+                    '661px 3-338px',
+                    '330px -338px'
+                    //'-7px -338px', - Remove this frame
                 ],
 
                 doc = this.options.doc,
