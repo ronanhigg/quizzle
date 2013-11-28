@@ -120,11 +120,17 @@
 
       <h2>Stream</h2>
 
-      <div id="stream-panels">
-        Loading...
+      <div id="stream-panels"></div>
+
+      <div class="panel panel-default js-loading">
+        <div class="panel-body" style="text-align: center;">
+          <h3 style="margin: 0;">Loading...</h3>
+        </div>
       </div>
 
       <a href="#" class="btn btn-block btn-default hide js-stream-load">Load More</a>
+
+      <a href="#" class="btn btn-block btn-default hide js-stream-try-again">Try Again</a>
 
     </script>
 
@@ -251,6 +257,21 @@
             <h4 class="modal-title"><%= title %></h4>
           </div>
         </div>
+      </div>
+
+    </script>
+
+    <script type="text/html" id="error-message-template">
+
+      <div class="alert alert-danger" style="text-align: center;">
+        <p><strong><%= message %></strong></p>
+        <p><a href="#" class="btn btn-danger btn-xs js-toggle-display" data-toggle-display-target="error-details">Read More</a></p>
+      </div>
+
+      <div class="alert alert-danger hide" data-toggle-display-name="error-details" style="padding-bottom: 0;">
+        <p><strong><%= error.name %></strong></p>
+        <p><%= error.description %></p>
+        <pre style="margin-top: 7px;"><%= error.debug %></pre>
       </div>
 
     </script>

@@ -9,6 +9,7 @@ define([
     'loader',
 
     'views/checkin',
+    'views/errormessage',
     'views/login',
     'views/register',
     'views/stream',
@@ -31,6 +32,7 @@ define([
     Loader,
 
     CheckInView,
+    ErrorMessageView,
     LoginView,
     RegisterView,
     StreamView,
@@ -165,43 +167,20 @@ define([
         }),
 
         stream: ensureLogin(function () {
-            var lastAdDetectionID,
+            var lastAdDetectionID, fetchInitialAdDetections,
                 panels = [],
                 streamView = new StreamView(),
                 $debugModeBtn = $('.js-debug-mode');
 
-            $('#main').html(streamView.render().el);
-
-            Kinvey.execute('fetchAdDetections', {
-                'amount': 10,
-                'includeAdlessDetections': $debugModeBtn.hasClass('active')
-            })
-                .then(function (response) {
-                    //console.log(response);
-
-                    $('#stream-panels').empty();
-                    $('.js-stream-load').removeClass('hide');
-
-                    _.each(response.docs, function (doc) {
-                        var streamPanelView = new StreamPanelView({
-                            panels: panels,
-                            doc: doc
-                        });
-                        lastAdDetectionID = doc._id;
-                        $('#stream-panels').append(streamPanelView.render().el);
-                    });
-                }, function (xhr, status, error) {
-                    //console.error('PROMISE ERROR 1', xhr, status, error);
-                });
-
-            $('.js-stream-load').on('click', function () {
+            fetchInitialAdDetections = function () {
                 Kinvey.execute('fetchAdDetections', {
                     'amount': 10,
-                    'lastAdDetectionID': lastAdDetectionID,
                     'includeAdlessDetections': $debugModeBtn.hasClass('active')
                 })
                     .then(function (response) {
-                        //console.log(response);
+                        $('.js-stream-try-again').addClass('hide');
+                        $('.js-loading').addClass('hide');
+                        $('.js-stream-load').removeClass('hide');
 
                         _.each(response.docs, function (doc) {
                             var streamPanelView = new StreamPanelView({
@@ -212,7 +191,58 @@ define([
                             $('#stream-panels').append(streamPanelView.render().el);
                         });
                     }, function (xhr, status, error) {
-                        //console.error('PROMISE ERROR 1', xhr, status, error);
+                        $('.js-loading').addClass('hide');
+                        $('.js-stream-try-again').removeClass('hide');
+
+                        var errorMessageView = new ErrorMessageView({
+                            message: 'There was a connection problem and the ad stream was not retrieved',
+                            error: xhr
+                        });
+                        $('#stream-panels').html(errorMessageView.render().el);
+                    });
+            };
+
+            $('#main').html(streamView.render().el);
+
+            fetchInitialAdDetections();
+
+            $('.js-stream-try-again').on('click', function () {
+                $('.js-loading').removeClass('hide');
+                $('.error-message').remove();
+                
+                fetchInitialAdDetections();
+                return false;
+            });
+
+            $('.js-stream-load').on('click', function () {
+                $('.js-loading').removeClass('hide');
+                $('.error-message').remove();
+
+                Kinvey.execute('fetchAdDetections', {
+                    'amount': 10,
+                    'lastAdDetectionID': lastAdDetectionID,
+                    'includeAdlessDetections': $debugModeBtn.hasClass('active')
+                })
+                    .then(function (response) {
+                        $('.js-loading').addClass('hide');
+
+                        _.each(response.docs, function (doc) {
+                            var streamPanelView = new StreamPanelView({
+                                panels: panels,
+                                doc: doc
+                            });
+                            lastAdDetectionID = doc._id;
+                            $('#stream-panels').append(streamPanelView.render().el);
+                        });
+                    }, function (xhr, status, error) {
+                        $('.js-loading').addClass('hide');
+
+                        var errorMessageView = new ErrorMessageView({
+                            message: 'There was a connection problem and further ads for the stream were not retrieved',
+                            error: xhr
+                        });
+                        $('#stream-panels').append(errorMessageView.render().el);
+                        console.error('PROMISE ERROR 1', xhr, status, error);
                     });
                 return false;
             });
@@ -244,6 +274,19 @@ define([
                     $stream.find('.js-stream-success').removeClass('hide');
                 } else {
                     $stream.find('.js-stream-failure').removeClass('hide');
+                }
+
+                return false;
+            });
+
+            $('#main').on('click', '.js-toggle-display', function () {
+                var target = $(this).data('toggle-display-target'),
+                    $target = $('[data-toggle-display-name="' + target + '"]');
+
+                if ($target.hasClass('hide')) {
+                    $target.removeClass('hide');
+                } else {
+                    $target.addClass('hide');
                 }
 
                 return false;
