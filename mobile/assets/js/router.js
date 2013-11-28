@@ -209,7 +209,7 @@ define([
             $('.js-stream-try-again').on('click', function () {
                 $('.js-loading').removeClass('hide');
                 $('.error-message').remove();
-                
+
                 fetchInitialAdDetections();
                 return false;
             });
@@ -248,14 +248,17 @@ define([
             });
 
             $('#main').on('click', '.js-stream-logo-guess', function () {
-                var $stream = $(this).parents('.js-stream'),
+                var $trivia,
+                    $stream = $(this).parents('.js-stream'),
                     id = $stream.data('id'),
                     guessIndex = $(this).data('index');
 
                 $(this).parents('.js-stream-logos').addClass('hide');
 
                 if (guessIndex === panels[id].correctLogoIndex) {
-                    $stream.find('.js-stream-trivia').removeClass('hide');
+                    $trivia = $stream.find('.js-stream-trivia');
+                    //if ($trivia.)
+                    $trivia.removeClass('hide');
                 } else {
                     $stream.find('.js-stream-failure').removeClass('hide');
                 }
