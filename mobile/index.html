@@ -11,33 +11,25 @@
       <script src="/assets/js/vendor/respond.min.js"></script>
     <![endif]-->
   </head>
-  <body>
+  <body style="padding-top: 70px;">
 
     <div class="container">
 
-      <div class="page-header">
-        <h1>
-          Quizzle
-          <small class="pull-right" id="player-name"></small>
-        </h1>
-      </div>
+      <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle btn btn-xs js-debug-mode" data-toggle="button">
+            Debug Mode
+          </button>
+          <a class="navbar-brand" href="#">Quizzle</a>
+        </div>
+
+      </nav>
 
       <div id="main"></div>
 
       <br>
 
-      <footer class="clearfix well well-sm">
-
-        <div class="pull-left" style="line-height: 30px;">
-          Quizzle &copy; 2013
-        </div>
-
-        <div class="pull-right">
-          <a href="#" class="btn btn-default btn-sm js-debug-mode" data-toggle="button">Debug Mode</a>
-          <a href="#logout" class="btn btn-default btn-sm">Log out</a>
-        </div>
-
-      </footer>
     </div>
 
     <script type="text/html" id="login-template">
@@ -135,7 +127,7 @@
     <script type="text/html" id="stream-panel-template">
 
       <div class="panel panel-default js-stream" data-id="<%= id %>">
-      
+
         <% if (hasAdData) { %>
           <div class="panel-heading" style="padding: 0;">
             <div style="width: 323px; height: 182px; background-image: url(<%= storyboardURL %>); background-position: <%= storyboardBackgroundPosition %>; background-size: 999px 578px; margin: 0 auto;"></div>
