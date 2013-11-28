@@ -2,9 +2,13 @@
 
 class CollectionException extends Exception {}
 
-class Collection implements Iterator
+abstract class Collection implements Iterator
 {
-    protected static $model_class;
+    /* DRAGON - This property should be protected rather than public, but has
+                been changed for implementing tests on this class
+                -- Conor
+    */
+    public static $model_class;
 
     private $_models;
     private $_model_ids;
