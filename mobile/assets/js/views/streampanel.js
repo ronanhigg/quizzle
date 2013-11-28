@@ -86,7 +86,8 @@ define([
                 'storyboardBackgroundPosition': storyboardBackgroundPosition,
                 'logos': logos,
                 'question': question,
-                'answers': answers
+                'answers': answers,
+                'displayID': this.options.displayID
             }));
 
             return this;

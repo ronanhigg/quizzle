@@ -1,5 +1,5 @@
 /* Directives for jslint */
-/*global define */
+/*global define, _ */
 
 define([
     'jquery',
@@ -167,29 +167,74 @@ define([
         }),
 
         stream: ensureLogin(function () {
-            var lastAdDetectionID, fetchInitialAdDetections,
+            var lastAdDetectionID,
+
+                addWorthlessPoints,
+                fetchInitialAdDetections,
+                fetchMoreAdDetections,
+                handleNoDocs,
+                generateStreamPanelViewForEachDoc,
+
+                AMOUNT = 10,
+
+                panelDisplayID = 1,
+                retries = 0,
+                worthlessPoints = 0,
                 panels = [],
-                streamView = new StreamView(),
-                $debugModeBtn = $('.js-debug-mode');
+                streamView = new StreamView();
+
+            addWorthlessPoints = function (extraWorthlessPoints) {
+                worthlessPoints += extraWorthlessPoints;
+                $('.js-points').html(worthlessPoints);
+            };
+
+            handleNoDocs = function (response) {
+                if (response.isIncomplete && retries < 3) {
+                    retries++;
+                    fetchMoreAdDetections();
+                } else {
+                    $('.js-loading').addClass('hide');
+                    $('.js-stream-depleted').removeClass('hide');
+                }
+            };
+
+            generateStreamPanelViewForEachDoc = function (response, callbackForEach) {
+                _.each(response.docs, function (doc) {
+                    var streamPanelView = new StreamPanelView({
+                            panels: panels,
+                            doc: doc,
+                            displayID: panelDisplayID
+                        });
+
+                    panelDisplayID++;
+                    lastAdDetectionID = doc._id;
+
+                    $('#stream-panels').append(streamPanelView.render().el);
+
+                    if (callbackForEach !== undefined) {
+                        callbackForEach();
+                    }
+                });
+            };
 
             fetchInitialAdDetections = function () {
                 Kinvey.execute('fetchAdDetections', {
-                    'amount': 10,
-                    'includeAdlessDetections': $debugModeBtn.hasClass('active')
+                    'amount': AMOUNT,
+                    'includeAdlessDetections': $('.js-fetch-adless').is(':checked'),
+                    'includeTrivialessDetections': $('.js-fetch-trivialess').is(':checked')
                 })
                     .then(function (response) {
+                        if (response.docs.length === 0) {
+                            handleNoDocs(response);
+                            return;
+                        }
+
                         $('.js-stream-try-again').addClass('hide');
                         $('.js-loading').addClass('hide');
                         $('.js-stream-load').removeClass('hide');
 
-                        _.each(response.docs, function (doc) {
-                            var streamPanelView = new StreamPanelView({
-                                panels: panels,
-                                doc: doc
-                            });
-                            lastAdDetectionID = doc._id;
-                            $('#stream-panels').append(streamPanelView.render().el);
-                        });
+                        generateStreamPanelViewForEachDoc(response);
+
                     }, function (xhr, status, error) {
                         $('.js-loading').addClass('hide');
                         $('.js-stream-try-again').removeClass('hide');
@@ -199,6 +244,50 @@ define([
                             error: xhr
                         });
                         $('#stream-panels').html(errorMessageView.render().el);
+                    });
+            };
+
+            fetchMoreAdDetections = function () {
+                Kinvey.execute('fetchAdDetections', {
+                    'amount': AMOUNT,
+                    'lastAdDetectionID': lastAdDetectionID,
+                    'includeAdlessDetections': $('.js-fetch-adless').is(':checked'),
+                    'includeTrivialessDetections': $('.js-fetch-trivialess').is(':checked')
+                })
+                    .then(function (response) {
+                        var panelsRendered = 0;
+
+                        if (response.docs.length === 0) {
+                            handleNoDocs(response);
+                            return;
+                        }
+
+                        $('.js-loading').addClass('hide');
+                        $('.js-stream-load').removeClass('hide');
+
+                        generateStreamPanelViewForEachDoc(response, function () {
+                            var $lastPanel;
+
+                            panelsRendered++;
+
+                            if (panelsRendered === 1) {
+                                $lastPanel = $('#stream-panels').children().filter(':last');
+
+                                $('html, body').animate({
+                                    scrollTop: $lastPanel.offset().top - 70
+                                }, 400);
+                            }
+                        });
+
+                    }, function (xhr, status, error) {
+                        $('.js-loading').addClass('hide');
+                        $('.js-stream-load').removeClass('hide');
+
+                        var errorMessageView = new ErrorMessageView({
+                            message: 'There was a connection problem and further ads for the stream were not retrieved',
+                            error: xhr
+                        });
+                        $('#stream-panels').append(errorMessageView.render().el);
                     });
             };
 
@@ -219,47 +308,7 @@ define([
                 $('.js-loading').removeClass('hide');
                 $('.error-message').remove();
 
-                Kinvey.execute('fetchAdDetections', {
-                    'amount': 10,
-                    'lastAdDetectionID': lastAdDetectionID,
-                    'includeAdlessDetections': $debugModeBtn.hasClass('active')
-                })
-                    .then(function (response) {
-                        var panelsRendered = 0;
-
-                        $('.js-loading').addClass('hide');
-                        $('.js-stream-load').removeClass('hide');
-
-                        _.each(response.docs, function (doc) {
-                            var streamPanelView, $lastPanel;
-
-                            streamPanelView = new StreamPanelView({
-                                panels: panels,
-                                doc: doc
-                            });
-                            lastAdDetectionID = doc._id;
-
-                            $('#stream-panels').append(streamPanelView.render().el);
-                            panelsRendered++;
-
-                            if (panelsRendered === 1) {
-                                $lastPanel = $('#stream-panels').children().filter(':last');
-
-                                $('html, body').animate({
-                                    scrollTop: $lastPanel.offset().top - 70
-                                }, 400);
-                            }
-                        });
-                    }, function (xhr, status, error) {
-                        $('.js-loading').addClass('hide');
-
-                        var errorMessageView = new ErrorMessageView({
-                            message: 'There was a connection problem and further ads for the stream were not retrieved',
-                            error: xhr
-                        });
-                        $('#stream-panels').append(errorMessageView.render().el);
-                        console.error('PROMISE ERROR 1', xhr, status, error);
-                    });
+                fetchMoreAdDetections();
                 return false;
             });
 
@@ -271,6 +320,9 @@ define([
                 $(this).parents('.js-stream-logos').addClass('hide');
 
                 if (guessIndex === panels[id].correctLogoIndex) {
+                    if ($stream.find('.js-stream-trivia-missing').length > 0) {
+                        addWorthlessPoints(100);
+                    }
                     $stream.find('.js-stream-trivia').removeClass('hide');
                 } else {
                     $stream.find('.js-stream-failure').removeClass('hide');
@@ -287,8 +339,10 @@ define([
                 $(this).parents('.js-stream-trivia').addClass('hide');
 
                 if (guessIndex === panels[id].correctTriviaIndex) {
+                    addWorthlessPoints(500);
                     $stream.find('.js-stream-success').removeClass('hide');
                 } else {
+                    addWorthlessPoints(100);
                     $stream.find('.js-stream-failure').removeClass('hide');
                 }
 

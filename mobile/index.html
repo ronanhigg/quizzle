@@ -18,11 +18,32 @@
       <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
 
         <div class="navbar-header">
-          <button type="button" class="navbar-toggle btn btn-xs js-debug-mode" data-toggle="button">
-            Debug Mode
+          <!--<button type="button" class="navbar-toggle btn btn-xs js-debug-mode" data-toggle="button">-->
+          <button type="button" class="navbar-toggle"  data-toggle="collapse" data-target="#quizzle-header">
+            <span class="glyphicon glyphicon-wrench"></span>
           </button>
-          <a class="navbar-brand" href="#">Quizzle</a>
+          <a class="navbar-brand" href="#">
+            Quizzle
+            &nbsp;&nbsp;
+            <strong><span class="js-points"></span></strong>
+          </a>
         </div>
+
+        <div class="collapse navbar-collapse" id="quizzle-header">
+          <ul class="nav navbar-nav navbar-left">
+          </ul>
+          <form class="navbar-form navbar-right">
+            <div class="form-group">
+              <label>Ad Stream Settings</label>
+            </div>
+            <div class="form-group">
+              <input type="checkbox" class="js-fetch-adless"> Fetch ads with no related data?
+            </div>
+            <div class="form-group">
+              <input type="checkbox" class="js-fetch-trivialess"> Fetch ads with no trivia questions?
+            </div>
+          </form>
+        </div><!-- /.navbar-collapse -->
 
       </nav>
 
@@ -122,6 +143,12 @@
 
       <a href="#" class="btn btn-block btn-default hide js-stream-try-again">Try Again</a>
 
+      <div class="alert alert-warning hide js-stream-depleted">
+        <h3 style="margin: 0; text-align: center;">
+          There are no more ads to load!
+        </h3>
+      </div>
+
     </script>
 
     <script type="text/html" id="stream-panel-template">
@@ -203,7 +230,7 @@
 
               <div class="js-stream-trivia hide">
 
-                <div class="alert alert-warning" style="text-align: center; margin-bottom: 0;">
+                <div class="alert alert-warning js-stream-trivia-missing" style="text-align: center; margin-bottom: 0;">
                   <h3 style="margin-top: 0;">
                     There are no trivia questions available
                   </h3>
@@ -242,7 +269,14 @@
 
         </div>
         <div class="panel-footer">
-          <small><%= channelName %> &ndash; <%= startingAt %></small>
+          <div class="row">
+            <div class="col-xs-10">
+              <small><%= channelName %> &ndash; <%= startingAt %></small>
+            </div>
+            <div class="col-xs-2" style="text-align: right;">
+              <small class="text-muted">#<%= displayID %></small>
+            </div>
+          </div>
         </div>
       </div>
 

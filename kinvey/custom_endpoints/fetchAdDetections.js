@@ -1,5 +1,8 @@
 function onRequest(request, response, modules){
-  var i, totalAmount,
+  var i, totalAmount, asyncLoopCounter,
+
+      MAX_FETCH_LOOPS = 4,
+      LIMIT_FOR_LOOPING_FETCHES = 100,
 
       async = modules.async,
       collectionAccess = modules.collectionAccess,
@@ -13,7 +16,10 @@ function onRequest(request, response, modules){
       quizzesCollection = collectionAccess.collection('quizzes'),
 
       amount = request.body.amount,
+
       includeAdlessDetections = request.body.includeAdlessDetections,
+      includeTrivialessDetections = request.body.includeTrivialessDetections,
+
       lastAdDetectionID = request.body.lastAdDetectionID;
 
   if (amount > 25) {
@@ -29,9 +35,15 @@ function onRequest(request, response, modules){
     includeAdlessDetections = false;
   }
 
+  if (includeTrivialessDetections === undefined) {
+    includeTrivialessDetections = false;
+  }
+
   init = function () {
+    asyncLoopCounter = 0;
+
     async.doWhilst(fetchAdDetections, function () {
-      return adDetectionsToReturn.length < totalAmount;
+      return asyncLoopCounter < MAX_FETCH_LOOPS && adDetectionsToReturn.length < totalAmount;
 
     }, function (err) {
       if (err) {
@@ -41,7 +53,8 @@ function onRequest(request, response, modules){
       response.body = {
         'amount': amount,
         'lastAdDetectionID': lastAdDetectionID,
-        'docs': adDetectionsToReturn
+        'docs': adDetectionsToReturn,
+        'isIncomplete': asyncLoopCounter >= MAX_FETCH_LOOPS
       };
       
       response.complete(200);
@@ -49,6 +62,8 @@ function onRequest(request, response, modules){
   };
 
   fetchAdDetections = function (asyncLoopCallback) {
+    asyncLoopCounter++;
+
     if (lastAdDetectionID) {
       fetchAdDetectionsEarlierThan(lastAdDetectionID, asyncLoopCallback);
     } else {
@@ -57,10 +72,10 @@ function onRequest(request, response, modules){
   };
 
   fetchLatestAdDetections = function (asyncLoopCallback) {
-    if (includeAdlessDetections) {
+    if (includeAdlessDetections && includeTrivialessDetections) {
       limit = amount;
     } else {
-      limit = amount * 10;
+      limit = LIMIT_FOR_LOOPING_FETCHES;
     }
 
     adDetectionsCollection.find({}, {
@@ -70,9 +85,13 @@ function onRequest(request, response, modules){
       if (err) {
         return response.error('An error occurred while trying to find ad detections.');
       }
+        
+      if (docs.length == 0) {
+        return asyncLoopCallback();
+      }
 
       async.each(docs, fetchRelationalData, function (err) {
-        addDocsToAdDetectionToReturn(err, docs, asyncLoopCallback);
+        addDocsToAdDetectionsToReturn(err, docs, asyncLoopCallback);
       });
     });
   };
@@ -93,10 +112,10 @@ function onRequest(request, response, modules){
         fetchLatestAdDetections();
       }
 
-      if (includeAdlessDetections) {
+      if (includeAdlessDetections && includeTrivialessDetections) {
         limit = amount;
       } else {
-        limit = amount * 10;
+        limit = LIMIT_FOR_LOOPING_FETCHES;
       }
 
       adDetectionsCollection.find({
@@ -109,34 +128,41 @@ function onRequest(request, response, modules){
           return response.error('An error occurred while trying to find ad detections.');
         }
 
+        if (docs.length == 0) {
+          return asyncLoopCallback();
+        }
+
         async.each(docs, fetchRelationalData, function (err) {
-          addDocsToAdDetectionToReturn(err, docs, asyncLoopCallback);
+          addDocsToAdDetectionsToReturn(err, docs, asyncLoopCallback);
         });
       });
     });
   };
 
-  addDocsToAdDetectionToReturn = function (err, docs, asyncLoopCallback) {
+  addDocsToAdDetectionsToReturn = function (err, docs, asyncLoopCallback) {
     var adlessDetections = 0;
 
     if (err) {
       return response.error('An error occurred while trying to find relational data for ad detections.');
     }
 
-    if (includeAdlessDetections) {
+    if (includeAdlessDetections && includeTrivialessDetections) {
       adDetectionsToReturn = docs;
 
     } else {
 
       for (i = 0; i < docs.length && adDetectionsToReturn.length < totalAmount; i++) {
-        if (docs[i].noAdData) {
+
+        if (!includeAdlessDetections && docs[i].noAdData) {
+          adlessDetections++;
+        } else if (!includeTrivialessDetections && docs[i].noQuizData) {
           adlessDetections++;
         } else {
           adDetectionsToReturn.push(docs[i]);
         }
       }
 
-      lastAdDetectionID = adDetectionsToReturn[adDetectionsToReturn.length -1]._id;
+      lastAdDetectionID = docs[docs.length - 1]._id;
       amount = adlessDetections;
     }
 
