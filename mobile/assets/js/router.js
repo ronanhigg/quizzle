@@ -215,6 +215,7 @@ define([
             });
 
             $('.js-stream-load').on('click', function () {
+                $(this).addClass('hide');
                 $('.js-loading').removeClass('hide');
                 $('.error-message').remove();
 
@@ -224,15 +225,30 @@ define([
                     'includeAdlessDetections': $debugModeBtn.hasClass('active')
                 })
                     .then(function (response) {
+                        var panelsRendered = 0;
+
                         $('.js-loading').addClass('hide');
+                        $('.js-stream-load').removeClass('hide');
 
                         _.each(response.docs, function (doc) {
-                            var streamPanelView = new StreamPanelView({
+                            var streamPanelView, $lastPanel;
+
+                            streamPanelView = new StreamPanelView({
                                 panels: panels,
                                 doc: doc
                             });
                             lastAdDetectionID = doc._id;
+
                             $('#stream-panels').append(streamPanelView.render().el);
+                            panelsRendered++;
+
+                            if (panelsRendered === 1) {
+                                $lastPanel = $('#stream-panels').children().filter(':last');
+
+                                $('html, body').animate({
+                                    scrollTop: $lastPanel.offset().top - 70
+                                }, 400);
+                            }
                         });
                     }, function (xhr, status, error) {
                         $('.js-loading').addClass('hide');
@@ -248,17 +264,14 @@ define([
             });
 
             $('#main').on('click', '.js-stream-logo-guess', function () {
-                var $trivia,
-                    $stream = $(this).parents('.js-stream'),
+                var $stream = $(this).parents('.js-stream'),
                     id = $stream.data('id'),
                     guessIndex = $(this).data('index');
 
                 $(this).parents('.js-stream-logos').addClass('hide');
 
                 if (guessIndex === panels[id].correctLogoIndex) {
-                    $trivia = $stream.find('.js-stream-trivia');
-                    //if ($trivia.)
-                    $trivia.removeClass('hide');
+                    $stream.find('.js-stream-trivia').removeClass('hide');
                 } else {
                     $stream.find('.js-stream-failure').removeClass('hide');
                 }

@@ -35,7 +35,7 @@ define([
                     '661px -198px',
                     '330px -198px',
                     '-7px -198px',
-                    '661px 3-338px',
+                    '661px -338px',
                     '330px -338px'
                     //'-7px -338px', - Remove this frame
                 ],
