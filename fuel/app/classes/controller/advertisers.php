@@ -140,11 +140,14 @@ class Controller_Advertisers extends Controller_Base
         }
 
         $postinput = new PostInput;
+        $has_quiz_data = false;
 
         foreach (Input::post('question', array()) as $i => $question_input) {
             if ($postinput->exists_for_quiz($i)) {
 
                 $id = Input::post("id.$i");
+
+                $has_quiz_data = true;
 
                 if ($id) {
                     $remaining_quiz_ids[] = $id;
@@ -157,6 +160,7 @@ class Controller_Advertisers extends Controller_Base
                     $quiz->incorrect_answer_1 = Input::post("incorrect_answer_1.$i");
                     $quiz->incorrect_answer_2 = Input::post("incorrect_answer_2.$i");
                     $quiz->incorrect_answer_3 = Input::post("incorrect_answer_3.$i");
+
 
                     try {
                         $quiz->save();
@@ -226,6 +230,29 @@ class Controller_Advertisers extends Controller_Base
                 
                 Session::set_flash('error', 'An error occurred while saving the ad. ' . $e->getMessage());
                 return;
+            }
+        }
+
+        if ($has_quiz_data) {
+            $ads = $advertiser->get_relations('Collection_Ads');
+
+            foreach ($ads as $ad) {
+                $addetections = new Collection_AdDetections;
+                $addetections->fetch_where(array(
+                    'ad_identifier' => $ad->ad_detection_identifier,
+                    'has_quiz_data' => array(
+                        '$ne' => true,
+                    ),
+                ));
+
+                foreach ($addetections as $addetection) {
+                    try {
+                        $addetection->has_quiz_data = true;
+                        $addetection->save();
+                    } catch (KinveyModelException $e) {
+                        throw new Controller_AdsException($e->getMessage());
+                    }
+                }
             }
         }
 
