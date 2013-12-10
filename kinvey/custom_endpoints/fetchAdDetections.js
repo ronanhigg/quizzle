@@ -1,8 +1,5 @@
 function onRequest(request, response, modules){
-  var i, totalAmount, asyncLoopCounter,
-
-      MAX_FETCH_LOOPS = 4,
-      LIMIT_FOR_LOOPING_FETCHES = 100,
+  var i, totalAmount,
 
       async = modules.async,
       collectionAccess = modules.collectionAccess,
@@ -40,45 +37,31 @@ function onRequest(request, response, modules){
   }
 
   init = function () {
-    asyncLoopCounter = 0;
-
-    async.doWhilst(fetchAdDetections, function () {
-      return asyncLoopCounter < MAX_FETCH_LOOPS && adDetectionsToReturn.length < totalAmount;
-
-    }, function (err) {
-      if (err) {
-        return response.error('An error occurred while trying to find ad detections.');
-      }
+    fetchAdDetections(function () {
 
       response.body = {
         'amount': amount,
         'lastAdDetectionID': lastAdDetectionID,
         'docs': adDetectionsToReturn,
-        'isIncomplete': asyncLoopCounter >= MAX_FETCH_LOOPS
+        'isIncomplete': false
       };
       
       response.complete(200);
     });
   };
 
-  fetchAdDetections = function (asyncLoopCallback) {
-    asyncLoopCounter++;
-
+  fetchAdDetections = function (completionCallback) {
     if (lastAdDetectionID) {
-      fetchAdDetectionsEarlierThan(lastAdDetectionID, asyncLoopCallback);
+      fetchAdDetectionsEarlierThan(lastAdDetectionID, completionCallback);
     } else {
-      fetchLatestAdDetections(asyncLoopCallback);
+      fetchLatestAdDetections(completionCallback);
     }
   };
 
-  fetchLatestAdDetections = function (asyncLoopCallback) {
+  fetchLatestAdDetections = function (completionCallback) {
     var conditions = {};
 
-    if (includeAdlessDetections && includeTrivialessDetections) {
-      limit = amount;
-    } else {
-      limit = LIMIT_FOR_LOOPING_FETCHES;
-    }
+    limit = amount;
 
     if (!includeAdlessDetections) {
       conditions.has_ad_data = true;
@@ -97,16 +80,16 @@ function onRequest(request, response, modules){
       }
         
       if (docs.length == 0) {
-        return asyncLoopCallback();
+        return completionCallback();
       }
 
       async.each(docs, fetchRelationalData, function (err) {
-        addDocsToAdDetectionsToReturn(err, docs, asyncLoopCallback);
+        addDocsToAdDetectionsToReturn(err, docs, completionCallback);
       });
     });
   };
 
-  fetchAdDetectionsEarlierThan = function (adDetectionID, asyncLoopCallback) {
+  fetchAdDetectionsEarlierThan = function (adDetectionID, completionCallback) {
     if (typeof adDetectionID === 'string') {
       adDetectionID = adDetectionsCollection.objectID(adDetectionID);
     }
@@ -124,11 +107,7 @@ function onRequest(request, response, modules){
         fetchLatestAdDetections();
       }
 
-      if (includeAdlessDetections && includeTrivialessDetections) {
-        limit = amount;
-      } else {
-        limit = LIMIT_FOR_LOOPING_FETCHES;
-      }
+      limit = amount;
 
       conditions = {
         '_kmd.ect': {"$lt": doc._kmd.ect}
@@ -151,17 +130,17 @@ function onRequest(request, response, modules){
         }
 
         if (docs.length == 0) {
-          return asyncLoopCallback();
+          return completionCallback();
         }
 
         async.each(docs, fetchRelationalData, function (err) {
-          addDocsToAdDetectionsToReturn(err, docs, asyncLoopCallback);
+          addDocsToAdDetectionsToReturn(err, docs, completionCallback);
         });
       });
     });
   };
 
-  addDocsToAdDetectionsToReturn = function (err, docs, asyncLoopCallback) {
+  addDocsToAdDetectionsToReturn = function (err, docs, completionCallback) {
     var adlessDetections = 0;
 
     if (err) {
@@ -188,7 +167,7 @@ function onRequest(request, response, modules){
       amount = adlessDetections;
     }
 
-    asyncLoopCallback();
+    completionCallback();
   };
 
   fetchRelationalData = function (adDetection, asyncCallback) {
