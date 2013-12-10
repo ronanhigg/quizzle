@@ -79,7 +79,8 @@ function onRequest(request, response, modules) {
       broadcast_starting_at: requestData.broadcast_start_time,
       channel_identifier: requestData.channel_name
     });
-    
+    updatePusher(adDetection);
+
     adDetectionsCollection.save(adDetection, function(err, doc) {
       if (err) {
         return response.error('An error occurred when trying to create the adDetection.');
@@ -91,7 +92,6 @@ function onRequest(request, response, modules) {
       response.body.err = err;
       response.body.doc = doc;
       /**/
-      updatePusher(adDetection); 
       getAdAndAdBreak(adDetection);
     });
   };
