@@ -72,13 +72,23 @@ function onRequest(request, response, modules){
   };
 
   fetchLatestAdDetections = function (asyncLoopCallback) {
+    var conditions = {};
+
     if (includeAdlessDetections && includeTrivialessDetections) {
       limit = amount;
     } else {
       limit = LIMIT_FOR_LOOPING_FETCHES;
     }
 
-    adDetectionsCollection.find({}, {
+    if (!includeAdlessDetections) {
+      conditions.has_ad_data = true;
+    }
+
+    if (!includeTrivialessDetections) {
+      conditions.has_quiz_data = true;
+    }
+
+    adDetectionsCollection.find(conditions, {
       limit: limit,
       sort: [['_kmd.ect', -1]]
     }, function (err, docs) {
@@ -104,6 +114,8 @@ function onRequest(request, response, modules){
     adDetectionsCollection.findOne({
       '_id': adDetectionID
     }, function (err, doc) {
+      var conditions;
+
       if (err) {
         return response.error('An error occurred while trying to find last ad detection.');
       }
@@ -118,9 +130,19 @@ function onRequest(request, response, modules){
         limit = LIMIT_FOR_LOOPING_FETCHES;
       }
 
-      adDetectionsCollection.find({
+      conditions = {
         '_kmd.ect': {"$lt": doc._kmd.ect}
-      }, {
+      };
+
+      if (!includeAdlessDetections) {
+        conditions.has_ad_data = true;
+      }
+
+      if (!includeTrivialessDetections) {
+        conditions.has_quiz_data = true;
+      }
+
+      adDetectionsCollection.find(conditions, {
         limit: limit,
         sort: [['_kmd.ect', -1]]
       }, function (err, docs) {

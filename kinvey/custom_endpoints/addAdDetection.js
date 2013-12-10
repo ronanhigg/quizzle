@@ -62,7 +62,6 @@ function onRequest(request, response, modules) {
   createAdDetection = function () {
     var adDetection,
         requestData = request.body,
-        adDetectionsCollection = modules.collectionAccess.collection('adDetections'),
         createEntity = modules.utils.kinveyEntity;
     
     if (requestData.type !== 'start') {
@@ -77,9 +76,56 @@ function onRequest(request, response, modules) {
       ad_identifier: requestData.id,
       broadcast_finishing_at: requestData.broadcast_end_time,
       broadcast_starting_at: requestData.broadcast_start_time,
-      channel_identifier: requestData.channel_name
+      channel_identifier: requestData.channel_name,
+      has_ad_data: false,
+      has_quiz_data: false
     });
     updatePusher(adDetection);
+
+    checkIfAdDataExists(adDetection);
+  };
+
+  checkIfAdDataExists = function (adDetection) {
+    var adsCollection = modules.collectionAccess.collection('ads');
+
+    adsCollection.find({
+      'ad_detection_identifier': adDetection.ad_identifier
+    }, function (err, docs) {
+      if (err) {
+        return response.error('An error occurred while trying to find ad "' + adDetection.ad_identifier + '".');
+      }
+      
+      if (docs.length > 0) {
+        adDetection.has_ad_data = true;
+
+        ad = docs.pop();
+        checkIfQuizDataExists(adDetection, ad.advertiser);
+      } else {
+        saveAdDetection(adDetection);
+      }
+    });
+  };
+
+  checkIfQuizDataExists = function (adDetection, advertiser) {
+    var quizzesCollection = modules.collectionAccess.collection('quizzes');
+
+    quizzesCollection.find({
+      'advertiser': advertiser
+    }, function (err, docs) {
+      if (err) {
+        return response.error('An error occurred while trying to find ad "' + adDetection.ad_identifier + '".');
+      }
+      
+      if (docs.length > 0) {
+        adDetection.has_quiz_data = true;
+      }
+
+      saveAdDetection(adDetection);
+    });
+  };
+
+  saveAdDetection = function (adDetection) {
+    var adDetectionsCollection = modules.collectionAccess.collection('adDetections');
 
     adDetectionsCollection.save(adDetection, function(err, doc) {
       if (err) {
