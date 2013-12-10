@@ -45,6 +45,10 @@ class MediaStorer_Video
 
     public function remove($url)
     {
+        if ($url === '') {
+            throw new MediaStorer_VideoException('A valid URL is required for deletion from AWS S3.');
+        }
+
         $segments = explode('/', $url);
         $file_name = $segments[count($segments) - 1];
 

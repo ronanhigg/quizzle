@@ -163,5 +163,14 @@ class Test_MediaStorer_Video extends TestCase
 
         $this->videoStorer->remove('not a real URL');
     }
+
+    /**
+     * @test
+     * @expectedException MediaStorer_VideoException
+     */
+    public function removeFailsWhenBlankURLIsGiven()
+    {
+        $this->videoStorer->remove('');
+    }
 }
 

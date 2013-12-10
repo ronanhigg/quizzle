@@ -271,6 +271,23 @@ class Controller_Ads extends Controller_Base
                 }
             }
         }
+
+        $addetections = new Collection_AdDetections;
+        $addetections->fetch_where(array(
+            'ad_identifier' => $ad->ad_detection_identifier,
+            'has_ad_data' => array(
+                '$ne' => true,
+            ),
+        ));
+
+        foreach ($addetections as $addetection) {
+            try {
+                $addetection->has_ad_data = true;
+                $addetection->save();
+            } catch (KinveyModelException $e) {
+                throw new Controller_AdsException($e->getMessage());
+            }
+        }
     }
 
     public function action_update($id)
@@ -693,6 +710,26 @@ class Controller_Ads extends Controller_Base
             }
         }
 
+        $addetections = new Collection_AdDetections;
+        $addetections->fetch_where(array(
+            'ad_identifier' => $ad->ad_detection_identifier,
+            'has_ad_data' => array(
+                '$ne' => true,
+            ),
+        ));
+
+        foreach ($addetections as $addetection) {
+            try {
+                $addetection->has_ad_data = true;
+                $addetection->save();
+            } catch (KinveyModelException $e) {
+                $rollback->execute();
+                
+                Session::set_flash('error', 'An error occurred while updating the ad detections. ' . $e->getMessage());
+                return;
+            }
+        }
+
         Session::set_flash('success', 'The ad has been saved successfully');
         Response::redirect('/ads/update/' . $ad->id);
     }
@@ -774,14 +811,34 @@ class Controller_Ads extends Controller_Base
             return;
         }
 
-        try {
-            $video_storer = new MediaStorer_Video($uploader, $cloud_storage_adapter, $file_adapter);
-            $video_storer->remove($ad->video_url);
-        } catch (MediaStorer_VideoException $e) {
-            $rollback->execute();
+        if ($ad->video_url) {
+            try {
+                $video_storer = new MediaStorer_Video($uploader, $cloud_storage_adapter, $file_adapter);
+                $video_storer->remove($ad->video_url);
+            } catch (MediaStorer_VideoException $e) {
+                $rollback->execute();
 
-            Session::set_flash('error', $e->getMessage());
-            return;
+                Session::set_flash('error', $e->getMessage());
+                return;
+            }
+        }
+
+        $addetections = new Collection_AdDetections;
+        $addetections->fetch_where(array(
+            'ad_identifier' => $ad->ad_detection_identifier,
+            'has_ad_data' => true,
+        ));
+
+        foreach ($addetections as $addetection) {
+            try {
+                $addetection->has_ad_data = false;
+                $addetection->save();
+            } catch (KinveyModelException $e) {
+                $rollback->execute();
+                
+                Session::set_flash('error', 'An error occurred while updating the ad detections. ' . $e->getMessage());
+                return;
+            }
         }
 
         Session::set_flash('success', 'The ad has been deleted successfully');

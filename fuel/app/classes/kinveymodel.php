@@ -75,11 +75,20 @@ class KinveyModel
         $curl = Request::forge($url, 'curl');
         $curl->set_method($method);
         $curl->set_mime_type('json');
+
         $curl->http_login(Config::get('kinvey.username'), Config::get('kinvey.password'));
 
         $curl->set_params($params);
 
-        $curl->execute();
+        try {
+            $curl->execute();
+
+        } catch (RequestException $e) {
+            throw new KinveyModelException($e->getMessage());
+
+        } catch (RequestStatusException $e) {
+            throw new KinveyModelException($e->getMessage());
+        }
 
         if ( ! isset($this->id)) {
             $this->id = $curl->response()->body['_id'];
