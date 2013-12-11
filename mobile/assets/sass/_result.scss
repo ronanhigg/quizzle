@@ -1,0 +1,21 @@
+.result {
+    background: rgba(0, 0, 0, 0.2);
+    text-align: center;
+    padding: $gutter 0;
+}
+
+.result--success {
+}
+
+.result--failure {
+}
+
+.result__primary {
+    font-size: $font-size-base * 8;
+    font-weight: 700;
+    line-height: 0.95;
+}
+
+.result__body {
+    font-weight: 400;
+}

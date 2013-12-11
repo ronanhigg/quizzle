@@ -1,0 +1,27 @@
+.answer {
+    background: rgba(0, 0, 0, 0.2);
+    padding: $gutter;
+    padding-bottom: 0;
+}
+
+.answer__grid {
+    @extend %grid;
+    @extend %grid--middle;
+}
+
+.answer__container {
+    @extend %grid__item;
+    @extend %one-half;
+    margin-bottom: $gutter;
+    text-align: center;
+}
+
+.answer__btn {
+    @extend .btn;
+    @extend .btn-block;
+    @extend .btn-default;
+    border-radius: 0;
+    white-space: normal;
+    font-weight: 700;
+    font-size: $font-size-base * 1.2;
+}

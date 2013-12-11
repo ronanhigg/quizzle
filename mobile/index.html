@@ -28,36 +28,165 @@
         <img src="/assets/img/refresh.png">
       </a>
 
-      <!--<div class="navbar-header">
-        <a class="navbar-toggle" href="#">
-          <img src="/assets/img/refresh.png">
-        </a>
-        <a class="navbar-brand" href="#">
-          <img src="/assets/img/logo.png">
-        </a>
-      </div>
-
-      <div class="collapse navbar-collapse" id="quizzle-header">
-        <ul class="nav navbar-nav navbar-left">
-        </ul>
-        <form class="navbar-form navbar-right">
-          <div class="form-group">
-            <label>Ad Stream Settings</label>
-          </div>
-          <div class="form-group">
-            <input type="checkbox" class="js-fetch-adless"> Fetch ads with no related data?
-          </div>
-          <div class="form-group">
-            <input type="checkbox" class="js-fetch-trivialess"> Fetch ads with no trivia questions?
-          </div>
-        </form>
-      </div>--><!-- /.navbar-collapse -->
-
     </nav>
 
     <div id="main"></div>
 
     <br>
+
+    <script type="text/html" id="stream-panel-template">
+
+      <div class="js-stream" data-id="<%= id %>">
+
+        <% if (hasAdData) { %>
+          <div class="" style="padding: 0;">
+            <div style="width: 323px; height: 182px; background-image: url(<%= storyboardURL %>); background-position: <%= storyboardBackgroundPosition %>; background-size: 999px 578px; margin: 0 auto;"></div>
+          </div>
+        <% } %>
+          
+        <div class="">
+
+          <% if (hasAdData) { %>
+
+            <div class="js-stream-logos">
+
+              <div class="instruction">
+                Guess the product
+              </div>
+
+              <div class="logo">
+
+                <div class="logo__grid">
+                  <div class="logo__container">
+                    <a href="#" class="logo__btn js-stream-logo-guess js-first-row-logo" data-index="0">
+                      <img src="<%= logos[0] %>">
+                    </a>
+                  </div>
+                  <div class="logo__container">
+                    <a href="#" class="logo__btn js-stream-logo-guess js-first-row-logo" data-index="1">
+                      <img src="<%= logos[1] %>">
+                    </a>
+                  </div>
+                  <div class="logo__container">
+                    <a href="#" class="logo__btn js-stream-logo-guess js-second-row-logo" data-index="2">
+                      <img src="<%= logos[2] %>">
+                    </a>
+                  </div>
+                  <div class="logo__container">
+                    <a href="#" class="logo__btn js-stream-logo-guess js-second-row-logo" data-index="3">
+                      <img src="<%= logos[3] %>">
+                    </a>
+                  </div>
+                </div>
+
+              </div>
+
+            </div>
+
+            <% if (hasQuizData) { %>
+
+              <div class="js-quiz-q2 hide">
+
+                <div class="instruction js-quiz-q2-instruction">
+                  Answer the trivia question
+                </div>
+
+                <div class="trivia">
+                  <div class="trivia__logo">
+                    <img src="<%= correctLogo %>">
+                  </div>
+                  <div class="trivia__body">
+                    <div class="trivia__question">
+                      <%= question %>
+                    </div>
+                    <div class="trivia__answer js-quiz-q2-trivia-answer hide">
+                      Answer: <%= correctAnswer %>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="answer js-quiz-q2-answer">
+
+                  <div class="answer__grid">
+                    <div class="answer__container">
+                      <a href="#" class="answer__btn js-stream-trivia-guess" data-index="0"><%= answers[0] %></a>
+                    </div>
+                    <div class="answer__container">
+                      <a href="#" class="answer__btn js-stream-trivia-guess" data-index="1"><%= answers[1] %></a>
+                    </div>
+                  </div>
+                  <div class="answer__grid">
+                    <div class="answer__container">
+                      <a href="#" class="answer__btn js-stream-trivia-guess" data-index="2"><%= answers[2] %></a>
+                    </div>
+                    <div class="answer__container">
+                      <a href="#" class="answer__btn js-stream-trivia-guess" data-index="3"><%= answers[3] %></a>
+                    </div>
+                  </div>
+
+                </div>
+
+              </div>
+
+            <% } else { %>
+
+              <div class="js-quiz-question-2 hide">
+
+                <div class="alert alert-warning js-stream-trivia-missing" style="text-align: center; margin-bottom: 0;">
+                  <h3 style="margin-top: 0;">
+                    There are no trivia questions available
+                  </h3>
+                  <h3 style="margin-bottom: 0;">
+                    You win <strong>100</strong> points
+                  </h3>
+                </div>
+
+              </div>
+
+            <% } %>
+
+            <div class="js-stream-success hide">
+
+              <div class="result result--success">
+                <div class="result__primary">
+                  500
+                </div>
+                <div class="result__body">
+                  points
+                </div>
+              </div>
+
+            </div>
+
+            <div class="js-stream-failure hide">
+
+              <div class="result result--failure">
+                <div class="result__primary">
+                  !
+                </div>
+                <div class="result__body">
+                  Incorrect Answer
+                </div>
+              </div>
+
+            </div>
+
+          <% } else { %>
+            No ad data entered for <em><%= adIdentifier %></em>
+          <% } %>
+
+        </div>
+        <div class="quiz-footer">
+            <div class="quiz-metadata">
+              <small><%= channelName %> &ndash; <%= startingAt %></small>
+            </div>
+            <div class="quiz-id">
+              <small>#<%= displayID %></small>
+            </div>
+        </div>
+      </div>
+
+    </script>
 
     <script type="text/html" id="login-template">
 
@@ -153,136 +282,6 @@
         <h3 style="margin: 0; text-align: center;">
           There are no more ads to load!
         </h3>
-      </div>
-
-    </script>
-
-    <script type="text/html" id="stream-panel-template">
-
-      <div class="js-stream" data-id="<%= id %>">
-
-        <% if (hasAdData) { %>
-          <div class="" style="padding: 0;">
-            <div style="width: 323px; height: 182px; background-image: url(<%= storyboardURL %>); background-position: <%= storyboardBackgroundPosition %>; background-size: 999px 578px; margin: 0 auto;"></div>
-          </div>
-        <% } %>
-          
-        <div class="">
-
-          <% if (hasAdData) { %>
-
-            <div class="js-stream-logos">
-
-              <h4 style="text-align: center; margin-bottom: 1em;">
-                Tap the logo of the company from this ad
-              </h4>
-
-              <div class="quiz-logos-container">
-
-                <div class="quiz-logos">
-                  <div class="quiz-logo-container">
-                    <a href="#" class="quiz-logo js-stream-logo-guess js-first-row-logo" data-index="0">
-                      <img src="<%= logos[0] %>">
-                    </a>
-                  </div>
-                  <div class="quiz-logo-container">
-                    <a href="#" class="quiz-logo js-stream-logo-guess js-first-row-logo" data-index="1">
-                      <img src="<%= logos[1] %>">
-                    </a>
-                  </div>
-                  <div class="quiz-logo-container">
-                    <a href="#" class="quiz-logo js-stream-logo-guess js-second-row-logo" data-index="2">
-                      <img src="<%= logos[2] %>">
-                    </a>
-                  </div>
-                  <div class="quiz-logo-container">
-                    <a href="#" class="quiz-logo js-stream-logo-guess js-second-row-logo" data-index="3">
-                      <img src="<%= logos[3] %>">
-                    </a>
-                  </div>
-                </div>
-
-              </div>
-
-            </div>
-
-            <% if (hasQuizData) { %>
-
-              <div class="js-stream-trivia hide">
-
-                <h4 style="text-align: center; margin-bottom: 1em;">
-                  <%= question %>
-                </h4>
-
-                <div class="row" style="margin-bottom: 1em;">
-                  <div class="col-xs-6" style="text-align: center;">
-                    <a href="#" class="btn btn-lg btn-block btn-info js-stream-trivia-guess" style="white-space: normal;" data-index="0"><%= answers[0] %></a>
-                  </div>
-                  <div class="col-xs-6" style="text-align: center;">
-                    <a href="#" class="btn btn-lg btn-block btn-info js-stream-trivia-guess" style="white-space: normal;" data-index="1"><%= answers[1] %></a>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-xs-6" style="text-align: center;">
-                    <a href="#" class="btn btn-lg btn-block btn-info js-stream-trivia-guess" style="white-space: normal;" data-index="2"><%= answers[2] %></a>
-                  </div>
-                  <div class="col-xs-6" style="text-align: center;">
-                    <a href="#" class="btn btn-lg btn-block btn-info js-stream-trivia-guess" style="white-space: normal;" data-index="3"><%= answers[3] %></a>
-                  </div>
-                </div>
-
-              </div>
-
-            <% } else { %>
-
-              <div class="js-stream-trivia hide">
-
-                <div class="alert alert-warning js-stream-trivia-missing" style="text-align: center; margin-bottom: 0;">
-                  <h3 style="margin-top: 0;">
-                    There are no trivia questions available
-                  </h3>
-                  <h3 style="margin-bottom: 0;">
-                    You win <strong>100</strong> points
-                  </h3>
-                </div>
-
-              </div>
-
-            <% } %>
-
-            <div class="js-stream-success hide">
-
-              <div class="alert alert-success" style="text-align: center; margin-bottom: 0;">
-                <h3 style="margin: 0;">
-                  You win <strong>500</strong> points
-                </h3>
-              </div>
-
-            </div>
-
-            <div class="js-stream-failure hide">
-
-              <div class="alert alert-danger" style="text-align: center; margin-bottom: 0;">
-                <h3 style="margin: 0;">
-                  Wrong
-                </h3>
-              </div>
-
-            </div>
-
-          <% } else { %>
-            No ad data entered for <em><%= adIdentifier %></em>
-          <% } %>
-
-        </div>
-        <div class="quiz-footer">
-            <div class="quiz-metadata">
-              <small><%= channelName %> &ndash; <%= startingAt %></small>
-            </div>
-            <div class="quiz-id">
-              <small>#<%= displayID %></small>
-            </div>
-        </div>
       </div>
 
     </script>

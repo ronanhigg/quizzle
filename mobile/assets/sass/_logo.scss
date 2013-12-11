@@ -1,0 +1,27 @@
+.logo {
+    padding: 1em 1em 0 1em;
+    background: rgba(0, 0, 0, 0.2);
+}
+
+.logo__grid {
+    @extend %grid;
+    @extend %grid--middle;
+}
+
+.logo__container {
+    @extend %grid__item;
+    @extend %palm--one-half;
+    @extend %lap--one-quarter;
+    @extend %desk--one-quarter;
+    margin-bottom: 1em;
+}
+
+.logo__btn {
+    display: block;
+    text-align: center;
+}
+
+.logo__btn img {
+    @extend .img-responsive;
+    margin: 0 auto;
+}

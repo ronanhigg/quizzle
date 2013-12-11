@@ -87,7 +87,9 @@ define([
                 'logos': logos,
                 'question': question,
                 'answers': answers,
-                'displayID': this.options.displayID
+                'displayID': this.options.displayID,
+                'correctLogo': doc.advertiserLogo,
+                'correctAnswer': doc.question.correct_answer
             }));
 
             return this;

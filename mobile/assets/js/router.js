@@ -323,7 +323,7 @@ define([
                     if ($stream.find('.js-stream-trivia-missing').length > 0) {
                         addWorthlessPoints(100);
                     }
-                    $stream.find('.js-stream-trivia').removeClass('hide');
+                    $stream.find('.js-quiz-q2').removeClass('hide');
                 } else {
                     $stream.find('.js-stream-failure').removeClass('hide');
                 }
@@ -336,11 +336,14 @@ define([
                     id = $stream.data('id'),
                     guessIndex = $(this).data('index');
 
-                $(this).parents('.js-stream-trivia').addClass('hide');
+                $(this).parents('.js-quiz-q2')
+                    .find('.js-quiz-q2-instruction, .js-quiz-q2-answer')
+                    .addClass('hide');
 
                 if (guessIndex === panels[id].correctTriviaIndex) {
                     addWorthlessPoints(500);
                     $stream.find('.js-stream-success').removeClass('hide');
+                    $stream.find('.js-quiz-q2-trivia-answer').removeClass('hide');
                 } else {
                     addWorthlessPoints(100);
                     $stream.find('.js-stream-failure').removeClass('hide');
