@@ -710,7 +710,7 @@ table {
   }
 
   /* line 76, ../../../../../opt/vagrant_ruby/lib/ruby/gems/1.8/gems/bootstrap-sass-3.0.3.0/vendor/assets/stylesheets/bootstrap/_print.scss */
-  .navbar {
+  .navbar, .action-bar {
     display: none;
   }
 
@@ -913,7 +913,7 @@ h6 .small {
 
 /* line 47, ../../../../../opt/vagrant_ruby/lib/ruby/gems/1.8/gems/bootstrap-sass-3.0.3.0/vendor/assets/stylesheets/bootstrap/_type.scss */
 h1, .h1 {
-  font-size: 36px;
+  font-size: 25px;
 }
 
 /* line 48, ../../../../../opt/vagrant_ruby/lib/ruby/gems/1.8/gems/bootstrap-sass-3.0.3.0/vendor/assets/stylesheets/bootstrap/_type.scss */
@@ -5131,24 +5131,24 @@ input[type="button"].btn-block {
 }
 
 /* line 11, ../../../../../opt/vagrant_ruby/lib/ruby/gems/1.8/gems/bootstrap-sass-3.0.3.0/vendor/assets/stylesheets/bootstrap/_navbar.scss */
-.navbar {
+.navbar, .action-bar {
   position: relative;
   min-height: 50px;
   margin-bottom: 20px;
   border: 1px solid transparent;
 }
 /* line 21, ../../../../../opt/vagrant_ruby/lib/ruby/gems/1.8/gems/bootstrap-sass-3.0.3.0/vendor/assets/stylesheets/bootstrap/_mixins.scss */
-.navbar:before, .navbar:after {
+.navbar:before, .action-bar:before, .navbar:after, .action-bar:after {
   content: " ";
   display: table;
 }
 /* line 25, ../../../../../opt/vagrant_ruby/lib/ruby/gems/1.8/gems/bootstrap-sass-3.0.3.0/vendor/assets/stylesheets/bootstrap/_mixins.scss */
-.navbar:after {
+.navbar:after, .action-bar:after {
   clear: both;
 }
 @media (min-width: 768px) {
   /* line 11, ../../../../../opt/vagrant_ruby/lib/ruby/gems/1.8/gems/bootstrap-sass-3.0.3.0/vendor/assets/stylesheets/bootstrap/_navbar.scss */
-  .navbar {
+  .navbar, .action-bar {
     border-radius: 4px;
   }
 }
@@ -5211,7 +5211,7 @@ input[type="button"].btn-block {
     overflow-y: visible;
   }
   /* line 84, ../../../../../opt/vagrant_ruby/lib/ruby/gems/1.8/gems/bootstrap-sass-3.0.3.0/vendor/assets/stylesheets/bootstrap/_navbar.scss */
-  .navbar-fixed-top .navbar-collapse, .navbar-static-top .navbar-collapse, .navbar-fixed-bottom .navbar-collapse {
+  .navbar-fixed-top .navbar-collapse, .action-bar .navbar-collapse, .navbar-static-top .navbar-collapse, .navbar-fixed-bottom .navbar-collapse {
     padding-left: 0;
     padding-right: 0;
   }
@@ -5245,7 +5245,7 @@ input[type="button"].btn-block {
 }
 
 /* line 126, ../../../../../opt/vagrant_ruby/lib/ruby/gems/1.8/gems/bootstrap-sass-3.0.3.0/vendor/assets/stylesheets/bootstrap/_navbar.scss */
-.navbar-fixed-top,
+.navbar-fixed-top, .action-bar,
 .navbar-fixed-bottom {
   position: fixed;
   right: 0;
@@ -5254,14 +5254,14 @@ input[type="button"].btn-block {
 }
 @media (min-width: 768px) {
   /* line 126, ../../../../../opt/vagrant_ruby/lib/ruby/gems/1.8/gems/bootstrap-sass-3.0.3.0/vendor/assets/stylesheets/bootstrap/_navbar.scss */
-  .navbar-fixed-top,
+  .navbar-fixed-top, .action-bar,
   .navbar-fixed-bottom {
     border-radius: 0;
   }
 }
 
 /* line 137, ../../../../../opt/vagrant_ruby/lib/ruby/gems/1.8/gems/bootstrap-sass-3.0.3.0/vendor/assets/stylesheets/bootstrap/_navbar.scss */
-.navbar-fixed-top {
+.navbar-fixed-top, .action-bar {
   top: 0;
   border-width: 0 0 1px;
 }
@@ -5286,7 +5286,7 @@ input[type="button"].btn-block {
 }
 @media (min-width: 768px) {
   /* line 162, ../../../../../opt/vagrant_ruby/lib/ruby/gems/1.8/gems/bootstrap-sass-3.0.3.0/vendor/assets/stylesheets/bootstrap/_navbar.scss */
-  .navbar > .container .navbar-brand {
+  .navbar > .container .navbar-brand, .action-bar > .container .navbar-brand {
     margin-left: -15px;
   }
 }
@@ -5480,91 +5480,92 @@ input[type="button"].btn-block {
 }
 
 /* line 379, ../../../../../opt/vagrant_ruby/lib/ruby/gems/1.8/gems/bootstrap-sass-3.0.3.0/vendor/assets/stylesheets/bootstrap/_navbar.scss */
-.navbar-default {
+.navbar-default, .action-bar {
   background-color: #252120;
   border-color: #131111;
 }
 /* line 383, ../../../../../opt/vagrant_ruby/lib/ruby/gems/1.8/gems/bootstrap-sass-3.0.3.0/vendor/assets/stylesheets/bootstrap/_navbar.scss */
-.navbar-default .navbar-brand {
+.navbar-default .navbar-brand, .action-bar .navbar-brand {
   color: white;
 }
 /* line 386, ../../../../../opt/vagrant_ruby/lib/ruby/gems/1.8/gems/bootstrap-sass-3.0.3.0/vendor/assets/stylesheets/bootstrap/_navbar.scss */
-.navbar-default .navbar-brand:hover, .navbar-default .navbar-brand:focus {
+.navbar-default .navbar-brand:hover, .action-bar .navbar-brand:hover, .navbar-default .navbar-brand:focus, .action-bar .navbar-brand:focus {
   color: #e6e6e6;
   background-color: transparent;
 }
 /* line 392, ../../../../../opt/vagrant_ruby/lib/ruby/gems/1.8/gems/bootstrap-sass-3.0.3.0/vendor/assets/stylesheets/bootstrap/_navbar.scss */
-.navbar-default .navbar-text {
+.navbar-default .navbar-text, .action-bar .navbar-text {
   color: white;
 }
 /* line 397, ../../../../../opt/vagrant_ruby/lib/ruby/gems/1.8/gems/bootstrap-sass-3.0.3.0/vendor/assets/stylesheets/bootstrap/_navbar.scss */
-.navbar-default .navbar-nav > li > a {
+.navbar-default .navbar-nav > li > a, .action-bar .navbar-nav > li > a {
   color: white;
 }
 /* line 401, ../../../../../opt/vagrant_ruby/lib/ruby/gems/1.8/gems/bootstrap-sass-3.0.3.0/vendor/assets/stylesheets/bootstrap/_navbar.scss */
-.navbar-default .navbar-nav > li > a:hover, .navbar-default .navbar-nav > li > a:focus {
+.navbar-default .navbar-nav > li > a:hover, .action-bar .navbar-nav > li > a:hover, .navbar-default .navbar-nav > li > a:focus, .action-bar .navbar-nav > li > a:focus {
   color: #bbbbbb;
   background-color: transparent;
 }
 /* line 409, ../../../../../opt/vagrant_ruby/lib/ruby/gems/1.8/gems/bootstrap-sass-3.0.3.0/vendor/assets/stylesheets/bootstrap/_navbar.scss */
-.navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:hover, .navbar-default .navbar-nav > .active > a:focus {
+.navbar-default .navbar-nav > .active > a, .action-bar .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:hover, .action-bar .navbar-nav > .active > a:hover, .navbar-default .navbar-nav > .active > a:focus, .action-bar .navbar-nav > .active > a:focus {
   color: #dddddd;
   background-color: #131111;
 }
 /* line 417, ../../../../../opt/vagrant_ruby/lib/ruby/gems/1.8/gems/bootstrap-sass-3.0.3.0/vendor/assets/stylesheets/bootstrap/_navbar.scss */
-.navbar-default .navbar-nav > .disabled > a, .navbar-default .navbar-nav > .disabled > a:hover, .navbar-default .navbar-nav > .disabled > a:focus {
+.navbar-default .navbar-nav > .disabled > a, .action-bar .navbar-nav > .disabled > a, .navbar-default .navbar-nav > .disabled > a:hover, .action-bar .navbar-nav > .disabled > a:hover, .navbar-default .navbar-nav > .disabled > a:focus, .action-bar .navbar-nav > .disabled > a:focus {
   color: #cccccc;
   background-color: transparent;
 }
 /* line 424, ../../../../../opt/vagrant_ruby/lib/ruby/gems/1.8/gems/bootstrap-sass-3.0.3.0/vendor/assets/stylesheets/bootstrap/_navbar.scss */
-.navbar-default .navbar-toggle {
+.navbar-default .navbar-toggle, .action-bar .navbar-toggle {
   border-color: #dddddd;
 }
 /* line 427, ../../../../../opt/vagrant_ruby/lib/ruby/gems/1.8/gems/bootstrap-sass-3.0.3.0/vendor/assets/stylesheets/bootstrap/_navbar.scss */
-.navbar-default .navbar-toggle:hover, .navbar-default .navbar-toggle:focus {
+.navbar-default .navbar-toggle:hover, .action-bar .navbar-toggle:hover, .navbar-default .navbar-toggle:focus, .action-bar .navbar-toggle:focus {
   background-color: #dddddd;
 }
 /* line 430, ../../../../../opt/vagrant_ruby/lib/ruby/gems/1.8/gems/bootstrap-sass-3.0.3.0/vendor/assets/stylesheets/bootstrap/_navbar.scss */
-.navbar-default .navbar-toggle .icon-bar {
+.navbar-default .navbar-toggle .icon-bar, .action-bar .navbar-toggle .icon-bar {
   background-color: #cccccc;
 }
 /* line 436, ../../../../../opt/vagrant_ruby/lib/ruby/gems/1.8/gems/bootstrap-sass-3.0.3.0/vendor/assets/stylesheets/bootstrap/_navbar.scss */
-.navbar-default .navbar-collapse,
-.navbar-default .navbar-form {
+.navbar-default .navbar-collapse, .action-bar .navbar-collapse,
+.navbar-default .navbar-form,
+.action-bar .navbar-form {
   border-color: #131111;
 }
 /* line 446, ../../../../../opt/vagrant_ruby/lib/ruby/gems/1.8/gems/bootstrap-sass-3.0.3.0/vendor/assets/stylesheets/bootstrap/_navbar.scss */
-.navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > .open > a:hover, .navbar-default .navbar-nav > .open > a:focus {
+.navbar-default .navbar-nav > .open > a, .action-bar .navbar-nav > .open > a, .navbar-default .navbar-nav > .open > a:hover, .action-bar .navbar-nav > .open > a:hover, .navbar-default .navbar-nav > .open > a:focus, .action-bar .navbar-nav > .open > a:focus {
   background-color: #131111;
   color: #dddddd;
 }
 @media (max-width: 767px) {
   /* line 455, ../../../../../opt/vagrant_ruby/lib/ruby/gems/1.8/gems/bootstrap-sass-3.0.3.0/vendor/assets/stylesheets/bootstrap/_navbar.scss */
-  .navbar-default .navbar-nav .open .dropdown-menu > li > a {
+  .navbar-default .navbar-nav .open .dropdown-menu > li > a, .action-bar .navbar-nav .open .dropdown-menu > li > a {
     color: white;
   }
   /* line 458, ../../../../../opt/vagrant_ruby/lib/ruby/gems/1.8/gems/bootstrap-sass-3.0.3.0/vendor/assets/stylesheets/bootstrap/_navbar.scss */
-  .navbar-default .navbar-nav .open .dropdown-menu > li > a:hover, .navbar-default .navbar-nav .open .dropdown-menu > li > a:focus {
+  .navbar-default .navbar-nav .open .dropdown-menu > li > a:hover, .action-bar .navbar-nav .open .dropdown-menu > li > a:hover, .navbar-default .navbar-nav .open .dropdown-menu > li > a:focus, .action-bar .navbar-nav .open .dropdown-menu > li > a:focus {
     color: #bbbbbb;
     background-color: transparent;
   }
   /* line 466, ../../../../../opt/vagrant_ruby/lib/ruby/gems/1.8/gems/bootstrap-sass-3.0.3.0/vendor/assets/stylesheets/bootstrap/_navbar.scss */
-  .navbar-default .navbar-nav .open .dropdown-menu > .active > a, .navbar-default .navbar-nav .open .dropdown-menu > .active > a:hover, .navbar-default .navbar-nav .open .dropdown-menu > .active > a:focus {
+  .navbar-default .navbar-nav .open .dropdown-menu > .active > a, .action-bar .navbar-nav .open .dropdown-menu > .active > a, .navbar-default .navbar-nav .open .dropdown-menu > .active > a:hover, .action-bar .navbar-nav .open .dropdown-menu > .active > a:hover, .navbar-default .navbar-nav .open .dropdown-menu > .active > a:focus, .action-bar .navbar-nav .open .dropdown-menu > .active > a:focus {
     color: #dddddd;
     background-color: #131111;
   }
   /* line 474, ../../../../../opt/vagrant_ruby/lib/ruby/gems/1.8/gems/bootstrap-sass-3.0.3.0/vendor/assets/stylesheets/bootstrap/_navbar.scss */
-  .navbar-default .navbar-nav .open .dropdown-menu > .disabled > a, .navbar-default .navbar-nav .open .dropdown-menu > .disabled > a:hover, .navbar-default .navbar-nav .open .dropdown-menu > .disabled > a:focus {
+  .navbar-default .navbar-nav .open .dropdown-menu > .disabled > a, .action-bar .navbar-nav .open .dropdown-menu > .disabled > a, .navbar-default .navbar-nav .open .dropdown-menu > .disabled > a:hover, .action-bar .navbar-nav .open .dropdown-menu > .disabled > a:hover, .navbar-default .navbar-nav .open .dropdown-menu > .disabled > a:focus, .action-bar .navbar-nav .open .dropdown-menu > .disabled > a:focus {
     color: #cccccc;
     background-color: transparent;
   }
 }
 /* line 488, ../../../../../opt/vagrant_ruby/lib/ruby/gems/1.8/gems/bootstrap-sass-3.0.3.0/vendor/assets/stylesheets/bootstrap/_navbar.scss */
-.navbar-default .navbar-link {
+.navbar-default .navbar-link, .action-bar .navbar-link {
   color: white;
 }
 /* line 490, ../../../../../opt/vagrant_ruby/lib/ruby/gems/1.8/gems/bootstrap-sass-3.0.3.0/vendor/assets/stylesheets/bootstrap/_navbar.scss */
-.navbar-default .navbar-link:hover {
+.navbar-default .navbar-link:hover, .action-bar .navbar-link:hover {
   color: #bbbbbb;
 }
 
@@ -8068,21 +8069,37 @@ body {
 }
 
 /* line 6, ../sass/_alterations.scss */
-.navbar-title {
-  position: absolute;
-  width: 100%;
-  left: 0;
-  text-align: center;
-  margin: auto;
-  padding: 10px 0 0 0;
-  color: #fff;
-  font-weight: bold;
-  font-size: 1.8em;
-}
-
-/* line 18, ../sass/_alterations.scss */
 .navbar-form {
   color: white;
+}
+
+/* line 17, ../sass/_actionbar.scss */
+.action-bar__menu {
+  display: block;
+  float: left;
+  width: 21px;
+  height: 22px;
+  margin: 14px;
+}
+
+/* line 25, ../sass/_actionbar.scss */
+.action-bar__title {
+  position: absolute;
+  left: 49px;
+  right: 53px;
+  margin-top: 14px;
+  text-align: center;
+  font-weight: bold;
+}
+
+/* line 34, ../sass/_actionbar.scss */
+.action-bar__action {
+  display: block;
+  position: absolute;
+  right: 0;
+  width: 25px;
+  height: 22px;
+  margin: 14px;
 }
 
 /* line 1, ../sass/_quiz.scss */

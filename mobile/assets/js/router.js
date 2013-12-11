@@ -76,7 +76,7 @@ define([
         routes: {
             "": "index",
             "checkin": "checkIn",
-            "stream": "stream",
+            "play": "play",
             "register": "register",
             "logout": "logout"
         },
@@ -95,7 +95,7 @@ define([
                         });
                     }
                 });*/
-            this.navigate('stream', {
+            this.navigate('play', {
                 trigger: true
             });
         }),
@@ -166,7 +166,7 @@ define([
                 });
         }),
 
-        stream: ensureLogin(function () {
+        play: ensureLogin(function () {
             var lastAdDetectionID,
 
                 addWorthlessPoints,

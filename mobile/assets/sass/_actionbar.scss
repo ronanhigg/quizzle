@@ -1,0 +1,41 @@
+.action-bar {
+    @extend .navbar;
+    @extend .navbar-default;
+    @extend .navbar-fixed-top;
+}
+
+$action-bar-height: 50px;
+
+$menu-width: 21px;
+$menu-height: 22px;
+$menu-margin: ($action-bar-height - $menu-height) / 2;
+
+$action-width: 25px;
+$action-height: 22px;
+$action-margin: ($action-bar-height - $action-height) / 2;
+
+.action-bar__menu {
+    display: block;
+    float: left;
+    width: $menu-width;
+    height: $menu-height;
+    margin: $menu-margin;
+}
+
+.action-bar__title {
+    position: absolute;
+    left: $menu-width + ($menu-margin * 2);
+    right: $action-width + ($action-margin * 2);
+    margin-top: 14px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.action-bar__action {
+    display: block;
+    position: absolute;
+    right: 0;
+    width: $action-width;
+    height: $action-height;
+    margin: $action-margin;
+}

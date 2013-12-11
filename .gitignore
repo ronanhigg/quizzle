@@ -18,3 +18,4 @@ nbproject/
 /public/files/*
 /public/assets/cache/*
 /public/coverage/*
+/mobile/assets/.sass-cache/*

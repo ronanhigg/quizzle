@@ -14,21 +14,26 @@
   </head>
   <body style="padding-top: 70px;">
 
-    <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <nav class="action-bar" role="navigation">
 
-      <div class="navbar-title">
+      <a class="action-bar__menu js-show-menu" href="#">
+        <img src="/assets/img/logo.png">
+      </a>
+
+      <h1 class="action-bar__title">
         Quizzle
-      </div>
+      </h1>
 
-      <div class="navbar-header">
-        <!--<button type="button" class="navbar-toggle btn btn-xs js-debug-mode" data-toggle="button">-->
-        <button type="button" class="navbar-toggle"  data-toggle="collapse" data-target="#quizzle-header">
-          <span class="glyphicon glyphicon-wrench"></span>
-        </button>
+      <a class="action-bar__action" href="#play">
+        <img src="/assets/img/refresh.png">
+      </a>
+
+      <!--<div class="navbar-header">
+        <a class="navbar-toggle" href="#">
+          <img src="/assets/img/refresh.png">
+        </a>
         <a class="navbar-brand" href="#">
-          Q
-          &nbsp;&nbsp;
-          <strong><span class="js-points"></span></strong>
+          <img src="/assets/img/logo.png">
         </a>
       </div>
 
@@ -46,7 +51,7 @@
             <input type="checkbox" class="js-fetch-trivialess"> Fetch ads with no trivia questions?
           </div>
         </form>
-      </div><!-- /.navbar-collapse -->
+      </div>--><!-- /.navbar-collapse -->
 
     </nav>
 
