@@ -4,7 +4,8 @@
     <title>Quizzle</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link href="/assets/css/vendor/bootstrap.min.css" rel="stylesheet" media="screen">
+    <!--<link href="/assets/css/vendor/bootstrap.min.css" rel="stylesheet" media="screen">-->
+    <link href="/assets/css/styles.css" rel="stylesheet" media="screen">
 
     <!--[if lt IE 9]>
       <script src="/assets/js/vendor/html5shiv.js"></script>
@@ -13,45 +14,45 @@
   </head>
   <body style="padding-top: 70px;">
 
-    <div class="container">
+    <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
 
-      <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+      <div class="navbar-title">
+        Quizzle
+      </div>
 
-        <div class="navbar-header">
-          <!--<button type="button" class="navbar-toggle btn btn-xs js-debug-mode" data-toggle="button">-->
-          <button type="button" class="navbar-toggle"  data-toggle="collapse" data-target="#quizzle-header">
-            <span class="glyphicon glyphicon-wrench"></span>
-          </button>
-          <a class="navbar-brand" href="#">
-            Quizzle
-            &nbsp;&nbsp;
-            <strong><span class="js-points"></span></strong>
-          </a>
-        </div>
+      <div class="navbar-header">
+        <!--<button type="button" class="navbar-toggle btn btn-xs js-debug-mode" data-toggle="button">-->
+        <button type="button" class="navbar-toggle"  data-toggle="collapse" data-target="#quizzle-header">
+          <span class="glyphicon glyphicon-wrench"></span>
+        </button>
+        <a class="navbar-brand" href="#">
+          Q
+          &nbsp;&nbsp;
+          <strong><span class="js-points"></span></strong>
+        </a>
+      </div>
 
-        <div class="collapse navbar-collapse" id="quizzle-header">
-          <ul class="nav navbar-nav navbar-left">
-          </ul>
-          <form class="navbar-form navbar-right">
-            <div class="form-group">
-              <label>Ad Stream Settings</label>
-            </div>
-            <div class="form-group">
-              <input type="checkbox" class="js-fetch-adless"> Fetch ads with no related data?
-            </div>
-            <div class="form-group">
-              <input type="checkbox" class="js-fetch-trivialess"> Fetch ads with no trivia questions?
-            </div>
-          </form>
-        </div><!-- /.navbar-collapse -->
+      <div class="collapse navbar-collapse" id="quizzle-header">
+        <ul class="nav navbar-nav navbar-left">
+        </ul>
+        <form class="navbar-form navbar-right">
+          <div class="form-group">
+            <label>Ad Stream Settings</label>
+          </div>
+          <div class="form-group">
+            <input type="checkbox" class="js-fetch-adless"> Fetch ads with no related data?
+          </div>
+          <div class="form-group">
+            <input type="checkbox" class="js-fetch-trivialess"> Fetch ads with no trivia questions?
+          </div>
+        </form>
+      </div><!-- /.navbar-collapse -->
 
-      </nav>
+    </nav>
 
-      <div id="main"></div>
+    <div id="main"></div>
 
-      <br>
-
-    </div>
+    <br>
 
     <script type="text/html" id="login-template">
 
@@ -153,15 +154,15 @@
 
     <script type="text/html" id="stream-panel-template">
 
-      <div class="panel panel-default js-stream" data-id="<%= id %>">
+      <div class="js-stream" data-id="<%= id %>">
 
         <% if (hasAdData) { %>
-          <div class="panel-heading" style="padding: 0;">
+          <div class="" style="padding: 0;">
             <div style="width: 323px; height: 182px; background-image: url(<%= storyboardURL %>); background-position: <%= storyboardBackgroundPosition %>; background-size: 999px 578px; margin: 0 auto;"></div>
           </div>
         <% } %>
           
-        <div class="panel-body">
+        <div class="">
 
           <% if (hasAdData) { %>
 
@@ -171,30 +172,31 @@
                 Tap the logo of the company from this ad
               </h4>
 
-              <div class="row" style="margin-bottom: 1em;">
-                <div class="col-xs-6" style="text-align: center;">
-                  <a href="#" class="js-stream-logo-guess" data-index="0">
-                  <img src="<%= logos[0] %>" width="132" height="81">
-                  </a>
-                </div>
-                <div class="col-xs-6" style="text-align: center;">
-                  <a href="#" class="js-stream-logo-guess" data-index="1">
-                  <img src="<%= logos[1] %>" width="132" height="81">
-                  </a>
-                </div>
-              </div>
+              <div class="quiz-logos-container">
 
-              <div class="row">
-                <div class="col-xs-6" style="text-align: center;">
-                  <a href="#" class="js-stream-logo-guess" data-index="2">
-                  <img src="<%= logos[2] %>" width="132" height="81">
-                  </a>
+                <div class="quiz-logos">
+                  <div class="quiz-logo-container">
+                    <a href="#" class="quiz-logo js-stream-logo-guess js-first-row-logo" data-index="0">
+                      <img src="<%= logos[0] %>">
+                    </a>
+                  </div>
+                  <div class="quiz-logo-container">
+                    <a href="#" class="quiz-logo js-stream-logo-guess js-first-row-logo" data-index="1">
+                      <img src="<%= logos[1] %>">
+                    </a>
+                  </div>
+                  <div class="quiz-logo-container">
+                    <a href="#" class="quiz-logo js-stream-logo-guess js-second-row-logo" data-index="2">
+                      <img src="<%= logos[2] %>">
+                    </a>
+                  </div>
+                  <div class="quiz-logo-container">
+                    <a href="#" class="quiz-logo js-stream-logo-guess js-second-row-logo" data-index="3">
+                      <img src="<%= logos[3] %>">
+                    </a>
+                  </div>
                 </div>
-                <div class="col-xs-6" style="text-align: center;">
-                  <a href="#" class="js-stream-logo-guess" data-index="3">
-                  <img src="<%= logos[3] %>" width="132" height="81">
-                  </a>
-                </div>
+
               </div>
 
             </div>
@@ -268,15 +270,13 @@
           <% } %>
 
         </div>
-        <div class="panel-footer">
-          <div class="row">
-            <div class="col-xs-10">
+        <div class="quiz-footer">
+            <div class="quiz-metadata">
               <small><%= channelName %> &ndash; <%= startingAt %></small>
             </div>
-            <div class="col-xs-2" style="text-align: right;">
-              <small class="text-muted">#<%= displayID %></small>
+            <div class="quiz-id">
+              <small>#<%= displayID %></small>
             </div>
-          </div>
         </div>
       </div>
 

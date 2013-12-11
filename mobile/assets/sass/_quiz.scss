@@ -1,0 +1,45 @@
+.quiz-logos-container {
+    padding: 1em 1em 0 1em;
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.quiz-logos {
+    @extend %grid;
+    @extend %grid--middle;
+}
+
+.quiz-logo-container {
+    @extend %grid__item;
+    @extend %palm--one-half;
+    @extend %lap--one-quarter;
+    @extend %desk--one-quarter;
+    margin-bottom: 1em;
+}
+
+.quiz-logo {
+    display: block;
+    text-align: center;
+}
+
+.quiz-logo img {
+    @extend .img-responsive;
+    margin: 0 auto;
+}
+
+.quiz-footer {
+    @extend .row;
+    margin: 20px 0 40px 0;
+    background: rgba(255, 255, 255, 0.1);
+    color: $gray-light;
+}
+
+.quiz-metadata {
+    @extend .col-xs-10;
+    padding: 10px;
+}
+
+.quiz-id {
+    @extend .col-xs-2;
+    padding: 10px;
+    text-align: right;
+}

@@ -5,10 +5,11 @@ define([
     'jquery',
     'vendor/underscore',
     'vendor/backbone',
+    'vendor/grids',
     'kinvey',
     'moment',
     'app'
-], function ($, _, Backbone, Kinvey, moment, App) {
+], function ($, _, Backbone, Grids, Kinvey, moment, App) {
 
     "use strict";
 
@@ -27,6 +28,7 @@ define([
         render: function () {
 
             var startingAt, storyboardBackgroundPosition, logos, answers, question,
+                $firstRowLogos, $secondRowLogos, $logos,
 
                 positions = [
                     '661px -7px',
@@ -89,6 +91,31 @@ define([
                 'answers': answers,
                 'displayID': this.options.displayID
             }));
+
+            /*$firstRowLogos = this.$el.find('.js-first-row-logo');
+            $secondRowLogos = this.$el.find('.js-second-row-logo');
+
+            $firstRowLogos.equalHeight();
+            $secondRowLogos.equalHeight();
+
+            $(window).on('resize', function () {
+                $firstRowLogos.equalHeight();
+                $secondRowLogos.equalHeight();
+            });*/
+
+            /*$logos = this.$el.find('.js-logos');
+
+            $logos.equalHeight(2);
+
+            $(window).on('resize', function () {
+                $logos.equalHeight(2);
+            });*/
+
+            $logos = this.$el.find('.js-stream-logo-guess');
+
+            _.each($logos.parent(), function (el) {
+                console.log($(el).height());
+            });
 
             return this;
         }
