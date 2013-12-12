@@ -4,10 +4,12 @@
 @import "bootstrap";
 @import "alterations";
 
-@import "actionbar";
-@import "answer";
-@import "instruction";
-@import "logo";
-@import "quiz";
-@import "result";
-@import "trivia";
+@import "blocks/actionbar";
+@import "blocks/answer";
+@import "blocks/error-message";
+@import "blocks/instruction";
+@import "blocks/loader";
+@import "blocks/logo";
+@import "blocks/quiz";
+@import "blocks/result";
+@import "blocks/trivia";

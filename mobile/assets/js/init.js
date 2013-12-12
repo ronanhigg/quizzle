@@ -38,8 +38,9 @@ require([
     'kinvey',
     'app',
     'router',
-    'models/player'
-], function ($, _, Backbone, Associations, Bootstrap, moment, Kinvey, App, AppRouter, PlayerModel) {
+    'models/player',
+    'views/loading'
+], function ($, _, Backbone, Associations, Bootstrap, moment, Kinvey, App, AppRouter, PlayerModel, LoadingView) {
 
     "use strict";
 
@@ -61,6 +62,14 @@ require([
     *
     * Start the connection with Kinvey, and use our app key and secret to authenticate
     */
+
+    var loadingView = new LoadingView();
+
+    loadingView.render({
+        fullScreen: true
+    });
+
+    $('#main').html(loadingView.el);
 
     window.KINVEY_DEBUG = true;
     Kinvey.init({

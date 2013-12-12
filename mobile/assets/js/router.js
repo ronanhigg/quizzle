@@ -6,19 +6,20 @@ define([
     'vendor/backbone',
     'kinvey',
     'app',
-    'loader',
+    //'loader',
 
-    'views/checkin',
-    'views/errormessage',
-    'views/login',
-    'views/register',
-    'views/stream',
-    'views/streampanel',
+    //'views/checkin',
+    //'views/errormessage',
+    //'views/login',
+    //'views/register',
+    'views/stream/quizstream',
+    //'views/streampanel',
 
     'collections/addetections',
     'collections/airings',
     'collections/checkins',
 
+    'models/addetection',
     'models/airing',
     'models/channel',
     'models/checkin',
@@ -29,19 +30,20 @@ define([
     Backbone,
     Kinvey,
     App,
-    Loader,
+    //Loader,
 
-    CheckInView,
-    ErrorMessageView,
-    LoginView,
-    RegisterView,
-    StreamView,
-    StreamPanelView,
+    //CheckInView,
+    //ErrorMessageView,
+    //LoginView,
+    //RegisterView,
+    QuizStreamView,
+    //StreamPanelView,
 
     AdDetectionsCollection,
     AiringsCollection,
     CheckInsCollection,
 
+    AdDetectionModel,
     AiringModel,
     ChannelModel,
     CheckInModel,
@@ -100,7 +102,7 @@ define([
             });
         }),
 
-        login: function () {
+        /*login: function () {
             var loginView = new LoginView();
             $('#main').html(loginView.render().el);
         },
@@ -164,9 +166,24 @@ define([
                     $('#main').html(checkInView.render().el);
                     App.main = checkInView;
                 });
-        }),
+        }),*/
 
         play: ensureLogin(function () {
+            var adDetections = new AdDetectionsCollection(),
+
+                quizStreamView = new QuizStreamView({
+                    collection: adDetections
+                });
+
+            $('#main').html(quizStreamView.render().el);
+
+            adDetections.fetch();
+
+            return;
+
+
+
+
             var lastAdDetectionID,
 
                 addWorthlessPoints,
@@ -310,6 +327,14 @@ define([
 
                 fetchMoreAdDetections();
                 return false;
+            });
+
+            $('#main').on('swiperight', '.quiz', function () {
+                console.log('Swipe Right');
+            });
+
+            $('#main').on('swipeleft', '.quiz', function () {
+                console.log('Swipe Left');
             });
 
             $('#main').on('click', '.js-stream-logo-guess', function () {

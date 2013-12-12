@@ -727,9 +727,11 @@ table {
   }
 
   /* line 87, ../../../../../opt/vagrant_ruby/lib/ruby/gems/1.8/gems/bootstrap-sass-3.0.3.0/vendor/assets/stylesheets/bootstrap/_print.scss */
-  .btn > .caret, .answer__btn > .caret,
+  .btn > .caret, .action > .caret, .answer__btn > .caret, .error-message__read-more > .caret,
   .dropup > .btn > .caret,
-  .dropup > .answer__btn > .caret {
+  .dropup > .action > .caret,
+  .dropup > .answer__btn > .caret,
+  .dropup > .error-message__read-more > .caret {
     border-top-color: #000 !important;
   }
 
@@ -2812,7 +2814,9 @@ input[type="checkbox"],
 .input-sm, .input-group-sm > .form-control,
 .input-group-sm > .input-group-addon,
 .input-group-sm > .input-group-btn > .btn,
-.input-group-sm > .input-group-btn > .answer__btn {
+.input-group-sm > .input-group-btn > .action,
+.input-group-sm > .input-group-btn > .answer__btn,
+.input-group-sm > .input-group-btn > .error-message__read-more {
   height: 30px;
   padding: 5px 10px;
   font-size: 12px;
@@ -2824,7 +2828,9 @@ input[type="checkbox"],
 select.input-sm, .input-group-sm > select.form-control,
 .input-group-sm > select.input-group-addon,
 .input-group-sm > .input-group-btn > select.btn,
-.input-group-sm > .input-group-btn > select.answer__btn {
+.input-group-sm > .input-group-btn > select.action,
+.input-group-sm > .input-group-btn > select.answer__btn,
+.input-group-sm > .input-group-btn > select.error-message__read-more {
   height: 30px;
   line-height: 30px;
 }
@@ -2833,7 +2839,9 @@ select.input-sm, .input-group-sm > select.form-control,
 textarea.input-sm, .input-group-sm > textarea.form-control,
 .input-group-sm > textarea.input-group-addon,
 .input-group-sm > .input-group-btn > textarea.btn,
-.input-group-sm > .input-group-btn > textarea.answer__btn {
+.input-group-sm > .input-group-btn > textarea.action,
+.input-group-sm > .input-group-btn > textarea.answer__btn,
+.input-group-sm > .input-group-btn > textarea.error-message__read-more {
   height: auto;
 }
 
@@ -2841,7 +2849,9 @@ textarea.input-sm, .input-group-sm > textarea.form-control,
 .input-lg, .input-group-lg > .form-control,
 .input-group-lg > .input-group-addon,
 .input-group-lg > .input-group-btn > .btn,
-.input-group-lg > .input-group-btn > .answer__btn {
+.input-group-lg > .input-group-btn > .action,
+.input-group-lg > .input-group-btn > .answer__btn,
+.input-group-lg > .input-group-btn > .error-message__read-more {
   height: 46px;
   padding: 10px 16px;
   font-size: 18px;
@@ -2853,7 +2863,9 @@ textarea.input-sm, .input-group-sm > textarea.form-control,
 select.input-lg, .input-group-lg > select.form-control,
 .input-group-lg > select.input-group-addon,
 .input-group-lg > .input-group-btn > select.btn,
-.input-group-lg > .input-group-btn > select.answer__btn {
+.input-group-lg > .input-group-btn > select.action,
+.input-group-lg > .input-group-btn > select.answer__btn,
+.input-group-lg > .input-group-btn > select.error-message__read-more {
   height: 46px;
   line-height: 46px;
 }
@@ -2862,7 +2874,9 @@ select.input-lg, .input-group-lg > select.form-control,
 textarea.input-lg, .input-group-lg > textarea.form-control,
 .input-group-lg > textarea.input-group-addon,
 .input-group-lg > .input-group-btn > textarea.btn,
-.input-group-lg > .input-group-btn > textarea.answer__btn {
+.input-group-lg > .input-group-btn > textarea.action,
+.input-group-lg > .input-group-btn > textarea.answer__btn,
+.input-group-lg > .input-group-btn > textarea.error-message__read-more {
   height: auto;
 }
 
@@ -3037,7 +3051,7 @@ textarea.input-lg, .input-group-lg > textarea.form-control,
 }
 
 /* line 9, ../../../../../opt/vagrant_ruby/lib/ruby/gems/1.8/gems/bootstrap-sass-3.0.3.0/vendor/assets/stylesheets/bootstrap/_buttons.scss */
-.btn, .answer__btn {
+.btn, .action, .answer__btn, .error-message__read-more {
   display: inline-block;
   margin-bottom: 0;
   font-weight: normal;
@@ -3058,25 +3072,25 @@ textarea.input-lg, .input-group-lg > textarea.form-control,
   user-select: none;
 }
 /* line 22, ../../../../../opt/vagrant_ruby/lib/ruby/gems/1.8/gems/bootstrap-sass-3.0.3.0/vendor/assets/stylesheets/bootstrap/_buttons.scss */
-.btn:focus, .answer__btn:focus {
+.btn:focus, .action:focus, .answer__btn:focus, .error-message__read-more:focus {
   outline: thin dotted;
   outline: 5px auto -webkit-focus-ring-color;
   outline-offset: -2px;
 }
 /* line 27, ../../../../../opt/vagrant_ruby/lib/ruby/gems/1.8/gems/bootstrap-sass-3.0.3.0/vendor/assets/stylesheets/bootstrap/_buttons.scss */
-.btn:hover, .answer__btn:hover, .btn:focus, .answer__btn:focus {
+.btn:hover, .action:hover, .answer__btn:hover, .error-message__read-more:hover, .btn:focus, .action:focus, .answer__btn:focus, .error-message__read-more:focus {
   color: #333333;
   text-decoration: none;
 }
 /* line 33, ../../../../../opt/vagrant_ruby/lib/ruby/gems/1.8/gems/bootstrap-sass-3.0.3.0/vendor/assets/stylesheets/bootstrap/_buttons.scss */
-.btn:active, .answer__btn:active, .btn.active, .active.answer__btn {
+.btn:active, .action:active, .answer__btn:active, .error-message__read-more:active, .btn.active, .active.action, .active.answer__btn, .active.error-message__read-more {
   outline: 0;
   background-image: none;
   -webkit-box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
   box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
 }
 /* line 41, ../../../../../opt/vagrant_ruby/lib/ruby/gems/1.8/gems/bootstrap-sass-3.0.3.0/vendor/assets/stylesheets/bootstrap/_buttons.scss */
-.btn.disabled, .disabled.answer__btn, .btn[disabled], [disabled].answer__btn, fieldset[disabled] .btn, fieldset[disabled] .answer__btn {
+.btn.disabled, .disabled.action, .disabled.answer__btn, .disabled.error-message__read-more, .btn[disabled], [disabled].action, [disabled].answer__btn, [disabled].error-message__read-more, fieldset[disabled] .btn, fieldset[disabled] .action, fieldset[disabled] .answer__btn, fieldset[disabled] .error-message__read-more {
   cursor: not-allowed;
   pointer-events: none;
   opacity: 0.65;
@@ -3086,38 +3100,38 @@ textarea.input-lg, .input-group-lg > textarea.form-control,
 }
 
 /* line 53, ../../../../../opt/vagrant_ruby/lib/ruby/gems/1.8/gems/bootstrap-sass-3.0.3.0/vendor/assets/stylesheets/bootstrap/_buttons.scss */
-.btn-default, .answer__btn {
+.btn-default, .action, .answer__btn {
   color: #333333;
   background-color: white;
   border-color: #cccccc;
 }
 /* line 451, ../../../../../opt/vagrant_ruby/lib/ruby/gems/1.8/gems/bootstrap-sass-3.0.3.0/vendor/assets/stylesheets/bootstrap/_mixins.scss */
-.btn-default:hover, .answer__btn:hover, .btn-default:focus, .answer__btn:focus, .btn-default:active, .answer__btn:active, .btn-default.active, .active.answer__btn {
+.btn-default:hover, .action:hover, .answer__btn:hover, .btn-default:focus, .action:focus, .answer__btn:focus, .btn-default:active, .action:active, .answer__btn:active, .btn-default.active, .active.action, .active.answer__btn {
   color: #333333;
   background-color: #ebebeb;
   border-color: #adadad;
 }
 /* line 456, ../../../../../opt/vagrant_ruby/lib/ruby/gems/1.8/gems/bootstrap-sass-3.0.3.0/vendor/assets/stylesheets/bootstrap/_mixins.scss */
-.open .btn-default.dropdown-toggle, .open .dropdown-toggle.answer__btn {
+.open .btn-default.dropdown-toggle, .open .dropdown-toggle.action, .open .dropdown-toggle.answer__btn {
   color: #333333;
   background-color: #ebebeb;
   border-color: #adadad;
 }
 /* line 462, ../../../../../opt/vagrant_ruby/lib/ruby/gems/1.8/gems/bootstrap-sass-3.0.3.0/vendor/assets/stylesheets/bootstrap/_mixins.scss */
-.btn-default:active, .answer__btn:active, .btn-default.active, .active.answer__btn {
+.btn-default:active, .action:active, .answer__btn:active, .btn-default.active, .active.action, .active.answer__btn {
   background-image: none;
 }
 /* line 465, ../../../../../opt/vagrant_ruby/lib/ruby/gems/1.8/gems/bootstrap-sass-3.0.3.0/vendor/assets/stylesheets/bootstrap/_mixins.scss */
-.open .btn-default.dropdown-toggle, .open .dropdown-toggle.answer__btn {
+.open .btn-default.dropdown-toggle, .open .dropdown-toggle.action, .open .dropdown-toggle.answer__btn {
   background-image: none;
 }
 /* line 475, ../../../../../opt/vagrant_ruby/lib/ruby/gems/1.8/gems/bootstrap-sass-3.0.3.0/vendor/assets/stylesheets/bootstrap/_mixins.scss */
-.btn-default.disabled, .disabled.answer__btn, .btn-default.disabled:hover, .disabled.answer__btn:hover, .btn-default.disabled:focus, .disabled.answer__btn:focus, .btn-default.disabled:active, .disabled.answer__btn:active, .btn-default.disabled.active, .disabled.active.answer__btn, .btn-default[disabled], [disabled].answer__btn, .btn-default[disabled]:hover, [disabled].answer__btn:hover, .btn-default[disabled]:focus, [disabled].answer__btn:focus, .btn-default[disabled]:active, [disabled].answer__btn:active, .btn-default[disabled].active, [disabled].active.answer__btn, fieldset[disabled] .btn-default, fieldset[disabled] .answer__btn, fieldset[disabled] .btn-default:hover, fieldset[disabled] .answer__btn:hover, fieldset[disabled] .btn-default:focus, fieldset[disabled] .answer__btn:focus, fieldset[disabled] .btn-default:active, fieldset[disabled] .answer__btn:active, fieldset[disabled] .btn-default.active, fieldset[disabled] .active.answer__btn {
+.btn-default.disabled, .disabled.action, .disabled.answer__btn, .btn-default.disabled:hover, .disabled.action:hover, .disabled.answer__btn:hover, .btn-default.disabled:focus, .disabled.action:focus, .disabled.answer__btn:focus, .btn-default.disabled:active, .disabled.action:active, .disabled.answer__btn:active, .btn-default.disabled.active, .disabled.active.action, .disabled.active.answer__btn, .btn-default[disabled], [disabled].action, [disabled].answer__btn, .btn-default[disabled]:hover, [disabled].action:hover, [disabled].answer__btn:hover, .btn-default[disabled]:focus, [disabled].action:focus, [disabled].answer__btn:focus, .btn-default[disabled]:active, [disabled].action:active, [disabled].answer__btn:active, .btn-default[disabled].active, [disabled].active.action, [disabled].active.answer__btn, fieldset[disabled] .btn-default, fieldset[disabled] .action, fieldset[disabled] .answer__btn, fieldset[disabled] .btn-default:hover, fieldset[disabled] .action:hover, fieldset[disabled] .answer__btn:hover, fieldset[disabled] .btn-default:focus, fieldset[disabled] .action:focus, fieldset[disabled] .answer__btn:focus, fieldset[disabled] .btn-default:active, fieldset[disabled] .action:active, fieldset[disabled] .answer__btn:active, fieldset[disabled] .btn-default.active, fieldset[disabled] .active.action, fieldset[disabled] .active.answer__btn {
   background-color: white;
   border-color: #cccccc;
 }
 /* line 481, ../../../../../opt/vagrant_ruby/lib/ruby/gems/1.8/gems/bootstrap-sass-3.0.3.0/vendor/assets/stylesheets/bootstrap/_mixins.scss */
-.btn-default .badge, .answer__btn .badge {
+.btn-default .badge, .action .badge, .answer__btn .badge {
   color: white;
   background-color: #fff;
 }
@@ -3197,38 +3211,38 @@ textarea.input-lg, .input-group-lg > textarea.form-control,
 }
 
 /* line 64, ../../../../../opt/vagrant_ruby/lib/ruby/gems/1.8/gems/bootstrap-sass-3.0.3.0/vendor/assets/stylesheets/bootstrap/_buttons.scss */
-.btn-danger {
+.btn-danger, .error-message__read-more {
   color: white;
   background-color: #d9534f;
   border-color: #d43f3a;
 }
 /* line 451, ../../../../../opt/vagrant_ruby/lib/ruby/gems/1.8/gems/bootstrap-sass-3.0.3.0/vendor/assets/stylesheets/bootstrap/_mixins.scss */
-.btn-danger:hover, .btn-danger:focus, .btn-danger:active, .btn-danger.active {
+.btn-danger:hover, .error-message__read-more:hover, .btn-danger:focus, .error-message__read-more:focus, .btn-danger:active, .error-message__read-more:active, .btn-danger.active, .active.error-message__read-more {
   color: white;
   background-color: #d2322d;
   border-color: #ac2925;
 }
 /* line 456, ../../../../../opt/vagrant_ruby/lib/ruby/gems/1.8/gems/bootstrap-sass-3.0.3.0/vendor/assets/stylesheets/bootstrap/_mixins.scss */
-.open .btn-danger.dropdown-toggle {
+.open .btn-danger.dropdown-toggle, .open .dropdown-toggle.error-message__read-more {
   color: white;
   background-color: #d2322d;
   border-color: #ac2925;
 }
 /* line 462, ../../../../../opt/vagrant_ruby/lib/ruby/gems/1.8/gems/bootstrap-sass-3.0.3.0/vendor/assets/stylesheets/bootstrap/_mixins.scss */
-.btn-danger:active, .btn-danger.active {
+.btn-danger:active, .error-message__read-more:active, .btn-danger.active, .active.error-message__read-more {
   background-image: none;
 }
 /* line 465, ../../../../../opt/vagrant_ruby/lib/ruby/gems/1.8/gems/bootstrap-sass-3.0.3.0/vendor/assets/stylesheets/bootstrap/_mixins.scss */
-.open .btn-danger.dropdown-toggle {
+.open .btn-danger.dropdown-toggle, .open .dropdown-toggle.error-message__read-more {
   background-image: none;
 }
 /* line 475, ../../../../../opt/vagrant_ruby/lib/ruby/gems/1.8/gems/bootstrap-sass-3.0.3.0/vendor/assets/stylesheets/bootstrap/_mixins.scss */
-.btn-danger.disabled, .btn-danger.disabled:hover, .btn-danger.disabled:focus, .btn-danger.disabled:active, .btn-danger.disabled.active, .btn-danger[disabled], .btn-danger[disabled]:hover, .btn-danger[disabled]:focus, .btn-danger[disabled]:active, .btn-danger[disabled].active, fieldset[disabled] .btn-danger, fieldset[disabled] .btn-danger:hover, fieldset[disabled] .btn-danger:focus, fieldset[disabled] .btn-danger:active, fieldset[disabled] .btn-danger.active {
+.btn-danger.disabled, .disabled.error-message__read-more, .btn-danger.disabled:hover, .disabled.error-message__read-more:hover, .btn-danger.disabled:focus, .disabled.error-message__read-more:focus, .btn-danger.disabled:active, .disabled.error-message__read-more:active, .btn-danger.disabled.active, .disabled.active.error-message__read-more, .btn-danger[disabled], [disabled].error-message__read-more, .btn-danger[disabled]:hover, [disabled].error-message__read-more:hover, .btn-danger[disabled]:focus, [disabled].error-message__read-more:focus, .btn-danger[disabled]:active, [disabled].error-message__read-more:active, .btn-danger[disabled].active, [disabled].active.error-message__read-more, fieldset[disabled] .btn-danger, fieldset[disabled] .error-message__read-more, fieldset[disabled] .btn-danger:hover, fieldset[disabled] .error-message__read-more:hover, fieldset[disabled] .btn-danger:focus, fieldset[disabled] .error-message__read-more:focus, fieldset[disabled] .btn-danger:active, fieldset[disabled] .error-message__read-more:active, fieldset[disabled] .btn-danger.active, fieldset[disabled] .active.error-message__read-more {
   background-color: #d9534f;
   border-color: #d43f3a;
 }
 /* line 481, ../../../../../opt/vagrant_ruby/lib/ruby/gems/1.8/gems/bootstrap-sass-3.0.3.0/vendor/assets/stylesheets/bootstrap/_mixins.scss */
-.btn-danger .badge {
+.btn-danger .badge, .error-message__read-more .badge {
   color: #d9534f;
   background-color: #fff;
 }
@@ -3337,7 +3351,7 @@ textarea.input-lg, .input-group-lg > textarea.form-control,
 }
 
 /* line 120, ../../../../../opt/vagrant_ruby/lib/ruby/gems/1.8/gems/bootstrap-sass-3.0.3.0/vendor/assets/stylesheets/bootstrap/_buttons.scss */
-.btn-lg, .btn-group-lg > .btn, .btn-group-lg > .answer__btn {
+.btn-lg, .btn-group-lg > .btn, .btn-group-lg > .action, .btn-group-lg > .answer__btn, .btn-group-lg > .error-message__read-more {
   padding: 10px 16px;
   font-size: 18px;
   line-height: 1.33;
@@ -3345,7 +3359,7 @@ textarea.input-lg, .input-group-lg > textarea.form-control,
 }
 
 /* line 124, ../../../../../opt/vagrant_ruby/lib/ruby/gems/1.8/gems/bootstrap-sass-3.0.3.0/vendor/assets/stylesheets/bootstrap/_buttons.scss */
-.btn-sm, .btn-group-sm > .btn, .btn-group-sm > .answer__btn {
+.btn-sm, .btn-group-sm > .btn, .btn-group-sm > .action, .btn-group-sm > .answer__btn, .btn-group-sm > .error-message__read-more {
   padding: 5px 10px;
   font-size: 12px;
   line-height: 1.5;
@@ -3353,7 +3367,7 @@ textarea.input-lg, .input-group-lg > textarea.form-control,
 }
 
 /* line 128, ../../../../../opt/vagrant_ruby/lib/ruby/gems/1.8/gems/bootstrap-sass-3.0.3.0/vendor/assets/stylesheets/bootstrap/_buttons.scss */
-.btn-xs, .btn-group-xs > .btn, .btn-group-xs > .answer__btn {
+.btn-xs, .btn-group-xs > .btn, .btn-group-xs > .action, .btn-group-xs > .answer__btn, .error-message__read-more {
   padding: 1px 5px;
   font-size: 12px;
   line-height: 1.5;
@@ -4593,37 +4607,53 @@ input[type="button"].answer__btn {
   vertical-align: middle;
 }
 /* line 11, ../../../../../opt/vagrant_ruby/lib/ruby/gems/1.8/gems/bootstrap-sass-3.0.3.0/vendor/assets/stylesheets/bootstrap/_button-groups.scss */
-.btn-group > .btn, .btn-group > .answer__btn,
+.btn-group > .btn, .btn-group > .action, .btn-group > .answer__btn, .btn-group > .error-message__read-more,
 .btn-group-vertical > .btn,
-.btn-group-vertical > .answer__btn {
+.btn-group-vertical > .action,
+.btn-group-vertical > .answer__btn,
+.btn-group-vertical > .error-message__read-more {
   position: relative;
   float: left;
 }
 /* line 18, ../../../../../opt/vagrant_ruby/lib/ruby/gems/1.8/gems/bootstrap-sass-3.0.3.0/vendor/assets/stylesheets/bootstrap/_button-groups.scss */
-.btn-group > .btn:hover, .btn-group > .answer__btn:hover, .btn-group > .btn:focus, .btn-group > .answer__btn:focus, .btn-group > .btn:active, .btn-group > .answer__btn:active, .btn-group > .btn.active, .btn-group > .active.answer__btn,
+.btn-group > .btn:hover, .btn-group > .action:hover, .btn-group > .answer__btn:hover, .btn-group > .error-message__read-more:hover, .btn-group > .btn:focus, .btn-group > .action:focus, .btn-group > .answer__btn:focus, .btn-group > .error-message__read-more:focus, .btn-group > .btn:active, .btn-group > .action:active, .btn-group > .answer__btn:active, .btn-group > .error-message__read-more:active, .btn-group > .btn.active, .btn-group > .active.action, .btn-group > .active.answer__btn, .btn-group > .active.error-message__read-more,
 .btn-group-vertical > .btn:hover,
+.btn-group-vertical > .action:hover,
 .btn-group-vertical > .answer__btn:hover,
+.btn-group-vertical > .error-message__read-more:hover,
 .btn-group-vertical > .btn:focus,
+.btn-group-vertical > .action:focus,
 .btn-group-vertical > .answer__btn:focus,
+.btn-group-vertical > .error-message__read-more:focus,
 .btn-group-vertical > .btn:active,
+.btn-group-vertical > .action:active,
 .btn-group-vertical > .answer__btn:active,
+.btn-group-vertical > .error-message__read-more:active,
 .btn-group-vertical > .btn.active,
-.btn-group-vertical > .active.answer__btn {
+.btn-group-vertical > .active.action,
+.btn-group-vertical > .active.answer__btn,
+.btn-group-vertical > .active.error-message__read-more {
   z-index: 2;
 }
 /* line 21, ../../../../../opt/vagrant_ruby/lib/ruby/gems/1.8/gems/bootstrap-sass-3.0.3.0/vendor/assets/stylesheets/bootstrap/_button-groups.scss */
-.btn-group > .btn:focus, .btn-group > .answer__btn:focus,
+.btn-group > .btn:focus, .btn-group > .action:focus, .btn-group > .answer__btn:focus, .btn-group > .error-message__read-more:focus,
 .btn-group-vertical > .btn:focus,
-.btn-group-vertical > .answer__btn:focus {
+.btn-group-vertical > .action:focus,
+.btn-group-vertical > .answer__btn:focus,
+.btn-group-vertical > .error-message__read-more:focus {
   outline: none;
 }
 
 /* line 33, ../../../../../opt/vagrant_ruby/lib/ruby/gems/1.8/gems/bootstrap-sass-3.0.3.0/vendor/assets/stylesheets/bootstrap/_button-groups.scss */
-.btn-group .btn + .btn, .btn-group .answer__btn + .btn, .btn-group .btn + .answer__btn, .btn-group .answer__btn + .answer__btn,
+.btn-group .btn + .btn, .btn-group .action + .btn, .btn-group .answer__btn + .btn, .btn-group .error-message__read-more + .btn, .btn-group .btn + .action, .btn-group .action + .action, .btn-group .answer__btn + .action, .btn-group .error-message__read-more + .action, .btn-group .btn + .answer__btn, .btn-group .action + .answer__btn, .btn-group .answer__btn + .answer__btn, .btn-group .error-message__read-more + .answer__btn, .btn-group .btn + .error-message__read-more, .btn-group .action + .error-message__read-more, .btn-group .answer__btn + .error-message__read-more, .btn-group .error-message__read-more + .error-message__read-more,
 .btn-group .btn + .btn-group,
+.btn-group .action + .btn-group,
 .btn-group .answer__btn + .btn-group,
+.btn-group .error-message__read-more + .btn-group,
 .btn-group .btn-group + .btn,
+.btn-group .btn-group + .action,
 .btn-group .btn-group + .answer__btn,
+.btn-group .btn-group + .error-message__read-more,
 .btn-group .btn-group + .btn-group {
   margin-left: -1px;
 }
@@ -4642,32 +4672,36 @@ input[type="button"].answer__btn {
   float: left;
 }
 /* line 49, ../../../../../opt/vagrant_ruby/lib/ruby/gems/1.8/gems/bootstrap-sass-3.0.3.0/vendor/assets/stylesheets/bootstrap/_button-groups.scss */
-.btn-toolbar > .btn + .btn, .btn-toolbar > .answer__btn + .btn, .btn-toolbar > .btn + .answer__btn, .btn-toolbar > .answer__btn + .answer__btn,
+.btn-toolbar > .btn + .btn, .btn-toolbar > .action + .btn, .btn-toolbar > .answer__btn + .btn, .btn-toolbar > .error-message__read-more + .btn, .btn-toolbar > .btn + .action, .btn-toolbar > .action + .action, .btn-toolbar > .answer__btn + .action, .btn-toolbar > .error-message__read-more + .action, .btn-toolbar > .btn + .answer__btn, .btn-toolbar > .action + .answer__btn, .btn-toolbar > .answer__btn + .answer__btn, .btn-toolbar > .error-message__read-more + .answer__btn, .btn-toolbar > .btn + .error-message__read-more, .btn-toolbar > .action + .error-message__read-more, .btn-toolbar > .answer__btn + .error-message__read-more, .btn-toolbar > .error-message__read-more + .error-message__read-more,
 .btn-toolbar > .btn + .btn-group,
+.btn-toolbar > .action + .btn-group,
 .btn-toolbar > .answer__btn + .btn-group,
+.btn-toolbar > .error-message__read-more + .btn-group,
 .btn-toolbar > .btn-group + .btn,
+.btn-toolbar > .btn-group + .action,
 .btn-toolbar > .btn-group + .answer__btn,
+.btn-toolbar > .btn-group + .error-message__read-more,
 .btn-toolbar > .btn-group + .btn-group {
   margin-left: 5px;
 }
 
 /* line 55, ../../../../../opt/vagrant_ruby/lib/ruby/gems/1.8/gems/bootstrap-sass-3.0.3.0/vendor/assets/stylesheets/bootstrap/_button-groups.scss */
-.btn-group > .btn:not(:first-child):not(:last-child):not(.dropdown-toggle), .btn-group > .answer__btn:not(:first-child):not(:last-child):not(.dropdown-toggle) {
+.btn-group > .btn:not(:first-child):not(:last-child):not(.dropdown-toggle), .btn-group > .action:not(:first-child):not(:last-child):not(.dropdown-toggle), .btn-group > .answer__btn:not(:first-child):not(:last-child):not(.dropdown-toggle), .btn-group > .error-message__read-more:not(:first-child):not(:last-child):not(.dropdown-toggle) {
   border-radius: 0;
 }
 
 /* line 60, ../../../../../opt/vagrant_ruby/lib/ruby/gems/1.8/gems/bootstrap-sass-3.0.3.0/vendor/assets/stylesheets/bootstrap/_button-groups.scss */
-.btn-group > .btn:first-child, .btn-group > .answer__btn:first-child {
+.btn-group > .btn:first-child, .btn-group > .action:first-child, .btn-group > .answer__btn:first-child, .btn-group > .error-message__read-more:first-child {
   margin-left: 0;
 }
 /* line 62, ../../../../../opt/vagrant_ruby/lib/ruby/gems/1.8/gems/bootstrap-sass-3.0.3.0/vendor/assets/stylesheets/bootstrap/_button-groups.scss */
-.btn-group > .btn:first-child:not(:last-child):not(.dropdown-toggle), .btn-group > .answer__btn:first-child:not(:last-child):not(.dropdown-toggle) {
+.btn-group > .btn:first-child:not(:last-child):not(.dropdown-toggle), .btn-group > .action:first-child:not(:last-child):not(.dropdown-toggle), .btn-group > .answer__btn:first-child:not(:last-child):not(.dropdown-toggle), .btn-group > .error-message__read-more:first-child:not(:last-child):not(.dropdown-toggle) {
   border-bottom-right-radius: 0;
   border-top-right-radius: 0;
 }
 
 /* line 68, ../../../../../opt/vagrant_ruby/lib/ruby/gems/1.8/gems/bootstrap-sass-3.0.3.0/vendor/assets/stylesheets/bootstrap/_button-groups.scss */
-.btn-group > .btn:last-child:not(:first-child), .btn-group > .answer__btn:last-child:not(:first-child),
+.btn-group > .btn:last-child:not(:first-child), .btn-group > .action:last-child:not(:first-child), .btn-group > .answer__btn:last-child:not(:first-child), .btn-group > .error-message__read-more:last-child:not(:first-child),
 .btn-group > .dropdown-toggle:not(:first-child) {
   border-bottom-left-radius: 0;
   border-top-left-radius: 0;
@@ -4679,19 +4713,19 @@ input[type="button"].answer__btn {
 }
 
 /* line 76, ../../../../../opt/vagrant_ruby/lib/ruby/gems/1.8/gems/bootstrap-sass-3.0.3.0/vendor/assets/stylesheets/bootstrap/_button-groups.scss */
-.btn-group > .btn-group:not(:first-child):not(:last-child) > .btn, .btn-group > .btn-group:not(:first-child):not(:last-child) > .answer__btn {
+.btn-group > .btn-group:not(:first-child):not(:last-child) > .btn, .btn-group > .btn-group:not(:first-child):not(:last-child) > .action, .btn-group > .btn-group:not(:first-child):not(:last-child) > .answer__btn, .btn-group > .btn-group:not(:first-child):not(:last-child) > .error-message__read-more {
   border-radius: 0;
 }
 
 /* line 81, ../../../../../opt/vagrant_ruby/lib/ruby/gems/1.8/gems/bootstrap-sass-3.0.3.0/vendor/assets/stylesheets/bootstrap/_button-groups.scss */
-.btn-group > .btn-group:first-child > .btn:last-child, .btn-group > .btn-group:first-child > .answer__btn:last-child,
+.btn-group > .btn-group:first-child > .btn:last-child, .btn-group > .btn-group:first-child > .action:last-child, .btn-group > .btn-group:first-child > .answer__btn:last-child, .btn-group > .btn-group:first-child > .error-message__read-more:last-child,
 .btn-group > .btn-group:first-child > .dropdown-toggle {
   border-bottom-right-radius: 0;
   border-top-right-radius: 0;
 }
 
 /* line 85, ../../../../../opt/vagrant_ruby/lib/ruby/gems/1.8/gems/bootstrap-sass-3.0.3.0/vendor/assets/stylesheets/bootstrap/_button-groups.scss */
-.btn-group > .btn-group:last-child > .btn:first-child, .btn-group > .btn-group:last-child > .answer__btn:first-child {
+.btn-group > .btn-group:last-child > .btn:first-child, .btn-group > .btn-group:last-child > .action:first-child, .btn-group > .btn-group:last-child > .answer__btn:first-child, .btn-group > .btn-group:last-child > .error-message__read-more:first-child {
   border-bottom-left-radius: 0;
   border-top-left-radius: 0;
 }
@@ -4703,13 +4737,13 @@ input[type="button"].answer__btn {
 }
 
 /* line 109, ../../../../../opt/vagrant_ruby/lib/ruby/gems/1.8/gems/bootstrap-sass-3.0.3.0/vendor/assets/stylesheets/bootstrap/_button-groups.scss */
-.btn-group > .btn + .dropdown-toggle, .btn-group > .answer__btn + .dropdown-toggle {
+.btn-group > .btn + .dropdown-toggle, .btn-group > .action + .dropdown-toggle, .btn-group > .answer__btn + .dropdown-toggle, .btn-group > .error-message__read-more + .dropdown-toggle {
   padding-left: 8px;
   padding-right: 8px;
 }
 
 /* line 113, ../../../../../opt/vagrant_ruby/lib/ruby/gems/1.8/gems/bootstrap-sass-3.0.3.0/vendor/assets/stylesheets/bootstrap/_button-groups.scss */
-.btn-group > .btn-lg + .dropdown-toggle, .btn-group-lg.btn-group > .btn + .dropdown-toggle, .btn-group-lg.btn-group > .answer__btn + .dropdown-toggle {
+.btn-group > .btn-lg + .dropdown-toggle, .btn-group-lg.btn-group > .btn + .dropdown-toggle, .btn-group-lg.btn-group > .action + .dropdown-toggle, .btn-group-lg.btn-group > .answer__btn + .dropdown-toggle, .btn-group-lg.btn-group > .error-message__read-more + .dropdown-toggle {
   padding-left: 12px;
   padding-right: 12px;
 }
@@ -4726,26 +4760,28 @@ input[type="button"].answer__btn {
 }
 
 /* line 131, ../../../../../opt/vagrant_ruby/lib/ruby/gems/1.8/gems/bootstrap-sass-3.0.3.0/vendor/assets/stylesheets/bootstrap/_button-groups.scss */
-.btn .caret, .answer__btn .caret {
+.btn .caret, .action .caret, .answer__btn .caret, .error-message__read-more .caret {
   margin-left: 0;
 }
 
 /* line 135, ../../../../../opt/vagrant_ruby/lib/ruby/gems/1.8/gems/bootstrap-sass-3.0.3.0/vendor/assets/stylesheets/bootstrap/_button-groups.scss */
-.btn-lg .caret, .btn-group-lg > .btn .caret, .btn-group-lg > .answer__btn .caret {
+.btn-lg .caret, .btn-group-lg > .btn .caret, .btn-group-lg > .action .caret, .btn-group-lg > .answer__btn .caret, .btn-group-lg > .error-message__read-more .caret {
   border-width: 5px 5px 0;
   border-bottom-width: 0;
 }
 
 /* line 140, ../../../../../opt/vagrant_ruby/lib/ruby/gems/1.8/gems/bootstrap-sass-3.0.3.0/vendor/assets/stylesheets/bootstrap/_button-groups.scss */
-.dropup .btn-lg .caret, .dropup .btn-group-lg > .btn .caret, .dropup .btn-group-lg > .answer__btn .caret {
+.dropup .btn-lg .caret, .dropup .btn-group-lg > .btn .caret, .dropup .btn-group-lg > .action .caret, .dropup .btn-group-lg > .answer__btn .caret, .dropup .btn-group-lg > .error-message__read-more .caret {
   border-width: 0 5px 5px;
 }
 
 /* line 151, ../../../../../opt/vagrant_ruby/lib/ruby/gems/1.8/gems/bootstrap-sass-3.0.3.0/vendor/assets/stylesheets/bootstrap/_button-groups.scss */
-.btn-group-vertical > .btn, .btn-group-vertical > .answer__btn,
+.btn-group-vertical > .btn, .btn-group-vertical > .action, .btn-group-vertical > .answer__btn, .btn-group-vertical > .error-message__read-more,
 .btn-group-vertical > .btn-group,
 .btn-group-vertical > .btn-group > .btn,
-.btn-group-vertical > .btn-group > .answer__btn {
+.btn-group-vertical > .btn-group > .action,
+.btn-group-vertical > .btn-group > .answer__btn,
+.btn-group-vertical > .btn-group > .error-message__read-more {
   display: block;
   float: none;
   width: 100%;
@@ -4761,51 +4797,55 @@ input[type="button"].answer__btn {
   clear: both;
 }
 /* line 161, ../../../../../opt/vagrant_ruby/lib/ruby/gems/1.8/gems/bootstrap-sass-3.0.3.0/vendor/assets/stylesheets/bootstrap/_button-groups.scss */
-.btn-group-vertical > .btn-group > .btn, .btn-group-vertical > .btn-group > .answer__btn {
+.btn-group-vertical > .btn-group > .btn, .btn-group-vertical > .btn-group > .action, .btn-group-vertical > .btn-group > .answer__btn, .btn-group-vertical > .btn-group > .error-message__read-more {
   float: none;
 }
 /* line 169, ../../../../../opt/vagrant_ruby/lib/ruby/gems/1.8/gems/bootstrap-sass-3.0.3.0/vendor/assets/stylesheets/bootstrap/_button-groups.scss */
-.btn-group-vertical > .btn + .btn, .btn-group-vertical > .answer__btn + .btn, .btn-group-vertical > .btn + .answer__btn, .btn-group-vertical > .answer__btn + .answer__btn,
+.btn-group-vertical > .btn + .btn, .btn-group-vertical > .action + .btn, .btn-group-vertical > .answer__btn + .btn, .btn-group-vertical > .error-message__read-more + .btn, .btn-group-vertical > .btn + .action, .btn-group-vertical > .action + .action, .btn-group-vertical > .answer__btn + .action, .btn-group-vertical > .error-message__read-more + .action, .btn-group-vertical > .btn + .answer__btn, .btn-group-vertical > .action + .answer__btn, .btn-group-vertical > .answer__btn + .answer__btn, .btn-group-vertical > .error-message__read-more + .answer__btn, .btn-group-vertical > .btn + .error-message__read-more, .btn-group-vertical > .action + .error-message__read-more, .btn-group-vertical > .answer__btn + .error-message__read-more, .btn-group-vertical > .error-message__read-more + .error-message__read-more,
 .btn-group-vertical > .btn + .btn-group,
+.btn-group-vertical > .action + .btn-group,
 .btn-group-vertical > .answer__btn + .btn-group,
+.btn-group-vertical > .error-message__read-more + .btn-group,
 .btn-group-vertical > .btn-group + .btn,
+.btn-group-vertical > .btn-group + .action,
 .btn-group-vertical > .btn-group + .answer__btn,
+.btn-group-vertical > .btn-group + .error-message__read-more,
 .btn-group-vertical > .btn-group + .btn-group {
   margin-top: -1px;
   margin-left: 0;
 }
 
 /* line 176, ../../../../../opt/vagrant_ruby/lib/ruby/gems/1.8/gems/bootstrap-sass-3.0.3.0/vendor/assets/stylesheets/bootstrap/_button-groups.scss */
-.btn-group-vertical > .btn:not(:first-child):not(:last-child), .btn-group-vertical > .answer__btn:not(:first-child):not(:last-child) {
+.btn-group-vertical > .btn:not(:first-child):not(:last-child), .btn-group-vertical > .action:not(:first-child):not(:last-child), .btn-group-vertical > .answer__btn:not(:first-child):not(:last-child), .btn-group-vertical > .error-message__read-more:not(:first-child):not(:last-child) {
   border-radius: 0;
 }
 /* line 179, ../../../../../opt/vagrant_ruby/lib/ruby/gems/1.8/gems/bootstrap-sass-3.0.3.0/vendor/assets/stylesheets/bootstrap/_button-groups.scss */
-.btn-group-vertical > .btn:first-child:not(:last-child), .btn-group-vertical > .answer__btn:first-child:not(:last-child) {
+.btn-group-vertical > .btn:first-child:not(:last-child), .btn-group-vertical > .action:first-child:not(:last-child), .btn-group-vertical > .answer__btn:first-child:not(:last-child), .btn-group-vertical > .error-message__read-more:first-child:not(:last-child) {
   border-top-right-radius: 4px;
   border-bottom-right-radius: 0;
   border-bottom-left-radius: 0;
 }
 /* line 183, ../../../../../opt/vagrant_ruby/lib/ruby/gems/1.8/gems/bootstrap-sass-3.0.3.0/vendor/assets/stylesheets/bootstrap/_button-groups.scss */
-.btn-group-vertical > .btn:last-child:not(:first-child), .btn-group-vertical > .answer__btn:last-child:not(:first-child) {
+.btn-group-vertical > .btn:last-child:not(:first-child), .btn-group-vertical > .action:last-child:not(:first-child), .btn-group-vertical > .answer__btn:last-child:not(:first-child), .btn-group-vertical > .error-message__read-more:last-child:not(:first-child) {
   border-bottom-left-radius: 4px;
   border-top-right-radius: 0;
   border-top-left-radius: 0;
 }
 
 /* line 188, ../../../../../opt/vagrant_ruby/lib/ruby/gems/1.8/gems/bootstrap-sass-3.0.3.0/vendor/assets/stylesheets/bootstrap/_button-groups.scss */
-.btn-group-vertical > .btn-group:not(:first-child):not(:last-child) > .btn, .btn-group-vertical > .btn-group:not(:first-child):not(:last-child) > .answer__btn {
+.btn-group-vertical > .btn-group:not(:first-child):not(:last-child) > .btn, .btn-group-vertical > .btn-group:not(:first-child):not(:last-child) > .action, .btn-group-vertical > .btn-group:not(:first-child):not(:last-child) > .answer__btn, .btn-group-vertical > .btn-group:not(:first-child):not(:last-child) > .error-message__read-more {
   border-radius: 0;
 }
 
 /* line 193, ../../../../../opt/vagrant_ruby/lib/ruby/gems/1.8/gems/bootstrap-sass-3.0.3.0/vendor/assets/stylesheets/bootstrap/_button-groups.scss */
-.btn-group-vertical > .btn-group:first-child > .btn:last-child, .btn-group-vertical > .btn-group:first-child > .answer__btn:last-child,
+.btn-group-vertical > .btn-group:first-child > .btn:last-child, .btn-group-vertical > .btn-group:first-child > .action:last-child, .btn-group-vertical > .btn-group:first-child > .answer__btn:last-child, .btn-group-vertical > .btn-group:first-child > .error-message__read-more:last-child,
 .btn-group-vertical > .btn-group:first-child > .dropdown-toggle {
   border-bottom-right-radius: 0;
   border-bottom-left-radius: 0;
 }
 
 /* line 197, ../../../../../opt/vagrant_ruby/lib/ruby/gems/1.8/gems/bootstrap-sass-3.0.3.0/vendor/assets/stylesheets/bootstrap/_button-groups.scss */
-.btn-group-vertical > .btn-group:last-child > .btn:first-child, .btn-group-vertical > .btn-group:last-child > .answer__btn:first-child {
+.btn-group-vertical > .btn-group:last-child > .btn:first-child, .btn-group-vertical > .btn-group:last-child > .action:first-child, .btn-group-vertical > .btn-group:last-child > .answer__btn:first-child, .btn-group-vertical > .btn-group:last-child > .error-message__read-more:first-child {
   border-top-right-radius: 0;
   border-top-left-radius: 0;
 }
@@ -4818,21 +4858,23 @@ input[type="button"].answer__btn {
   border-collapse: separate;
 }
 /* line 212, ../../../../../opt/vagrant_ruby/lib/ruby/gems/1.8/gems/bootstrap-sass-3.0.3.0/vendor/assets/stylesheets/bootstrap/_button-groups.scss */
-.btn-group-justified > .btn, .btn-group-justified > .answer__btn,
+.btn-group-justified > .btn, .btn-group-justified > .action, .btn-group-justified > .answer__btn, .btn-group-justified > .error-message__read-more,
 .btn-group-justified > .btn-group {
   float: none;
   display: table-cell;
   width: 1%;
 }
 /* line 217, ../../../../../opt/vagrant_ruby/lib/ruby/gems/1.8/gems/bootstrap-sass-3.0.3.0/vendor/assets/stylesheets/bootstrap/_button-groups.scss */
-.btn-group-justified > .btn-group .btn, .btn-group-justified > .btn-group .answer__btn {
+.btn-group-justified > .btn-group .btn, .btn-group-justified > .btn-group .action, .btn-group-justified > .btn-group .answer__btn, .btn-group-justified > .btn-group .error-message__read-more {
   width: 100%;
 }
 
 /* line 225, ../../../../../opt/vagrant_ruby/lib/ruby/gems/1.8/gems/bootstrap-sass-3.0.3.0/vendor/assets/stylesheets/bootstrap/_button-groups.scss */
-[data-toggle="buttons"] > .btn > input[type="radio"], [data-toggle="buttons"] > .answer__btn > input[type="radio"],
+[data-toggle="buttons"] > .btn > input[type="radio"], [data-toggle="buttons"] > .action > input[type="radio"], [data-toggle="buttons"] > .answer__btn > input[type="radio"], [data-toggle="buttons"] > .error-message__read-more > input[type="radio"],
 [data-toggle="buttons"] > .btn > input[type="checkbox"],
-[data-toggle="buttons"] > .answer__btn > input[type="checkbox"] {
+[data-toggle="buttons"] > .action > input[type="checkbox"],
+[data-toggle="buttons"] > .answer__btn > input[type="checkbox"],
+[data-toggle="buttons"] > .error-message__read-more > input[type="checkbox"] {
   display: none;
 }
 
@@ -4913,10 +4955,14 @@ input[type="button"].answer__btn {
 .input-group .form-control:first-child,
 .input-group-addon:first-child,
 .input-group-btn:first-child > .btn,
+.input-group-btn:first-child > .action,
 .input-group-btn:first-child > .answer__btn,
+.input-group-btn:first-child > .error-message__read-more,
 .input-group-btn:first-child > .dropdown-toggle,
 .input-group-btn:last-child > .btn:not(:last-child):not(.dropdown-toggle),
-.input-group-btn:last-child > .answer__btn:not(:last-child):not(.dropdown-toggle) {
+.input-group-btn:last-child > .action:not(:last-child):not(.dropdown-toggle),
+.input-group-btn:last-child > .answer__btn:not(:last-child):not(.dropdown-toggle),
+.input-group-btn:last-child > .error-message__read-more:not(:last-child):not(.dropdown-toggle) {
   border-bottom-right-radius: 0;
   border-top-right-radius: 0;
 }
@@ -4930,10 +4976,14 @@ input[type="button"].answer__btn {
 .input-group .form-control:last-child,
 .input-group-addon:last-child,
 .input-group-btn:last-child > .btn,
+.input-group-btn:last-child > .action,
 .input-group-btn:last-child > .answer__btn,
+.input-group-btn:last-child > .error-message__read-more,
 .input-group-btn:last-child > .dropdown-toggle,
 .input-group-btn:first-child > .btn:not(:first-child),
-.input-group-btn:first-child > .answer__btn:not(:first-child) {
+.input-group-btn:first-child > .action:not(:first-child),
+.input-group-btn:first-child > .answer__btn:not(:first-child),
+.input-group-btn:first-child > .error-message__read-more:not(:first-child) {
   border-bottom-left-radius: 0;
   border-top-left-radius: 0;
 }
@@ -4949,24 +4999,24 @@ input[type="button"].answer__btn {
   white-space: nowrap;
 }
 /* line 118, ../../../../../opt/vagrant_ruby/lib/ruby/gems/1.8/gems/bootstrap-sass-3.0.3.0/vendor/assets/stylesheets/bootstrap/_input-groups.scss */
-.input-group-btn:first-child > .btn, .input-group-btn:first-child > .answer__btn {
+.input-group-btn:first-child > .btn, .input-group-btn:first-child > .action, .input-group-btn:first-child > .answer__btn, .input-group-btn:first-child > .error-message__read-more {
   margin-right: -1px;
 }
 /* line 121, ../../../../../opt/vagrant_ruby/lib/ruby/gems/1.8/gems/bootstrap-sass-3.0.3.0/vendor/assets/stylesheets/bootstrap/_input-groups.scss */
-.input-group-btn:last-child > .btn, .input-group-btn:last-child > .answer__btn {
+.input-group-btn:last-child > .btn, .input-group-btn:last-child > .action, .input-group-btn:last-child > .answer__btn, .input-group-btn:last-child > .error-message__read-more {
   margin-left: -1px;
 }
 
 /* line 125, ../../../../../opt/vagrant_ruby/lib/ruby/gems/1.8/gems/bootstrap-sass-3.0.3.0/vendor/assets/stylesheets/bootstrap/_input-groups.scss */
-.input-group-btn > .btn, .input-group-btn > .answer__btn {
+.input-group-btn > .btn, .input-group-btn > .action, .input-group-btn > .answer__btn, .input-group-btn > .error-message__read-more {
   position: relative;
 }
 /* line 128, ../../../../../opt/vagrant_ruby/lib/ruby/gems/1.8/gems/bootstrap-sass-3.0.3.0/vendor/assets/stylesheets/bootstrap/_input-groups.scss */
-.input-group-btn > .btn + .btn, .input-group-btn > .answer__btn + .btn, .input-group-btn > .btn + .answer__btn, .input-group-btn > .answer__btn + .answer__btn {
+.input-group-btn > .btn + .btn, .input-group-btn > .action + .btn, .input-group-btn > .answer__btn + .btn, .input-group-btn > .error-message__read-more + .btn, .input-group-btn > .btn + .action, .input-group-btn > .action + .action, .input-group-btn > .answer__btn + .action, .input-group-btn > .error-message__read-more + .action, .input-group-btn > .btn + .answer__btn, .input-group-btn > .action + .answer__btn, .input-group-btn > .answer__btn + .answer__btn, .input-group-btn > .error-message__read-more + .answer__btn, .input-group-btn > .btn + .error-message__read-more, .input-group-btn > .action + .error-message__read-more, .input-group-btn > .answer__btn + .error-message__read-more, .input-group-btn > .error-message__read-more + .error-message__read-more {
   margin-left: -4px;
 }
 /* line 133, ../../../../../opt/vagrant_ruby/lib/ruby/gems/1.8/gems/bootstrap-sass-3.0.3.0/vendor/assets/stylesheets/bootstrap/_input-groups.scss */
-.input-group-btn > .btn:hover, .input-group-btn > .answer__btn:hover, .input-group-btn > .btn:active, .input-group-btn > .answer__btn:active {
+.input-group-btn > .btn:hover, .input-group-btn > .action:hover, .input-group-btn > .answer__btn:hover, .input-group-btn > .error-message__read-more:hover, .input-group-btn > .btn:active, .input-group-btn > .action:active, .input-group-btn > .answer__btn:active, .input-group-btn > .error-message__read-more:active {
   z-index: 2;
 }
 
@@ -5486,12 +5536,12 @@ input[type="button"].answer__btn {
   margin-bottom: 8px;
 }
 /* line 347, ../../../../../opt/vagrant_ruby/lib/ruby/gems/1.8/gems/bootstrap-sass-3.0.3.0/vendor/assets/stylesheets/bootstrap/_navbar.scss */
-.navbar-btn.btn-sm, .btn-group-sm > .navbar-btn.btn, .btn-group-sm > .navbar-btn.answer__btn {
+.navbar-btn.btn-sm, .btn-group-sm > .navbar-btn.btn, .btn-group-sm > .navbar-btn.action, .btn-group-sm > .navbar-btn.answer__btn, .btn-group-sm > .navbar-btn.error-message__read-more {
   margin-top: 10px;
   margin-bottom: 10px;
 }
 /* line 350, ../../../../../opt/vagrant_ruby/lib/ruby/gems/1.8/gems/bootstrap-sass-3.0.3.0/vendor/assets/stylesheets/bootstrap/_navbar.scss */
-.navbar-btn.btn-xs, .btn-group-xs > .navbar-btn.btn, .btn-group-xs > .navbar-btn.answer__btn {
+.navbar-btn.btn-xs, .btn-group-xs > .navbar-btn.btn, .btn-group-xs > .navbar-btn.action, .btn-group-xs > .navbar-btn.answer__btn, .navbar-btn.error-message__read-more {
   margin-top: 14px;
   margin-bottom: 14px;
 }
@@ -5907,7 +5957,7 @@ input[type="button"].answer__btn {
   display: none;
 }
 /* line 33, ../../../../../opt/vagrant_ruby/lib/ruby/gems/1.8/gems/bootstrap-sass-3.0.3.0/vendor/assets/stylesheets/bootstrap/_labels.scss */
-.btn .label, .answer__btn .label {
+.btn .label, .action .label, .answer__btn .label, .error-message__read-more .label {
   position: relative;
   top: -1px;
 }
@@ -5986,7 +6036,7 @@ input[type="button"].answer__btn {
   display: none;
 }
 /* line 27, ../../../../../opt/vagrant_ruby/lib/ruby/gems/1.8/gems/bootstrap-sass-3.0.3.0/vendor/assets/stylesheets/bootstrap/_badges.scss */
-.btn .badge, .answer__btn .badge {
+.btn .badge, .action .badge, .answer__btn .badge, .error-message__read-more .badge {
   position: relative;
   top: -1px;
 }
@@ -6091,28 +6141,30 @@ a.thumbnail.active {
 }
 
 /* line 9, ../../../../../opt/vagrant_ruby/lib/ruby/gems/1.8/gems/bootstrap-sass-3.0.3.0/vendor/assets/stylesheets/bootstrap/_alerts.scss */
-.alert {
+.alert, .error-message__message, .error-message__details {
   padding: 15px;
   margin-bottom: 20px;
   border: 1px solid transparent;
   border-radius: 4px;
 }
 /* line 16, ../../../../../opt/vagrant_ruby/lib/ruby/gems/1.8/gems/bootstrap-sass-3.0.3.0/vendor/assets/stylesheets/bootstrap/_alerts.scss */
-.alert h4, .alert .instruction {
+.alert h4, .error-message__message h4, .error-message__details h4, .alert .instruction, .error-message__message .instruction, .error-message__details .instruction {
   margin-top: 0;
   color: inherit;
 }
 /* line 22, ../../../../../opt/vagrant_ruby/lib/ruby/gems/1.8/gems/bootstrap-sass-3.0.3.0/vendor/assets/stylesheets/bootstrap/_alerts.scss */
-.alert .alert-link {
+.alert .alert-link, .error-message__message .alert-link, .error-message__details .alert-link {
   font-weight: bold;
 }
 /* line 28, ../../../../../opt/vagrant_ruby/lib/ruby/gems/1.8/gems/bootstrap-sass-3.0.3.0/vendor/assets/stylesheets/bootstrap/_alerts.scss */
-.alert > p,
-.alert > ul {
+.alert > p, .error-message__message > p, .error-message__details > p,
+.alert > ul,
+.error-message__message > ul,
+.error-message__details > ul {
   margin-bottom: 0;
 }
 /* line 31, ../../../../../opt/vagrant_ruby/lib/ruby/gems/1.8/gems/bootstrap-sass-3.0.3.0/vendor/assets/stylesheets/bootstrap/_alerts.scss */
-.alert > p + p {
+.alert > p + p, .error-message__message > p + p, .error-message__details > p + p {
   margin-top: 5px;
 }
 
@@ -6174,17 +6226,17 @@ a.thumbnail.active {
 }
 
 /* line 65, ../../../../../opt/vagrant_ruby/lib/ruby/gems/1.8/gems/bootstrap-sass-3.0.3.0/vendor/assets/stylesheets/bootstrap/_alerts.scss */
-.alert-danger {
+.alert-danger, .error-message__message, .error-message__details {
   background-color: #f2dede;
   border-color: #ebccd1;
   color: #a94442;
 }
 /* line 403, ../../../../../opt/vagrant_ruby/lib/ruby/gems/1.8/gems/bootstrap-sass-3.0.3.0/vendor/assets/stylesheets/bootstrap/_mixins.scss */
-.alert-danger hr {
+.alert-danger hr, .error-message__message hr, .error-message__details hr {
   border-top-color: #e4b9c0;
 }
 /* line 406, ../../../../../opt/vagrant_ruby/lib/ruby/gems/1.8/gems/bootstrap-sass-3.0.3.0/vendor/assets/stylesheets/bootstrap/_mixins.scss */
-.alert-danger .alert-link {
+.alert-danger .alert-link, .error-message__message .alert-link, .error-message__details .alert-link {
   color: #843534;
 }
 
@@ -6881,12 +6933,12 @@ button.close {
   clear: both;
 }
 /* line 104, ../../../../../opt/vagrant_ruby/lib/ruby/gems/1.8/gems/bootstrap-sass-3.0.3.0/vendor/assets/stylesheets/bootstrap/_modals.scss */
-.modal-footer .btn + .btn, .modal-footer .answer__btn + .btn, .modal-footer .btn + .answer__btn, .modal-footer .answer__btn + .answer__btn {
+.modal-footer .btn + .btn, .modal-footer .action + .btn, .modal-footer .answer__btn + .btn, .modal-footer .error-message__read-more + .btn, .modal-footer .btn + .action, .modal-footer .action + .action, .modal-footer .answer__btn + .action, .modal-footer .error-message__read-more + .action, .modal-footer .btn + .answer__btn, .modal-footer .action + .answer__btn, .modal-footer .answer__btn + .answer__btn, .modal-footer .error-message__read-more + .answer__btn, .modal-footer .btn + .error-message__read-more, .modal-footer .action + .error-message__read-more, .modal-footer .answer__btn + .error-message__read-more, .modal-footer .error-message__read-more + .error-message__read-more {
   margin-left: 5px;
   margin-bottom: 0;
 }
 /* line 109, ../../../../../opt/vagrant_ruby/lib/ruby/gems/1.8/gems/bootstrap-sass-3.0.3.0/vendor/assets/stylesheets/bootstrap/_modals.scss */
-.modal-footer .btn-group .btn + .btn, .modal-footer .btn-group .answer__btn + .btn, .modal-footer .btn-group .btn + .answer__btn, .modal-footer .btn-group .answer__btn + .answer__btn {
+.modal-footer .btn-group .btn + .btn, .modal-footer .btn-group .action + .btn, .modal-footer .btn-group .answer__btn + .btn, .modal-footer .btn-group .error-message__read-more + .btn, .modal-footer .btn-group .btn + .action, .modal-footer .btn-group .action + .action, .modal-footer .btn-group .answer__btn + .action, .modal-footer .btn-group .error-message__read-more + .action, .modal-footer .btn-group .btn + .answer__btn, .modal-footer .btn-group .action + .answer__btn, .modal-footer .btn-group .answer__btn + .answer__btn, .modal-footer .btn-group .error-message__read-more + .answer__btn, .modal-footer .btn-group .btn + .error-message__read-more, .modal-footer .btn-group .action + .error-message__read-more, .modal-footer .btn-group .answer__btn + .error-message__read-more, .modal-footer .btn-group .error-message__read-more + .error-message__read-more {
   margin-left: -1px;
 }
 /* line 113, ../../../../../opt/vagrant_ruby/lib/ruby/gems/1.8/gems/bootstrap-sass-3.0.3.0/vendor/assets/stylesheets/bootstrap/_modals.scss */
@@ -7356,7 +7408,7 @@ button.close {
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
 }
 /* line 198, ../../../../../opt/vagrant_ruby/lib/ruby/gems/1.8/gems/bootstrap-sass-3.0.3.0/vendor/assets/stylesheets/bootstrap/_carousel.scss */
-.carousel-caption .btn, .carousel-caption .answer__btn {
+.carousel-caption .btn, .carousel-caption .action, .carousel-caption .answer__btn, .carousel-caption .error-message__read-more {
   text-shadow: none;
 }
 
@@ -8103,16 +8155,30 @@ td.visible-print {
 }
 /* line 1, ../sass/_alterations.scss */
 body {
-  background-image: url("/assets/img/escheresque.png");
-  background-repeat: repeat;
+  padding-top: 70px;
+  background: url("/assets/img/bgpic.jpg") no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
 }
 
-/* line 6, ../sass/_alterations.scss */
+/* line 10, ../sass/_alterations.scss */
 .navbar-form {
   color: white;
 }
 
-/* line 17, ../sass/_actionbar.scss */
+/* line 14, ../sass/_alterations.scss */
+.action {
+  display: block;
+  margin: 1em auto;
+  width: 200px;
+  border-radius: 0;
+  font-weight: 700;
+  font-size: 16.8px;
+}
+
+/* line 17, ../sass/blocks/_actionbar.scss */
 .action-bar__menu {
   display: block;
   float: left;
@@ -8121,7 +8187,7 @@ body {
   margin: 14px;
 }
 
-/* line 25, ../sass/_actionbar.scss */
+/* line 25, ../sass/blocks/_actionbar.scss */
 .action-bar__title {
   position: absolute;
   left: 49px;
@@ -8131,7 +8197,7 @@ body {
   font-weight: bold;
 }
 
-/* line 34, ../sass/_actionbar.scss */
+/* line 34, ../sass/blocks/_actionbar.scss */
 .action-bar__action {
   display: block;
   position: absolute;
@@ -8141,20 +8207,20 @@ body {
   margin: 14px;
 }
 
-/* line 1, ../sass/_answer.scss */
+/* line 1, ../sass/blocks/_answer.scss */
 .answer {
   background: rgba(0, 0, 0, 0.2);
   padding: 1em;
   padding-bottom: 0;
 }
 
-/* line 12, ../sass/_answer.scss */
+/* line 12, ../sass/blocks/_answer.scss */
 .answer__container {
   margin-bottom: 1em;
   text-align: center;
 }
 
-/* line 19, ../sass/_answer.scss */
+/* line 19, ../sass/blocks/_answer.scss */
 .answer__btn {
   border-radius: 0;
   white-space: normal;
@@ -8162,7 +8228,29 @@ body {
   font-size: 16.8px;
 }
 
-/* line 1, ../sass/_instruction.scss */
+/* line 1, ../sass/blocks/_error-message.scss */
+.error-message {
+  padding: 1em;
+}
+
+/* line 5, ../sass/blocks/_error-message.scss */
+.error-message__message {
+  border-radius: 0;
+  text-align: center;
+}
+
+/* line 12, ../sass/blocks/_error-message.scss */
+.error-message__read-more {
+  border-radius: 0;
+}
+
+/* line 19, ../sass/blocks/_error-message.scss */
+.error-message__details {
+  padding-bottom: 0;
+  border-radius: 0;
+}
+
+/* line 1, ../sass/blocks/_instruction.scss */
 .instruction {
   margin: 1em 1em;
   padding: 0.4em 0;
@@ -8171,85 +8259,100 @@ body {
   font-weight: 300;
 }
 
-/* line 1, ../sass/_logo.scss */
+/* line 1, ../sass/blocks/_loader.scss */
+.loader {
+  text-align: center;
+  width: 100%;
+}
+
+/* line 6, ../sass/blocks/_loader.scss */
+.loader--full-screen {
+  position: absolute;
+  top: 45%;
+}
+
+/* line 1, ../sass/blocks/_logo.scss */
 .logo {
   padding: 1em 1em 0 1em;
   background: rgba(0, 0, 0, 0.2);
 }
 
-/* line 11, ../sass/_logo.scss */
+/* line 11, ../sass/blocks/_logo.scss */
 .logo__container {
   margin-bottom: 1em;
 }
 
-/* line 19, ../sass/_logo.scss */
+/* line 19, ../sass/blocks/_logo.scss */
 .logo__btn {
   display: block;
   text-align: center;
+  background: #fff;
 }
 
-/* line 24, ../sass/_logo.scss */
+/* line 25, ../sass/blocks/_logo.scss */
 .logo__btn img {
   margin: 0 auto;
+  max-height: 120px;
 }
 
-/* line 1, ../sass/_quiz.scss */
+/* line 1, ../sass/blocks/_quiz.scss */
 .quiz-footer {
   margin: 0 0 40px 0;
   background: rgba(255, 255, 255, 0.1);
   color: #999999;
 }
 
-/* line 8, ../sass/_quiz.scss */
+/* line 8, ../sass/blocks/_quiz.scss */
 .quiz-metadata {
   padding: 10px;
 }
 
-/* line 13, ../sass/_quiz.scss */
+/* line 13, ../sass/blocks/_quiz.scss */
 .quiz-id {
   padding: 10px;
   text-align: right;
 }
 
-/* line 1, ../sass/_result.scss */
+/* line 1, ../sass/blocks/_result.scss */
 .result {
   background: rgba(0, 0, 0, 0.2);
   text-align: center;
   padding: 1em 0;
 }
 
-/* line 13, ../sass/_result.scss */
+/* line 13, ../sass/blocks/_result.scss */
 .result__primary {
   font-size: 112px;
   font-weight: 700;
   line-height: 0.95;
 }
 
-/* line 19, ../sass/_result.scss */
+/* line 19, ../sass/blocks/_result.scss */
 .result__body {
   font-weight: 400;
 }
 
-/* line 1, ../sass/_trivia.scss */
+/* line 1, ../sass/blocks/_trivia.scss */
 .trivia {
   padding: 1em 1em;
   background: rgba(0, 0, 0, 0.1);
 }
 
-/* line 7, ../sass/_trivia.scss */
+/* line 7, ../sass/blocks/_trivia.scss */
 .trivia__logo {
   float: left;
   width: 25%;
+  max-width: 200px;
   margin-right: 1em;
   background: #fff;
 }
 
-/* line 24, ../sass/_trivia.scss */
+/* line 25, ../sass/blocks/_trivia.scss */
 .trivia__question {
   font-weight: 400;
 }
 
-/* line 28, ../sass/_trivia.scss */
+/* line 29, ../sass/blocks/_trivia.scss */
 .trivia__answer {
   font-weight: 700;
 }

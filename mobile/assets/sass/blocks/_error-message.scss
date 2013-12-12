@@ -1,0 +1,24 @@
+.error-message {
+    padding: $gutter;
+}
+
+.error-message__message {
+    @extend .alert;
+    @extend .alert-danger;
+    border-radius: 0;
+    text-align: center;
+}
+
+.error-message__read-more {
+    @extend .btn;
+    @extend .btn-danger;
+    @extend .btn-xs;
+    border-radius: 0;
+}
+
+.error-message__details {
+    @extend .alert;
+    @extend .alert-danger;
+    padding-bottom: 0;
+    border-radius: 0;
+}

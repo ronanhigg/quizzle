@@ -10,11 +10,7 @@ define([
 
     "use strict";
 
-    return Kinvey.Backbone.Model.extend({
-
-        url: 'adDetections',
-
-        relations: []
+    return Backbone.Model.extend({
 
     });
     

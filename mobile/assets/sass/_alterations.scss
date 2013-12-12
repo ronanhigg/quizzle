@@ -1,8 +1,23 @@
 body {
-    background-image: url('/assets/img/escheresque.png');
-    background-repeat: repeat;
+    padding-top: 70px;
+    background: url('/assets/img/bgpic.jpg') no-repeat center center fixed; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
 }
 
 .navbar-form {
     color: $navbar-default-color;
+}
+
+.action {
+    @extend .btn;
+    @extend .btn-default;
+    display: block;
+    margin: $gutter auto;
+    width: 200px;
+    border-radius: 0;
+    font-weight: 700;
+    font-size: $font-size-base * 1.2;
 }

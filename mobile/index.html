@@ -12,7 +12,9 @@
       <script src="/assets/js/vendor/respond.min.js"></script>
     <![endif]-->
   </head>
-  <body style="padding-top: 70px;">
+  <body>
+
+    <!--<img src="/assets/img/bgpic.jpg" id="bg">-->
 
     <nav class="action-bar" role="navigation">
 
@@ -30,13 +32,172 @@
 
     </nav>
 
-    <div id="main"></div>
+    <div id="main">
+
+      <div class="loader loader--full-screen">
+        <img src="/assets/img/load.gif">
+      </div>
+
+    </div>
 
     <br>
 
-    <script type="text/html" id="stream-panel-template">
+    <script type="text/html" id="loading-template">
 
-      <div class="js-stream" data-id="<%= id %>">
+      <img src="/assets/img/load.gif">
+
+    </script>
+
+    <script type="text/html" id="error-message-template">
+
+      <div class="error-message__message">
+        <p><strong><%= message %></strong></p>
+        <% if (hasDetails) { %>
+          <p><a href="#" class="error-message__read-more js-error-details-toggle">Read More</a></p>
+        <% } %>
+      </div>
+
+      <% if (hasDetails) { %>
+        <div class="error-message__details js-error-details hide">
+          <p><strong><%= name %></strong></p>
+          <p><%= description %></p>
+          <pre style="margin-top: 7px;"><%= debug %></pre>
+        </div>
+      <% } %>
+
+    </script>
+
+    <script type="text/html" id="quiz-template">
+
+    </script>
+
+    <script type="text/html" id="quiz-screenshot-template">
+
+      <div style="width: 323px; height: 182px; background-image: url(<%= imgURL %>); background-position: <%= backgroundPosition %>; background-size: 999px 578px; margin: 0 auto;"></div>
+
+    </script>
+
+    <script type="text/html" id="quiz-logoquestion-template">
+
+      <div class="instruction">
+        Guess the product
+      </div>
+
+      <div class="logo">
+
+        <div class="logo__grid">
+          <div class="logo__container">
+            <a href="#" class="logo__btn js-logoquestion-guess js-first-row-logo" data-index="0">
+              <img src="<%= logos[0] %>">
+            </a>
+          </div>
+          <div class="logo__container">
+            <a href="#" class="logo__btn js-logoquestion-guess js-first-row-logo" data-index="1">
+              <img src="<%= logos[1] %>">
+            </a>
+          </div>
+          <div class="logo__container">
+            <a href="#" class="logo__btn js-logoquestion-guess js-second-row-logo" data-index="2">
+              <img src="<%= logos[2] %>">
+            </a>
+          </div>
+          <div class="logo__container">
+            <a href="#" class="logo__btn js-logoquestion-guess js-second-row-logo" data-index="3">
+              <img src="<%= logos[3] %>">
+            </a>
+          </div>
+        </div>
+
+      </div>
+
+    </script>
+
+    <script type="text/html" id="quiz-triviaquestion-instruction-template">
+
+      Answer the trivia question
+
+    </script>
+
+    <script type="text/html" id="quiz-triviaquestion-trivia-template">
+
+      <div class="trivia__logo">
+        <img src="<%= correctLogo %>">
+      </div>
+      <div class="trivia__body">
+        <div class="trivia__question js-triviaquestion-trivia-question">
+          <%= question %>
+        </div>
+      </div>
+
+    </script>
+
+    <script type="text/html" id="quiz-triviaquestion-correctanswer-template">
+
+      Answer: <%= correctAnswer %>
+
+    </script>
+
+    <script type="text/html" id="quiz-triviaquestion-answer-template">
+
+      <div class="answer__grid">
+        <div class="answer__container">
+          <a href="#" class="answer__btn js-triviaquestion-guess" data-index="0"><%= answers[0] %></a>
+        </div>
+        <div class="answer__container">
+          <a href="#" class="answer__btn js-triviaquestion-guess" data-index="1"><%= answers[1] %></a>
+        </div>
+      </div>
+      <div class="answer__grid">
+        <div class="answer__container">
+          <a href="#" class="answer__btn js-triviaquestion-guess" data-index="2"><%= answers[2] %></a>
+        </div>
+        <div class="answer__container">
+          <a href="#" class="answer__btn js-triviaquestion-guess" data-index="3"><%= answers[3] %></a>
+        </div>
+      </div>
+
+    </script>
+
+    <script type="text/html" id="quiz-success-template">
+
+      <div class="result result--success">
+        <div class="result__primary">
+          500
+        </div>
+        <div class="result__body">
+          points
+        </div>
+      </div>
+
+    </script>
+
+    <script type="text/html" id="quiz-failure-template">
+
+      <div class="result result--failure">
+        <div class="result__primary">
+          !
+        </div>
+        <div class="result__body">
+          Incorrect Answer
+        </div>
+      </div>
+
+    </script>
+
+    <script type="text/html" id="quiz-footer-template">
+
+        <div class="quiz-metadata">
+          <small><%= channelName %> &ndash; <%= startingAt %></small>
+        </div>
+        <div class="quiz-id">
+          <small>#<%= id %></small>
+        </div>
+
+    </script>
+
+    <script type="text/html" id="stream-template">
+
+      <div class="quiz js-stream" data-id="<%= id %>">
 
         <% if (hasAdData) { %>
           <div class="" style="padding: 0;">
@@ -264,28 +425,6 @@
 
     </script>
 
-    <script type="text/html" id="stream-template">
-
-      <div id="stream-panels"></div>
-
-      <div class="panel panel-default js-loading">
-        <div class="panel-body" style="text-align: center;">
-          <h3 style="margin: 0;">Loading...</h3>
-        </div>
-      </div>
-
-      <a href="#" class="btn btn-block btn-default hide js-stream-load">Load More</a>
-
-      <a href="#" class="btn btn-block btn-default hide js-stream-try-again">Try Again</a>
-
-      <div class="alert alert-warning hide js-stream-depleted">
-        <h3 style="margin: 0; text-align: center;">
-          There are no more ads to load!
-        </h3>
-      </div>
-
-    </script>
-
     <script type="text/html" id="overlay-template">
 
       <div class="modal-dialog">
@@ -294,21 +433,6 @@
             <h4 class="modal-title"><%= title %></h4>
           </div>
         </div>
-      </div>
-
-    </script>
-
-    <script type="text/html" id="error-message-template">
-
-      <div class="alert alert-danger" style="text-align: center;">
-        <p><strong><%= message %></strong></p>
-        <p><a href="#" class="btn btn-danger btn-xs js-toggle-display" data-toggle-display-target="error-details">Read More</a></p>
-      </div>
-
-      <div class="alert alert-danger hide" data-toggle-display-name="error-details" style="padding-bottom: 0;">
-        <p><strong><%= error.name %></strong></p>
-        <p><%= error.description %></p>
-        <pre style="margin-top: 7px;"><%= error.debug %></pre>
       </div>
 
     </script>

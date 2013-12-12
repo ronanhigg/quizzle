@@ -1,0 +1,109 @@
+/* Directives for jslint */
+/*global define */
+
+define([
+    'jquery',
+    'vendor/underscore',
+    'vendor/backbone',
+    'kinvey',
+    'app',
+
+    'views/quiz/failure',
+    'views/quiz/footer',
+    'views/quiz/logoquestion',
+    'views/quiz/screenshot',
+    'views/quiz/success',
+    'views/quiz/triviaquestion'
+], function (
+    $,
+    _,
+    Backbone,
+    Kinvey,
+    App,
+
+    FailureView,
+    FooterView,
+    LogoQuestionView,
+    ScreenshotView,
+    SuccessView,
+    TriviaQuestionView
+) {
+
+    "use strict";
+
+    return Backbone.View.extend({
+
+        className: 'quiz js-stream',
+        template: App.getTemplate('quiz'),
+
+        events: {
+        },
+
+        initialize: function (options) {
+            this.children = [];
+
+            if (!this.model.get('noAdData')) {
+                this.children.push(new ScreenshotView({
+                    model: this.model
+                }));
+
+                this.children.push(new LogoQuestionView({
+                    model: this.model
+                }));
+            }
+
+            this.children.push(new FooterView({
+                model: this.model,
+                index: options.index
+            }));
+
+            this.listenTo(this.model, 'guess:correctlogo', this._renderTriviaQuestion);
+            this.listenTo(this.model, 'guess:correcttrivia', this._renderPoints);
+            this.listenTo(this.model, 'guess:incorrect', this._renderFailureMessage);
+        },
+
+        render: function () {
+            var self = this;
+
+            this.$el.attr('data-id', this.model.get('_id'));
+
+            _.each(this.children, function (child) {
+                self.$el.append(child.render().el);
+            });
+
+            return this;
+        },
+
+        _renderTriviaQuestion: function () {
+            var view;
+
+            if (this.model.get('noQuizData')) {
+                console.log('no quiz data...');
+
+            } else {
+                view = new TriviaQuestionView({
+                    model: this.model
+                });
+            }
+
+            this.$el.find('.js-quiz-footer')
+                .before(view.render().el);
+        },
+
+        _renderPoints: function () {
+            var successView = new SuccessView();
+
+            this.$el.find('.js-quiz-footer')
+                .before(successView.render().el);
+        },
+
+        _renderFailureMessage: function () {
+            var failureView = new FailureView();
+
+            this.$el.find('.js-quiz-footer')
+                .before(failureView.render().el);
+        }
+
+    });
+
+});

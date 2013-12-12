@@ -19,9 +19,11 @@
 .logo__btn {
     display: block;
     text-align: center;
+    background: #fff;
 }
 
 .logo__btn img {
     @extend .img-responsive;
     margin: 0 auto;
+    max-height: 120px;
 }

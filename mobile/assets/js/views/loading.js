@@ -13,20 +13,18 @@ define([
 
     return Backbone.View.extend({
 
-        className: 'stream',
-        template: App.getTemplate('stream'),
+        className: 'loader',
+        template: App.getTemplate('loading'),
 
         events: {
         },
 
-        initialize: function (options) {
-            var _this = this;
-        },
-
-        render: function () {
-            var _this = this;
-
+        render: function (options) {
             this.$el.html(this.template());
+
+            if (options.fullScreen) {
+                this.$el.addClass('loader--full-screen');
+            }
 
             return this;
         },
