@@ -22,9 +22,9 @@ define([
             '661px -198px',
             '330px -198px',
             '-7px -198px',
-            '661px -338px',
-            '330px -338px'
-            //'-7px -338px', - Remove this frame
+            '661px -389px',
+            //'330px -389px', // - Remove this frame
+            '-7px -389px'
         ],
 
         events: {
@@ -33,7 +33,7 @@ define([
         initialize: function () {
             this._templateVars = {
                 imgURL: this.model.get('storyboardURL'),
-                backgroundPosition: this.positions[_.random(0, 8)]
+                backgroundPosition: this.positions[_.random(0, 7)]
             };
         },
 
