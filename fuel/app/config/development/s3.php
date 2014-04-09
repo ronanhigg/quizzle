@@ -1,8 +1,8 @@
 <?php
 
 return array(
-    'access_key'  => 'AKIAISVJDFNPI2DZQBJA',
-    'secret_key'  => '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',
+    'access_key'  => 'DELETED_BY_RONAN',
+    'secret_key'  => 'DELETED_BY_RONAN',
     'use_ssl'     => false,
     'endpoint'    => 's3-eu-west-1.amazonaws.com',
 
