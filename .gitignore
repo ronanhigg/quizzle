@@ -3,6 +3,7 @@
 *.bak
 Thumbs.db
 desktop.ini
+*.env
 .DS_Store
 .buildpath
 .project

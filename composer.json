@@ -1,38 +1,17 @@
 {
-    "name": "fuel/fuel",
-    "type": "metapackage",
-    "description": "The FuelPHP framework",
-    "keywords": ["framework"],
-    "homepage": "http://fuelphp.com",
-    "license": "MIT",
-    "authors": [
-        {
-            "name": "FuelPHP Development Team",
-            "email": "team@fuelphp.com"
-        }
-    ],
-    "support": {
-        "irc": "irc://irc.freenode.org/fuelphp",
-        "forum": "http://fuelphp.com/forums"
-    },
+    "name": "ronanhigg/quizzle",
     "require": {
         "php": ">=5.3.3",
         "monolog/monolog": "1.5.*",
-        "fuelphp/upload": "2.0"
+        "fuelphp/upload": "2.0",
+        "symfony/yaml": "2.5.*@dev"
     },
     "require-dev": {
         "phpunit/phpunit": "3.7.*",
         "phpunit/php-code-coverage": ">=1.2.10,<1.3.0",
         "mockery/mockery": "dev-master@dev"
     },
-    "suggest": {
-        "mustache/mustache": "Allow Mustache templating with the Parser package",
-        "smarty/smarty": "Allow Smarty templating with the Parser package",
-        "twig/twig": "Allow Twig templating with the Parser package",
-        "mthaml/mthaml": "Allow Haml templating with Twig supports with the Parser package"
-    },
     "config": {
         "vendor-dir": "fuel/vendor"
-    },
-    "minimum-stability": "dev"
+    }
 }
