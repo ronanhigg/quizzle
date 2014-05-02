@@ -17,7 +17,7 @@ class Uploader
         $this->upload_adapter->process(array(
             'overwrite' => true,
             'path' => DOCROOT . 'files',
-            'ext_whitelist' => array('jpg', 'wmv'),
+            'ext_whitelist' => array('jpg', 'png', 'wmv'),
             'randomize' => true,
         ));
 
