@@ -9,6 +9,7 @@
     <thead>
       <tr>
         <th>ID</th>
+        <th>iPharro Ref ID</th>
         <th>Ad Detection Identifier</th>
         <th>Ad Title</th>
         <th></th>
@@ -19,6 +20,7 @@
       <?php foreach ($ads as $ad) : ?>
         <tr>
           <td><?=$ad->id?></td>
+          <td><?=$ad->ipharro_ref_id?></td>
           <td><?=$ad->ad_detection_identifier?></td>
           <td><?=$ad->title?></td>
           <td style="text-align: right;">

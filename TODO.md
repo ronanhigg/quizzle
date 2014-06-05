@@ -24,8 +24,7 @@
 
 ## Operator Dashboard
 
-* Enable sorting of columns in http://operator.secondscreenmedia.net/ads (currently sorting by Kinvey ID)
-* Add iPharro RefID field (it’s a number), different from the External ID field (Ad Detection Identifier).  This helps operator know which ads have and have not been quizzed.  Currently using a Google Doc to keep track: https://docs.google.com/spreadsheets/d/1vQ2s2_NzuuEfXL3NVy6eg28sszCmjDcxfqRj0-LJUrw/edit#gid=0 
+* Enable sorting of columns in http://operator.secondscreenmedia.net/ads (currently sorting by Kinvey ID) 
 * Search/Filter for a specific ad?
 * "Enter New Ad" form loses information already entered, if there is an upload/submit error http://operator.secondscreenmedia.net/ads/create
 
