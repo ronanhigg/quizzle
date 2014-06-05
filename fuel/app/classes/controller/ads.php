@@ -146,6 +146,7 @@ class Controller_Ads extends Controller_Base
         try {
             $ad = Model_Ad::create(array(
                 'ad_detection_identifier' => Input::post('ad_detection_identifier'),
+                'ipharro_ref_id' => Input::post('ipharro_ref_id'),
                 'storyboard_url' => $storyboard_url,
                 'video_url' => $video_url,
                 'title' => Input::post('title'),
@@ -424,6 +425,7 @@ class Controller_Ads extends Controller_Base
         }
 
         $ad->ad_detection_identifier = Input::post('ad_detection_identifier');
+        $ad->ipharro_ref_id = Input::post('ipharro_ref_id');
         $ad->storyboard_url = $storyboard_url_to_save;
         $ad->video_url = $video_url_to_save;
         //$ad->advertiser = Input::post('advertiser');
@@ -929,6 +931,10 @@ class Controller_Ads extends Controller_Base
             ),
             array(
                 'component' => new View_Form_Text('Ad Detection Identifier', 'ad_detection_identifier'),
+                'model' => 'Ad',
+            ),
+            array(
+                'component' => new View_Form_Text('iPharro Ref ID', 'ipharro_ref_id'),
                 'model' => 'Ad',
             ),
             array(
