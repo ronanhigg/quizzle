@@ -834,7 +834,7 @@ img {
 }
 
 /* line 91, ../../../../../opt/vagrant_ruby/lib/ruby/gems/1.8/gems/bootstrap-sass-3.0.3.0/vendor/assets/stylesheets/bootstrap/_scaffolding.scss */
-.img-circle {
+.img-circle, .menu__profile__photo img {
   border-radius: 50%;
 }
 
@@ -7438,12 +7438,12 @@ button.close {
   }
 }
 /* line 21, ../../../../../opt/vagrant_ruby/lib/ruby/gems/1.8/gems/bootstrap-sass-3.0.3.0/vendor/assets/stylesheets/bootstrap/_mixins.scss */
-.clearfix:before, .clearfix:after {
+.clearfix:before, .menu__profile:before, .clearfix:after, .menu__profile:after {
   content: " ";
   display: table;
 }
 /* line 25, ../../../../../opt/vagrant_ruby/lib/ruby/gems/1.8/gems/bootstrap-sass-3.0.3.0/vendor/assets/stylesheets/bootstrap/_mixins.scss */
-.clearfix:after {
+.clearfix:after, .menu__profile:after {
   clear: both;
 }
 
@@ -8293,6 +8293,78 @@ body {
 .logo__btn img {
   margin: 0 auto;
   max-height: 120px;
+}
+
+/* line 1, ../sass/blocks/_menu.scss */
+.menu {
+  position: fixed;
+  top: 0;
+  left: -100%;
+  bottom: 0;
+  right: 100%;
+  z-index: 1050;
+  background-color: #555;
+  color: #fff;
+}
+
+/* line 13, ../sass/blocks/_menu.scss */
+.menu__btn {
+  float: right;
+  padding: 13px 20px 14px;
+  border-bottom: 1px solid #131111;
+  border-left: 1px solid #131111;
+  background-color: #252120;
+}
+
+/* line 21, ../sass/blocks/_menu.scss */
+.menu__profile {
+  height: 100px;
+  padding: 20px;
+  background: #666;
+}
+
+/* line 28, ../sass/blocks/_menu.scss */
+.menu__profile__photo {
+  float: left;
+  margin-right: 10px;
+}
+
+/* line 37, ../sass/blocks/_menu.scss */
+.menu__profile__info {
+  float: left;
+}
+
+/* line 41, ../sass/blocks/_menu.scss */
+.menu__profile__name {
+  margin-bottom: 8px;
+  padding-bottom: 5px;
+  border-bottom: 1px solid #ccc;
+  font-size: 16px;
+}
+
+/* line 48, ../sass/blocks/_menu.scss */
+.menu__profile__points {
+  font-size: 24px;
+}
+
+/* line 52, ../sass/blocks/_menu.scss */
+.menu__options {
+  padding: 30px 20px 20px;
+}
+
+/* line 56, ../sass/blocks/_menu.scss */
+.menu__option {
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #ccc;
+}
+/* line 61, ../sass/blocks/_menu.scss */
+.menu__option a {
+  display: block;
+  text-align: center;
+  color: #fff;
+  font-weight: bold;
+  font-size: 16px;
 }
 
 /* line 1, ../sass/blocks/_quiz.scss */

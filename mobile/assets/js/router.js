@@ -12,6 +12,7 @@ define([
     //'views/errormessage',
     //'views/login',
     //'views/register',
+    'views/menu/menu',
     'views/stream/quizstream',
     //'views/streampanel',
 
@@ -36,6 +37,7 @@ define([
     //ErrorMessageView,
     //LoginView,
     //RegisterView,
+    MenuView,
     QuizStreamView,
     //StreamPanelView,
 
@@ -77,10 +79,7 @@ define([
 
         routes: {
             "": "index",
-            "checkin": "checkIn",
-            "play": "play",
-            "register": "register",
-            "logout": "logout"
+            "play": "play"
         },
 
         index: ensureLogin(function () {
@@ -171,13 +170,46 @@ define([
         play: ensureLogin(function () {
             var adDetections = new AdDetectionsCollection(),
 
+                menuView = new MenuView(),
+
                 quizStreamView = new QuizStreamView({
                     collection: adDetections
                 });
 
+            $('.js-show-menu').on('click', function () {
+                App.EventBus.trigger('menu:show');
+                return false;
+            });
+
+            $('#menu').html(menuView.render().el);
             $('#main').html(quizStreamView.render().el);
 
             adDetections.fetch();
+
+            /* DRAGON - Very hacky refresh method, should be changed
+             *          if the refresh feature is required.
+             *          -- Conor
+             */
+            $('.js-refresh-stream').on('click', function () {
+                var adDetectionModel;
+
+                quizStreamView.remove();
+                while (adDetectionModel = adDetections.first()) {
+                    adDetectionModel.destroy();
+                }
+
+                adDetections = new AdDetectionsCollection();
+                quizStreamView = new QuizStreamView({
+                    collection: adDetections
+                });
+
+                $('#main').html(quizStreamView.render().el);
+                adDetections.fetch();
+
+                App.EventBus.trigger('menu:hide');
+
+                return false;
+            });
 
             return;
 

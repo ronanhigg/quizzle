@@ -37,6 +37,10 @@
 
     </nav>
 
+    <div id="menu" class="menu--hidden">
+
+    </div>
+
     <div id="main">
 
       <div class="loader loader--full-screen">
@@ -69,6 +73,44 @@
           <pre style="margin-top: 7px;"><%= debug %></pre>
         </div>
       <% } %>
+
+    </script>
+
+    <script type="text/html" id="menu-template">
+
+      <a class="menu__btn js-hide-menu" href="#">
+        <img src="/assets/img/logo.png">
+      </a>
+
+      <div class="menu__profile">
+        <div class="menu__profile__photo">
+          <img src="/assets/img/profile.jpg">
+        </div>
+        <div class="menu__profile__info">
+          <div class="menu__profile__name">
+            Oberyn Martell
+          </div>
+          <div class="menu__profile__points">
+            <span class="menu__profile__points__amount">1,200</span> points
+          </div>
+        </div>
+      </div>
+
+      <div class="menu__options">
+
+        <div class="menu__option">
+          <input type="checkbox" class="js-fetch-adless"> Fetch ads with no metadata
+        </div>
+
+        <div class="menu__option">
+          <input type="checkbox" class="js-fetch-trivialess"> Fetch ads with no trivia questions
+        </div>
+
+        <div class="menu__option">
+          <a href="#" class="js-refresh-stream">Refresh Quiz Stream</a>
+        </div>
+
+      </div>
 
     </script>
 
@@ -203,248 +245,6 @@
     <script type="text/html" id="quiz-triviamissing-template">
 
       <div class="instruction">Trivia question unavailable</div>
-
-    </script>
-
-    <script type="text/html" id="stream-template">
-
-      <div class="quiz js-stream" data-id="<%= id %>">
-
-        <% if (hasAdData) { %>
-          <div class="" style="padding: 0;">
-            <div style="width: 323px; height: 182px; background-image: url(<%= storyboardURL %>); background-position: <%= storyboardBackgroundPosition %>; background-size: 999px 578px; margin: 0 auto;"></div>
-          </div>
-        <% } %>
-          
-        <div class="">
-
-          <% if (hasAdData) { %>
-
-            <div class="js-stream-logos">
-
-              <div class="instruction">
-                Guess the product
-              </div>
-
-              <div class="logo">
-
-                <div class="logo__grid">
-                  <div class="logo__container">
-                    <a href="#" class="logo__btn js-stream-logo-guess js-first-row-logo" data-index="0">
-                      <img src="<%= logos[0] %>">
-                    </a>
-                  </div>
-                  <div class="logo__container">
-                    <a href="#" class="logo__btn js-stream-logo-guess js-first-row-logo" data-index="1">
-                      <img src="<%= logos[1] %>">
-                    </a>
-                  </div>
-                  <div class="logo__container">
-                    <a href="#" class="logo__btn js-stream-logo-guess js-second-row-logo" data-index="2">
-                      <img src="<%= logos[2] %>">
-                    </a>
-                  </div>
-                  <div class="logo__container">
-                    <a href="#" class="logo__btn js-stream-logo-guess js-second-row-logo" data-index="3">
-                      <img src="<%= logos[3] %>">
-                    </a>
-                  </div>
-                </div>
-
-              </div>
-
-            </div>
-
-            <% if (hasQuizData) { %>
-
-              <div class="js-quiz-q2 hide">
-
-                <div class="instruction js-quiz-q2-instruction">
-                  Answer the trivia question
-                </div>
-
-                <div class="trivia">
-                  <div class="trivia__logo">
-                    <img src="<%= correctLogo %>">
-                  </div>
-                  <div class="trivia__body">
-                    <div class="trivia__question">
-                      <%= question %>
-                    </div>
-                    <div class="trivia__answer js-quiz-q2-trivia-answer hide">
-                      Answer: <%= correctAnswer %>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="answer js-quiz-q2-answer">
-
-                  <div class="answer__grid">
-                    <div class="answer__container">
-                      <a href="#" class="answer__btn js-stream-trivia-guess" data-index="0"><%= answers[0] %></a>
-                    </div>
-                    <div class="answer__container">
-                      <a href="#" class="answer__btn js-stream-trivia-guess" data-index="1"><%= answers[1] %></a>
-                    </div>
-                  </div>
-                  <div class="answer__grid">
-                    <div class="answer__container">
-                      <a href="#" class="answer__btn js-stream-trivia-guess" data-index="2"><%= answers[2] %></a>
-                    </div>
-                    <div class="answer__container">
-                      <a href="#" class="answer__btn js-stream-trivia-guess" data-index="3"><%= answers[3] %></a>
-                    </div>
-                  </div>
-
-                </div>
-
-              </div>
-
-            <% } else { %>
-
-              <div class="js-quiz-question-2 hide">
-
-                <div class="alert alert-warning js-stream-trivia-missing" style="text-align: center; margin-bottom: 0;">
-                  <h3 style="margin-top: 0;">
-                    There are no trivia questions available
-                  </h3>
-                  <h3 style="margin-bottom: 0;">
-                    You win <strong>100</strong> points
-                  </h3>
-                </div>
-
-              </div>
-
-            <% } %>
-
-            <div class="js-stream-success hide">
-
-              <div class="result result--success">
-                <div class="result__primary">
-                  500
-                </div>
-                <div class="result__body">
-                  points
-                </div>
-              </div>
-
-            </div>
-
-            <div class="js-stream-failure hide">
-
-              <div class="result result--failure">
-                <div class="result__primary">
-                  !
-                </div>
-                <div class="result__body">
-                  Incorrect Answer
-                </div>
-              </div>
-
-            </div>
-
-          <% } else { %>
-            No ad data entered for <em><%= adIdentifier %></em>
-          <% } %>
-
-        </div>
-        <div class="quiz-footer">
-            <div class="quiz-metadata">
-              <small><%= channelName %> &ndash; <%= startingAt %></small>
-            </div>
-            <div class="quiz-id">
-              <small>#<%= displayID %></small>
-            </div>
-        </div>
-      </div>
-
-    </script>
-
-    <script type="text/html" id="login-template">
-
-      <form role="form" id="login-form">
-
-        <div class="form-group">
-          <label for="username">Email Address</label>
-          <input class="form-control" type="text" name="email" id="email" placeholder="john.smith@example.com">
-        </div>
-
-        <div class="form-group">
-          <label for="password">Password</label>
-          <input class="form-control" type="password" name="password" id="password" placeholder="**********">
-        </div>
-
-        <button type="submit" class="btn btn-primary btn-lg btn-block">Login</button>
-
-      </form>
-
-      <br>
-
-      <a href="#register" class="btn btn-default btn-block">Register an Account</a>
-
-    </script>
-
-    <script type="text/html" id="register-template">
-
-      <h2>Register</h2>
-
-      <form role="form" id="register-form">
-
-        <div class="form-group">
-          <label for="name">Name</label>
-          <input class="form-control" type="text" name="name" id="name" placeholder="John Smith">
-        </div>
-
-        <div class="form-group">
-          <label for="name">Email Address</label>
-          <input class="form-control" type="email" name="email" id="email" placeholder="john.smith@example.com">
-        </div>
-
-        <div class="form-group">
-          <label for="password">Password</label>
-          <input class="form-control" type="password" name="password" id="password" placeholder="**********">
-        </div>
-
-        <button type="submit" class="btn btn-primary btn-lg btn-block">Create Account</button>
-
-      </form>
-
-    </script>
-
-    <script type="text/html" id="checkin-template">
-
-      <h2>Check In</h2>
-
-      <div id="checkin-airings" class="list-group"></div>
-
-      <a href="#" class="btn btn-primary btn-lg btn-block checkin-submit">Check In</a>
-
-    </script>
-
-    <script type="text/html" id="checkin-airing-template">
-
-      <div class="media">
-        <div class="pull-left" style="width: 64px;">
-          <img class="media-object" src="http://placehold.it/64x64" />
-        </div>
-        <div class="media-body">
-          <h4 class="media-heading"><%= channel.get('name') %></h4>
-          <div><%= show.get('name') %></div>
-          <div><%= startingAt %> &ndash; <%= finishingAt %></div>
-        </div>
-      </div>
-
-    </script>
-
-    <script type="text/html" id="overlay-template">
-
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h4 class="modal-title"><%= title %></h4>
-          </div>
-        </div>
-      </div>
 
     </script>
 

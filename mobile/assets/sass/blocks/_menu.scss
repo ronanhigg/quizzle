@@ -1,0 +1,68 @@
+.menu {
+    position: fixed;
+    top: 0;
+    left: -100%;
+    bottom: 0;
+    right: 100%;
+    z-index: $zindex-modal;
+    //border-right: 1px solid $navbar-default-border;
+    background-color: #555;
+    color: #fff;
+}
+
+.menu__btn {
+    float: right;
+    padding: 13px 20px 14px;
+    border-bottom: 1px solid $navbar-default-border;
+    border-left: 1px solid $navbar-default-border;
+    background-color: $navbar-default-bg;
+}
+
+.menu__profile {
+    @extend .clearfix;
+    height: 100px;
+    padding: 20px;
+    background: #666;
+}
+
+.menu__profile__photo {
+    float: left;
+    margin-right: 10px;
+
+    img {
+        @extend .img-circle;
+    }
+}
+
+.menu__profile__info {
+    float: left;
+}
+
+.menu__profile__name {
+    margin-bottom: 8px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid #ccc;
+    font-size: 16px;
+}
+
+.menu__profile__points {
+    font-size: 24px;
+}
+
+.menu__options {
+    padding: 30px 20px 20px;
+}
+
+.menu__option {
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #ccc;
+
+    a {
+        display: block;
+        text-align: center;
+        color: #fff;
+        font-weight: bold;
+        font-size: 16px;
+    }
+}
