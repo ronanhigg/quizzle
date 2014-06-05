@@ -26,7 +26,8 @@
 
 * Enable sorting of columns in http://operator.secondscreenmedia.net/ads (currently sorting by Kinvey ID) 
 * Search/Filter for a specific ad?
-* "Enter New Ad" form loses information already entered, if there is an upload/submit error http://operator.secondscreenmedia.net/ads/create
+* --"Enter New Ad" form loses information already entered, if there is an upload/submit error http://operator.secondscreenmedia.net/ads/create--
+    * Cannot recreate this issue as described. However: if an existing Advertiser Logo is changed and the Ad Storyboard is missing from the form, then the new Logo is not uploaded and redisplayed to the user.
 
 ## Older Entries
 

@@ -38,8 +38,27 @@ class Controller_Ads extends Controller_Base
 
     public function action_create()
     {
+        $component_models = array();
         $bonus_quizzes = array();
+
         if (Input::method() === 'POST') {
+
+            if (Input::post('advertiser_id')) {
+                try {
+                    $advertiser = Model_Advertiser::find(Input::post('advertiser_id'));
+                    $component_models['Advertiser'] = $advertiser;
+
+                } catch (KinveyModelException $e) {}
+            }
+
+            if (Input::post('adcampaign_id')) {
+                try {
+                    $adcampaign = Model_AdCampaign::find(Input::post('adcampaign_id'));
+                    $component_models['AdCampaign'] = $adcampaign;
+
+                } catch (KinveyModelException $e) {}
+            }
+
             foreach (Input::post('question', array()) as $i => $input_question) {
                 $bonus_quizzes[] = $this->generate_bonus_quiz_form_components(array(
                     'Quiz' => (object) array(
@@ -51,11 +70,12 @@ class Controller_Ads extends Controller_Base
                     ),
                 ));
             }
+
         }
 
         $this->template->title = 'Enter New Ad';
         $this->template->content = View::forge('ads/form', array(
-            'components' => $this->generate_main_form_components(),
+            'components' => $this->generate_main_form_components($component_models),
             'bonus_quizzes' => $bonus_quizzes,
             'template_bonus_quiz_components' => $this->generate_bonus_quiz_form_components(),
         ));
