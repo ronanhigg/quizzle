@@ -23,7 +23,7 @@ define([
         initialize: function (options) {
             var startingAt = this.model.get('broadcast_starting_at');
             startingAt = moment(startingAt.toString(), "YYYYMMDDTHHmmssZ");
-            startingAt = startingAt.format('HH:mm - ddd D MMM YYYY');
+            startingAt = startingAt.fromNow();
 
             this._templateVars = {
                 'id': options.index + 1,

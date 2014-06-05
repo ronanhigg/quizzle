@@ -19,7 +19,6 @@
 * Change top left icon to trigger Main panel menu (see TVsmiles app as reference.  Images included here inline)
 * Include refresh button in Main panel menu (refresh button is not available in Web app view mode on iOS)
 * Change top right icon to trigger Rewards Catalogue panel menu (see TVsmiles app as reference)
-* Simplify the quiz units' timestamps to Twitter-style: 2s, 3m, 1h, 3d
 * Lazy load previous quiz units as stream approaches bottom of page (currently requires manual “Load More”)
 
 ## Operator Dashboard
