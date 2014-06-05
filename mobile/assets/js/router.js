@@ -389,9 +389,11 @@ define([
 
                 return false;
             });
-        }),
+        })
 
-        /* DRAGON - The below function is not used in the application */
+        /*
+
+        * DRAGON - The below function is not used in the application *
         createAnAiring: ensureLogin(function () {
 
             var channel = new ChannelModel({_id: '5215df838138639764077c25'}),
@@ -428,7 +430,7 @@ define([
                 });
         }),
 
-        /* DRAGON - The below function is not used in the application */
+        * DRAGON - The below function is not used in the application *
         createACheckIn: ensureLogin(function () {
 
             var airing = new AiringModel({_id: '52149c6881386397640427bf'}),
@@ -455,6 +457,8 @@ define([
                 });
 
         })
+
+        */
 
     });
 

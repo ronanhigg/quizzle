@@ -2,7 +2,6 @@
 
 ## Quizzle Webapp
 
-* Add apple-touch-icon for iOS web app desktop icon (and Android web app bookmark)
 * Test for and fix recurring stream timeout error. “There was a connection problem and no quizzes could be retrieved”…”BLTimeoutError. The Business Logic script did not complete”…”The script was terminated due to timing constraints; took more than 2000ms to complete.  Did you forget to call response.complete() or resonse.contue()?”
 * Fix problem that only Adverts.ie ad is showing in quiz stream
 * Standardise the size of white background for brand icons (icons without white background should get one)
