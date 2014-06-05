@@ -184,7 +184,7 @@ define([
 
 
 
-            var lastAdDetectionID,
+            /*var lastAdDetectionID,
 
                 addWorthlessPoints,
                 fetchInitialAdDetections,
@@ -388,7 +388,7 @@ define([
                 }
 
                 return false;
-            });
+            });*/
         })
 
         /*

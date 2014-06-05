@@ -13,6 +13,7 @@ define([
     'views/quiz/logoquestion',
     'views/quiz/screenshot',
     'views/quiz/success',
+    'views/quiz/triviamissing',
     'views/quiz/triviaquestion'
 ], function (
     $,
@@ -26,6 +27,7 @@ define([
     LogoQuestionView,
     ScreenshotView,
     SuccessView,
+    TriviaMissingView,
     TriviaQuestionView
 ) {
 
@@ -79,6 +81,7 @@ define([
 
             if (this.model.get('noQuizData')) {
                 console.log('no quiz data...');
+                view = new TriviaMissingView();
 
             } else {
                 view = new TriviaQuestionView({

@@ -1,5 +1,7 @@
 <?php
 
+class Controller_AdvertisersException extends Exception {}
+
 class Controller_Advertisers extends Controller_Base
 {
     public function action_index()
@@ -116,7 +118,7 @@ class Controller_Advertisers extends Controller_Base
             $logo_url_to_remove = null;
 
         } catch (MediaStorer_ImageException $e) {
-            throw new Controller_AdsException($e->getMessage());
+            throw new Controller_AdvertisersException($e->getMessage());
         }
 
         $advertiser->name = Input::post('advertiser_name');
@@ -250,7 +252,7 @@ class Controller_Advertisers extends Controller_Base
                         $addetection->has_quiz_data = true;
                         $addetection->save();
                     } catch (KinveyModelException $e) {
-                        throw new Controller_AdsException($e->getMessage());
+                        throw new Controller_AdvertisersException($e->getMessage());
                     }
                 }
             }

@@ -3,9 +3,11 @@
   <head>
     <title>Quizzle</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="mobile-web-app-capable" content="yes">
 
-    <link rel="shortcut icon" href="/assets/img/favicon.ico" />
-    <link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png" />
+    <link rel="shortcut icon" href="/assets/img/favicon.ico">
+    <link rel="icon" sizes="128x128" href="/assets/img/apple-touch-icon.png">
+    <link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
 
     <!--<link href="/assets/css/vendor/bootstrap.min.css" rel="stylesheet" media="screen">-->
     <link href="/assets/css/styles.css" rel="stylesheet" media="screen">
@@ -195,6 +197,12 @@
         <div class="quiz-id">
           <small>#<%= id %></small>
         </div>
+
+    </script>
+
+    <script type="text/html" id="quiz-triviamissing-template">
+
+      <div class="instruction">Trivia question unavailable</div>
 
     </script>
 
