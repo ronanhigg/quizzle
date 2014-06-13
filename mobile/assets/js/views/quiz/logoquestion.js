@@ -34,6 +34,21 @@ define([
 
         render: function () {
             this.$el.html(this.template(this._templateVars));
+
+            var $btns = this.$el.find('.logo__btn img');
+
+            $btns.one('load', function () {
+                var padding = (120 - $(this).height()) / 2;
+                $(this)
+                    .css('padding-top', Math.floor(padding))
+                    .css('padding-bottom', Math.ceil(padding))
+
+            }).each(function () {
+                if (this.complete) {
+                    $(this).load();
+                }
+            });
+
             return this;
         },
 
