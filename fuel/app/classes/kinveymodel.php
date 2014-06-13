@@ -61,6 +61,9 @@ class KinveyModel
     {
         $params = get_object_vars($this);
 
+        var_dump($params);
+        var_dump(debug_backtrace());
+
         static::validate($params);
 
         if (isset($this->id)) {

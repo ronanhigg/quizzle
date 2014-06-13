@@ -5,7 +5,7 @@
 * ~~Test for and fix recurring stream timeout error. “There was a connection problem and no quizzes could be retrieved”…”BLTimeoutError. The Business Logic script did not complete”…”The script was terminated due to timing constraints; took more than 2000ms to complete.  Did you forget to call response.complete() or resonse.contue()?”~~
 * ~~Fix problem that only Adverts.ie ad is showing in quiz stream~~
     * Adverts.ie was the only Advertiser with any trivia questions who were running ads when this was noted
-* Standardise the size of white background for brand icons (icons without white background should get one)
+* ~~Standardise the size of white background for brand icons (icons without white background should get one)~~
 * Add a thin 3-minute time countdown progress bar for each quiz unit  (see original UI designs).  Don’t disable quiz unit at end of 3-minutes just yet.  Want to just illustrate how many quiz questions will be unexpired.
 * Introduce game features such as
     * ~~Points accumulator~~

@@ -36,7 +36,8 @@ requirejs.config({
         'moment': "vendor/moment",
         'gamesparks': "vendor/gamesparks-container",
         'cryptojs': "vendor/hmac-sha256"
-    }
+    },
+    urlArgs: "bust=" + (new Date()).getTime()
 });
 
 require([
@@ -114,6 +115,15 @@ require([
 
     App.setupPlayer = function (callback) {
         App.gamesparks.sendWithData('AccountDetailsRequest', {}, function (response) {
+
+            console.log(response.error);
+
+            if (response.error && response.error.authentication == 'NOTAUTHORIZED') {
+                App.router.navigate('login', {
+                    trigger: true
+                });
+                return;
+            }
 
             var points = 0;
 

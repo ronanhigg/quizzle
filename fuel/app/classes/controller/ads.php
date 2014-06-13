@@ -382,17 +382,14 @@ class Controller_Ads extends Controller_Base
             return;
         }
 
+        $addAdvertiser = false;
         if (is_null($advertiser) && Input::post('advertiser_id')) {
+
+            $addAdvertiser = true;
+
             try {
                 $advertiser = Model_Advertiser::find(Input::post('advertiser_id'));
             } catch (KinveyModelException $e) {
-                Session::set_flash('error', $e->getMessage());
-                return;
-            }
-
-            try {
-                $ad->add_relation('advertiser', 'advertisers', $advertiser->id);
-            } catch (Model_AdException $e) {
                 Session::set_flash('error', $e->getMessage());
                 return;
             }
@@ -486,6 +483,15 @@ class Controller_Ads extends Controller_Base
 
             Session::set_flash('error', $e->getMessage());
             return;
+        }
+
+        if ($addAdvertiser) {
+            try {
+                $ad->add_relation('advertiser', 'advertisers', $advertiser->id);
+            } catch (Model_AdException $e) {
+                Session::set_flash('error', $e->getMessage());
+                return;
+            }
         }
 
         $advertiser_id = Input::post('advertiser_id');
