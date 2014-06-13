@@ -1,7 +1,7 @@
 .menu {
     position: fixed;
-    top: 0;
-    left: -100%;
+    top: 50px;
+    left: -50%;
     bottom: 0;
     right: 100%;
     z-index: $zindex-modal;
@@ -10,59 +10,96 @@
     color: #fff;
 }
 
-.menu__btn {
-    float: right;
-    padding: 13px 20px 14px;
-    border-bottom: 1px solid $navbar-default-border;
-    border-left: 1px solid $navbar-default-border;
-    background-color: $navbar-default-bg;
-}
-
 .menu__profile {
     @extend .clearfix;
-    height: 100px;
+    height: 120px;
     padding: 20px;
+    border-bottom: 1px solid #777;
     background: #666;
 }
 
 .menu__profile__photo {
-    float: left;
-    margin-right: 10px;
+    margin-bottom: 10px;
+    text-align: center;
 
     img {
         @extend .img-circle;
     }
 }
 
-.menu__profile__info {
-    float: left;
-}
-
 .menu__profile__name {
-    margin-bottom: 8px;
-    padding-bottom: 5px;
-    border-bottom: 1px solid #ccc;
-    font-size: 16px;
+    text-align: center;
+    font-size: 18px;
 }
 
-.menu__profile__points {
-    font-size: 24px;
+.menu__score {
+    @extend .clearfix;
+    height: 60px;
+    padding: 5px 0;
+    border-bottom: 1px solid #777;
+}
+
+.menu__score__counter {
+    float: left;
+    width: 50%;
+    text-align: center;
+}
+
+.menu__score__counter__figure {
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.menu__score__counter__label {
+    font-size: 11px;
+}
+
+.menu__social {
+    height: 120px;
+    border-bottom: 1px solid #777;
+    background: #666;
+}
+
+.menu__social__title {
+    padding-top: 15px;
+    padding-bottom: 9px;
+    text-align: center;
+    font-size: 11px;
+}
+
+.menu__social__icons {
+    @extend .clearfix;   
+}
+
+.menu__social__icon {
+    float: left;
+    width: 50%;
+    text-align: center;
 }
 
 .menu__options {
-    padding: 30px 20px 20px;
 }
 
 .menu__option {
-    margin-bottom: 10px;
-    padding-bottom: 10px;
-    border-bottom: 1px solid #ccc;
+    padding: 10px 6px;
+    border-bottom: 1px solid #777;
+}
 
-    a {
-        display: block;
-        text-align: center;
-        color: #fff;
-        font-weight: bold;
-        font-size: 16px;
+a.menu__option {
+    @extend .menu__option;
+    display: block;
+    padding-left: 30px;
+    color: #fff;
+    font-weight: bold;
+    font-size: 12px;
+}
+
+.menu__option--checkbox {
+    @extend .menu__option;
+    font-size: 11px;
+    line-height: 13px;
+
+    input {
+        vertical-align: bottom;
     }
 }

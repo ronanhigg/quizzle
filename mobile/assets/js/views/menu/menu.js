@@ -27,79 +27,89 @@ define([
         template: App.getTemplate('menu'),
 
         events: {
-            'click .js-hide-menu': '_hide'
+            'click .js-hide-menu': '_hide',
+            'click .js-connect-facebook': '_connectToFacebook',
+            'click .js-connect-twitter': '_connectToTwitter'
         },
 
         initialize: function (options) {
+            this.isMenuShown = false;
+            this.isPlayerLoaded = false;
+
+            this.listenTo(App.EventBus, 'player:loaded', this._renderPlayerDetails);
+            this.listenTo(App.EventBus, 'player:unloaded', this._unrenderPlayerDetails);
             this.listenTo(App.EventBus, 'menu:show', this._show);
             this.listenTo(App.EventBus, 'menu:hide', this._hide);
-            this.listenTo(App.player, 'points:change', this._renderPoints);
+            this.listenTo(App.EventBus, 'menu:toggle', this._toggle);
+            this.listenTo(App.EventBus, 'points:change', this._renderPoints);
         },
 
         render: function () {
-            this.$el.html(this.template({
-                name: App.player.get('name'),
-                points: App.player.get('points')
-            }));
+            if (App.player) {
+                this._renderPlayerDetails();
+            }
             return this;
         },
 
         _show: function (event) {
-            $('.menu').animate({
-                'left': 0,
-                'right': 0
-            }, 500);
+            if (this.isPlayerLoaded) {
+                this.isMenuShown = true;
+                $('.menu').animate({
+                    'left': 0,
+                    'right': '50%'
+                }, 500);
+            }
 
             return false;
         },
 
         _hide: function (event) {
-            $('.menu').animate({
-                'left': '-100%',
-                'right': '100%'
-            }, 500);
+            if (this.isPlayerLoaded) {
+                this.isMenuShown = false;
+                $('.menu').animate({
+                    'left': '-50%',
+                    'right': '100%'
+                }, 500);
+            }
 
             return false;
         },
 
-        _renderPoints: function (points) {
-            this.$el.find('.menu__profile__points__amount').html(points);
-        }
-
-        /*initialize: function (options) {
-            this.children = [];
-
-            if (!this.model.get('noAdData')) {
-                this.children.push(new ScreenshotView({
-                    model: this.model
-                }));
-
-                this.children.push(new LogoQuestionView({
-                    model: this.model
-                }));
+        _toggle: function (event) {
+            if (this.isMenuShown) {
+                return this._hide();
+            } else {
+                return this._show();
             }
+        },
 
-            this.children.push(new FooterView({
-                model: this.model,
-                index: options.index
+        _renderPoints: function (points) {
+            this.$el.find('.js-points').html(points);
+        },
+
+        _renderPlayerDetails: function () {
+            this.isPlayerLoaded = true;
+            this.$el.html(this.template({
+                name: App.player.get('name'),
+                points: App.player.get('points'),
+                photo: App.player.get('photo')
             }));
+        },
 
-            this.listenTo(this.model, 'guess:correctlogo', this._renderTriviaQuestion);
-            this.listenTo(this.model, 'guess:correcttrivia', this._renderPoints);
-            this.listenTo(this.model, 'guess:incorrect', this._renderFailureMessage);
-        },*/
+        _unrenderPlayerDetails: function () {
+            this.isPlayerLoaded = false;
+            this.$el.html('');
+        },
 
-        /*render: function () {
-            var self = this;
+        _connectToFacebook: function (event) {
+            event.preventDefault();
+            App.player.connectToFacebook();
+        },
 
-            this.$el.attr('data-id', this.model.get('_id'));
-
-            _.each(this.children, function (child) {
-                self.$el.append(child.render().el);
-            });
-
-            return this;
-        },*/
+        _connectToTwitter: function (event) {
+            event.preventDefault();
+            App.EventBus.trigger('message', 'Twitter social connection is not yet implemented');
+        }
 
     });
 

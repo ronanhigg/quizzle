@@ -22,6 +22,9 @@ requirejs.config({
         },
         'cryptojs': {
             exports: 'CryptoJS'
+        },
+        'facebook' : {
+            exports: 'FB'
         }
     },
     paths: {
@@ -35,7 +38,8 @@ requirejs.config({
         ],
         'moment': "vendor/moment",
         'gamesparks': "vendor/gamesparks-container",
-        'cryptojs': "vendor/hmac-sha256"
+        'cryptojs': "vendor/hmac-sha256",
+        'facebook': '//connect.facebook.net/en_US/all'
     },
     urlArgs: "bust=" + (new Date()).getTime()
 });
@@ -50,12 +54,17 @@ require([
     'kinvey',
     'gamesparks',
     'cryptojs',
+    'fb',
+    'vendor/async',
     'app',
     'router',
     'models/player',
     'models/session',
-    'views/loading'
-], function ($, _, Backbone, Associations, Bootstrap, moment, Kinvey, Gamesparks, CryptoJS, App, AppRouter, PlayerModel, SessionModel, LoadingView) {
+    'views/loading',
+    'views/menu/menu',
+    'views/modal',
+    'factories/player'
+], function ($, _, Backbone, Associations, Bootstrap, moment, Kinvey, Gamesparks, CryptoJS, Facebook, Async, App, AppRouter, PlayerModel, SessionModel, LoadingView, MenuView, ModalView, PlayerFactory) {
 
     "use strict";
 
@@ -79,68 +88,25 @@ require([
     */
 
     var loadingView = new LoadingView();
+    var menuView = new MenuView();
+    var modalView = new ModalView();
 
     loadingView.render({
         fullScreen: true
     });
 
     $('#main').html(loadingView.el);
+    $('#menu').html(menuView.render().el);
+    $('#modal').html(modalView.render().el);
 
-    GameSparks.prototype.aroundMeLeaderboardRequest = function(leaderboardShortCode, onResponse)
-    {
-        var request = {};
-            request["leaderboardShortCode"] = leaderboardShortCode;
-            request["count"] = 1;
-            request["social"] = false;
-        this.sendWithData("AroundMeLeaderboardRequest", request, onResponse);
-    }
-
-    Gamesparks.prototype.logLogoPointsRequest = function(points, onResponse)
-    {
-        var request = {};
-            request["eventKey"] = 'LOGO_GUESS';
-            request["POINTS"] = points;
-        this.sendWithData("LogEventRequest", request, onResponse);
-    };
-
-    Gamesparks.prototype.logTriviaPointsRequest = function(points, onResponse)
-    {
-        var request = {};
-            request["eventKey"] = 'TRIVIA_GUESS';
-            request["POINTS"] = points;
-        this.sendWithData("LogEventRequest", request, onResponse);
-    };
+    $('.js-toggle-menu').on('click', function () {
+        App.EventBus.trigger('menu:toggle');
+        return false;
+    });
 
     App.gamesparks = new Gamesparks();
-
-    App.setupPlayer = function (callback) {
-        App.gamesparks.sendWithData('AccountDetailsRequest', {}, function (response) {
-
-            console.log(response.error);
-
-            if (response.error && response.error.authentication == 'NOTAUTHORIZED') {
-                App.router.navigate('login', {
-                    trigger: true
-                });
-                return;
-            }
-
-            var points = 0;
-
-            if (response.scriptData && response.scriptData.points) {
-                points = response.scriptData.points;
-            }
-
-            App.player = new PlayerModel({
-                'id': response.userId,
-                //'username': $('#username').val(),
-                'name': response.displayName,
-                'points': points
-            });
-
-            callback();
-        });
-    }
+    App.async = Async;
+    App.playerFactory = new PlayerFactory();
 
     window.KINVEY_DEBUG = true;
     Kinvey.init({

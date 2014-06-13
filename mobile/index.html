@@ -23,7 +23,7 @@
 
     <nav class="action-bar" role="navigation">
 
-      <a class="action-bar__menu js-show-menu" href="#">
+      <a class="action-bar__menu js-toggle-menu" href="#">
         <img src="/assets/img/logo.png">
       </a>
 
@@ -46,6 +46,10 @@
       <div class="loader loader--full-screen">
         <img src="/assets/img/load.gif">
       </div>
+
+    </div>
+
+    <div id="modal">
 
     </div>
 
@@ -98,41 +102,51 @@
 
     <script type="text/html" id="menu-template">
 
-      <a class="menu__btn js-hide-menu" href="#">
-        <img src="/assets/img/logo.png">
-      </a>
-
       <div class="menu__profile">
         <div class="menu__profile__photo">
-          <img src="/assets/img/profile.jpg">
+          <img src="<%= photo %>">
         </div>
-        <div class="menu__profile__info">
-          <div class="menu__profile__name">
-            <%= name %>
-          </div>
-          <div class="menu__profile__points">
-            <span class="menu__profile__points__amount"><%= points %></span> points
-          </div>
+        <div class="menu__profile__name">
+          <%= name %>
+        </div>
+      </div>
+
+      <div class="menu__score">
+        <div class="menu__score__counter">
+          <div class="menu__score__counter__figure js-points"><%= points %></div>
+          <div class="menu__score__counter__label">total points</div>
+        </div>
+        <div class="menu__score__counter">
+          <div class="menu__score__counter__figure">0</div>
+          <div class="menu__score__counter__label">achievements</div>
+        </div>
+      </div>
+
+      <div class="menu__social">
+        <div class="menu__social__title">Accounts</div>
+        <div class="menu__social__icons">
+          <a href="#" class="menu__social__icon js-connect-facebook">
+            <img src="/assets/img/facebook.png">
+          </a>
+          <a href="#" class="menu__social__icon js-connect-twitter">
+            <img src="/assets/img/twitter.png">
+          </a>
         </div>
       </div>
 
       <div class="menu__options">
 
-        <div class="menu__option">
+        <div class="menu__option--checkbox">
           <input type="checkbox" class="js-fetch-adless"> Fetch ads with no metadata
         </div>
 
-        <div class="menu__option">
-          <input type="checkbox" class="js-fetch-trivialess"> Fetch ads with no trivia questions
+        <div class="menu__option--checkbox">
+          <input type="checkbox" class="js-fetch-trivialess"> Fetch ads with no trivia
         </div>
 
-        <div class="menu__option">
-          <a href="#" class="js-refresh-stream">Refresh Quiz Stream</a>
-        </div>
+        <a href="#" class="menu__option js-refresh-stream">Refresh Quiz Stream</a>
 
-        <div class="menu__option">
-          <a href="#logout">Log out</a>
-        </div>
+        <a href="#logout" class="menu__option">Log out</a>
 
       </div>
 
@@ -269,6 +283,12 @@
     <script type="text/html" id="quiz-triviamissing-template">
 
       <div class="instruction">Trivia question unavailable</div>
+
+    </script>
+
+    <script type="text/html" id="modal-template">
+
+      <%= message %>
 
     </script>
 

@@ -12,7 +12,6 @@ define([
     //'views/errormessage',
     'views/login',
     //'views/register',
-    'views/menu/menu',
     'views/stream/quizstream',
     //'views/streampanel',
 
@@ -38,7 +37,6 @@ define([
     //ErrorMessageView,
     LoginView,
     //RegisterView,
-    MenuView,
     QuizStreamView,
     //StreamPanelView,
 
@@ -66,8 +64,9 @@ define([
                     originalRoute.apply(this, arguments);
 
                 } else {
-                    App.setupPlayer(function () {
-                        originalRoute.apply(this, arguments);
+                    var _this = this;
+                    App.playerFactory.build(function () {
+                        originalRoute.apply(_this, arguments);
                     });
                 }
 
@@ -116,7 +115,7 @@ define([
             App.session.destroy();
 
             App.EventBus.trigger('menu:hide');
-            $('.js-show-menu').off('click');
+            App.EventBus.trigger('player:unloaded');
 
             this.navigate('', {
                 trigger: true
@@ -176,8 +175,6 @@ define([
         play: ensureLogin(function () {
             var adDetections = new AdDetectionsCollection(),
 
-                menuView = new MenuView(),
-
                 quizStreamView = new QuizStreamView({
                     collection: adDetections
                 });
@@ -199,12 +196,6 @@ define([
                 });
             return;*/
 
-            $('.js-show-menu').on('click', function () {
-                App.EventBus.trigger('menu:show');
-                return false;
-            });
-
-            $('#menu').html(menuView.render().el);
             $('#main').html(quizStreamView.render().el);
 
             adDetections.fetch();

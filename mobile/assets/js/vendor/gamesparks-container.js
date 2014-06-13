@@ -671,4 +671,27 @@ GameSparks.prototype.withdrawChallengeRequest = function(challengeInstanceId, me
         request["message"] = message;
     this.sendWithData("WithdrawChallengeRequest", request, onResponse);
 }
+GameSparks.prototype.aroundMeLeaderboardRequest = function(leaderboardShortCode, onResponse)
+{
+    var request = {};
+        request["leaderboardShortCode"] = leaderboardShortCode;
+        request["count"] = 1;
+        request["social"] = false;
+    this.sendWithData("AroundMeLeaderboardRequest", request, onResponse);
+}
 
+GameSparks.prototype.logLogoPointsRequest = function(points, onResponse)
+{
+    var request = {};
+        request["eventKey"] = 'LOGO_GUESS';
+        request["POINTS"] = points;
+    this.sendWithData("LogEventRequest", request, onResponse);
+};
+
+GameSparks.prototype.logTriviaPointsRequest = function(points, onResponse)
+{
+    var request = {};
+        request["eventKey"] = 'TRIVIA_GUESS';
+        request["POINTS"] = points;
+    this.sendWithData("LogEventRequest", request, onResponse);
+};

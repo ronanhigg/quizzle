@@ -47,6 +47,7 @@ define([
         },
 
         render: function () {
+            this._renderLoading();
             return this;
         },
 
