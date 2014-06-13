@@ -42,6 +42,7 @@ define([
 
             if (selectedIndex === this._correctIndex) {
                 this.model.trigger('guess:correctlogo');
+                App.player.trigger('points:logo');
             } else {
                 this.model.trigger('guess:incorrect');
             }

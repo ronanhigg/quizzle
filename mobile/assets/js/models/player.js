@@ -4,31 +4,41 @@
 define([
     'vendor/underscore',
     'vendor/backbone',
-    'kinvey',
-    'app'
-], function (_, Backbone, Kinvey, App) {
+    'app',
+], function (_, Backbone, App) {
 
     "use strict";
 
-    return Kinvey.Backbone.User.extend({
+    return Backbone.Model.extend({
 
-        getCurrentCheckIns: function () {
+        logoPoints: 100,
+        triviaPoints: 200,
 
-            var query, checkIns;
+        initialize: function () {
+            this.on('points:logo', this._addLogoPoints);
+            this.on('points:trivia', this._addTriviaPoints);
+        },
 
-            query = new Kinvey.Query();
-            query.equalTo('is_active', true);
-            query.equalTo('player._id', this.get('_id'));
+        isLoggedIn: function () {
+            return this.id !== undefined;
+        },
 
-            checkIns = new Kinvey.Backbone.Collection([], {
-                url: 'checkins'
-            });
+        _addLogoPoints: function () {
+            this._addPoints(this.logoPoints);
+            App.gamesparks.logLogoPointsRequest(this.logoPoints);
+        },
 
-            return checkIns.fetch({
-                query: query
-            });
+        _addTriviaPoints: function () {
+            this._addPoints(this.triviaPoints);
+            App.gamesparks.logTriviaPointsRequest(this.triviaPoints);
+        },
+
+        _addPoints: function (pointsEarned) {
+            var newPoints = this.get('points') + pointsEarned
+            this.set('points', newPoints);
+            this.trigger('points:change', newPoints);
         }
 
     });
-
+    
 });

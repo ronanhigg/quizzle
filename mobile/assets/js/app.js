@@ -15,6 +15,7 @@ define([
         getTemplate: function (id) {
             return _.template($.trim($("#" + id + "-template").html()));
         }
+
     }
 
 });

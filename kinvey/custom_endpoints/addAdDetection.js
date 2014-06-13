@@ -82,7 +82,33 @@ function onRequest(request, response, modules) {
     });
     updatePusher(adDetection);
 
-    checkIfAdDataExists(adDetection);
+    checkIfChannelDataExists(adDetection);
+  };
+
+  checkIfChannelDataExists = function (adDetection) {
+    var channelsCollection = modules.collectionAccess.collection('channels');
+
+    channelsCollection.find({
+      'ad_detection_identifier': adDetection.channel_identifier
+    }, function (err, docs) {
+      if (err) {
+        return response.error('An error occurred while trying to find channel "' + adDetection.channel_identifier + '".');
+      }
+
+      if (docs.length > 0) {
+        channel = docs.pop();
+        adDetection.channel = {
+          '_type': 'KinveyRef',
+          '_collection': 'channels',
+          '_id': channelsCollection.objectID(channel._id)
+        };
+
+        checkIfAdDataExists(adDetection);
+      } else {
+        saveAdDetection(adDetection);
+      }
+
+    })
   };
 
   checkIfAdDataExists = function (adDetection) {
@@ -96,9 +122,15 @@ function onRequest(request, response, modules) {
       }
       
       if (docs.length > 0) {
-        adDetection.has_ad_data = true;
-
         ad = docs.pop();
+
+        adDetection.has_ad_data = true;
+        adDetection.ad = {
+          '_type': 'KinveyRef',
+          '_collection': 'ads',
+          '_id': adsCollection.objectID(ad._id)
+        }
+
         checkIfQuizDataExists(adDetection, ad.advertiser);
       } else {
         saveAdDetection(adDetection);
@@ -106,11 +138,37 @@ function onRequest(request, response, modules) {
     });
   };
 
-  checkIfQuizDataExists = function (adDetection, advertiser) {
+  /* DEPRECATED
+
+  checkIfAdvertiserDataExists = function (adDetection, advertiserRef) {
+    var advertiersCollection = modules.collectionAccess.collection('advertisers');
+
+    advertiersCollection.find({
+      '_id': advertiersCollection.objectID(advertiserRef._id)
+    }, function (err, docs) {
+      if (err) {
+        return response.error('An error occurred while trying to find advertiser "' + advertiserRef._id + '".');
+      }
+      
+      if (docs.length > 0) {
+        advertiser = docs.pop();
+
+        adDetection.advertiser_name = advertiser.name;
+        adDetection.advertiser_logo = advertiser.logo_url;
+
+        checkIfQuizDataExists(adDetection, advertiserRef);
+      } else {
+        saveAdDetection(adDetection);
+      }
+
+    })
+  }*/
+
+  checkIfQuizDataExists = function (adDetection, advertiserRef) {
     var quizzesCollection = modules.collectionAccess.collection('quizzes');
 
     quizzesCollection.find({
-      'advertiser': advertiser
+      'advertiser': advertiserRef
     }, function (err, docs) {
       if (err) {
         return response.error('An error occurred while trying to find ad "' + adDetection.ad_identifier + '".');
@@ -336,10 +394,10 @@ function onRequest(request, response, modules) {
       return response.complete(200); 
     });
   };
-  
+
   //DS SQ1 061113 new function added
   updatePusher = function (adDetection) {
-    var uri = 'http://secondscreen.sq1.io/push/'+adDetection.ad_identifier+'/'+adDetection.channel_identifier;
+    var uri = 'http://tvadsync.sq1.io/push/'+adDetection.ad_identifier+'/'+adDetection.channel_identifier;
   
     var options = {
       uri: uri,

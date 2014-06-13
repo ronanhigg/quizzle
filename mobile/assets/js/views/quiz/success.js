@@ -16,7 +16,9 @@ define([
         template: App.getTemplate('quiz-success'),
 
         render: function () {
-            this.$el.html(this.template());
+            this.$el.html(this.template({
+                totalPoints: App.player.logoPoints + App.player.triviaPoints
+            }));
             return this;
         }
 

@@ -8,7 +8,8 @@ define([
     'kinvey',
     'app',
 
-    'views/quiz/failure'
+    'models/player',
+    'models/session'
 ], function (
     $,
     _,
@@ -16,54 +17,47 @@ define([
     Kinvey,
     App,
 
-    FailureView
+    PlayerModel,
+    SessionModel
 ) {
 
     "use strict";
 
     return Backbone.View.extend({
 
-        className: 'menu',
-        template: App.getTemplate('menu'),
+        className: 'login',
+        template: App.getTemplate('login'),
 
         events: {
-            'click .js-hide-menu': '_hide'
+            'submit .js-login-form': '_login'
         },
 
         initialize: function (options) {
-            this.listenTo(App.EventBus, 'menu:show', this._show);
-            this.listenTo(App.EventBus, 'menu:hide', this._hide);
-            this.listenTo(App.player, 'points:change', this._renderPoints);
         },
 
         render: function () {
             this.$el.html(this.template({
-                name: App.player.get('name'),
-                points: App.player.get('points')
             }));
             return this;
         },
 
-        _show: function (event) {
-            $('.menu').animate({
-                'left': 0,
-                'right': 0
-            }, 500);
+        _login: function () {
+
+            App.gamesparks.authenticationRequest($('#password').val(), $('#username').val(), function (response) {
+
+                App.session.save({
+                    'authToken': App.gamesparks.getAuthToken(),
+                });
+
+                App.setupPlayer(function () {
+                    App.router.navigate('play', {
+                        trigger: true
+                    });
+                });
+
+            });
 
             return false;
-        },
-
-        _hide: function (event) {
-            $('.menu').animate({
-                'left': '-100%',
-                'right': '100%'
-            }, 500);
-
-            return false;
-        },
-
-        _renderPoints: function (points) {
-            this.$el.find('.menu__profile__points__amount').html(points);
         }
 
         /*initialize: function (options) {

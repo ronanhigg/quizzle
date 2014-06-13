@@ -31,7 +31,7 @@
         Quizzle
       </h1>
 
-      <a class="action-bar__action" href="#play">
+      <a class="action-bar__action js-refresh-stream" href="#">
         <img src="/assets/img/refresh.png">
       </a>
 
@@ -54,6 +54,26 @@
     <script type="text/html" id="loading-template">
 
       <img src="/assets/img/load.gif">
+
+    </script>
+
+    <script type="text/html" id="login-template">
+
+      <form class="form js-login-form" style="padding: 20px;">
+
+        <div class="form-group">
+          <input type="text" class="form-control" id="username" placeholder="Username">
+        </div>
+
+        <div class="form-group">
+          <input type="password" class="form-control" id="password" placeholder="Password">
+        </div>
+
+        <button type="submit" class="btn btn-default btn-block">
+          Log In
+        </button>
+
+      </form>
 
     </script>
 
@@ -88,10 +108,10 @@
         </div>
         <div class="menu__profile__info">
           <div class="menu__profile__name">
-            Oberyn Martell
+            <%= name %>
           </div>
           <div class="menu__profile__points">
-            <span class="menu__profile__points__amount">1,200</span> points
+            <span class="menu__profile__points__amount"><%= points %></span> points
           </div>
         </div>
       </div>
@@ -108,6 +128,10 @@
 
         <div class="menu__option">
           <a href="#" class="js-refresh-stream">Refresh Quiz Stream</a>
+        </div>
+
+        <div class="menu__option">
+          <a href="#logout">Log out</a>
         </div>
 
       </div>
@@ -209,7 +233,7 @@
 
       <div class="result result--success">
         <div class="result__primary">
-          500
+          <%= totalPoints %>
         </div>
         <div class="result__body">
           points

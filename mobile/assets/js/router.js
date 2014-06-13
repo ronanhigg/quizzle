@@ -10,7 +10,7 @@ define([
 
     //'views/checkin',
     //'views/errormessage',
-    //'views/login',
+    'views/login',
     //'views/register',
     'views/menu/menu',
     'views/stream/quizstream',
@@ -25,6 +25,7 @@ define([
     'models/channel',
     'models/checkin',
     'models/player',
+    'models/session',
     'models/show'
 ], function (
     $,
@@ -35,7 +36,7 @@ define([
 
     //CheckInView,
     //ErrorMessageView,
-    //LoginView,
+    LoginView,
     //RegisterView,
     MenuView,
     QuizStreamView,
@@ -50,6 +51,7 @@ define([
     ChannelModel,
     CheckInModel,
     PlayerModel,
+    SessionModel,
     ShowModel
 ) {
 
@@ -57,21 +59,23 @@ define([
 
     var ensureLogin = function (originalRoute) {
         return function () {
-            /*if (App.player && App.player.isLoggedIn()) {
 
-                if ($('#player-name').is(':empty')) {
-                    $('#player-name').html(App.player.get('name'));
+            if (App.session.authenticated()) {
+
+                if (App.player) {
+                    originalRoute.apply(this, arguments);
+
+                } else {
+                    App.setupPlayer(function () {
+                        originalRoute.apply(this, arguments);
+                    });
                 }
-
-                originalRoute.apply(this, arguments);
 
             } else {
-                if (!(App.main instanceof LoginView)) {
-                    App.main = new LoginView({complete: originalRoute});
-                    $('#main').html(App.main.render().el);
-                }
-            }*/
-            originalRoute.apply(this, arguments);
+                this.navigate('login', {
+                    trigger: true
+                });
+            }
         };
     };
 
@@ -79,6 +83,8 @@ define([
 
         routes: {
             "": "index",
+            "login": "login",
+            "logout": "logout",
             "play": "play"
         },
 
@@ -101,23 +107,23 @@ define([
             });
         }),
 
-        /*login: function () {
+        login: function () {
             var loginView = new LoginView();
             $('#main').html(loginView.render().el);
         },
 
         logout: ensureLogin(function () {
-            var _this = this;
-            App.player.logout()
-                .then(function () {
-                    $('#player-name').empty();
-                    _this.navigate('', {
-                        trigger: true
-                    });
-                });
+            App.session.destroy();
+
+            App.EventBus.trigger('menu:hide');
+            $('.js-show-menu').off('click');
+
+            this.navigate('', {
+                trigger: true
+            });
         }),
 
-        register: function () {
+        /*register: function () {
             var registerView = new RegisterView();
             $('#main').html(registerView.render().el);
         },
@@ -175,6 +181,23 @@ define([
                 quizStreamView = new QuizStreamView({
                     collection: adDetections
                 });
+
+            /*var query = new Kinvey.Query();
+
+            query.limit(500);
+
+            Kinvey.DataStore.find('ads', query)
+                .then(function (responseF) {
+                    _.each(responseF, function (ad) {
+                        Kinvey.DataStore.update('ads', {
+                            '_id': ad._id
+                        })
+                            .then(function (responseU) {
+                                console.log('Updated ad ' + ad._id);
+                            });
+                    });
+                });
+            return;*/
 
             $('.js-show-menu').on('click', function () {
                 App.EventBus.trigger('menu:show');

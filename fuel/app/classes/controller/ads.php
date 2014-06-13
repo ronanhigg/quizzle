@@ -382,6 +382,22 @@ class Controller_Ads extends Controller_Base
             return;
         }
 
+        if (is_null($advertiser) && Input::post('advertiser_id')) {
+            try {
+                $advertiser = Model_Advertiser::find(Input::post('advertiser_id'));
+            } catch (KinveyModelException $e) {
+                Session::set_flash('error', $e->getMessage());
+                return;
+            }
+
+            try {
+                $ad->add_relation('advertiser', 'advertisers', $advertiser->id);
+            } catch (Model_AdException $e) {
+                Session::set_flash('error', $e->getMessage());
+                return;
+            }
+        }
+
         $rollback = new Rollback;
         $file_adapter = new Adapter_File;
         $cloud_storage_adapter = new Adapter_CloudStorage;
@@ -419,8 +435,14 @@ class Controller_Ads extends Controller_Base
             $rollback->add_call($image_storer, 'remove', $logo_url_to_save);
 
         } catch (MediaStorer_ImageNoFileException $e) {
-            $logo_url_to_save = $advertiser->logo_url;
-            $logo_url_to_remove = null;
+
+            if ( ! is_null($advertiser)) {
+                $logo_url_to_save = $advertiser->logo_url;
+                $logo_url_to_remove = null;
+
+            } else {
+                throw new Controller_AdsException('An advertiser is required to save the ad.');
+            }
 
         } catch (MediaStorer_ImageException $e) {
             throw new Controller_AdsException($e->getMessage());
