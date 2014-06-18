@@ -70,89 +70,23 @@ define([
         _connectToFacebook: function (event) {
             event.preventDefault();
 
-            /*FB.login(function(response) {
-                if (response.status === 'connected') {
-                    App.playerFactory.buildFacebookPlayer(response.authResponse.accessToken, function () {
-                        App.router.navigate('play', {
-                            trigger: true
-                        });
-                    });
-                }
-            });*/
             console.log('[AUTH] Attempting to authenticate via Facebook');
-            App.oauth.popup('facebook', {
-                'cache': true
-            }, function (err, result) {
-                console.log('[AUTH] Facebook authentication callback');
-                console.log(err);
-                console.log(result);
-                if (result.access_token) {
-                    App.playerFactory.build('facebook', result, function () {
-                    //App.playerFactory.buildFacebookPlayer(result.access_token, function () {
-                        App.router.navigate('play', {
-                            trigger: true
-                        });
-                    });
-                } else {
-                    App.EventBus.trigger('message', 'Facebook authorization declined');
-                }
-            });
+            console.log('[AUTH] Callback URL: ' + document.URL);
 
-            /*App.oauth.callback('facebook', {
+            App.oauth.redirect('facebook', {
                 'cache': true
-            }, function (err, result) {
-                console.log(err);
-                console.log(result);
-                if (result.access_token) {
-                    App.playerFactory.build('facebook', result, function () {
-                    //App.playerFactory.buildFacebookPlayer(result.access_token, function () {
-                        App.router.navigate('play', {
-                            trigger: true
-                        });
-                    });
-                } else {
-                    App.EventBus.trigger('message', 'Facebook authorization declined');
-                }
-            });*/
+            }, document.URL);
         },
 
         _connectToTwitter: function (event) {
             event.preventDefault();
-            //App.EventBus.trigger('message', 'Twitter social connection is not yet implemented');
-
-            /*App.oauth.callback('twitter', {
-                'cache': true
-            }, function (err, result) {
-                console.log(err);
-                console.log(result);
-                if (result.oauth_token) {
-                    App.playerFactory.build('twitter', result, function () {
-                        App.router.navigate('play', {
-                            trigger: true
-                        });
-                    });
-                } else {
-                    App.EventBus.trigger('message', 'Twitter authorization declined');
-                }
-            });*/
 
             console.log('[AUTH] Attempting to authenticate via Twitter');
-            App.oauth.popup('twitter', {
+            console.log('[AUTH] Callback URL: ' + document.URL);
+
+            App.oauth.redirect('twitter', {
                 'cache': true
-            }, function (err, result) {
-                console.log('[AUTH] Twitter authentication callback');
-                console.log(err);
-                console.log(result);
-                if (result.oauth_token) {
-                    App.playerFactory.build('twitter', result, function () {
-                        App.router.navigate('play', {
-                            trigger: true
-                        });
-                    });
-                } else {
-                    App.EventBus.trigger('message', 'Twitter authorization declined');
-                }
-            });
+            }, document.URL);
         }
 
     });

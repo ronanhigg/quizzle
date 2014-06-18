@@ -96,55 +96,6 @@ define([
             }, function () {
                 originalRoute.apply(_this, arguments);
             });
-
-            /*if (App.player && App.player.get('connectedToFacebook')) {
-                this.navigate('play', {
-                    trigger: true
-                });
-                return;
-            }
-
-            var oauthResult = App.oauth.create('facebook');
-            console.log(oauthResult);
-
-            if (oauthResult.access_token) {
-                App.playerFactory.build('facebook', oauthResult, function () {
-                    _this.navigate('play', {
-                        trigger: true
-                    });
-                });
-                return;
-            }
-
-            var oauthResult = App.oauth.create('twitter');
-            console.log(oauthResult);
-
-            if (oauthResult.oauth_token) {
-                App.playerFactory.build('twitter', oauthResult, function () {
-                    _this.navigate('play', {
-                        trigger: true
-                    });
-                });
-                return;
-            }
-
-            originalRoute.apply(_this, arguments);
-
-            /*FB.getLoginStatus(function(response) {
-
-                console.log(response);
-
-                if (response.status === 'connected') {
-                    App.playerFactory.build(response.authResponse.accessToken, function () {
-                        _this.navigate('play', {
-                            trigger: true
-                        });
-                    });
-                    return;
-                }
-
-                originalRoute.apply(_this, arguments);
-            });*/
         }
     };
 
@@ -160,69 +111,6 @@ define([
                     trigger: true
                 });
             });
-
-            /*if (App.player && App.player.isConnectedToSocialLogin()) {
-                originalRoute.apply(this, arguments);
-                return;
-            }
-
-            var oauthResult = App.oauth.create('facebook');
-            console.log(oauthResult);
-
-            if (oauthResult.access_token) {
-                App.playerFactory.build('facebook', oauthResult, function () {
-                    originalRoute.apply(_this, arguments);
-                });
-                return;
-            }
-
-            var oauthResult = App.oauth.create('twitter');
-            console.log(oauthResult);
-
-            if (oauthResult.access_token) {
-                App.playerFactory.build('twitter', oauthResult, function () {
-                    originalRoute.apply(_this, arguments);
-                });
-                return;
-            }
-
-            _this.navigate('login', {
-                trigger: true
-            });
-
-            /*FB.getLoginStatus(function(response) {
-
-                console.log(response);
-
-                if (response.status === 'connected') {
-                    App.playerFactory.build(response.authResponse.accessToken, function () {
-                        originalRoute.apply(_this, arguments);
-                    });
-                    return;
-                }
-
-                _this.navigate('login', {
-                    trigger: true
-                });
-            });*/
-
-            /*if (App.session.authenticated()) {
-
-                if (App.player) {
-                    originalRoute.apply(this, arguments);
-
-                } else {
-                    var _this = this;
-                    App.playerFactory.build(function () {
-                        originalRoute.apply(_this, arguments);
-                    });
-                }
-
-            } else {
-                this.navigate('login', {
-                    trigger: true
-                });
-            }*/
         };
     };
 
@@ -233,6 +121,45 @@ define([
             "login": "login",
             "logout": "logout",
             "play": "play"
+        },
+
+        initialize: function (options) {
+            var _this = this;
+
+            App.oauth.callback('facebook', {
+                'cache': true
+            }, function (err, result) {
+                console.log('[AUTH] Facebook authentication callback');
+                console.log(err);
+                console.log(result);
+                if (result && result.access_token) {
+                    App.playerFactory.build('facebook', result, function () {
+                        _this.navigate('play', {
+                            trigger: true
+                        });
+                    });
+                } else {
+                    //App.EventBus.trigger('message', 'Facebook authorization declined');
+                }
+            });
+
+            App.oauth.callback('twitter', {
+                'cache': true
+            }, function (err, result) {
+                console.log('[AUTH] Twitter authentication callback');
+                console.log(err);
+                console.log(result);
+                if (result && result.oauth_token) {
+                    App.playerFactory.build('twitter', result, function () {
+                        _this.navigate('play', {
+                            trigger: true
+                        });
+                    });
+                } else {
+                    //App.EventBus.trigger('message', 'Twitter authorization declined');
+                }
+            });
+
         },
 
         index: ensureLogin(function () {
