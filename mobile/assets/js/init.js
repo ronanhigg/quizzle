@@ -25,6 +25,9 @@ requirejs.config({
         },
         'facebook' : {
             exports: 'FB'
+        },
+        'oauth' : {
+            exports: 'OAuth'
         }
     },
     paths: {
@@ -39,7 +42,8 @@ requirejs.config({
         'moment': "vendor/moment",
         'gamesparks': "vendor/gamesparks-container",
         'cryptojs': "vendor/hmac-sha256",
-        'facebook': '//connect.facebook.net/en_US/all'
+        'facebook': '//connect.facebook.net/en_US/all',
+        'oauth': 'vendor/oauth'
     },
     urlArgs: "bust=" + (new Date()).getTime()
 });
@@ -54,6 +58,7 @@ require([
     'kinvey',
     'gamesparks',
     'cryptojs',
+    'oauth',
     'fb',
     'vendor/async',
     'app',
@@ -64,7 +69,7 @@ require([
     'views/menu/menu',
     'views/modal',
     'factories/player'
-], function ($, _, Backbone, Associations, Bootstrap, moment, Kinvey, Gamesparks, CryptoJS, Facebook, Async, App, AppRouter, PlayerModel, SessionModel, LoadingView, MenuView, ModalView, PlayerFactory) {
+], function ($, _, Backbone, Associations, Bootstrap, moment, Kinvey, Gamesparks, CryptoJS, OAuth, Facebook, Async, App, AppRouter, PlayerModel, SessionModel, LoadingView, MenuView, ModalView, PlayerFactory) {
 
     "use strict";
 
@@ -107,6 +112,12 @@ require([
     App.gamesparks = new Gamesparks();
     App.async = Async;
     App.playerFactory = new PlayerFactory();
+    App.oauth = OAuth;
+
+    App.oauth.initialize('MNs8vuhXvYVFuQVxY7AtZdyfRG0');
+
+    //App.oauth.clearCache('facebook');
+    //App.oauth.clearCache('twitter');
 
     window.KINVEY_DEBUG = true;
     Kinvey.init({
@@ -127,9 +138,6 @@ require([
             * by starting the Backbone history. We hold off on this until the active user state is resolved
             * so we know whether the user is logged in or not.
             */
-
-            App.session = new SessionModel();
-            App.session.load();
 
             App.gamesparks.initPreview({
                 key: '180424JtV6cn', 

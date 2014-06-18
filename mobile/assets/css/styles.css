@@ -7438,12 +7438,12 @@ button.close {
   }
 }
 /* line 21, ../../../../../opt/vagrant_ruby/lib/ruby/gems/1.8/gems/bootstrap-sass-3.0.3.0/vendor/assets/stylesheets/bootstrap/_mixins.scss */
-.clearfix:before, .menu__profile:before, .menu__score:before, .menu__social__icons:before, .clearfix:after, .menu__profile:after, .menu__score:after, .menu__social__icons:after {
+.clearfix:before, .menu__profile:before, .menu__score:before, .menu__social__icons:before, .social-login__icons:before, .clearfix:after, .menu__profile:after, .menu__score:after, .menu__social__icons:after, .social-login__icons:after {
   content: " ";
   display: table;
 }
 /* line 25, ../../../../../opt/vagrant_ruby/lib/ruby/gems/1.8/gems/bootstrap-sass-3.0.3.0/vendor/assets/stylesheets/bootstrap/_mixins.scss */
-.clearfix:after, .menu__profile:after, .menu__score:after, .menu__social__icons:after {
+.clearfix:after, .menu__profile:after, .menu__score:after, .menu__social__icons:after, .social-login__icons:after {
   clear: both;
 }
 
@@ -8450,6 +8450,25 @@ a.menu__option, a.menu__option--checkbox {
 /* line 19, ../sass/blocks/_result.scss */
 .result__body {
   font-weight: 400;
+}
+
+/* line 1, ../sass/blocks/_social-login.scss */
+.social-login__title {
+  margin-bottom: 20px;
+  text-align: center;
+  font-size: 32px;
+}
+
+/* line 7, ../sass/blocks/_social-login.scss */
+.social-login__icons {
+  padding: 0 14%;
+}
+
+/* line 12, ../sass/blocks/_social-login.scss */
+.social-login__icon {
+  float: left;
+  width: 50%;
+  text-align: center;
 }
 
 /* line 1, ../sass/blocks/_trivia.scss */

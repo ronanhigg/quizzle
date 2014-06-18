@@ -1,0 +1,16 @@
+.social-login__title {
+    margin-bottom: 20px;
+    text-align: center;
+    font-size: 32px;
+}
+
+.social-login__icons {
+    @extend .clearfix;
+    padding: 0 14%;
+}
+
+.social-login__icon {
+    float: left;
+    width: 50%;
+    text-align: center;
+}

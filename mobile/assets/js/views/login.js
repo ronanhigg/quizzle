@@ -29,7 +29,9 @@ define([
         template: App.getTemplate('login'),
 
         events: {
-            'submit .js-login-form': '_login'
+            'submit .js-login-form': '_login',
+            'click .js-connect-facebook': '_connectToFacebook',
+            'click .js-connect-twitter': '_connectToTwitter'
         },
 
         initialize: function (options) {
@@ -41,7 +43,7 @@ define([
             return this;
         },
 
-        _login: function () {
+        /*_login: function () {
 
             App.gamesparks.authenticationRequest($('#password').val(), $('#username').val(), function (response) {
 
@@ -63,42 +65,95 @@ define([
             });
 
             return false;
-        }
-
-        /*initialize: function (options) {
-            this.children = [];
-
-            if (!this.model.get('noAdData')) {
-                this.children.push(new ScreenshotView({
-                    model: this.model
-                }));
-
-                this.children.push(new LogoQuestionView({
-                    model: this.model
-                }));
-            }
-
-            this.children.push(new FooterView({
-                model: this.model,
-                index: options.index
-            }));
-
-            this.listenTo(this.model, 'guess:correctlogo', this._renderTriviaQuestion);
-            this.listenTo(this.model, 'guess:correcttrivia', this._renderPoints);
-            this.listenTo(this.model, 'guess:incorrect', this._renderFailureMessage);
         },*/
 
-        /*render: function () {
-            var self = this;
+        _connectToFacebook: function (event) {
+            event.preventDefault();
 
-            this.$el.attr('data-id', this.model.get('_id'));
-
-            _.each(this.children, function (child) {
-                self.$el.append(child.render().el);
+            /*FB.login(function(response) {
+                if (response.status === 'connected') {
+                    App.playerFactory.buildFacebookPlayer(response.authResponse.accessToken, function () {
+                        App.router.navigate('play', {
+                            trigger: true
+                        });
+                    });
+                }
+            });*/
+            console.log('[AUTH] Attempting to authenticate via Facebook');
+            App.oauth.popup('facebook', {
+                'cache': true
+            }, function (err, result) {
+                console.log('[AUTH] Facebook authentication callback');
+                console.log(err);
+                console.log(result);
+                if (result.access_token) {
+                    App.playerFactory.build('facebook', result, function () {
+                    //App.playerFactory.buildFacebookPlayer(result.access_token, function () {
+                        App.router.navigate('play', {
+                            trigger: true
+                        });
+                    });
+                } else {
+                    App.EventBus.trigger('message', 'Facebook authorization declined');
+                }
             });
 
-            return this;
-        },*/
+            /*App.oauth.callback('facebook', {
+                'cache': true
+            }, function (err, result) {
+                console.log(err);
+                console.log(result);
+                if (result.access_token) {
+                    App.playerFactory.build('facebook', result, function () {
+                    //App.playerFactory.buildFacebookPlayer(result.access_token, function () {
+                        App.router.navigate('play', {
+                            trigger: true
+                        });
+                    });
+                } else {
+                    App.EventBus.trigger('message', 'Facebook authorization declined');
+                }
+            });*/
+        },
+
+        _connectToTwitter: function (event) {
+            event.preventDefault();
+            //App.EventBus.trigger('message', 'Twitter social connection is not yet implemented');
+
+            /*App.oauth.callback('twitter', {
+                'cache': true
+            }, function (err, result) {
+                console.log(err);
+                console.log(result);
+                if (result.oauth_token) {
+                    App.playerFactory.build('twitter', result, function () {
+                        App.router.navigate('play', {
+                            trigger: true
+                        });
+                    });
+                } else {
+                    App.EventBus.trigger('message', 'Twitter authorization declined');
+                }
+            });*/
+
+            console.log('[AUTH] Attempting to authenticate via Twitter');
+            App.oauth.popup('twitter', {
+                'cache': true
+            }, function (err, result) {
+                console.log('[AUTH] Twitter authentication callback');
+                console.log(err);
+                console.log(result);
+                if (result.oauth_token) {
+                    App.playerFactory.build('twitter', result, function () {
+                        App.router.navigate('play', {
+                            trigger: true
+                        });
+                    });
+                } else {
+                    App.EventBus.trigger('message', 'Twitter authorization declined');
+                }
+            });
+        }
 
     });
 

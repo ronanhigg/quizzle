@@ -24,8 +24,13 @@ define([
             return this.id !== undefined;
         },
 
+        isConnectedToSocialLogin: function () {
+            return this.connectedToFacebook || this.connectedToTwitter;
+        },
+
         connectToFacebook: function () {
-            var _this = this;
+            console.log('[DEPRECATED] connectToFacebook function');
+            /*var _this = this;
             if (this.get('connectedToFacebook')) {
                 App.EventBus.trigger('message', 'Your account is already connected to Facebook');
             } else {
@@ -38,7 +43,7 @@ define([
                         });
                     }
                 });
-            }
+            }*/
         },
 
         _addLogoPoints: function () {
