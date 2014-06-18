@@ -850,15 +850,17 @@ class Controller_Ads extends Controller_Base
             }
         }
 
-        $image_storer = new MediaStorer_Image($uploader, $cloud_storage_adapter, $file_adapter);
 
-        try {
-            $image_storer->remove($ad->storyboard_url);
-        } catch (MediaStorer_ImageException $e) {
-            $rollback->execute();
+        if ($ad->storyboard_url) {
+            try {
+                $image_storer = new MediaStorer_Image($uploader, $cloud_storage_adapter, $file_adapter);
+                $image_storer->remove($ad->storyboard_url);
+            } catch (MediaStorer_ImageException $e) {
+                $rollback->execute();
 
-            Session::set_flash('error', $e->getMessage());
-            return;
+                Session::set_flash('error', $e->getMessage());
+                return;
+            }
         }
 
         if ($ad->video_url) {
