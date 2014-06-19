@@ -14,6 +14,7 @@ define([
     'collections/addetections',
     'collections/airings',
     'collections/checkins',
+    'collections/rewards',
 
     'models/addetection',
     'models/airing',
@@ -35,6 +36,7 @@ define([
     AdDetectionsCollection,
     AiringsCollection,
     CheckInsCollection,
+    RewardsCollection,
 
     AdDetectionModel,
     AiringModel,
@@ -163,10 +165,15 @@ define([
 
         rewards: ensureLogin(function () {
 
-            var rewardsView = new RewardsView();
+            var rewards = new RewardsCollection();
 
-            $('#main').html(rewardsView.render().el);
+            var rewardsView = new RewardsView({
+                collection: rewards
+            });
 
+            rewards.fetch(function () {
+                $('#main').html(rewardsView.render().el);
+            });
         })
 
     });

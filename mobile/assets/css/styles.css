@@ -8475,27 +8475,40 @@ a.menu__option, a.menu__option--checkbox {
 .rewards__item-container {
   float: left;
   width: 50%;
-  height: 160px;
 }
 
-/* line 20, ../sass/blocks/_rewards.scss */
+/* line 19, ../sass/blocks/_rewards.scss */
 .rewards__item, .rewards__item--left, .rewards__item--right {
+  display: block;
   height: 100%;
+  padding: 20px 0;
   text-align: center;
+  text-decoration: none;
+  color: #fff;
+}
+/* line 27, ../sass/blocks/_rewards.scss */
+.rewards__item:hover, .rewards__item--left:hover, .rewards__item--right:hover {
+  text-decoration: none;
+  color: #fff;
 }
 
-/* line 25, ../sass/blocks/_rewards.scss */
+/* line 33, ../sass/blocks/_rewards.scss */
 .rewards__item--left {
   border-right: 1px solid rgba(255, 255, 255, 0.2);
 }
 
-/* line 34, ../sass/blocks/_rewards.scss */
+/* line 42, ../sass/blocks/_rewards.scss */
+.rewards__item__icon {
+  margin-bottom: 10px;
+}
+
+/* line 46, ../sass/blocks/_rewards.scss */
 .rewards__item__value {
   font-size: 30px;
   font-weight: bold;
 }
 
-/* line 39, ../sass/blocks/_rewards.scss */
+/* line 51, ../sass/blocks/_rewards.scss */
 .rewards__item__description, .rewards__item__price {
   line-height: 1.1;
 }

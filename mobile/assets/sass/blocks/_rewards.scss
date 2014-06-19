@@ -14,12 +14,20 @@
 .rewards__item-container {
     float: left;
     width: 50%;
-    height: 160px;
 }
 
 .rewards__item {
+    display: block;
     height: 100%;
+    padding: 20px 0;
     text-align: center;
+    text-decoration: none;
+    color: #fff;
+
+    &:hover {
+        text-decoration: none;
+        color: #fff;
+    }
 }
 
 .rewards__item--left {
@@ -29,6 +37,10 @@
 
 .rewards__item--right {
     @extend .rewards__item;
+}
+
+.rewards__item__icon {
+    margin-bottom: 10px;
 }
 
 .rewards__item__value {

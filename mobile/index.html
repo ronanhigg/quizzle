@@ -308,49 +308,43 @@
         Rewards
       </div>
 
-      <div class="rewards__row">
+      <% var i = 0; %>
 
-        <div class="rewards__item-container">
-          <div class="rewards__item--left">
+      <% rewards.each(function (reward) { %>
 
-            <div class="rewards__item__icon"></div>
+        <% if (i % 2 === 0) { %>
+          <div class="rewards__row">
+        <% } %>
 
-            <div class="rewards__item__value">
-              &euro;25
-            </div>
+          <div class="rewards__item-container">
+            <a href="#" class="rewards__item--<%=(i % 2 === 0 ? 'left' : 'right')%> js-redeem-reward">
 
-            <div class="rewards__item__description">
-              iTunes gift card
-            </div>
+              <div class="rewards__item__icon">
+                <img src="/assets/img/<%= reward.get('tags').toLowerCase() %>.png">
+              </div>
 
-            <div class="rewards__item__price">
-              (3000)
-            </div>
+              <div class="rewards__item__value">
+                <%= reward.get('description') %>
+              </div>
 
+              <div class="rewards__item__description">
+                <%= reward.get('name') %>
+              </div>
+
+              <div class="rewards__item__price">
+                (<%= reward.get('currency1Cost') %>)
+              </div>
+
+            </a>
           </div>
-        </div>
 
-        <div class="rewards__item-container">
-          <div class="rewards__item--right">
-
-            <div class="rewards__item__icon"></div>
-
-            <div class="rewards__item__value">
-              &euro;50
-            </div>
-
-            <div class="rewards__item__description">
-              iTunes gift card
-            </div>
-
-            <div class="rewards__item__price">
-              (5500)
-            </div>
-
+        <% if (i % 2 !== 0) { %>
           </div>
-        </div>
+        <% } %>
 
-      </div>
+        <% i++ %>
+
+      <% }); %>
 
     </script>
 
