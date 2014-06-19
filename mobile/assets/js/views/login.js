@@ -43,30 +43,6 @@ define([
             return this;
         },
 
-        /*_login: function () {
-
-            App.gamesparks.authenticationRequest($('#password').val(), $('#username').val(), function (response) {
-
-                if (response.error) {
-                    App.EventBus.trigger('message', 'Invalid login credentials');
-                    return;
-                }
-
-                App.session.save({
-                    'authToken': App.gamesparks.getAuthToken(),
-                });
-
-                App.playerFactory.build(function () {
-                    App.router.navigate('play', {
-                        trigger: true
-                    });
-                });
-
-            });
-
-            return false;
-        },*/
-
         _connectToFacebook: function (event) {
             event.preventDefault();
 

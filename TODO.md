@@ -20,7 +20,7 @@
 * ~~Include refresh button in Main panel menu (refresh button is not available in Web app view mode on iOS)~~
 * Change top right icon to trigger Rewards Catalogue panel menu (see TVsmiles app as reference)
 * Lazy load previous quiz units as stream approaches bottom of page (currently requires manual “Load More”)
-* New storyboard image size to be handled
+* ~~New storyboard image size to be handled~~
 
 ## Operator Dashboard
 
