@@ -1,0 +1,41 @@
+.rewards__title {
+    background: rgba(255, 255, 255, 0.2);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+    text-align: center;
+    font-size: 25px;
+    line-height: 56px;
+}
+
+.rewards__row {
+    @extend .clearfix;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.rewards__item-container {
+    float: left;
+    width: 50%;
+    height: 160px;
+}
+
+.rewards__item {
+    height: 100%;
+    text-align: center;
+}
+
+.rewards__item--left {
+    @extend .rewards__item;
+    border-right: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.rewards__item--right {
+    @extend .rewards__item;
+}
+
+.rewards__item__value {
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.rewards__item__description, .rewards__item__price {
+    line-height: 1.1;
+}

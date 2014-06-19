@@ -55,9 +55,9 @@ define([
                     console.log('[AUTH] Facebook OAuth token received');
 
                     App.playerFactory.build('facebook', result, function () {
-                        App.router.navigate('play', {
+                        /*App.router.navigate('play', {
                             trigger: true
-                        });
+                        });*/
                     });
 
                 } else {
@@ -76,9 +76,9 @@ define([
                     console.log('[AUTH] Twitter OAuth token received');
 
                     App.playerFactory.build('twitter', result, function () {
-                        App.router.navigate('play', {
+                        /*App.router.navigate('play', {
                             trigger: true
-                        });
+                        });*/
                     });
 
                 } else {

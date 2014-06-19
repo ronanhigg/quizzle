@@ -7438,12 +7438,12 @@ button.close {
   }
 }
 /* line 21, ../../../../../opt/vagrant_ruby/lib/ruby/gems/1.8/gems/bootstrap-sass-3.0.3.0/vendor/assets/stylesheets/bootstrap/_mixins.scss */
-.clearfix:before, .menu__profile:before, .menu__score:before, .menu__social__icons:before, .social-login__icons:before, .clearfix:after, .menu__profile:after, .menu__score:after, .menu__social__icons:after, .social-login__icons:after {
+.clearfix:before, .menu__profile:before, .menu__score:before, .menu__social__icons:before, .rewards__row:before, .social-login__icons:before, .clearfix:after, .menu__profile:after, .menu__score:after, .menu__social__icons:after, .rewards__row:after, .social-login__icons:after {
   content: " ";
   display: table;
 }
 /* line 25, ../../../../../opt/vagrant_ruby/lib/ruby/gems/1.8/gems/bootstrap-sass-3.0.3.0/vendor/assets/stylesheets/bootstrap/_mixins.scss */
-.clearfix:after, .menu__profile:after, .menu__score:after, .menu__social__icons:after, .social-login__icons:after {
+.clearfix:after, .menu__profile:after, .menu__score:after, .menu__social__icons:after, .rewards__row:after, .social-login__icons:after {
   clear: both;
 }
 
@@ -8155,7 +8155,7 @@ td.visible-print {
 }
 /* line 1, ../sass/_alterations.scss */
 body {
-  padding-top: 70px;
+  padding-top: 51px;
   background: url("/assets/img/bgpic.jpg") no-repeat center center fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
@@ -8178,7 +8178,12 @@ body {
   font-size: 16.8px;
 }
 
-/* line 17, ../sass/blocks/_actionbar.scss */
+/* line 1, ../sass/blocks/_actionbar.scss */
+.action-bar {
+  margin-bottom: 0;
+}
+
+/* line 18, ../sass/blocks/_actionbar.scss */
 .action-bar__menu {
   display: block;
   float: left;
@@ -8187,7 +8192,7 @@ body {
   margin: 14px;
 }
 
-/* line 25, ../sass/blocks/_actionbar.scss */
+/* line 26, ../sass/blocks/_actionbar.scss */
 .action-bar__title {
   position: absolute;
   left: 49px;
@@ -8197,7 +8202,7 @@ body {
   font-weight: bold;
 }
 
-/* line 34, ../sass/blocks/_actionbar.scss */
+/* line 35, ../sass/blocks/_actionbar.scss */
 .action-bar__action {
   display: block;
   position: absolute;
@@ -8298,7 +8303,7 @@ body {
 /* line 1, ../sass/blocks/_menu.scss */
 .menu {
   position: fixed;
-  top: 50px;
+  top: 51px;
   left: -50%;
   bottom: 0;
   right: 100%;
@@ -8450,6 +8455,49 @@ a.menu__option, a.menu__option--checkbox {
 /* line 19, ../sass/blocks/_result.scss */
 .result__body {
   font-weight: 400;
+}
+
+/* line 1, ../sass/blocks/_rewards.scss */
+.rewards__title {
+  background: rgba(255, 255, 255, 0.2);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+  text-align: center;
+  font-size: 25px;
+  line-height: 56px;
+}
+
+/* line 9, ../sass/blocks/_rewards.scss */
+.rewards__row {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* line 14, ../sass/blocks/_rewards.scss */
+.rewards__item-container {
+  float: left;
+  width: 50%;
+  height: 160px;
+}
+
+/* line 20, ../sass/blocks/_rewards.scss */
+.rewards__item, .rewards__item--left, .rewards__item--right {
+  height: 100%;
+  text-align: center;
+}
+
+/* line 25, ../sass/blocks/_rewards.scss */
+.rewards__item--left {
+  border-right: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* line 34, ../sass/blocks/_rewards.scss */
+.rewards__item__value {
+  font-size: 30px;
+  font-weight: bold;
+}
+
+/* line 39, ../sass/blocks/_rewards.scss */
+.rewards__item__description, .rewards__item__price {
+  line-height: 1.1;
 }
 
 /* line 1, ../sass/blocks/_social-login.scss */

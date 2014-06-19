@@ -2,6 +2,7 @@
     @extend .navbar;
     @extend .navbar-default;
     @extend .navbar-fixed-top;
+    margin-bottom: 0;
 }
 
 $action-bar-height: 50px;

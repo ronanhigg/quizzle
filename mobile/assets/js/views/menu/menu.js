@@ -28,6 +28,7 @@ define([
 
         events: {
             'click .js-hide-menu': '_hide',
+            'click .js-menu-nav': '_hideAndContinue',
             'click .js-connect-facebook': '_connectToFacebook',
             'click .js-connect-twitter': '_connectToTwitter'
         },
@@ -73,6 +74,16 @@ define([
             }
 
             return false;
+        },
+
+        _hideAndContinue: function (event) {
+            if (this.isPlayerLoaded) {
+                this.isMenuShown = false;
+                $('.menu').animate({
+                    'left': '-50%',
+                    'right': '100%'
+                }, 500);
+            }
         },
 
         _toggle: function (event) {

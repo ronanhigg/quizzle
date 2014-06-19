@@ -8,6 +8,7 @@ define([
     'app',
 
     'views/login',
+    'views/rewards/rewards',
     'views/stream/quizstream',
 
     'collections/addetections',
@@ -28,6 +29,7 @@ define([
     App,
 
     LoginView,
+    RewardsView,
     QuizStreamView,
 
     AdDetectionsCollection,
@@ -81,7 +83,8 @@ define([
             "": "index",
             "login": "login",
             "logout": "logout",
-            "play": "play"
+            "play": "play",
+            "rewards": "rewards"
         },
 
         initialize: function (options) {
@@ -155,6 +158,14 @@ define([
 
                 return false;
             });
+
+        }),
+
+        rewards: ensureLogin(function () {
+
+            var rewardsView = new RewardsView();
+
+            $('#main').html(rewardsView.render().el);
 
         })
 

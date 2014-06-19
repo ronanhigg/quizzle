@@ -760,7 +760,7 @@ class Controller_Ads extends Controller_Base
             }
         }
 
-        $addetections = new Collection_AdDetections;
+        /*$addetections = new Collection_AdDetections;
         $addetections->fetch_where(array(
             'ad_identifier' => $ad->ad_detection_identifier,
             'has_ad_data' => array(
@@ -778,7 +778,7 @@ class Controller_Ads extends Controller_Base
                 Session::set_flash('error', 'An error occurred while updating the ad detections. ' . $e->getMessage());
                 return;
             }
-        }
+        }*/
 
         Session::set_flash('success', 'The ad has been saved successfully');
         Response::redirect('/ads/update/' . $ad->id);
