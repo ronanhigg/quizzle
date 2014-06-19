@@ -43,11 +43,12 @@ define([
                     .css('padding-top', Math.floor(padding))
                     .css('padding-bottom', Math.ceil(padding))
 
-            }).each(function () {
+            });
+            /*.each(function () {
                 if (this.complete) {
                     $(this).load();
                 }
-            });
+            });*/
 
             return this;
         },

@@ -4,11 +4,10 @@
 define([
     'vendor/underscore',
     'vendor/backbone',
-    'facebook',
     'app',
 
     'models/player'
-], function (_, Backbone, FB, App, PlayerModel) {
+], function (_, Backbone, App, PlayerModel) {
 
     "use strict";
 

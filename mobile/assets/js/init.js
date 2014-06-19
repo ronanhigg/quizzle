@@ -23,9 +23,6 @@ requirejs.config({
         'cryptojs': {
             exports: 'CryptoJS'
         },
-        'facebook' : {
-            exports: 'FB'
-        },
         'oauth' : {
             exports: 'OAuth'
         }
@@ -42,7 +39,6 @@ requirejs.config({
         'moment': "vendor/moment",
         'gamesparks': "vendor/gamesparks-container",
         'cryptojs': "vendor/hmac-sha256",
-        'facebook': '//connect.facebook.net/en_US/all',
         'oauth': 'vendor/oauth'
     },
     urlArgs: "bust=" + (new Date()).getTime()
@@ -59,7 +55,6 @@ require([
     'gamesparks',
     'cryptojs',
     'oauth',
-    'fb',
     'vendor/async',
     'app',
     'router',
@@ -70,7 +65,7 @@ require([
     'views/menu/menu',
     'views/modal',
     'factories/player'
-], function ($, _, Backbone, Associations, Bootstrap, moment, Kinvey, Gamesparks, CryptoJS, OAuth, Facebook, Async, App, AppRouter, AuthUtility, PlayerModel, SessionModel, LoadingView, MenuView, ModalView, PlayerFactory) {
+], function ($, _, Backbone, Associations, Bootstrap, moment, Kinvey, Gamesparks, CryptoJS, OAuth, Async, App, AppRouter, AuthUtility, PlayerModel, SessionModel, LoadingView, MenuView, ModalView, PlayerFactory) {
 
     "use strict";
 

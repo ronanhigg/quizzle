@@ -875,6 +875,8 @@ class Controller_Ads extends Controller_Base
             }
         }
 
+        /* DRAGON - Is this necessary? Will a hook take care of this? */
+
         $addetections = new Collection_AdDetections;
         $addetections->fetch_where(array(
             'ad_identifier' => $ad->ad_detection_identifier,

@@ -15,7 +15,8 @@ function onPostSave(request, response, modules) {
                 '_type': 'KinveyRef',
                 '_collection': 'ads',
                 '_id': modules.collectionAccess.collection('ads').objectID(ad._id)
-            }
+            },
+            has_ad_data: true
         }
     }, {
         multi: true
