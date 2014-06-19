@@ -28,24 +28,6 @@ define([
             return this.connectedToFacebook || this.connectedToTwitter;
         },
 
-        connectToFacebook: function () {
-            console.log('[DEPRECATED] connectToFacebook function');
-            /*var _this = this;
-            if (this.get('connectedToFacebook')) {
-                App.EventBus.trigger('message', 'Your account is already connected to Facebook');
-            } else {
-                FB.login(function(response) {
-                    if (response.status === 'connected') {
-                        App.gamesparks.facebookConnectRequest(response.authResponse.accessToken, null, function (response) {
-                            console.log(response);
-                            console.log('connected account to facebook')
-                            _this.set('connectedToFacebook', true);
-                        });
-                    }
-                });
-            }*/
-        },
-
         _addLogoPoints: function () {
             this._addPoints(this.logoPoints);
             App.gamesparks.logLogoPointsRequest(this.logoPoints);

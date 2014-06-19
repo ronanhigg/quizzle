@@ -12,9 +12,25 @@ define([
 
     "use strict";
 
+    var isPlayerBeingBuilt = false;
+
     return function () {
 
         this.build = function (provider, oauthResult, callback) {
+
+            if (isPlayerBeingBuilt) {
+                console.log('[PBLD] A Player model is already being built.');
+                callback();
+                return;
+            }
+
+            if (App.player) {
+                console.log('[PBLD] A Player model has already been built.');
+                callback();
+                return;
+            }
+
+            isPlayerBeingBuilt = true;
 
             console.log('[PBLD] Attempting to build Player model');
 
@@ -57,6 +73,7 @@ define([
                             console.log(response);
                             if (response.error) {
                                 console.log('[PBLD] Error connecting to GameSparks account with Twitter');
+                                App.auth.logout();
                             } else {
                                 console.log('[PBLD] Connected to GameSparks account with Twitter');
                                 playerData.connectedToTwitter = true;
@@ -70,36 +87,6 @@ define([
                     console.error('[PBLD] Invalid provider given to Player Factory');
                     asyncCallback();
                 },
-                /*function (asyncCallback) {
-                    console.log('facebook connect attempt');
-                    if (fbAccessToken === undefined) {
-                        return asyncCallback();
-                    }
-
-                    console.log('facebook connect execution');
-                    App.gamesparks.sendWithData('FacebookConnectRequest', {
-                        'accessToken': fbAccessToken
-                    }, function (response) {
-                        playerData.connectedToFacebook = true;
-                        asyncCallback();
-                    });
-                },
-                function (asyncCallback) {
-                    console.log('twitter connect attempt');
-                    if (twAccessTokens === undefined) {
-                        return asyncCallback();
-                    }
-                    
-                    console.log('twitter connect execution');
-                    App.gamesparks.sendWithData('TwitterConnectRequest', {
-                        'accessToken': twAccessTokens.accessToken,
-                        'accessSecret': twAccessTokens.accessSecret
-                    }, function (response) {
-                        console.log(response);
-                        playerData.connectedToTwitter = true;
-                        asyncCallback();
-                    });
-                },*/
                 function (asyncCallback) {
                     console.log('[PBLD] Making account details request to GameSparks');
                     App.gamesparks.sendWithData('AccountDetailsRequest', {}, function (response) {
@@ -123,28 +110,11 @@ define([
                     });
                 },
                 function (asyncCallback) {
-                    /*if ( ! playerData.connectedToFacebook) {
-                        playerData.photo = '/assets/img/user.png';
-                        asyncCallback();
-                        return;
-                    }
 
-                    FB.api('/me/picture', {
-                        'type': 'square',
-                        'width:': 100
-                    }, function(response) {
-                        if (response && !response.error) {
-                            console.log(response.data.url);
-                            playerData.photo = response.data.url;
-                        } else {
-                            console.log(response);
-                        }
-
-                        asyncCallback();
-                    });*/
-
+                    console.log('[PBLD] Attempting to set Player profile photo');
 
                     if (playerData.connectedToFacebook) {
+                        console.log('[PBLD] Making request to Facebook for profile photo');
                         oauthResult.get('/me/picture', {
                             'data': {
                                 'redirect': false,
@@ -163,10 +133,30 @@ define([
                         return;
                     }
 
+                    if (playerData.connectedToTwitter) {
+                        console.log('[PBLD] Making request to Twitter for profile photo');
+                        console.log(oauthResult);
+                        oauthResult.me()
+                            .done(function (response) {
+                                console.log(response);
+                                if (response && !response.error) {
+                                    playerData.photo = response.avatar;
+                                } else {
+                                    console.log(response);
+                                }
+                                asyncCallback();
+                            });
+
+                        return;
+                    }
+
+                    console.log('[PBLD] Using default profile photo');
+
                     playerData.photo = '/assets/img/user.png';
                     asyncCallback();
                 }
             ], function () {
+                isPlayerBeingBuilt = false;
                 App.player = new PlayerModel(playerData);
                 App.EventBus.trigger('player:loaded');
                 console.log(App.player);
@@ -174,83 +164,6 @@ define([
                 callback();
             });
         };
-
-        this.buildFacebookPlayer = function (fbAccessToken, callback) {
-            console.log('[DEPRECATED] buildFacebookPlayer');
-            //build(fbAccessToken, undefined, callback);
-        }
-
-        this.buildTwitterPlayer = function (twAccessTokens, callback) {
-            console.log('[DEPRECATED] buildTwitterPlayer');
-            //console.log('called buildTwitterPlayer');
-            //build(undefined, twAccessTokens, callback);
-        };
-
-        /*this.buildForManual = function (callback) {
-
-            var playerData = {};
-
-            App.async.series([
-                function (asyncCallback) {
-                    App.gamesparks.sendWithData('AccountDetailsRequest', {}, function (response) {
-
-                        if (response.error && response.error.authentication == 'NOTAUTHORIZED') {
-                            App.router.navigate('login', {
-                                trigger: true
-                            });
-                            return;
-                        }
-
-                        playerData.userId = response.userId;
-                        playerData.name = response.displayName;
-                        playerData.points = 0;
-
-                        if (response.scriptData && response.scriptData.points) {
-                            playerData.points = response.scriptData.points;
-                        }
-
-                        asyncCallback();
-                    });
-                },
-                function (asyncCallback) {
-                    FB.getLoginStatus(function(response) {
-                        playerData.connectedToFacebook = false;
-                        if (response.status === 'connected') {
-                            playerData.connectedToFacebook = true;
-                        }
-
-                        asyncCallback();
-                    });
-                },
-                function (asyncCallback) {
-                    if ( ! playerData.connectedToFacebook) {
-                        playerData.photo = '/assets/img/profile.jpg';
-                        asyncCallback();
-                        return;
-                    }
-
-                    FB.api('/me/picture', {
-                        'type': 'square',
-                        'width:': 100
-                    }, function(response) {
-                        if (response && !response.error) {
-                            console.log(response.data.url);
-                            playerData.photo = response.data.url;
-                        } else {
-                            console.log(response);
-                        }
-
-                        asyncCallback();
-                    });
-                }
-            ], function () {
-                App.player = new PlayerModel(playerData);
-                App.EventBus.trigger('player:loaded');
-                console.log(App.player);
-
-                callback();
-            });
-        };*/
     };
     
 });

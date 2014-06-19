@@ -55,41 +55,12 @@ define([
 
     "use strict";
 
-    var checkAuth = function (loggedInCallback, loggedOutCallback) {
-        console.log('[AUTH] Checking if player is authenticated');
-
-        if (App.player && App.player.get('connectedToFacebook')) {
-            console.log('[AUTH] Player is authenticated locally');
-            loggedInCallback();
-            return;
-        }
-
-        var oauthResult = App.oauth.create('facebook');
-
-        if (oauthResult.access_token) {
-            console.log('[AUTH] Player is authenticated via Facebook');
-            App.playerFactory.build('facebook', oauthResult, loggedInCallback);
-            return;
-        }
-
-        var oauthResult = App.oauth.create('twitter');
-
-        if (oauthResult.oauth_token) {
-            console.log('[AUTH] Player is authenticated via Twitter');
-            App.playerFactory.build('twitter', oauthResult, loggedInCallback);
-            return;
-        }
-
-        console.log('[AUTH] Player is NOT authenticated');
-        loggedOutCallback();
-    };
-
     var ensureLoggedOut = function (originalRoute) {
         return function () {
             var _this = this;
-
             console.log('[AUTH] Ensure player is logged out');
-            checkAuth(function () {
+
+            App.auth.contextualExec(function () {
                 _this.navigate('play', {
                     trigger: true
                 });
@@ -102,9 +73,9 @@ define([
     var ensureLogin = function (originalRoute) {
         return function () {
             var _this = this;
-
             console.log('[AUTH] Ensure player is logged in');
-            checkAuth(function () {
+
+            App.auth.contextualExec(function () {
                 originalRoute.apply(_this, arguments);
             }, function () {
                 _this.navigate('login', {
@@ -124,42 +95,7 @@ define([
         },
 
         initialize: function (options) {
-            var _this = this;
-
-            App.oauth.callback('facebook', {
-                'cache': true
-            }, function (err, result) {
-                console.log('[AUTH] Facebook authentication callback');
-                console.log(err);
-                console.log(result);
-                if (result && result.access_token) {
-                    App.playerFactory.build('facebook', result, function () {
-                        _this.navigate('play', {
-                            trigger: true
-                        });
-                    });
-                } else {
-                    //App.EventBus.trigger('message', 'Facebook authorization declined');
-                }
-            });
-
-            App.oauth.callback('twitter', {
-                'cache': true
-            }, function (err, result) {
-                console.log('[AUTH] Twitter authentication callback');
-                console.log(err);
-                console.log(result);
-                if (result && result.oauth_token) {
-                    App.playerFactory.build('twitter', result, function () {
-                        _this.navigate('play', {
-                            trigger: true
-                        });
-                    });
-                } else {
-                    //App.EventBus.trigger('message', 'Twitter authorization declined');
-                }
-            });
-
+            App.auth.setupOAuthCallbacks();
         },
 
         index: ensureLogin(function () {
@@ -174,20 +110,7 @@ define([
         }),
 
         logout: ensureLogin(function () {
-
-            console.log('[AUTH] Logging out player');
-
-            App.oauth.clearCache('facebook');
-            App.oauth.clearCache('twitter');
-
-            App.player = undefined;
-
-            App.EventBus.trigger('menu:hide');
-            App.EventBus.trigger('player:unloaded');
-
-            this.navigate('', {
-                trigger: true
-            });
+            App.auth.logout();
         }),
 
         /*register: function () {

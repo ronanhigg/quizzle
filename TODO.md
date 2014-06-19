@@ -10,7 +10,7 @@
 * Introduce game features such as
     * ~~Points accumulator~~
     * ~~User profiles~~
-    * User Registration/Social Login
+    * ~~User Registration/Social Login~~
     * Achievements
     * Rewards catalogue
     * Rewards claiming

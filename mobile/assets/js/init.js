@@ -63,13 +63,14 @@ require([
     'vendor/async',
     'app',
     'router',
+    'utilities/auth',
     'models/player',
     'models/session',
     'views/loading',
     'views/menu/menu',
     'views/modal',
     'factories/player'
-], function ($, _, Backbone, Associations, Bootstrap, moment, Kinvey, Gamesparks, CryptoJS, OAuth, Facebook, Async, App, AppRouter, PlayerModel, SessionModel, LoadingView, MenuView, ModalView, PlayerFactory) {
+], function ($, _, Backbone, Associations, Bootstrap, moment, Kinvey, Gamesparks, CryptoJS, OAuth, Facebook, Async, App, AppRouter, AuthUtility, PlayerModel, SessionModel, LoadingView, MenuView, ModalView, PlayerFactory) {
 
     "use strict";
 
@@ -112,6 +113,7 @@ require([
     App.gamesparks = new Gamesparks();
     App.async = Async;
     App.playerFactory = new PlayerFactory();
+    App.auth = new AuthUtility();
     App.oauth = OAuth;
 
     App.oauth.initialize('MNs8vuhXvYVFuQVxY7AtZdyfRG0');
