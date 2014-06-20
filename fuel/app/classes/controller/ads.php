@@ -298,7 +298,7 @@ class Controller_Ads extends Controller_Base
             }
         }
 
-        $addetections = new Collection_AdDetections;
+        /*$addetections = new Collection_AdDetections;
         $addetections->fetch_where(array(
             'ad_identifier' => $ad->ad_detection_identifier,
             'has_ad_data' => array(
@@ -313,7 +313,7 @@ class Controller_Ads extends Controller_Base
             } catch (KinveyModelException $e) {
                 throw new Controller_AdsException($e->getMessage());
             }
-        }
+        }*/
     }
 
     public function action_update($id)
