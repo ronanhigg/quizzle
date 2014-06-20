@@ -8421,18 +8421,23 @@ a.menu__option, a.menu__option--checkbox {
 }
 
 /* line 1, ../sass/blocks/_quiz.scss */
+.quiz-container {
+  padding-top: 20px;
+}
+
+/* line 5, ../sass/blocks/_quiz.scss */
 .quiz-footer {
   margin: 0 0 40px 0;
   background: rgba(255, 255, 255, 0.1);
   color: #999999;
 }
 
-/* line 8, ../sass/blocks/_quiz.scss */
+/* line 12, ../sass/blocks/_quiz.scss */
 .quiz-metadata {
   padding: 10px;
 }
 
-/* line 13, ../sass/blocks/_quiz.scss */
+/* line 17, ../sass/blocks/_quiz.scss */
 .quiz-id {
   padding: 10px;
   text-align: right;

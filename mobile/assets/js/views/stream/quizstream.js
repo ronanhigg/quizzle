@@ -32,7 +32,7 @@ define([
         _loadingView: undefined,
         _errorMessageView: undefined,
 
-        className: 'js-stream',
+        className: 'quiz-container js-stream',
 
         events: {
         },
