@@ -235,7 +235,7 @@ class Controller_Advertisers extends Controller_Base
             }
         }
 
-        if ($has_quiz_data) {
+        /*if ($has_quiz_data) {
             $ads = $advertiser->get_relations('Collection_Ads');
 
             foreach ($ads as $ad) {
@@ -256,7 +256,7 @@ class Controller_Advertisers extends Controller_Base
                     }
                 }
             }
-        }
+        }*/
 
         Session::set_flash('success', 'The advertiser has been saved successfully');
         Response::redirect('/advertisers/update/' . $advertiser->id);

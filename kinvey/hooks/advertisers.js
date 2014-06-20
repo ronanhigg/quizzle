@@ -1,5 +1,3 @@
-/* DEPRECATED
-
 function onPostSave(request, response, modules) {
     var logger = modules.logger;
 
@@ -8,52 +6,31 @@ function onPostSave(request, response, modules) {
     var advertiser = request.body;
 
     var adDetectionsCollection = modules.collectionAccess.collection('adDetections');
-    var adsCollection = modules.collectionAccess.collection('ads');
+    var quizzesCollection = modules.collectionAccess.collection('quizzes');
 
-    adsCollection.find({
-        'advertiser': {
-            '_type': 'KinveyRef',
-            '_collection': 'advertisers',
-            '_id': advertiser._id
-          }
+    quizzesCollection.find({
+      'advertiser._id': advertiser._id
     }, function (err, docs) {
-        if (err) {
-            logger.error('Could not find ad for "' + advertiser._id + '".');
-            return response.error();
-        }
+      if (err) {
+        return response.error('An error occurred while trying to find related quizzes.');
+      }
 
-        if (docs.length < 1) {
-            logger.info('No ad exists in the system for the advertiser ID "' + advertiser._id + '".');
-            return response.continue();
-        }
+      var hasQuizData = docs.length > 0;
 
-        modules.async.each(docs, function (ad, asyncCallback) {
-
-            adDetectionsCollection.update({
-                ad_identifier: ad.ad_detection_identifier
-            }, {
-                '$set': {
-                    advertiser_name: advertiser.name,
-                    advertiser_logo: advertiser.logo_url
-                }
-            }, {
-                multi: true
-            }, function (err, result) {
-                logger.info('Update operation callback executed.');
-                logger.info('Err [' + err + ']');
-                logger.info('Result [' + result + ']');
-                asyncCallback();
-            });
-
-        }, function (err) {
-            if (err) {
-                logger.error('Error in async callback');
-                return response.error();
-            } else {
-                logger.error('Async callback executed.');
-                return response.continue();
-            }
-        });
-
+      adDetectionsCollection.update({
+          'advertiser._id': advertiser._id
+      }, {
+          '$set': {
+              has_quiz_data: hasQuizData
+          }
+      }, {
+          multi: true
+      }, function (err, result) {
+          logger.info('Update operation callback executed.');
+          logger.info('Err [' + err + ']');
+          logger.info('Result [' + result + ']');
+          return response.continue();
+      });
     });
-}*/
+
+}

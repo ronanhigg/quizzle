@@ -163,23 +163,6 @@ class Controller_Ads extends Controller_Base
             throw new Controller_AdsException($e->getMessage());
         }
 
-        try {
-            $ad = Model_Ad::create(array(
-                'ad_detection_identifier' => Input::post('ad_detection_identifier'),
-                'ipharro_ref_id' => Input::post('ipharro_ref_id'),
-                'storyboard_url' => $storyboard_url,
-                'video_url' => $video_url,
-                'title' => Input::post('title'),
-                'ad_first_seen' => Input::post('ad_first_seen'),
-                'description' => Input::post('description'),
-                'agency' => Input::post('agency'),
-            ));
-            $rollback->add_call($ad, 'delete');
-
-        } catch (Model_AdException $e) {
-            throw new Controller_AdsException($e->getMessage());
-        }
-
         if ($advertiser_id) {
             $advertiser->name = Input::post('advertiser_name');
             $advertiser->logo_url = $logo_url;
@@ -204,11 +187,33 @@ class Controller_Ads extends Controller_Base
         }
 
         try {
+            $ad = Model_Ad::create(array(
+                'ad_detection_identifier' => Input::post('ad_detection_identifier'),
+                'ipharro_ref_id' => Input::post('ipharro_ref_id'),
+                'storyboard_url' => $storyboard_url,
+                'video_url' => $video_url,
+                'title' => Input::post('title'),
+                'ad_first_seen' => Input::post('ad_first_seen'),
+                'description' => Input::post('description'),
+                'agency' => Input::post('agency'),
+                'advertiser' => array(
+                    '_type' => 'KinveyRef',
+                    '_collection' => 'advertisers',
+                    '_id' => $advertiser->id,
+                ),
+            ));
+            $rollback->add_call($ad, 'delete');
+
+        } catch (Model_AdException $e) {
+            throw new Controller_AdsException($e->getMessage());
+        }
+
+        /*try {
             $ad->add_relation('advertiser', 'advertisers', $advertiser->id);
             $rollback->add_call($ad, 'remove_relation', 'advertiser');
         } catch (Model_AdException $e) {
             throw new Controller_AdsException($e->getMessage());
-        }
+        }*/
 
         $adcampaign_id = Input::post('adcampaign_id');
 
@@ -877,7 +882,7 @@ class Controller_Ads extends Controller_Base
 
         /* DRAGON - Is this necessary? Will a hook take care of this? */
 
-        $addetections = new Collection_AdDetections;
+        /*$addetections = new Collection_AdDetections;
         $addetections->fetch_where(array(
             'ad_identifier' => $ad->ad_detection_identifier,
             'has_ad_data' => true,
@@ -893,7 +898,7 @@ class Controller_Ads extends Controller_Base
                 Session::set_flash('error', 'An error occurred while updating the ad detections. ' . $e->getMessage());
                 return;
             }
-        }
+        }*/
 
         Session::set_flash('success', 'The ad has been deleted successfully');
         Response::redirect('/ads');

@@ -129,7 +129,8 @@ function onRequest(request, response, modules) {
           '_type': 'KinveyRef',
           '_collection': 'ads',
           '_id': adsCollection.objectID(ad._id)
-        }
+        };
+        adDetection.advertiser = ad.advertiser;
 
         checkIfQuizDataExists(adDetection, ad.advertiser);
       } else {
@@ -394,7 +395,7 @@ function onRequest(request, response, modules) {
       return response.complete(200); 
     });
   };
-
+  
   //DS SQ1 061113 new function added
   updatePusher = function (adDetection) {
     var uri = 'http://tvadsync.sq1.io/push/'+adDetection.ad_identifier+'/'+adDetection.channel_identifier;
