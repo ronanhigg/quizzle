@@ -100,6 +100,7 @@ define([
                         playerData.userId = response.userId;
                         playerData.name = response.displayName;
                         playerData.points = 0;
+                        playerData.cash = response.currency1;
 
                         if (response.scriptData && response.scriptData.points) {
                             playerData.points = response.scriptData.points;

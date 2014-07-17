@@ -38,9 +38,12 @@ define([
         },
 
         _addPoints: function (pointsEarned) {
-            var newPoints = this.get('points') + pointsEarned
+            var newPoints = this.get('points') + pointsEarned;
+            var newCash = this.get('cash') + pointsEarned;
             this.set('points', newPoints);
+            this.set('cash', newCash);
             App.EventBus.trigger('points:change', newPoints);
+            App.EventBus.trigger('cash:change', newCash);
         }
 
     });

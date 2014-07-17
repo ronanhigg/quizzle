@@ -12094,13 +12094,37 @@ body {
 }
 
 /* line 57, ../sass/blocks/_menu.scss */
+.menu__cash {
+  height: 60px;
+  padding: 5px 0;
+  border-bottom: 1px solid #777;
+  background: #666;
+}
+
+/* line 64, ../sass/blocks/_menu.scss */
+.menu__cash__counter {
+  text-align: center;
+}
+
+/* line 68, ../sass/blocks/_menu.scss */
+.menu__cash__counter__figure {
+  font-size: 22px;
+  font-weight: bold;
+}
+
+/* line 73, ../sass/blocks/_menu.scss */
+.menu__cash__counter__label {
+  font-size: 11px;
+}
+
+/* line 77, ../sass/blocks/_menu.scss */
 .menu__social {
   height: 120px;
   border-bottom: 1px solid #777;
   background: #666;
 }
 
-/* line 63, ../sass/blocks/_menu.scss */
+/* line 83, ../sass/blocks/_menu.scss */
 .menu__social__title {
   padding-top: 15px;
   padding-bottom: 9px;
@@ -12108,20 +12132,20 @@ body {
   font-size: 11px;
 }
 
-/* line 74, ../sass/blocks/_menu.scss */
+/* line 94, ../sass/blocks/_menu.scss */
 .menu__social__icon {
   float: left;
   width: 50%;
   text-align: center;
 }
 
-/* line 83, ../sass/blocks/_menu.scss */
+/* line 103, ../sass/blocks/_menu.scss */
 .menu__option, a.menu__option, .menu__option--checkbox {
   padding: 10px 6px;
   border-bottom: 1px solid #777;
 }
 
-/* line 88, ../sass/blocks/_menu.scss */
+/* line 108, ../sass/blocks/_menu.scss */
 a.menu__option, a.menu__option--checkbox {
   display: block;
   padding-left: 30px;
@@ -12130,12 +12154,12 @@ a.menu__option, a.menu__option--checkbox {
   font-size: 12px;
 }
 
-/* line 97, ../sass/blocks/_menu.scss */
+/* line 117, ../sass/blocks/_menu.scss */
 .menu__option--checkbox {
   font-size: 11px;
   line-height: 13px;
 }
-/* line 102, ../sass/blocks/_menu.scss */
+/* line 122, ../sass/blocks/_menu.scss */
 .menu__option--checkbox input {
   vertical-align: bottom;
 }

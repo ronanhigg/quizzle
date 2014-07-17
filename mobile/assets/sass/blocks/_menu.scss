@@ -54,6 +54,26 @@
     font-size: 11px;
 }
 
+.menu__cash {
+    height: 60px;
+    padding: 5px 0;
+    border-bottom: 1px solid #777;
+    background: #666;
+}
+
+.menu__cash__counter {
+    text-align: center;
+}
+
+.menu__cash__counter__figure {
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.menu__cash__counter__label {
+    font-size: 11px;
+}
+
 .menu__social {
     height: 120px;
     border-bottom: 1px solid #777;

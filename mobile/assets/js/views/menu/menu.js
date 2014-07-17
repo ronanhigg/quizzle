@@ -43,6 +43,7 @@ define([
             this.listenTo(App.EventBus, 'menu:hide', this._hide);
             this.listenTo(App.EventBus, 'menu:toggle', this._toggle);
             this.listenTo(App.EventBus, 'points:change', this._renderPoints);
+            this.listenTo(App.EventBus, 'cash:change', this._renderCash);
         },
 
         render: function () {
@@ -98,12 +99,17 @@ define([
             this.$el.find('.js-points').html(points);
         },
 
+        _renderCash: function (cash) {
+            this.$el.find('.js-cash').html(cash);
+        },
+
         _renderPlayerDetails: function () {
             this.isPlayerLoaded = true;
             this.$el.html(this.template({
                 name: App.player.get('name'),
                 points: App.player.get('points'),
-                photo: App.player.get('photo')
+                photo: App.player.get('photo'),
+                cash: App.player.get('cash')
             }));
         },
 
