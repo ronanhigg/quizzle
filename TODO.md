@@ -12,8 +12,8 @@
     * ~~User profiles~~
     * ~~User Registration/Social Login~~
     * __Achievements__
-    * Rewards catalogue
-    * __Rewards claiming__
+    * ~~Rewards catalogue~~
+    * ~~Rewards claiming~~
     * Perhaps use GameSparks or other game framework
     * Sounds and Animations polish
 * ~~Change top left icon to trigger Main panel menu (see TVsmiles app as reference.  Images included here inline)~~
