@@ -8504,16 +8504,17 @@ a.menu__option, a.menu__option--checkbox {
 
 /* line 42, ../sass/blocks/_rewards.scss */
 .rewards__item__icon {
+  height: 90px;
   margin-bottom: 10px;
 }
 
-/* line 46, ../sass/blocks/_rewards.scss */
+/* line 47, ../sass/blocks/_rewards.scss */
 .rewards__item__value {
   font-size: 30px;
   font-weight: bold;
 }
 
-/* line 51, ../sass/blocks/_rewards.scss */
+/* line 52, ../sass/blocks/_rewards.scss */
 .rewards__item__description, .rewards__item__price {
   line-height: 1.1;
 }
