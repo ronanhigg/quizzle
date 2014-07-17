@@ -13,6 +13,7 @@ define([
 
     return Backbone.View.extend({
 
+        className: 'screenshot-container',
         //template: App.getTemplate('quiz-screenshot'),
 
         positions: {

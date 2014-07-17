@@ -11969,6 +11969,19 @@ body {
   font-size: 16.8px;
 }
 
+/* line 1, ../sass/blocks/_countdown.scss */
+.countdown {
+  margin: 0 1em;
+  height: 3px;
+  background: rgba(0, 0, 0, 0.25);
+}
+
+/* line 7, ../sass/blocks/_countdown.scss */
+.countdown__progress {
+  height: 3px;
+  background: #e5b719;
+}
+
 /* line 1, ../sass/blocks/_error-message.scss */
 .error-message {
   padding: 1em;
@@ -12277,6 +12290,13 @@ a.menu__option, a.menu__option--checkbox {
 /* line 52, ../sass/blocks/_rewards.scss */
 .rewards__item__description, .rewards__item__price {
   line-height: 1.1;
+}
+
+/* line 1, ../sass/blocks/_screenshot.scss */
+.screenshot-container {
+  margin: 0 1em;
+  padding: 0.5em 0;
+  background: rgba(0, 0, 0, 0.5);
 }
 
 /* line 1, ../sass/blocks/_social-login.scss */

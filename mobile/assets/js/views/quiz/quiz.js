@@ -8,6 +8,7 @@ define([
     'kinvey',
     'app',
 
+    'views/quiz/countdown',
     'views/quiz/failure',
     'views/quiz/footer',
     'views/quiz/logoquestion',
@@ -22,6 +23,7 @@ define([
     Kinvey,
     App,
 
+    CountdownView,
     FailureView,
     FooterView,
     LogoQuestionView,
@@ -45,6 +47,10 @@ define([
             this.children = [];
 
             if (!this.model.get('noAdData')) {
+                this.children.push(new CountdownView({
+                    model: this.model
+                }));
+
                 this.children.push(new ScreenshotView({
                     model: this.model
                 }));
