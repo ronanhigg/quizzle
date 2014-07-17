@@ -43,9 +43,31 @@ define([
 
         _redeemReward: function (event) {
             event.preventDefault();
-            App.EventBus.trigger('message', 'Reward redemption is not yet implemented.');
-        }
 
+            var reward = this.collection.findWhere({
+                shortCode: $(event.currentTarget).data('short-code')
+            });
+
+            App.gamesparks.sendWithData('BuyVirtualGoodsRequest', {
+                'currencyType': 1,
+                'quantity': 1,
+                'shortCode': reward.get('shortCode')
+            }, function (response) {
+                console.log(response);
+                if (response.error) {
+                    if (response.error.currency1 === "INSUFFICIENT_FUNDS") {
+                        App.EventBus.trigger('message', 'You haven\'t earned enough points to redeem this reward.');
+                        return;
+                    }
+
+                    App.EventBus.trigger('message', 'There was an error attempting to redeem your reward.');
+                    return;
+                }
+
+                App.EventBus.trigger('message', 'You have successfully redeemed the ' + reward.get('name') + ' reward.');
+                App.EventBus.trigger('cash:spend', reward.get('currency1Cost'));
+            });
+        }
     });
 
 });

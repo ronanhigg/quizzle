@@ -150,8 +150,6 @@
 
       <div class="menu__options">
 
-        <a href="#rewards" class="menu__option js-menu-nav">Redeem Rewards</a>
-
         <div class="menu__option--checkbox">
           <input type="checkbox" class="js-fetch-adless"> Fetch ads with no metadata
         </div>
@@ -323,7 +321,7 @@
         <% } %>
 
           <div class="rewards__item-container">
-            <a href="#" class="rewards__item--<%=(i % 2 === 0 ? 'left' : 'right')%> js-redeem-reward">
+            <a href="#" class="rewards__item--<%=(i % 2 === 0 ? 'left' : 'right')%> js-redeem-reward" data-short-code="<%= reward.get('shortCode') %>">
 
               <div class="rewards__item__icon">
                 <img src="/assets/img/<%= reward.get('tags').toLowerCase() %>.png">

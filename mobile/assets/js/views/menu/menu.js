@@ -44,6 +44,7 @@ define([
             this.listenTo(App.EventBus, 'menu:toggle', this._toggle);
             this.listenTo(App.EventBus, 'points:change', this._renderPoints);
             this.listenTo(App.EventBus, 'cash:change', this._renderCash);
+            this.listenTo(App.EventBus, 'cash:spend', this._renderCashAfterSpend);
         },
 
         render: function () {
@@ -101,6 +102,11 @@ define([
 
         _renderCash: function (cash) {
             this.$el.find('.js-cash').html(cash);
+        },
+
+        _renderCashAfterSpend: function (cashSpent) {
+            var cash = parseInt(this.$el.find('.js-cash').html());
+            this.$el.find('.js-cash').html(cash - cashSpent);
         },
 
         _renderPlayerDetails: function () {
