@@ -12,8 +12,9 @@ $menu-height: 22px;
 $menu-margin: ($action-bar-height - $menu-height) / 2;
 
 $action-width: 25px;
-$action-height: 22px;
-$action-margin: ($action-bar-height - $action-height) / 2;
+$action-font-size: 26px;
+$action-top-margin: ($action-bar-height - $action-font-size) / 2;
+$action-side-margin: 14px;
 
 .action-bar__menu {
     display: block;
@@ -26,7 +27,7 @@ $action-margin: ($action-bar-height - $action-height) / 2;
 .action-bar__title {
     position: absolute;
     left: $menu-width + ($menu-margin * 2);
-    right: $action-width + ($action-margin * 2);
+    right: $action-width + ($action-side-margin * 2);
     margin-top: 14px;
     text-align: center;
     font-weight: bold;
@@ -37,6 +38,17 @@ $action-margin: ($action-bar-height - $action-height) / 2;
     position: absolute;
     right: 0;
     width: $action-width;
-    height: $action-height;
-    margin: $action-margin;
+    margin: $action-top-margin $action-side-margin;
+    font-size: $action-font-size;
+    line-height: 1;
+    color: #fff;
+
+    &:hover {
+        color: #fff;
+    }
+}
+
+.action-bar__action--rewards {
+    @extend .action-bar__action;
+    @extend .ion-bag;
 }

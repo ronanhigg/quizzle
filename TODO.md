@@ -6,19 +6,19 @@
 * ~~Fix problem that only Adverts.ie ad is showing in quiz stream~~
     * Adverts.ie was the only Advertiser with any trivia questions who were running ads when this was noted
 * ~~Standardise the size of white background for brand icons (icons without white background should get one)~~
-* _Add a thin 3-minute time countdown progress bar for each quiz unit_  (see original UI designs).  Don’t disable quiz unit at end of 3-minutes just yet.  Want to just illustrate how many quiz questions will be unexpired.
+* __Add a thin 3-minute time countdown progress bar for each quiz unit__  (see original UI designs).  Don’t disable quiz unit at end of 3-minutes just yet.  Want to just illustrate how many quiz questions will be unexpired.
 * Introduce game features such as
     * ~~Points accumulator~~
     * ~~User profiles~~
     * ~~User Registration/Social Login~~
-    * _Achievements_
+    * __Achievements__
     * Rewards catalogue
-    * _Rewards claiming_
+    * __Rewards claiming__
     * Perhaps use GameSparks or other game framework
     * Sounds and Animations polish
 * ~~Change top left icon to trigger Main panel menu (see TVsmiles app as reference.  Images included here inline)~~
 * ~~Include refresh button in Main panel menu (refresh button is not available in Web app view mode on iOS)~~
-* _Change top right icon to trigger Rewards Catalogue panel menu_ (see TVsmiles app as reference)
+* ~~Change top right icon to trigger Rewards Catalogue panel menu (see TVsmiles app as reference)~~
 * Lazy load previous quiz units as stream approaches bottom of page (currently requires manual “Load More”)
 * ~~New storyboard image size to be handled~~
 
