@@ -1,3 +1,7 @@
+$menu-background-light: rgba(0, 0, 0, 0.4);
+$menu-background-dark: rgba(0, 0, 0, 0.6);
+$menu-border-color: #bdbdbd;
+
 .menu {
     position: fixed;
     top: 51px;
@@ -5,8 +9,8 @@
     bottom: 0;
     right: 100%;
     z-index: $zindex-modal;
-    //border-right: 1px solid $navbar-default-border;
-    background-color: #555;
+    border-right: 1px solid $menu-border-color;
+    background-image: url('/assets/img/bgpic.jpg');
     color: #fff;
 }
 
@@ -14,8 +18,8 @@
     @extend .clearfix;
     height: 120px;
     padding: 20px;
-    border-bottom: 1px solid #777;
-    background: #666;
+    border-bottom: 1px solid $menu-border-color;
+    background-color: $menu-background-dark;
 }
 
 .menu__profile__photo {
@@ -36,7 +40,8 @@
     @extend .clearfix;
     height: 60px;
     padding: 5px 0;
-    border-bottom: 1px solid #777;
+    border-bottom: 1px solid $menu-border-color;
+    background-color: $menu-background-light;
 }
 
 .menu__score__counter {
@@ -57,8 +62,8 @@
 .menu__cash {
     height: 60px;
     padding: 5px 0;
-    border-bottom: 1px solid #777;
-    background: #666;
+    border-bottom: 1px solid $menu-border-color;
+    background: $menu-background-dark;
 }
 
 .menu__cash__counter {
@@ -76,8 +81,8 @@
 
 .menu__social {
     height: 120px;
-    border-bottom: 1px solid #777;
-    background: #666;
+    border-bottom: 1px solid $menu-border-color;
+    background: $menu-background-dark;
 }
 
 .menu__social__title {
@@ -102,7 +107,8 @@
 
 .menu__option {
     padding: 10px 6px;
-    border-bottom: 1px solid #777;
+    border-bottom: 1px solid $menu-border-color;
+    background-color: $menu-background-light;
 }
 
 a.menu__option {

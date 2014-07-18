@@ -115,16 +115,6 @@ define([
 
             $('#main').html(quizStreamView.render().el);
 
-            /*var adDetections = new AdDetectionsCollection();
-
-            var quizStreamView = new QuizStreamView({
-                collection: adDetections
-            });
-
-            $('#main').html(quizStreamView.render().el);
-
-            adDetections.fetch();*/
-
             /* DRAGON - Very hacky refresh method, should be changed
              *          if the refresh feature is required.
              *          -- Conor

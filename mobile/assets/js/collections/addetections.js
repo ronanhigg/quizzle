@@ -121,8 +121,6 @@ define([
                             });
 
                     }, function (err) {
-                        //self.add(newModels);
-                        //console.log('[TIME] Ad detection model ' + adDetection._id + ' added', moment().valueOf());
                         self.trigger('fetch:updated');
                     });
 

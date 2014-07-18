@@ -12049,7 +12049,7 @@ body {
   max-height: 120px;
 }
 
-/* line 1, ../sass/blocks/_menu.scss */
+/* line 5, ../sass/blocks/_menu.scss */
 .menu {
   position: fixed;
   top: 51px;
@@ -12057,87 +12057,89 @@ body {
   bottom: 0;
   right: 100%;
   z-index: 1050;
-  background-color: #555;
+  border-right: 1px solid #bdbdbd;
+  background-image: url("/assets/img/bgpic.jpg");
   color: #fff;
 }
 
-/* line 13, ../sass/blocks/_menu.scss */
+/* line 17, ../sass/blocks/_menu.scss */
 .menu__profile {
   height: 120px;
   padding: 20px;
-  border-bottom: 1px solid #777;
-  background: #666;
+  border-bottom: 1px solid #bdbdbd;
+  background-color: rgba(0, 0, 0, 0.6);
 }
 
-/* line 21, ../sass/blocks/_menu.scss */
+/* line 25, ../sass/blocks/_menu.scss */
 .menu__profile__photo {
   margin-bottom: 10px;
   text-align: center;
 }
 
-/* line 30, ../sass/blocks/_menu.scss */
+/* line 34, ../sass/blocks/_menu.scss */
 .menu__profile__name {
   text-align: center;
   font-size: 18px;
 }
 
-/* line 35, ../sass/blocks/_menu.scss */
+/* line 39, ../sass/blocks/_menu.scss */
 .menu__score {
   height: 60px;
   padding: 5px 0;
-  border-bottom: 1px solid #777;
+  border-bottom: 1px solid #bdbdbd;
+  background-color: rgba(0, 0, 0, 0.4);
 }
 
-/* line 42, ../sass/blocks/_menu.scss */
+/* line 47, ../sass/blocks/_menu.scss */
 .menu__score__counter {
   float: left;
   width: 50%;
   text-align: center;
 }
 
-/* line 48, ../sass/blocks/_menu.scss */
+/* line 53, ../sass/blocks/_menu.scss */
 .menu__score__counter__figure {
   font-size: 22px;
   font-weight: bold;
 }
 
-/* line 53, ../sass/blocks/_menu.scss */
+/* line 58, ../sass/blocks/_menu.scss */
 .menu__score__counter__label {
   font-size: 11px;
 }
 
-/* line 57, ../sass/blocks/_menu.scss */
+/* line 62, ../sass/blocks/_menu.scss */
 .menu__cash {
   height: 60px;
   padding: 5px 0;
-  border-bottom: 1px solid #777;
-  background: #666;
+  border-bottom: 1px solid #bdbdbd;
+  background: rgba(0, 0, 0, 0.6);
 }
 
-/* line 64, ../sass/blocks/_menu.scss */
+/* line 69, ../sass/blocks/_menu.scss */
 .menu__cash__counter {
   text-align: center;
 }
 
-/* line 68, ../sass/blocks/_menu.scss */
+/* line 73, ../sass/blocks/_menu.scss */
 .menu__cash__counter__figure {
   font-size: 22px;
   font-weight: bold;
 }
 
-/* line 73, ../sass/blocks/_menu.scss */
+/* line 78, ../sass/blocks/_menu.scss */
 .menu__cash__counter__label {
   font-size: 11px;
 }
 
-/* line 77, ../sass/blocks/_menu.scss */
+/* line 82, ../sass/blocks/_menu.scss */
 .menu__social {
   height: 120px;
-  border-bottom: 1px solid #777;
-  background: #666;
+  border-bottom: 1px solid #bdbdbd;
+  background: rgba(0, 0, 0, 0.6);
 }
 
-/* line 83, ../sass/blocks/_menu.scss */
+/* line 88, ../sass/blocks/_menu.scss */
 .menu__social__title {
   padding-top: 15px;
   padding-bottom: 9px;
@@ -12145,20 +12147,21 @@ body {
   font-size: 11px;
 }
 
-/* line 94, ../sass/blocks/_menu.scss */
+/* line 99, ../sass/blocks/_menu.scss */
 .menu__social__icon {
   float: left;
   width: 50%;
   text-align: center;
 }
 
-/* line 103, ../sass/blocks/_menu.scss */
+/* line 108, ../sass/blocks/_menu.scss */
 .menu__option, a.menu__option, .menu__option--checkbox {
   padding: 10px 6px;
-  border-bottom: 1px solid #777;
+  border-bottom: 1px solid #bdbdbd;
+  background-color: rgba(0, 0, 0, 0.4);
 }
 
-/* line 108, ../sass/blocks/_menu.scss */
+/* line 114, ../sass/blocks/_menu.scss */
 a.menu__option, a.menu__option--checkbox {
   display: block;
   padding-left: 30px;
@@ -12167,12 +12170,12 @@ a.menu__option, a.menu__option--checkbox {
   font-size: 12px;
 }
 
-/* line 117, ../sass/blocks/_menu.scss */
+/* line 123, ../sass/blocks/_menu.scss */
 .menu__option--checkbox {
   font-size: 11px;
   line-height: 13px;
 }
-/* line 122, ../sass/blocks/_menu.scss */
+/* line 128, ../sass/blocks/_menu.scss */
 .menu__option--checkbox input {
   vertical-align: bottom;
 }
