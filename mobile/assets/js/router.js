@@ -109,28 +109,11 @@ define([
         }),
 
         play: ensureLogin(function () {
-            var adDetections = new AdDetectionsCollection(),
+            var adDetections = new AdDetectionsCollection();
 
-                quizStreamView = new QuizStreamView({
-                    collection: adDetections
-                });
-
-            /*var query = new Kinvey.Query();
-
-            query.limit(500);
-
-            Kinvey.DataStore.find('ads', query)
-                .then(function (responseF) {
-                    _.each(responseF, function (ad) {
-                        Kinvey.DataStore.update('ads', {
-                            '_id': ad._id
-                        })
-                            .then(function (responseU) {
-                                console.log('Updated ad ' + ad._id);
-                            });
-                    });
-                });
-            return;*/
+            var quizStreamView = new QuizStreamView({
+                collection: adDetections
+            });
 
             $('#main').html(quizStreamView.render().el);
 
@@ -140,7 +123,7 @@ define([
              *          if the refresh feature is required.
              *          -- Conor
              */
-            $('.js-refresh-stream').on('click', function () {
+            /*$('.js-refresh-stream').on('click', function () {
                 var adDetectionModel;
 
                 quizStreamView.remove();
@@ -159,7 +142,7 @@ define([
                 App.EventBus.trigger('menu:hide');
 
                 return false;
-            });
+            });*/
 
         }),
 

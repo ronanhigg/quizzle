@@ -69,24 +69,12 @@ require([
 
     "use strict";
 
-    /*
-    * UI stuff
-    *
-    * this section is for several UI hacks and global listeners
-    */
-
     // simple trick to hide the URL bar - scroll the page 1px once it loads
     $(function () {
         setTimeout(function () {
             window.scrollTo(0, 1);
         }, 0);
     });
-
-    /*
-    * Kinvey init
-    *
-    * Start the connection with Kinvey, and use our app key and secret to authenticate
-    */
 
     var loadingView = new LoadingView();
     var menuView = new MenuView();
@@ -116,7 +104,40 @@ require([
     //App.oauth.clearCache('facebook');
     //App.oauth.clearCache('twitter');
 
-    window.KINVEY_DEBUG = true;
+    App.async.parallel([
+        // Kinvey authentication
+        function (asyncCallback) {
+            window.KINVEY_DEBUG = true;
+            Kinvey.init({
+                appKey: "kid_PVgDjNCWFJ",
+                appSecret: "a29a208ce80c41a295cc5cd9bfd6ab20"
+            })
+                .then(function (activeUser) {
+                    asyncCallback();
+                });
+        },
+        // GameSparks authentication
+        function (asyncCallback) {
+            App.gamesparks.initPreview({
+                key: '180424JtV6cn', 
+                onNonce: function (nonce) {
+                    return CryptoJS.enc.Base64.stringify(CryptoJS.HmacSHA256(nonce, '9SGeb0WCbPPogCpLb4EFErWnCJ5TbtVD'));
+                },
+                onInit: function () {
+                    asyncCallback();
+                },
+                onMessage: function (message) {
+                    console.log(message);
+                },
+            });
+        }
+    ], function (err, results) {
+        //App.player = new PlayerModel();
+        App.router = new AppRouter();
+        Backbone.history.start();
+    });
+
+    /*window.KINVEY_DEBUG = true;
     Kinvey.init({
         appKey: "kid_PVgDjNCWFJ",
         appSecret: "a29a208ce80c41a295cc5cd9bfd6ab20"
@@ -134,7 +155,7 @@ require([
             * Create an instance of our router to use for calling `navigate`, and kick everything off by
             * by starting the Backbone history. We hold off on this until the active user state is resolved
             * so we know whether the user is logged in or not.
-            */
+            *
 
             App.gamesparks.initPreview({
                 key: '180424JtV6cn', 
@@ -151,6 +172,6 @@ require([
                 },
             });
 
-        });
+        });*/
 
 });
