@@ -85,8 +85,17 @@ define([
         _renderTriviaQuestion: function () {
             var view;
 
+            if (this.model.get('has_quiz_data') && this.model.get('question').question === undefined) {
+                console.log('[QUIZ] Data not here yet...');
+                var that = this;
+                setTimeout(function () {
+                    that._renderTriviaQuestion();
+                }, 100);
+                return;
+            }
+
             if (this.model.get('noQuizData')) {
-                console.log('no quiz data...');
+                console.log('[QUIZ] no quiz data...');
                 view = new TriviaMissingView();
 
             } else {

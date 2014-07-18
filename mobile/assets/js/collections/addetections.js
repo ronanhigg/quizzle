@@ -31,8 +31,10 @@ define([
 
             query.limit(200);
 
+            console.log('[TIME] (REQ) Fetch advertisers', moment().valueOf());
             Kinvey.DataStore.find('advertisers', query)
                 .then(function (response) {
+                    console.log('[TIME] {RES} Fetch advertisers', moment().valueOf());
                     _.each(response, function (advertiser) {
                         self._logos.push(advertiser.logo_url);
                     });
@@ -54,6 +56,7 @@ define([
             query.limit(AMOUNT_TO_FETCH);
             query.descending('broadcast_starting_at');
 
+            console.log('[TIME] (REQ) Fetch ad detections', moment().valueOf());
             Kinvey.DataStore.find('adDetections', query, {
                 relations: {
                     'ad': 'ads',
@@ -62,6 +65,7 @@ define([
                 }
             })
                 .then(function (response) {
+                    console.log('[TIME] {RES} Fetch ad detections', moment().valueOf());
 
                     self.trigger('fetch:succeeded');
 
@@ -99,6 +103,9 @@ define([
                         self._lastAdDetectionCreatedAt = adDetection._kmd.ect;
                     });
 
+                    self.add(newModels);
+                    console.log('[TIME] Ad detection models added', moment().valueOf());
+
                     Async.each(newModels, function (adDetectionModel, asyncCallback) {
                         if ( ! adDetectionModel.get('has_quiz_data')) {
                             return asyncCallback();
@@ -114,7 +121,8 @@ define([
                             });
 
                     }, function (err) {
-                        self.add(newModels);
+                        //self.add(newModels);
+                        //console.log('[TIME] Ad detection model ' + adDetection._id + ' added', moment().valueOf());
                         self.trigger('fetch:updated');
                     });
 

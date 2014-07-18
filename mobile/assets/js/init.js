@@ -1,6 +1,18 @@
 /* Directives for jslint */
 /*global requirejs, require */
 
+var cacheBust = 'v1';
+
+(function () {
+    var location = location || window.location.href;
+    var name = 'env'.replace(/[\[]/,'\\\[').replace(/[\]]/,'\\\]');
+    var result = new RegExp('[\\?&]' + name + '=([^&#]*)').exec(location);
+    var env = result === null ? undefined : decodeURIComponent(result[1].replace(/\+/g, ' '));
+
+    if (env === 'development') {
+        cacheBust = (new Date()).getTime();
+    }
+})();
 
 requirejs.config({
     shim: {
@@ -41,7 +53,7 @@ requirejs.config({
         'cryptojs': "vendor/hmac-sha256",
         'oauth': 'vendor/oauth'
     },
-    urlArgs: "bust=" + (new Date()).getTime()
+    urlArgs: "bust=" + cacheBust
 });
 
 require([
@@ -56,18 +68,56 @@ require([
     'cryptojs',
     'oauth',
     'vendor/async',
+
     'app',
     'router',
+
     'utilities/auth',
+
+    'collections/addetections',
+
     'models/player',
     'models/session',
+
     'views/loading',
     'views/menu/menu',
     'views/modal',
+
     'factories/player'
-], function ($, _, Backbone, Associations, Bootstrap, moment, Kinvey, Gamesparks, CryptoJS, OAuth, Async, App, AppRouter, AuthUtility, PlayerModel, SessionModel, LoadingView, MenuView, ModalView, PlayerFactory) {
+
+], function (
+    $,
+    _,
+    Backbone,
+    Associations,
+    Bootstrap,
+    moment,
+    Kinvey,
+    Gamesparks,
+    CryptoJS,
+    OAuth,
+    Async,
+
+    App,
+    AppRouter,
+
+    AuthUtility,
+
+    AdDetectionsCollection,
+
+    PlayerModel,
+    SessionModel,
+
+    LoadingView,
+    MenuView,
+    ModalView,
+
+    PlayerFactory
+) {
 
     "use strict";
+
+    console.log('[TIME] App running', moment().valueOf());
 
     // simple trick to hide the URL bar - scroll the page 1px once it loads
     $(function () {
@@ -108,11 +158,18 @@ require([
         // Kinvey authentication
         function (asyncCallback) {
             window.KINVEY_DEBUG = true;
+
+            console.log('[TIME] (REQ) Kinvey authentication', moment().valueOf());
             Kinvey.init({
                 appKey: "kid_PVgDjNCWFJ",
                 appSecret: "a29a208ce80c41a295cc5cd9bfd6ab20"
             })
                 .then(function (activeUser) {
+                    console.log('[TIME] {RES} Kinvey authentication', moment().valueOf());
+
+                    App.adDetections = new AdDetectionsCollection();
+                    App.adDetections.fetch();
+
                     asyncCallback();
                 });
         },

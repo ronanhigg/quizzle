@@ -16,3 +16,9 @@
 ## Known Bugs
 
 *None as of yet*
+
+## Response times
+
+* Kinvey authentication: ~650ms
+* Kinvey advertisers fetch: ~650ms
+* Kinvey ad detection fetch: ~1.7s
