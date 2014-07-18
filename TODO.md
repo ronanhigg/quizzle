@@ -6,12 +6,12 @@
 * ~~Fix problem that only Adverts.ie ad is showing in quiz stream~~
     * Adverts.ie was the only Advertiser with any trivia questions who were running ads when this was noted
 * ~~Standardise the size of white background for brand icons (icons without white background should get one)~~
-* __Add a thin 3-minute time countdown progress bar for each quiz unit__  (see original UI designs).  Don’t disable quiz unit at end of 3-minutes just yet.  Want to just illustrate how many quiz questions will be unexpired.
+* ~~Add a thin 3-minute time countdown progress bar for each quiz unit  (see original UI designs).  Don’t disable quiz unit at end of 3-minutes just yet.  Want to just illustrate how many quiz questions will be unexpired.~~
 * Introduce game features such as
     * ~~Points accumulator~~
     * ~~User profiles~~
     * ~~User Registration/Social Login~~
-    * __Achievements__
+    * Achievements
     * ~~Rewards catalogue~~
     * ~~Rewards claiming~~
     * Perhaps use GameSparks or other game framework
