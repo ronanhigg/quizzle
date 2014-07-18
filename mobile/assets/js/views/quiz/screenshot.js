@@ -11,6 +11,18 @@ define([
 
     "use strict";
 
+    var isElementPartiallyInViewport = function ($el) {
+
+        var rect = $el[0].getBoundingClientRect();
+
+        return (
+            rect.top + rect.height >= 0 &&
+            rect.left + rect.width >= 0 &&
+            rect.bottom - rect.height <= (window.innerHeight || document.documentElement.clientHeight) &&
+            rect.right - rect.width <= (window.innerWidth || document.documentElement.clientWidth)
+        );
+    };
+
     return Backbone.View.extend({
 
         className: 'screenshot-container',
@@ -71,10 +83,37 @@ define([
                     return console.error('Invalid image width [' + this.width + ']');
                 }
 
+                var index = _.random(0, _this.positions[screenshotSize].length - 1);
+
                 _this.template = App.getTemplate('quiz-screenshot-' + screenshotSize);
-                _this._templateVars.backgroundPosition = _this.positions[screenshotSize][_.random(0, _this.positions[screenshotSize].length - 1)];
+                _this._templateVars.backgroundPosition = _this.positions[screenshotSize][index];
 
                 _this.$el.html(_this.template(_this._templateVars));
+
+                var $screenshot = _this.$el.find('.js-screenshot');
+
+                setInterval(function () {
+                    index++;
+
+                    if (index >= _this.positions[screenshotSize].length) {
+                        index = 0;
+                    }
+
+                    if (isElementPartiallyInViewport($screenshot)) {
+                        var $nextScreenshot = $screenshot.clone();
+                        $nextScreenshot.css('background-position', _this.positions[screenshotSize][index]);
+
+                        $screenshot.appendTo($nextScreenshot);
+                        $nextScreenshot.appendTo(_this.$el);
+
+                        $screenshot.fadeOut('slow', function () {
+                            $(this).remove();
+                        });
+
+                        $screenshot = $nextScreenshot;
+                    }
+
+                }, 1500);
             };
 
             storyboardImage.src = this.model.get('storyboardURL');
