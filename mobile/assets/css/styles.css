@@ -12372,15 +12372,22 @@ a.menu__option, a.menu__option--checkbox {
   width: 25%;
   max-width: 200px;
   margin-right: 1em;
+  padding: 4px;
+  background: rgba(0, 0, 0, 0.2);
+}
+
+/* line 17, ../sass/blocks/_trivia.scss */
+.trivia__logo img {
+  padding: 2px;
   background: #fff;
 }
 
-/* line 25, ../sass/blocks/_trivia.scss */
+/* line 28, ../sass/blocks/_trivia.scss */
 .trivia__question {
   font-weight: 400;
 }
 
-/* line 29, ../sass/blocks/_trivia.scss */
+/* line 32, ../sass/blocks/_trivia.scss */
 .trivia__answer {
   font-weight: 700;
 }

@@ -10,12 +10,15 @@
     max-width: 200px;
     //height: 14%; -- Needs set sized screen
     margin-right: $gutter;
-    background: #fff;
+    padding: 4px;
+    background: rgba(0, 0, 0, 0.2);
 }
 
 .trivia__logo img {
     @extend .media-object;
     @extend .img-responsive;
+    padding: 2px;
+    background: #fff;
 }
 
 .trivia__body {
