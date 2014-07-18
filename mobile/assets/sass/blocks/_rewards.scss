@@ -1,6 +1,35 @@
-.rewards__title {
+.rewards__header {
+    height: 56px;
     background: rgba(255, 255, 255, 0.2);
     border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+$rewards-navigation-width: 23px;
+$rewards-navigation-margin: 13px;
+$rewards-title-offset: $rewards-navigation-width + ($rewards-navigation-margin * 2);
+
+.rewards__navigation {
+    display: block;
+    float: left;
+    width: $rewards-navigation-width;
+    margin: 10px $rewards-navigation-margin;
+    font-size: 34px;
+    line-height: 1;
+    color: #fff;
+
+    &:hover {
+        color: #fff;
+    }
+}
+
+.rewards__navigation--back {
+    @extend .rewards__navigation;
+    @extend .ion-arrow-left-c;
+}
+
+.rewards__title {
+    width: 100%;
+    margin-left: -$rewards-title-offset;
     text-align: center;
     font-size: 25px;
     line-height: 56px;

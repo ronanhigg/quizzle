@@ -47,8 +47,21 @@ define([
         },
 
         render: function () {
-            this._renderLoading();
+            if (this.collection.isEmpty()) {
+                this._renderLoading();
+            } else {
+                this._renderQuizzes();
+            }
             return this;
+        },
+
+        _renderQuizzes: function () {
+            var that = this;
+            this.collection.forEach(function (model) {
+                that._renderQuiz(model, that.collection);
+            });
+
+            this._renderLoadMore();
         },
 
         _renderQuiz: function (adDetection, adDetections) {

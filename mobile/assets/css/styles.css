@@ -496,6 +496,7 @@
 .ion-arrow-left-a:before,
 .ion-arrow-left-b:before,
 .ion-arrow-left-c:before,
+.rewards__navigation--back:before,
 .ion-arrow-move:before,
 .ion-arrow-resize:before,
 .ion-arrow-return-left:before,
@@ -1527,7 +1528,7 @@
 }
 
 /* line 691, ../sass/vendor/ionicons/_ionicons-icons.scss */
-.ion-arrow-left-c:before {
+.ion-arrow-left-c:before, .rewards__navigation--back:before {
   content: "\f108";
 }
 
@@ -12239,26 +12240,48 @@ a.menu__option, a.menu__option--checkbox {
 }
 
 /* line 1, ../sass/blocks/_rewards.scss */
-.rewards__title {
+.rewards__header {
+  height: 56px;
   background: rgba(255, 255, 255, 0.2);
   border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+/* line 11, ../sass/blocks/_rewards.scss */
+.rewards__navigation, .rewards__navigation--back {
+  display: block;
+  float: left;
+  width: 23px;
+  margin: 10px 13px;
+  font-size: 34px;
+  line-height: 1;
+  color: #fff;
+}
+/* line 20, ../sass/blocks/_rewards.scss */
+.rewards__navigation:hover, .rewards__navigation--back:hover {
+  color: #fff;
+}
+
+/* line 30, ../sass/blocks/_rewards.scss */
+.rewards__title {
+  width: 100%;
+  margin-left: -49px;
   text-align: center;
   font-size: 25px;
   line-height: 56px;
 }
 
-/* line 9, ../sass/blocks/_rewards.scss */
+/* line 38, ../sass/blocks/_rewards.scss */
 .rewards__row {
   border-bottom: 1px solid rgba(255, 255, 255, 0.2);
 }
 
-/* line 14, ../sass/blocks/_rewards.scss */
+/* line 43, ../sass/blocks/_rewards.scss */
 .rewards__item-container {
   float: left;
   width: 50%;
 }
 
-/* line 19, ../sass/blocks/_rewards.scss */
+/* line 48, ../sass/blocks/_rewards.scss */
 .rewards__item, .rewards__item--left, .rewards__item--right {
   display: block;
   height: 100%;
@@ -12267,30 +12290,30 @@ a.menu__option, a.menu__option--checkbox {
   text-decoration: none;
   color: #fff;
 }
-/* line 27, ../sass/blocks/_rewards.scss */
+/* line 56, ../sass/blocks/_rewards.scss */
 .rewards__item:hover, .rewards__item--left:hover, .rewards__item--right:hover {
   text-decoration: none;
   color: #fff;
 }
 
-/* line 33, ../sass/blocks/_rewards.scss */
+/* line 62, ../sass/blocks/_rewards.scss */
 .rewards__item--left {
   border-right: 1px solid rgba(255, 255, 255, 0.2);
 }
 
-/* line 42, ../sass/blocks/_rewards.scss */
+/* line 71, ../sass/blocks/_rewards.scss */
 .rewards__item__icon {
   height: 90px;
   margin-bottom: 10px;
 }
 
-/* line 47, ../sass/blocks/_rewards.scss */
+/* line 76, ../sass/blocks/_rewards.scss */
 .rewards__item__value {
   font-size: 30px;
   font-weight: bold;
 }
 
-/* line 52, ../sass/blocks/_rewards.scss */
+/* line 81, ../sass/blocks/_rewards.scss */
 .rewards__item__description, .rewards__item__price {
   line-height: 1.1;
 }

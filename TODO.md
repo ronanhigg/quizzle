@@ -21,6 +21,7 @@
 * ~~Change top right icon to trigger Rewards Catalogue panel menu (see TVsmiles app as reference)~~
 * Lazy load previous quiz units as stream approaches bottom of page (currently requires manual “Load More”)
 * ~~New storyboard image size to be handled~~
+* __Ensure advert's own logo isn't selected at random from logos__
 
 ## Operator Dashboard
 
