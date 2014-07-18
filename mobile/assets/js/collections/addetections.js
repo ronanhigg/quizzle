@@ -94,7 +94,7 @@ define([
                             adDetection.channelName = adDetection.channel.name;
                         }
 
-                        adDetection.otherLogos = _.sample(self._logos, 3);
+                        adDetection.otherLogos = _.sample(_.without(self._logos, adDetection.advertiserLogo), 3);
                         adDetection.question = {};
 
                         var adDetectionModel = new AdDetectionModel(adDetection);

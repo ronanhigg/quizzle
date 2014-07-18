@@ -12019,8 +12019,24 @@ body {
   text-align: center;
   width: 100%;
 }
+/* line 5, ../sass/blocks/_loader.scss */
+.loader img {
+  -webkit-animation: spin 1s infinite linear;
+  @-webkit-keyframes spin {
+    /* line 9, ../sass/blocks/_loader.scss */
+    0% {
+      -webkit-transform: rotate(0deg);
+    }
 
-/* line 6, ../sass/blocks/_loader.scss */
+    /* line 10, ../sass/blocks/_loader.scss */
+    100% {
+      -webkit-transform: rotate(360deg);
+    }
+}
+
+}
+
+/* line 15, ../sass/blocks/_loader.scss */
 .loader--full-screen {
   position: absolute;
   top: 45%;
