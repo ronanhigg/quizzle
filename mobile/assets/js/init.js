@@ -1,7 +1,7 @@
 /* Directives for jslint */
 /*global requirejs, require */
 
-var cacheBust = 'v5';
+var cacheBust = 'v6';
 
 (function () {
     var location = location || window.location.href;
@@ -150,6 +150,10 @@ require([
     App.oauth = OAuth;
 
     App.oauth.initialize('MNs8vuhXvYVFuQVxY7AtZdyfRG0');
+
+    App.playSound = function (name) {
+        $('#sound-' + name)[0].play();
+    };
 
     //App.oauth.clearCache('facebook');
     //App.oauth.clearCache('twitter');

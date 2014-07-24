@@ -57,9 +57,11 @@ define([
             var selectedIndex = $(event.currentTarget).data('index');
 
             if (selectedIndex === this._correctIndex) {
+                App.playSound('correct');
                 this.model.trigger('guess:correctlogo');
                 App.player.trigger('points:logo');
             } else {
+                App.playSound('incorrect');
                 this.model.trigger('guess:incorrect');
             }
 
