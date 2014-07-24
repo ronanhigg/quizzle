@@ -1,13 +1,14 @@
 .trivia {
     @extend .media;
-    padding: 1em $gutter;
+    height: 74px;
+    margin-top: 0;
+    padding: 10px $gutter;
     background: rgba(0, 0, 0, 0.1);
 }
 
 .trivia__logo {
     float: left;
-    width: 25%;
-    max-width: 200px;
+    max-width: 142px;
     //height: 14%; -- Needs set sized screen
     margin-right: $gutter;
     padding: 2px;
@@ -17,6 +18,7 @@
 .trivia__logo img {
     @extend .media-object;
     @extend .img-responsive;
+    max-height: 50px;
     padding: 4px;
     background: #fff;
 }

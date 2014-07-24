@@ -108,7 +108,7 @@ $menu-icon-height: 22px;
 }
 
 .menu__option {
-    padding: 14px 6px;
+    padding: 14px 0 14px 6px;
     border-bottom: 1px solid $menu-border-color;
     background-color: $menu-background-light;
 }
@@ -117,7 +117,7 @@ a.menu__option {
     @extend .menu__option;
     display: block;
     color: #fff;
-    font-size: 16px;
+    font-size: 15px;
     line-height: $menu-icon-height;
 }
 

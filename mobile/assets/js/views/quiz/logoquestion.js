@@ -38,7 +38,7 @@ define([
             var $btns = this.$el.find('.logo__btn img');
 
             $btns.one('load', function () {
-                var padding = (120 - $(this).height()) / 2;
+                var padding = (67 - $(this).height()) / 2;
                 $(this)
                     .css('padding-top', Math.floor(padding))
                     .css('padding-bottom', Math.ceil(padding))

@@ -1,5 +1,5 @@
 .logo {
-    padding: 1em 1em 0 1em;
+    padding: 10px 1em 0 10px;
     background: rgba(0, 0, 0, 0.2);
 }
 
@@ -13,12 +13,12 @@
     @extend %palm--one-half;
     @extend %lap--one-quarter;
     @extend %desk--one-quarter;
-    margin-bottom: 1em;
+    margin-bottom: 10px;
 }
 
 .logo__btn {
     display: block;
-    padding: 6px;
+    padding: 4px;
     text-align: center;
     background: #fff;
 }
@@ -26,5 +26,5 @@
 .logo__btn img {
     @extend .img-responsive;
     margin: 0 auto;
-    max-height: 120px;
+    max-height: 67px;
 }

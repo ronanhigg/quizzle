@@ -1,6 +1,6 @@
 .answer {
     background: rgba(0, 0, 0, 0.2);
-    padding: $gutter;
+    padding: 10px $gutter;
     padding-bottom: 0;
 }
 
@@ -12,7 +12,7 @@
 .answer__container {
     @extend %grid__item;
     @extend %one-half;
-    margin-bottom: $gutter;
+    margin-bottom: 10px;
     text-align: center;
 }
 
@@ -20,6 +20,9 @@
     @extend .btn;
     @extend .btn-block;
     @extend .btn-default;
+    display: block;
+    width: 138px;
+    height: 36px;
     border-radius: 0;
     white-space: normal;
     font-weight: 700;

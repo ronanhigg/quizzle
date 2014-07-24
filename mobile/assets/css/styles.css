@@ -11954,18 +11954,21 @@ body {
 /* line 1, ../sass/blocks/_answer.scss */
 .answer {
   background: rgba(0, 0, 0, 0.2);
-  padding: 1em;
+  padding: 10px 1em;
   padding-bottom: 0;
 }
 
 /* line 12, ../sass/blocks/_answer.scss */
 .answer__container {
-  margin-bottom: 1em;
+  margin-bottom: 10px;
   text-align: center;
 }
 
 /* line 19, ../sass/blocks/_answer.scss */
 .answer__btn {
+  display: block;
+  width: 138px;
+  height: 36px;
   border-radius: 0;
   white-space: normal;
   font-weight: 700;
@@ -12009,7 +12012,7 @@ body {
 
 /* line 1, ../sass/blocks/_instruction.scss */
 .instruction {
-  margin: 1em 1em;
+  margin: 10px 14px;
   padding: 0.4em 0;
   background: rgba(0, 0, 0, 0.4);
   text-align: center;
@@ -12046,19 +12049,19 @@ body {
 
 /* line 1, ../sass/blocks/_logo.scss */
 .logo {
-  padding: 1em 1em 0 1em;
+  padding: 10px 1em 0 10px;
   background: rgba(0, 0, 0, 0.2);
 }
 
 /* line 11, ../sass/blocks/_logo.scss */
 .logo__container {
-  margin-bottom: 1em;
+  margin-bottom: 10px;
 }
 
 /* line 19, ../sass/blocks/_logo.scss */
 .logo__btn {
   display: block;
-  padding: 6px;
+  padding: 4px;
   text-align: center;
   background: #fff;
 }
@@ -12066,7 +12069,7 @@ body {
 /* line 26, ../sass/blocks/_logo.scss */
 .logo__btn img {
   margin: 0 auto;
-  max-height: 120px;
+  max-height: 67px;
 }
 
 /* line 7, ../sass/blocks/_menu.scss */
@@ -12176,7 +12179,7 @@ body {
 
 /* line 110, ../sass/blocks/_menu.scss */
 .menu__option, a.menu__option, .menu__option--checkbox {
-  padding: 14px 6px;
+  padding: 14px 0 14px 6px;
   border-bottom: 1px solid #bdbdbd;
   background-color: rgba(0, 0, 0, 0.4);
 }
@@ -12185,7 +12188,7 @@ body {
 a.menu__option, a.menu__option--checkbox {
   display: block;
   color: #fff;
-  font-size: 16px;
+  font-size: 15px;
   line-height: 22px;
 }
 
@@ -12230,22 +12233,32 @@ a.menu__option, a.menu__option--checkbox {
 
 /* line 1, ../sass/blocks/_quiz.scss */
 .quiz-container {
-  padding-top: 20px;
+  padding-top: 9px;
 }
 
 /* line 5, ../sass/blocks/_quiz.scss */
-.quiz-footer {
+.quiz {
+  position: relative;
+  height: 460px;
   margin: 0 0 40px 0;
+}
+
+/* line 11, ../sass/blocks/_quiz.scss */
+.quiz-footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  margin: 0;
   background: rgba(255, 255, 255, 0.1);
   color: #999999;
 }
 
-/* line 12, ../sass/blocks/_quiz.scss */
+/* line 21, ../sass/blocks/_quiz.scss */
 .quiz-metadata {
   padding: 10px;
 }
 
-/* line 17, ../sass/blocks/_quiz.scss */
+/* line 26, ../sass/blocks/_quiz.scss */
 .quiz-id {
   padding: 10px;
   text-align: right;
@@ -12253,19 +12266,20 @@ a.menu__option, a.menu__option--checkbox {
 
 /* line 1, ../sass/blocks/_result.scss */
 .result {
+  height: 159px;
   background: rgba(0, 0, 0, 0.2);
   text-align: center;
   padding: 1em 0;
 }
 
-/* line 13, ../sass/blocks/_result.scss */
+/* line 14, ../sass/blocks/_result.scss */
 .result__primary {
   font-size: 112px;
   font-weight: 700;
   line-height: 0.95;
 }
 
-/* line 19, ../sass/blocks/_result.scss */
+/* line 20, ../sass/blocks/_result.scss */
 .result__body {
   font-weight: 400;
 }
@@ -12377,32 +12391,34 @@ a.menu__option, a.menu__option--checkbox {
 
 /* line 1, ../sass/blocks/_trivia.scss */
 .trivia {
-  padding: 1em 1em;
+  height: 74px;
+  margin-top: 0;
+  padding: 10px 1em;
   background: rgba(0, 0, 0, 0.1);
 }
 
-/* line 7, ../sass/blocks/_trivia.scss */
+/* line 9, ../sass/blocks/_trivia.scss */
 .trivia__logo {
   float: left;
-  width: 25%;
-  max-width: 200px;
+  max-width: 142px;
   margin-right: 1em;
   padding: 2px;
   background: rgba(0, 0, 0, 0.2);
 }
 
-/* line 17, ../sass/blocks/_trivia.scss */
+/* line 18, ../sass/blocks/_trivia.scss */
 .trivia__logo img {
+  max-height: 50px;
   padding: 4px;
   background: #fff;
 }
 
-/* line 28, ../sass/blocks/_trivia.scss */
+/* line 30, ../sass/blocks/_trivia.scss */
 .trivia__question {
   font-weight: 400;
 }
 
-/* line 32, ../sass/blocks/_trivia.scss */
+/* line 34, ../sass/blocks/_trivia.scss */
 .trivia__answer {
   font-weight: 700;
 }

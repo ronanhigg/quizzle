@@ -6,8 +6,9 @@ define([
     'vendor/underscore',
     'vendor/backbone',
     'kinvey',
+    'vendor/textFit.mod',
     'app'
-], function ($, _, Backbone, Kinvey, App) {
+], function ($, _, Backbone, Kinvey, FitText, App) {
 
     "use strict";
 
@@ -41,6 +42,24 @@ define([
 
         render: function () {
             this.$el.html(this.template(this._templateVars));
+
+            this.$el.find('.js-triviaquestion-guess').each(function () {
+                var $this = $(this);
+
+                var interval = setInterval(function () {
+                    if ($this.width() > 0) {
+                        clearInterval(interval);
+                        FitText($this, {
+                            minFontSize: 10,
+                            maxFontSize: 48,
+                            alignVert: true,
+                            alignHoriz: true,
+                            multiLine: true
+                        });
+                    }
+                }, 50);
+            });
+
             return this;
         },
 
