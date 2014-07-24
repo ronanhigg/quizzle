@@ -111,7 +111,7 @@ define([
                 return 'small';
             }
 
-            return console.error('Invalid image width [' + width + ']');
+            console.error('Invalid image width [' + width + ']');
         },
 
         _isElementPartiallyInViewport: function ($el) {

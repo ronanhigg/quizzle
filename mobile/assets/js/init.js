@@ -73,6 +73,7 @@ require([
     'router',
 
     'utilities/auth',
+    'utilities/countdown',
 
     'collections/addetections',
 
@@ -102,6 +103,7 @@ require([
     AppRouter,
 
     AuthUtility,
+    CountdownUtility,
 
     AdDetectionsCollection,
 
@@ -143,17 +145,19 @@ require([
         return false;
     });
 
-    setInterval(function () {
-        App.EventBus.trigger('ticker:slideshow');
-    }, 1500);
-
     App.gamesparks = new Gamesparks();
     App.async = Async;
     App.playerFactory = new PlayerFactory();
     App.auth = new AuthUtility();
+    App.countdown = new CountdownUtility();
     App.oauth = OAuth;
 
+    App.countdown.setup();
     App.oauth.initialize('MNs8vuhXvYVFuQVxY7AtZdyfRG0');
+
+    setInterval(function () {
+        App.EventBus.trigger('ticker:slideshow');
+    }, 1500);
 
     App.playSound = function (name) {
         if ($('.js-toggle-sounds').is(':checked')) {
