@@ -123,10 +123,12 @@ a.menu__option {
 
 .menu__option--checkbox {
     @extend .menu__option;
+    padding-left: 14px;
     font-size: 11px;
     line-height: 13px;
 
     input {
+        margin-right: 10px;
         vertical-align: bottom;
     }
 }

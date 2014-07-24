@@ -12191,15 +12191,17 @@ a.menu__option, a.menu__option--checkbox {
 
 /* line 124, ../sass/blocks/_menu.scss */
 .menu__option--checkbox {
+  padding-left: 14px;
   font-size: 11px;
   line-height: 13px;
 }
-/* line 129, ../sass/blocks/_menu.scss */
+/* line 130, ../sass/blocks/_menu.scss */
 .menu__option--checkbox input {
+  margin-right: 10px;
   vertical-align: bottom;
 }
 
-/* line 134, ../sass/blocks/_menu.scss */
+/* line 136, ../sass/blocks/_menu.scss */
 .menu__option__icon, .menu__option__icon--refresh, .menu__option__icon--logout {
   display: block;
   float: left;

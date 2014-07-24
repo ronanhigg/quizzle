@@ -1,7 +1,7 @@
 /* Directives for jslint */
 /*global requirejs, require */
 
-var cacheBust = 'v6';
+var cacheBust = 'v7';
 
 (function () {
     var location = location || window.location.href;
@@ -152,7 +152,9 @@ require([
     App.oauth.initialize('MNs8vuhXvYVFuQVxY7AtZdyfRG0');
 
     App.playSound = function (name) {
-        $('#sound-' + name)[0].play();
+        if ($('.js-toggle-sounds').is(':checked')) {
+            $('#sound-' + name)[0].play();
+        }
     };
 
     //App.oauth.clearCache('facebook');
