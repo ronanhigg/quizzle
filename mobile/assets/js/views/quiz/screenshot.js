@@ -30,26 +30,26 @@ define([
 
         positions: {
             'small': [
-                '661px -7px',
-                '330px -7px',
+                '571px -7px',
+                '285px -7px',
                 '-7px -7px',
-                '661px -198px',
-                '330px -198px',
-                '-7px -198px',
-                '661px -389px',
-                //'330px -389px', // - Remove this frame
-                '-7px -389px'
+                '571px -173px',
+                '285px -173px',
+                '-7px -173px',
+                '571px -339px',
+                //'285px -339px', // - Remove this frame
+                '-7px -339px'
             ],
             'large': [
                 '-3px -3px',
-                '-326px -3px',
-                '-649px -3px',
-                '-3px -202px',
-                '-326px -202px',
-                '-649px -202px',
-                '-3px -401px',
-                '-326px -401px',
-                //'-649px -401px' // - Remove this frame
+                '-284px -3px',
+                '-565px -3px',
+                '-3px -176px',
+                '-284px -176px',
+                '-565px -176px',
+                '-3px -349px',
+                '-284px -349px',
+                //'-565px -349px' // - Remove this frame
             ]
         },
 

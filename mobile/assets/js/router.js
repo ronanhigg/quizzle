@@ -131,32 +131,6 @@ define([
             });
 
             $('#main').html(quizStreamView.render().el);
-
-            /* DRAGON - Very hacky refresh method, should be changed
-             *          if the refresh feature is required.
-             *          -- Conor
-             */
-            /*$('.js-refresh-stream').on('click', function () {
-                var adDetectionModel;
-
-                quizStreamView.remove();
-                while (adDetectionModel = adDetections.first()) {
-                    adDetectionModel.destroy();
-                }
-
-                adDetections = new AdDetectionsCollection();
-                quizStreamView = new QuizStreamView({
-                    collection: adDetections
-                });
-
-                $('#main').html(quizStreamView.render().el);
-                adDetections.fetch();
-
-                App.EventBus.trigger('menu:hide');
-
-                return false;
-            });*/
-
         }),
 
         rewards: ensureLogin(function () {
