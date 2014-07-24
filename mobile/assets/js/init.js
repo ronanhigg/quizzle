@@ -143,6 +143,10 @@ require([
         return false;
     });
 
+    setInterval(function () {
+        App.EventBus.trigger('ticker:slideshow');
+    }, 1500);
+
     App.gamesparks = new Gamesparks();
     App.async = Async;
     App.playerFactory = new PlayerFactory();
@@ -199,42 +203,4 @@ require([
         App.router = new AppRouter();
         Backbone.history.start();
     });
-
-    /*window.KINVEY_DEBUG = true;
-    Kinvey.init({
-        appKey: "kid_PVgDjNCWFJ",
-        appSecret: "a29a208ce80c41a295cc5cd9bfd6ab20"
-    })
-        .then(function (activeUser) {
-            // the Kinvey.init function returns a promise which resolves to the active user
-            // data (or null if there is no active user). Note: when logged in, activeUser
-            // here is *not* an instance of Kinvey.Backbone.User, but just the attributes of
-            // the user. You must instantiate the User yourself (to allow for custom subclasses).
-            //App.user = App.player = new PlayerModel(activeUser);
-
-            /*
-            * Backbone init
-            *
-            * Create an instance of our router to use for calling `navigate`, and kick everything off by
-            * by starting the Backbone history. We hold off on this until the active user state is resolved
-            * so we know whether the user is logged in or not.
-            *
-
-            App.gamesparks.initPreview({
-                key: '180424JtV6cn', 
-                onNonce: function (nonce) {
-                    return CryptoJS.enc.Base64.stringify(CryptoJS.HmacSHA256(nonce, '9SGeb0WCbPPogCpLb4EFErWnCJ5TbtVD'));
-                },
-                onInit: function () {
-                    //App.player = new PlayerModel();
-                    App.router = new AppRouter();
-                    Backbone.history.start();
-                },
-                onMessage: function (message) {
-                    console.log(message);
-                },
-            });
-
-        });*/
-
 });
