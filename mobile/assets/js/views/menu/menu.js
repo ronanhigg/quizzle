@@ -51,6 +51,12 @@ define([
             if (App.player) {
                 this._renderPlayerDetails();
             }
+
+            $('.js-refresh-stream').on('click', function () {
+                App.router.play();
+                return false;
+            });
+
             return this;
         },
 

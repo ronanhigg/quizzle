@@ -124,6 +124,8 @@ define([
         }),
 
         play: ensureLogin(function () {
+            App.EventBus.trigger('menu:hide');
+
             var quizStreamView = new QuizStreamView({
                 collection: App.adDetections
             });

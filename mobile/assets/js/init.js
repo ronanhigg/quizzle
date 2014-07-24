@@ -1,7 +1,7 @@
 /* Directives for jslint */
 /*global requirejs, require */
 
-var cacheBust = 'v4';
+var cacheBust = 'v5';
 
 (function () {
     var location = location || window.location.href;
