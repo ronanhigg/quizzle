@@ -12056,11 +12056,12 @@ body {
 /* line 19, ../sass/blocks/_logo.scss */
 .logo__btn {
   display: block;
+  padding: 6px;
   text-align: center;
   background: #fff;
 }
 
-/* line 25, ../sass/blocks/_logo.scss */
+/* line 26, ../sass/blocks/_logo.scss */
 .logo__btn img {
   margin: 0 auto;
   max-height: 120px;
@@ -12372,13 +12373,13 @@ a.menu__option, a.menu__option--checkbox {
   width: 25%;
   max-width: 200px;
   margin-right: 1em;
-  padding: 4px;
+  padding: 2px;
   background: rgba(0, 0, 0, 0.2);
 }
 
 /* line 17, ../sass/blocks/_trivia.scss */
 .trivia__logo img {
-  padding: 2px;
+  padding: 4px;
   background: #fff;
 }
 
