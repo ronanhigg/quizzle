@@ -90,7 +90,22 @@ define([
         },
 
         initialize: function (options) {
+            var _this = this;
+            
             App.auth.setupOAuthCallbacks();
+
+            $('.js-toggle-rewards').on('click', function () {
+                var route = 'rewards';
+                if (Backbone.history.fragment === 'rewards') {
+                    route = 'play';
+                }
+
+                _this.navigate(route, {
+                    trigger: true
+                });
+
+                return false;
+            });
         },
 
         index: ensureLogin(function () {
