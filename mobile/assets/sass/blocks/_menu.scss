@@ -2,6 +2,8 @@ $menu-background-light: rgba(0, 0, 0, 0.4);
 $menu-background-dark: rgba(0, 0, 0, 0.6);
 $menu-border-color: #bdbdbd;
 
+$menu-icon-height: 22px;
+
 .menu {
     position: fixed;
     top: 51px;
@@ -106,7 +108,7 @@ $menu-border-color: #bdbdbd;
 }
 
 .menu__option {
-    padding: 10px 6px;
+    padding: 14px 6px;
     border-bottom: 1px solid $menu-border-color;
     background-color: $menu-background-light;
 }
@@ -114,10 +116,9 @@ $menu-border-color: #bdbdbd;
 a.menu__option {
     @extend .menu__option;
     display: block;
-    padding-left: 30px;
     color: #fff;
-    font-weight: bold;
-    font-size: 12px;
+    font-size: 16px;
+    line-height: $menu-icon-height;
 }
 
 .menu__option--checkbox {
@@ -128,4 +129,24 @@ a.menu__option {
     input {
         vertical-align: bottom;
     }
+}
+
+.menu__option__icon {
+    display: block;
+    float: left;
+    width: 30px;
+    margin-right: 5px;
+    font-size: $menu-icon-height;
+    line-height: 1;
+    text-align: center;
+}
+
+.menu__option__icon--refresh {
+    @extend .menu__option__icon;
+    @extend .ion-refresh;
+}
+
+.menu__option__icon--logout {
+    @extend .menu__option__icon;
+    @extend .ion-log-out;
 }

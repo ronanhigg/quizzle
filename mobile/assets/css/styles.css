@@ -867,6 +867,7 @@
 .ion-locked:before,
 .ion-log-in:before,
 .ion-log-out:before,
+.menu__option__icon--logout:before,
 .ion-loop:before,
 .ion-looping:before,
 .ion-magnet:before,
@@ -923,6 +924,7 @@
 .ion-record:before,
 .ion-refresh:before,
 .ion-refreshing:before,
+.menu__option__icon--refresh:before,
 .ion-reply:before,
 .ion-reply-all:before,
 .ion-ribbon-a:before,
@@ -3348,7 +3350,7 @@
 }
 
 /* line 1055, ../sass/vendor/ionicons/_ionicons-icons.scss */
-.ion-log-out:before {
+.ion-log-out:before, .menu__option__icon--logout:before {
   content: "\f29f";
 }
 
@@ -3618,7 +3620,7 @@
 }
 
 /* line 1109, ../sass/vendor/ionicons/_ionicons-icons.scss */
-.ion-refresh:before, .ion-refreshing:before {
+.ion-refresh:before, .ion-refreshing:before, .menu__option__icon--refresh:before {
   content: "\f21c";
 }
 
@@ -12067,7 +12069,7 @@ body {
   max-height: 120px;
 }
 
-/* line 5, ../sass/blocks/_menu.scss */
+/* line 7, ../sass/blocks/_menu.scss */
 .menu {
   position: fixed;
   top: 51px;
@@ -12080,7 +12082,7 @@ body {
   color: #fff;
 }
 
-/* line 17, ../sass/blocks/_menu.scss */
+/* line 19, ../sass/blocks/_menu.scss */
 .menu__profile {
   height: 120px;
   padding: 20px;
@@ -12088,19 +12090,19 @@ body {
   background-color: rgba(0, 0, 0, 0.6);
 }
 
-/* line 25, ../sass/blocks/_menu.scss */
+/* line 27, ../sass/blocks/_menu.scss */
 .menu__profile__photo {
   margin-bottom: 10px;
   text-align: center;
 }
 
-/* line 34, ../sass/blocks/_menu.scss */
+/* line 36, ../sass/blocks/_menu.scss */
 .menu__profile__name {
   text-align: center;
   font-size: 18px;
 }
 
-/* line 39, ../sass/blocks/_menu.scss */
+/* line 41, ../sass/blocks/_menu.scss */
 .menu__score {
   height: 60px;
   padding: 5px 0;
@@ -12108,25 +12110,25 @@ body {
   background-color: rgba(0, 0, 0, 0.4);
 }
 
-/* line 47, ../sass/blocks/_menu.scss */
+/* line 49, ../sass/blocks/_menu.scss */
 .menu__score__counter {
   float: left;
   width: 50%;
   text-align: center;
 }
 
-/* line 53, ../sass/blocks/_menu.scss */
+/* line 55, ../sass/blocks/_menu.scss */
 .menu__score__counter__figure {
   font-size: 22px;
   font-weight: bold;
 }
 
-/* line 58, ../sass/blocks/_menu.scss */
+/* line 60, ../sass/blocks/_menu.scss */
 .menu__score__counter__label {
   font-size: 11px;
 }
 
-/* line 62, ../sass/blocks/_menu.scss */
+/* line 64, ../sass/blocks/_menu.scss */
 .menu__cash {
   height: 60px;
   padding: 5px 0;
@@ -12134,30 +12136,30 @@ body {
   background: rgba(0, 0, 0, 0.6);
 }
 
-/* line 69, ../sass/blocks/_menu.scss */
+/* line 71, ../sass/blocks/_menu.scss */
 .menu__cash__counter {
   text-align: center;
 }
 
-/* line 73, ../sass/blocks/_menu.scss */
+/* line 75, ../sass/blocks/_menu.scss */
 .menu__cash__counter__figure {
   font-size: 22px;
   font-weight: bold;
 }
 
-/* line 78, ../sass/blocks/_menu.scss */
+/* line 80, ../sass/blocks/_menu.scss */
 .menu__cash__counter__label {
   font-size: 11px;
 }
 
-/* line 82, ../sass/blocks/_menu.scss */
+/* line 84, ../sass/blocks/_menu.scss */
 .menu__social {
   height: 120px;
   border-bottom: 1px solid #bdbdbd;
   background: rgba(0, 0, 0, 0.6);
 }
 
-/* line 88, ../sass/blocks/_menu.scss */
+/* line 90, ../sass/blocks/_menu.scss */
 .menu__social__title {
   padding-top: 15px;
   padding-bottom: 9px;
@@ -12165,37 +12167,47 @@ body {
   font-size: 11px;
 }
 
-/* line 99, ../sass/blocks/_menu.scss */
+/* line 101, ../sass/blocks/_menu.scss */
 .menu__social__icon {
   float: left;
   width: 50%;
   text-align: center;
 }
 
-/* line 108, ../sass/blocks/_menu.scss */
+/* line 110, ../sass/blocks/_menu.scss */
 .menu__option, a.menu__option, .menu__option--checkbox {
-  padding: 10px 6px;
+  padding: 14px 6px;
   border-bottom: 1px solid #bdbdbd;
   background-color: rgba(0, 0, 0, 0.4);
 }
 
-/* line 114, ../sass/blocks/_menu.scss */
+/* line 116, ../sass/blocks/_menu.scss */
 a.menu__option, a.menu__option--checkbox {
   display: block;
-  padding-left: 30px;
   color: #fff;
-  font-weight: bold;
-  font-size: 12px;
+  font-size: 16px;
+  line-height: 22px;
 }
 
-/* line 123, ../sass/blocks/_menu.scss */
+/* line 124, ../sass/blocks/_menu.scss */
 .menu__option--checkbox {
   font-size: 11px;
   line-height: 13px;
 }
-/* line 128, ../sass/blocks/_menu.scss */
+/* line 129, ../sass/blocks/_menu.scss */
 .menu__option--checkbox input {
   vertical-align: bottom;
+}
+
+/* line 134, ../sass/blocks/_menu.scss */
+.menu__option__icon, .menu__option__icon--refresh, .menu__option__icon--logout {
+  display: block;
+  float: left;
+  width: 30px;
+  margin-right: 5px;
+  font-size: 22px;
+  line-height: 1;
+  text-align: center;
 }
 
 /* line 1, ../sass/blocks/_modal.scss */
