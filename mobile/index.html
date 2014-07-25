@@ -43,14 +43,21 @@
 
     <div id="main">
 
-      <div class="loader loader--full-screen">
-        <img src="/assets/img/logo.png">
-      </div>
-
     </div>
 
     <div id="modal">
 
+    </div>
+
+    <div class="sync-loader-container js-loader">
+      <div class="sync-loader">
+        <div class="sync-loader__icon">
+          <img src="/assets/img/logo.png">
+        </div>
+        <div class="sync-loader__message">
+          Gathering Quizzles...
+        </div>
+      </div>
     </div>
 
     <br>
@@ -58,6 +65,19 @@
     <script type="text/html" id="loading-template">
 
       <img src="/assets/img/logo.png">
+
+    </script>
+
+    <script type="text/html" id="sync-loader-template">
+
+      <div class="sync-loader">
+        <div class="sync-loader__icon">
+          <img src="/assets/img/logo.png">
+        </div>
+        <div class="sync-loader__message">
+          Gathering Quizzles...
+        </div>
+      </div>
 
     </script>
 

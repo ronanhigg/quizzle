@@ -8,7 +8,7 @@ define([
     'kinvey',
     'app',
 
-    'views/loading',
+    'views/sync-loader',
     'views/quiz/quiz',
     'views/stream/errormessage',
     'views/stream/streamaction',
@@ -19,7 +19,7 @@ define([
     Kinvey,
     App,
 
-    LoadingView,
+    SyncLoaderView,
     QuizView,
     ErrorMessageView,
     StreamActionView
@@ -29,7 +29,7 @@ define([
 
     return Backbone.View.extend({
 
-        _loadingView: undefined,
+        _loaderView: undefined,
         _errorMessageView: undefined,
 
         className: 'quiz-container js-stream',
@@ -41,16 +41,16 @@ define([
             this.hasLoadedFirst = false;
             this.listenTo(this.collection, 'add', this._renderQuiz);
             this.listenTo(this.collection, 'fetch:updated', this._renderLoadMore);
-            this.listenTo(this.collection, 'fetch:request', this._renderLoading);
+            this.listenTo(this.collection, 'fetch:request', this._renderLoader);
             this.listenTo(this.collection, 'fetch:nomodels', this._renderNoModelsError);
-            this.listenTo(this.collection, 'fetch:succeeded', this._removeLoading);
+            this.listenTo(this.collection, 'fetch:succeeded', this._removeLoader);
             this.listenTo(this.collection, 'fetch:failed', this._renderConnectionError);
             this.listenTo(App.EventBus, 'stream:next', this._jumpToNextQuiz);
         },
 
         render: function () {
             if (this.collection.isEmpty()) {
-                this._renderLoading();
+                this._renderLoader();
             } else {
                 this._renderQuizzes();
             }
@@ -72,7 +72,6 @@ define([
                 index: adDetections.indexOf(adDetection)
             });
 
-            //this.$el.find('.js-quizzes').append(quizView.render().el);
             this.$el.append(quizView.render().el);
 
             if (!this.hasLoadedFirst) {
@@ -102,7 +101,7 @@ define([
                 details: xhr
             });
 
-            this._removeLoading();
+            this._removeLoader();
 
             this.$el
                 .append(this._errorMessageView.render().el)
@@ -121,27 +120,29 @@ define([
             this.$el.append(streamActionView.render().el);
         },
 
-        _renderLoading: function () {
-            var options = {};
-
+        _renderLoader: function () {
             this._removeErrorMessage();
 
-            if (this.collection.isEmpty()) {
-                options = {
-                    fullScreen: true
-                };
+            if (this._loaderView !== undefined) {
+                return;
             }
 
-            this._loadingView = new LoadingView();
+            var $existingLoader = $('.js-loader');
 
-            this._loadingView.render(options);
-            this.$el.append(this._loadingView.el);
+            if ($existingLoader.length > 0) {
+                this._loaderView = new SyncLoaderView();
+                this._loaderView.$el = $existingLoader;
+                return;
+            }
+
+            this._loaderView = new SyncLoaderView();
+            $('body').append(this._loaderView.render().el);
         },
 
-        _removeLoading: function () {
-            if (this._loadingView !== undefined) {
-                this._loadingView.remove();
-                this._loadingView = undefined;
+        _removeLoader: function () {
+            if (this._loaderView !== undefined) {
+                this._loaderView.remove();
+                this._loaderView = undefined;
             }
         },
 

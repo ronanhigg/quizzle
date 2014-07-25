@@ -80,7 +80,7 @@ require([
     'models/player',
     'models/session',
 
-    'views/loading',
+    'views/sync-loader',
     'views/menu/menu',
     'views/modal',
 
@@ -110,7 +110,7 @@ require([
     PlayerModel,
     SessionModel,
 
-    LoadingView,
+    SyncLoaderView,
     MenuView,
     ModalView,
 
@@ -128,15 +128,13 @@ require([
         }, 0);
     });
 
-    var loadingView = new LoadingView();
+    //var syncLoaderView = new SyncLoaderView();
     var menuView = new MenuView();
     var modalView = new ModalView();
 
-    loadingView.render({
-        fullScreen: true
-    });
+    //syncLoaderView.render();
 
-    $('#main').html(loadingView.el);
+    //$('body').append(syncLoaderView.el);
     $('#menu').html(menuView.render().el);
     $('#modal').html(modalView.render().el);
 

@@ -44,6 +44,8 @@ define([
         fetch: function () {
             var self = this;
 
+            this.trigger('fetch:request');
+
             var query = new Kinvey.Query();
 
             query.equalTo('has_ad_data', ! $('.js-fetch-adless').is(':checked'));
