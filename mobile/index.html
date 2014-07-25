@@ -369,6 +369,27 @@
 
     <script type="text/html" id="guess-response-template">
 
+      <div class="guess-response js-guess-response">
+        <div class="guess-response__message">
+          <div class="guess-response__message__exclaimation">
+            <%= messageExcl %>
+          </div>
+          <div class="guess-response__message__next">
+            <%= messageNext %>
+          </div>
+        </div>
+        <% if (hasPoints) { %>
+          <div class="guess-response__points">
+            <%= messagePoints %> <span class="guess-response__points__figure"><%= points %></span> points!
+          </div>
+        <% } %>
+        <div class="guess-response__action">
+          <a class="guess-response__action__btn js-dismiss-guess-response" href="#">
+            <%= action %>
+          </a>
+        </div>
+      </div>
+
     </script>
 
     <script type="text/html" id="modal-template">

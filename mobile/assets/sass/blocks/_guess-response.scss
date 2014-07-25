@@ -1,5 +1,54 @@
+.guess-response-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    z-index: 10000;
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
 .guess-response {
+    position: relative;
     width: 80%;
     height: 200px;
-    margin: 0 auto;
+    margin: 140px auto 0 auto;
+    background-image: url('/assets/img/bgpic.jpg');
+    border: 2px solid #fff;
+    border-radius: 10px;
+}
+
+.guess-response__message {
+    padding: 10px;
+    text-align: center;
+}
+
+.guess-response__message__exclaimation {
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.guess-response__points {
+    padding: 10px;
+    text-align: center;
+    font-size: 18px;
+}
+
+.guess-response__points__figure {
+    color: $quizzle-highlight;
+    font-weight: bold;
+}
+
+.guess-response__action {
+    position: absolute;
+    bottom: 10px;
+    width: 100%;
+    text-align: center;
+}
+
+.guess-response__action__btn {
+    @extend .btn;
+    @extend .btn-default;
+    border-radius: 0;
+    font-weight: bold;
 }

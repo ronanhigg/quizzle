@@ -13,38 +13,26 @@ define([
 
     return Backbone.View.extend({
 
-        className: 'guess-response',
+        className: 'guess-response-container',
         template: App.getTemplate('guess-response'),
 
         initialize: function (options) {
-            this.listenTo(App.EventBus, 'guess:response', this._showMessage);
+            console.log(options);
         },
 
         render: function () {
-            this.$el.html(this.template({
-                message: this.message
-            }));
+            var $el = this.$el;
+
+            this.options.hasPoints = this.options.points !== undefined;
+
+            $el.html(this.template(this.options));
+
+            $el.find('.js-dismiss-guess-response').on('click', function () {
+                $el.remove();
+                return false;
+            });
+
             return this;
-        },
-
-        _showMessage: function (message) {
-            var _this = this;
-
-            console.log(message);
-
-            this.$el.html(message);
-            this.$el.css('display', 'block')
-            this.$el.animate({
-                'opacity': 1
-            }, 200);
-
-            setTimeout(function () {
-                _this.$el.animate({
-                    'opacity': 0
-                }, 400, function () {
-                    _this.$el.css('display', 'none');
-                });
-            }, 2000);
         }
 
     });
