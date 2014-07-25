@@ -1,0 +1,52 @@
+.popup-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    z-index: 10000;
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
+.popup {
+    position: relative;
+    width: 80%;
+    height: 200px;
+    margin: 140px auto 0 auto;
+    background-image: url('/assets/img/bgpic.jpg');
+    border: 2px solid #fff;
+    border-radius: 10px;
+}
+
+.popup__content {
+    padding: 10px;
+    text-align: center;
+}
+
+.popup__content__title {
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.popup__content__text {
+    margin-top: 20px;
+}
+
+.popup__content__highlight {
+    color: $quizzle-highlight;
+    font-weight: bold;
+}
+
+.popup__action {
+    position: absolute;
+    bottom: 10px;
+    width: 100%;
+    text-align: center;
+}
+
+.popup__action__btn {
+    @extend .btn;
+    @extend .btn-default;
+    border-radius: 0;
+    font-weight: bold;
+}

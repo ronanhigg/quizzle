@@ -4460,12 +4460,13 @@ table {
   }
 
   /* line 87, ../../../../../opt/vagrant_ruby/lib/ruby/gems/1.8/gems/bootstrap-sass-3.0.3.0/vendor/assets/stylesheets/bootstrap/_print.scss */
-  .btn > .caret, .action > .caret, .answer__btn > .caret, .error-message__read-more > .caret, .guess-response__action__btn > .caret,
+  .btn > .caret, .action > .caret, .answer__btn > .caret, .error-message__read-more > .caret, .guess-response__action__btn > .caret, .popup__action__btn > .caret,
   .dropup > .btn > .caret,
   .dropup > .action > .caret,
   .dropup > .answer__btn > .caret,
   .dropup > .error-message__read-more > .caret,
-  .dropup > .guess-response__action__btn > .caret {
+  .dropup > .guess-response__action__btn > .caret,
+  .dropup > .popup__action__btn > .caret {
     border-top-color: #000 !important;
   }
 
@@ -6551,7 +6552,8 @@ input[type="checkbox"],
 .input-group-sm > .input-group-btn > .action,
 .input-group-sm > .input-group-btn > .answer__btn,
 .input-group-sm > .input-group-btn > .error-message__read-more,
-.input-group-sm > .input-group-btn > .guess-response__action__btn {
+.input-group-sm > .input-group-btn > .guess-response__action__btn,
+.input-group-sm > .input-group-btn > .popup__action__btn {
   height: 30px;
   padding: 5px 10px;
   font-size: 12px;
@@ -6566,7 +6568,8 @@ select.input-sm, .input-group-sm > select.form-control,
 .input-group-sm > .input-group-btn > select.action,
 .input-group-sm > .input-group-btn > select.answer__btn,
 .input-group-sm > .input-group-btn > select.error-message__read-more,
-.input-group-sm > .input-group-btn > select.guess-response__action__btn {
+.input-group-sm > .input-group-btn > select.guess-response__action__btn,
+.input-group-sm > .input-group-btn > select.popup__action__btn {
   height: 30px;
   line-height: 30px;
 }
@@ -6578,7 +6581,8 @@ textarea.input-sm, .input-group-sm > textarea.form-control,
 .input-group-sm > .input-group-btn > textarea.action,
 .input-group-sm > .input-group-btn > textarea.answer__btn,
 .input-group-sm > .input-group-btn > textarea.error-message__read-more,
-.input-group-sm > .input-group-btn > textarea.guess-response__action__btn {
+.input-group-sm > .input-group-btn > textarea.guess-response__action__btn,
+.input-group-sm > .input-group-btn > textarea.popup__action__btn {
   height: auto;
 }
 
@@ -6589,7 +6593,8 @@ textarea.input-sm, .input-group-sm > textarea.form-control,
 .input-group-lg > .input-group-btn > .action,
 .input-group-lg > .input-group-btn > .answer__btn,
 .input-group-lg > .input-group-btn > .error-message__read-more,
-.input-group-lg > .input-group-btn > .guess-response__action__btn {
+.input-group-lg > .input-group-btn > .guess-response__action__btn,
+.input-group-lg > .input-group-btn > .popup__action__btn {
   height: 46px;
   padding: 10px 16px;
   font-size: 18px;
@@ -6604,7 +6609,8 @@ select.input-lg, .input-group-lg > select.form-control,
 .input-group-lg > .input-group-btn > select.action,
 .input-group-lg > .input-group-btn > select.answer__btn,
 .input-group-lg > .input-group-btn > select.error-message__read-more,
-.input-group-lg > .input-group-btn > select.guess-response__action__btn {
+.input-group-lg > .input-group-btn > select.guess-response__action__btn,
+.input-group-lg > .input-group-btn > select.popup__action__btn {
   height: 46px;
   line-height: 46px;
 }
@@ -6616,7 +6622,8 @@ textarea.input-lg, .input-group-lg > textarea.form-control,
 .input-group-lg > .input-group-btn > textarea.action,
 .input-group-lg > .input-group-btn > textarea.answer__btn,
 .input-group-lg > .input-group-btn > textarea.error-message__read-more,
-.input-group-lg > .input-group-btn > textarea.guess-response__action__btn {
+.input-group-lg > .input-group-btn > textarea.guess-response__action__btn,
+.input-group-lg > .input-group-btn > textarea.popup__action__btn {
   height: auto;
 }
 
@@ -6791,7 +6798,7 @@ textarea.input-lg, .input-group-lg > textarea.form-control,
 }
 
 /* line 9, ../../../../../opt/vagrant_ruby/lib/ruby/gems/1.8/gems/bootstrap-sass-3.0.3.0/vendor/assets/stylesheets/bootstrap/_buttons.scss */
-.btn, .action, .answer__btn, .error-message__read-more, .guess-response__action__btn {
+.btn, .action, .answer__btn, .error-message__read-more, .guess-response__action__btn, .popup__action__btn {
   display: inline-block;
   margin-bottom: 0;
   font-weight: normal;
@@ -6812,25 +6819,25 @@ textarea.input-lg, .input-group-lg > textarea.form-control,
   user-select: none;
 }
 /* line 22, ../../../../../opt/vagrant_ruby/lib/ruby/gems/1.8/gems/bootstrap-sass-3.0.3.0/vendor/assets/stylesheets/bootstrap/_buttons.scss */
-.btn:focus, .action:focus, .answer__btn:focus, .error-message__read-more:focus, .guess-response__action__btn:focus {
+.btn:focus, .action:focus, .answer__btn:focus, .error-message__read-more:focus, .guess-response__action__btn:focus, .popup__action__btn:focus {
   outline: thin dotted;
   outline: 5px auto -webkit-focus-ring-color;
   outline-offset: -2px;
 }
 /* line 27, ../../../../../opt/vagrant_ruby/lib/ruby/gems/1.8/gems/bootstrap-sass-3.0.3.0/vendor/assets/stylesheets/bootstrap/_buttons.scss */
-.btn:hover, .action:hover, .answer__btn:hover, .error-message__read-more:hover, .guess-response__action__btn:hover, .btn:focus, .action:focus, .answer__btn:focus, .error-message__read-more:focus, .guess-response__action__btn:focus {
+.btn:hover, .action:hover, .answer__btn:hover, .error-message__read-more:hover, .guess-response__action__btn:hover, .popup__action__btn:hover, .btn:focus, .action:focus, .answer__btn:focus, .error-message__read-more:focus, .guess-response__action__btn:focus, .popup__action__btn:focus {
   color: #333333;
   text-decoration: none;
 }
 /* line 33, ../../../../../opt/vagrant_ruby/lib/ruby/gems/1.8/gems/bootstrap-sass-3.0.3.0/vendor/assets/stylesheets/bootstrap/_buttons.scss */
-.btn:active, .action:active, .answer__btn:active, .error-message__read-more:active, .guess-response__action__btn:active, .btn.active, .active.action, .active.answer__btn, .active.error-message__read-more, .active.guess-response__action__btn {
+.btn:active, .action:active, .answer__btn:active, .error-message__read-more:active, .guess-response__action__btn:active, .popup__action__btn:active, .btn.active, .active.action, .active.answer__btn, .active.error-message__read-more, .active.guess-response__action__btn, .active.popup__action__btn {
   outline: 0;
   background-image: none;
   -webkit-box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
   box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
 }
 /* line 41, ../../../../../opt/vagrant_ruby/lib/ruby/gems/1.8/gems/bootstrap-sass-3.0.3.0/vendor/assets/stylesheets/bootstrap/_buttons.scss */
-.btn.disabled, .disabled.action, .disabled.answer__btn, .disabled.error-message__read-more, .disabled.guess-response__action__btn, .btn[disabled], [disabled].action, [disabled].answer__btn, [disabled].error-message__read-more, [disabled].guess-response__action__btn, fieldset[disabled] .btn, fieldset[disabled] .action, fieldset[disabled] .answer__btn, fieldset[disabled] .error-message__read-more, fieldset[disabled] .guess-response__action__btn {
+.btn.disabled, .disabled.action, .disabled.answer__btn, .disabled.error-message__read-more, .disabled.guess-response__action__btn, .disabled.popup__action__btn, .btn[disabled], [disabled].action, [disabled].answer__btn, [disabled].error-message__read-more, [disabled].guess-response__action__btn, [disabled].popup__action__btn, fieldset[disabled] .btn, fieldset[disabled] .action, fieldset[disabled] .answer__btn, fieldset[disabled] .error-message__read-more, fieldset[disabled] .guess-response__action__btn, fieldset[disabled] .popup__action__btn {
   cursor: not-allowed;
   pointer-events: none;
   opacity: 0.65;
@@ -6840,38 +6847,38 @@ textarea.input-lg, .input-group-lg > textarea.form-control,
 }
 
 /* line 53, ../../../../../opt/vagrant_ruby/lib/ruby/gems/1.8/gems/bootstrap-sass-3.0.3.0/vendor/assets/stylesheets/bootstrap/_buttons.scss */
-.btn-default, .action, .answer__btn, .guess-response__action__btn {
+.btn-default, .action, .answer__btn, .guess-response__action__btn, .popup__action__btn {
   color: #333333;
   background-color: white;
   border-color: #cccccc;
 }
 /* line 451, ../../../../../opt/vagrant_ruby/lib/ruby/gems/1.8/gems/bootstrap-sass-3.0.3.0/vendor/assets/stylesheets/bootstrap/_mixins.scss */
-.btn-default:hover, .action:hover, .answer__btn:hover, .guess-response__action__btn:hover, .btn-default:focus, .action:focus, .answer__btn:focus, .guess-response__action__btn:focus, .btn-default:active, .action:active, .answer__btn:active, .guess-response__action__btn:active, .btn-default.active, .active.action, .active.answer__btn, .active.guess-response__action__btn {
+.btn-default:hover, .action:hover, .answer__btn:hover, .guess-response__action__btn:hover, .popup__action__btn:hover, .btn-default:focus, .action:focus, .answer__btn:focus, .guess-response__action__btn:focus, .popup__action__btn:focus, .btn-default:active, .action:active, .answer__btn:active, .guess-response__action__btn:active, .popup__action__btn:active, .btn-default.active, .active.action, .active.answer__btn, .active.guess-response__action__btn, .active.popup__action__btn {
   color: #333333;
   background-color: #ebebeb;
   border-color: #adadad;
 }
 /* line 456, ../../../../../opt/vagrant_ruby/lib/ruby/gems/1.8/gems/bootstrap-sass-3.0.3.0/vendor/assets/stylesheets/bootstrap/_mixins.scss */
-.open .btn-default.dropdown-toggle, .open .dropdown-toggle.action, .open .dropdown-toggle.answer__btn, .open .dropdown-toggle.guess-response__action__btn {
+.open .btn-default.dropdown-toggle, .open .dropdown-toggle.action, .open .dropdown-toggle.answer__btn, .open .dropdown-toggle.guess-response__action__btn, .open .dropdown-toggle.popup__action__btn {
   color: #333333;
   background-color: #ebebeb;
   border-color: #adadad;
 }
 /* line 462, ../../../../../opt/vagrant_ruby/lib/ruby/gems/1.8/gems/bootstrap-sass-3.0.3.0/vendor/assets/stylesheets/bootstrap/_mixins.scss */
-.btn-default:active, .action:active, .answer__btn:active, .guess-response__action__btn:active, .btn-default.active, .active.action, .active.answer__btn, .active.guess-response__action__btn {
+.btn-default:active, .action:active, .answer__btn:active, .guess-response__action__btn:active, .popup__action__btn:active, .btn-default.active, .active.action, .active.answer__btn, .active.guess-response__action__btn, .active.popup__action__btn {
   background-image: none;
 }
 /* line 465, ../../../../../opt/vagrant_ruby/lib/ruby/gems/1.8/gems/bootstrap-sass-3.0.3.0/vendor/assets/stylesheets/bootstrap/_mixins.scss */
-.open .btn-default.dropdown-toggle, .open .dropdown-toggle.action, .open .dropdown-toggle.answer__btn, .open .dropdown-toggle.guess-response__action__btn {
+.open .btn-default.dropdown-toggle, .open .dropdown-toggle.action, .open .dropdown-toggle.answer__btn, .open .dropdown-toggle.guess-response__action__btn, .open .dropdown-toggle.popup__action__btn {
   background-image: none;
 }
 /* line 475, ../../../../../opt/vagrant_ruby/lib/ruby/gems/1.8/gems/bootstrap-sass-3.0.3.0/vendor/assets/stylesheets/bootstrap/_mixins.scss */
-.btn-default.disabled, .disabled.action, .disabled.answer__btn, .disabled.guess-response__action__btn, .btn-default.disabled:hover, .disabled.action:hover, .disabled.answer__btn:hover, .disabled.guess-response__action__btn:hover, .btn-default.disabled:focus, .disabled.action:focus, .disabled.answer__btn:focus, .disabled.guess-response__action__btn:focus, .btn-default.disabled:active, .disabled.action:active, .disabled.answer__btn:active, .disabled.guess-response__action__btn:active, .btn-default.disabled.active, .disabled.active.action, .disabled.active.answer__btn, .disabled.active.guess-response__action__btn, .btn-default[disabled], [disabled].action, [disabled].answer__btn, [disabled].guess-response__action__btn, .btn-default[disabled]:hover, [disabled].action:hover, [disabled].answer__btn:hover, [disabled].guess-response__action__btn:hover, .btn-default[disabled]:focus, [disabled].action:focus, [disabled].answer__btn:focus, [disabled].guess-response__action__btn:focus, .btn-default[disabled]:active, [disabled].action:active, [disabled].answer__btn:active, [disabled].guess-response__action__btn:active, .btn-default[disabled].active, [disabled].active.action, [disabled].active.answer__btn, [disabled].active.guess-response__action__btn, fieldset[disabled] .btn-default, fieldset[disabled] .action, fieldset[disabled] .answer__btn, fieldset[disabled] .guess-response__action__btn, fieldset[disabled] .btn-default:hover, fieldset[disabled] .action:hover, fieldset[disabled] .answer__btn:hover, fieldset[disabled] .guess-response__action__btn:hover, fieldset[disabled] .btn-default:focus, fieldset[disabled] .action:focus, fieldset[disabled] .answer__btn:focus, fieldset[disabled] .guess-response__action__btn:focus, fieldset[disabled] .btn-default:active, fieldset[disabled] .action:active, fieldset[disabled] .answer__btn:active, fieldset[disabled] .guess-response__action__btn:active, fieldset[disabled] .btn-default.active, fieldset[disabled] .active.action, fieldset[disabled] .active.answer__btn, fieldset[disabled] .active.guess-response__action__btn {
+.btn-default.disabled, .disabled.action, .disabled.answer__btn, .disabled.guess-response__action__btn, .disabled.popup__action__btn, .btn-default.disabled:hover, .disabled.action:hover, .disabled.answer__btn:hover, .disabled.guess-response__action__btn:hover, .disabled.popup__action__btn:hover, .btn-default.disabled:focus, .disabled.action:focus, .disabled.answer__btn:focus, .disabled.guess-response__action__btn:focus, .disabled.popup__action__btn:focus, .btn-default.disabled:active, .disabled.action:active, .disabled.answer__btn:active, .disabled.guess-response__action__btn:active, .disabled.popup__action__btn:active, .btn-default.disabled.active, .disabled.active.action, .disabled.active.answer__btn, .disabled.active.guess-response__action__btn, .disabled.active.popup__action__btn, .btn-default[disabled], [disabled].action, [disabled].answer__btn, [disabled].guess-response__action__btn, [disabled].popup__action__btn, .btn-default[disabled]:hover, [disabled].action:hover, [disabled].answer__btn:hover, [disabled].guess-response__action__btn:hover, [disabled].popup__action__btn:hover, .btn-default[disabled]:focus, [disabled].action:focus, [disabled].answer__btn:focus, [disabled].guess-response__action__btn:focus, [disabled].popup__action__btn:focus, .btn-default[disabled]:active, [disabled].action:active, [disabled].answer__btn:active, [disabled].guess-response__action__btn:active, [disabled].popup__action__btn:active, .btn-default[disabled].active, [disabled].active.action, [disabled].active.answer__btn, [disabled].active.guess-response__action__btn, [disabled].active.popup__action__btn, fieldset[disabled] .btn-default, fieldset[disabled] .action, fieldset[disabled] .answer__btn, fieldset[disabled] .guess-response__action__btn, fieldset[disabled] .popup__action__btn, fieldset[disabled] .btn-default:hover, fieldset[disabled] .action:hover, fieldset[disabled] .answer__btn:hover, fieldset[disabled] .guess-response__action__btn:hover, fieldset[disabled] .popup__action__btn:hover, fieldset[disabled] .btn-default:focus, fieldset[disabled] .action:focus, fieldset[disabled] .answer__btn:focus, fieldset[disabled] .guess-response__action__btn:focus, fieldset[disabled] .popup__action__btn:focus, fieldset[disabled] .btn-default:active, fieldset[disabled] .action:active, fieldset[disabled] .answer__btn:active, fieldset[disabled] .guess-response__action__btn:active, fieldset[disabled] .popup__action__btn:active, fieldset[disabled] .btn-default.active, fieldset[disabled] .active.action, fieldset[disabled] .active.answer__btn, fieldset[disabled] .active.guess-response__action__btn, fieldset[disabled] .active.popup__action__btn {
   background-color: white;
   border-color: #cccccc;
 }
 /* line 481, ../../../../../opt/vagrant_ruby/lib/ruby/gems/1.8/gems/bootstrap-sass-3.0.3.0/vendor/assets/stylesheets/bootstrap/_mixins.scss */
-.btn-default .badge, .action .badge, .answer__btn .badge, .guess-response__action__btn .badge {
+.btn-default .badge, .action .badge, .answer__btn .badge, .guess-response__action__btn .badge, .popup__action__btn .badge {
   color: white;
   background-color: #fff;
 }
@@ -7091,7 +7098,7 @@ textarea.input-lg, .input-group-lg > textarea.form-control,
 }
 
 /* line 120, ../../../../../opt/vagrant_ruby/lib/ruby/gems/1.8/gems/bootstrap-sass-3.0.3.0/vendor/assets/stylesheets/bootstrap/_buttons.scss */
-.btn-lg, .btn-group-lg > .btn, .btn-group-lg > .action, .btn-group-lg > .answer__btn, .btn-group-lg > .error-message__read-more, .btn-group-lg > .guess-response__action__btn {
+.btn-lg, .btn-group-lg > .btn, .btn-group-lg > .action, .btn-group-lg > .answer__btn, .btn-group-lg > .error-message__read-more, .btn-group-lg > .guess-response__action__btn, .btn-group-lg > .popup__action__btn {
   padding: 10px 16px;
   font-size: 18px;
   line-height: 1.33;
@@ -7099,7 +7106,7 @@ textarea.input-lg, .input-group-lg > textarea.form-control,
 }
 
 /* line 124, ../../../../../opt/vagrant_ruby/lib/ruby/gems/1.8/gems/bootstrap-sass-3.0.3.0/vendor/assets/stylesheets/bootstrap/_buttons.scss */
-.btn-sm, .btn-group-sm > .btn, .btn-group-sm > .action, .btn-group-sm > .answer__btn, .btn-group-sm > .error-message__read-more, .btn-group-sm > .guess-response__action__btn {
+.btn-sm, .btn-group-sm > .btn, .btn-group-sm > .action, .btn-group-sm > .answer__btn, .btn-group-sm > .error-message__read-more, .btn-group-sm > .guess-response__action__btn, .btn-group-sm > .popup__action__btn {
   padding: 5px 10px;
   font-size: 12px;
   line-height: 1.5;
@@ -7107,7 +7114,7 @@ textarea.input-lg, .input-group-lg > textarea.form-control,
 }
 
 /* line 128, ../../../../../opt/vagrant_ruby/lib/ruby/gems/1.8/gems/bootstrap-sass-3.0.3.0/vendor/assets/stylesheets/bootstrap/_buttons.scss */
-.btn-xs, .btn-group-xs > .btn, .btn-group-xs > .action, .btn-group-xs > .answer__btn, .btn-group-xs > .guess-response__action__btn, .error-message__read-more {
+.btn-xs, .btn-group-xs > .btn, .btn-group-xs > .action, .btn-group-xs > .answer__btn, .btn-group-xs > .guess-response__action__btn, .btn-group-xs > .popup__action__btn, .error-message__read-more {
   padding: 1px 5px;
   font-size: 12px;
   line-height: 1.5;
@@ -8347,61 +8354,69 @@ input[type="button"].answer__btn {
   vertical-align: middle;
 }
 /* line 11, ../../../../../opt/vagrant_ruby/lib/ruby/gems/1.8/gems/bootstrap-sass-3.0.3.0/vendor/assets/stylesheets/bootstrap/_button-groups.scss */
-.btn-group > .btn, .btn-group > .action, .btn-group > .answer__btn, .btn-group > .error-message__read-more, .btn-group > .guess-response__action__btn,
+.btn-group > .btn, .btn-group > .action, .btn-group > .answer__btn, .btn-group > .error-message__read-more, .btn-group > .guess-response__action__btn, .btn-group > .popup__action__btn,
 .btn-group-vertical > .btn,
 .btn-group-vertical > .action,
 .btn-group-vertical > .answer__btn,
 .btn-group-vertical > .error-message__read-more,
-.btn-group-vertical > .guess-response__action__btn {
+.btn-group-vertical > .guess-response__action__btn,
+.btn-group-vertical > .popup__action__btn {
   position: relative;
   float: left;
 }
 /* line 18, ../../../../../opt/vagrant_ruby/lib/ruby/gems/1.8/gems/bootstrap-sass-3.0.3.0/vendor/assets/stylesheets/bootstrap/_button-groups.scss */
-.btn-group > .btn:hover, .btn-group > .action:hover, .btn-group > .answer__btn:hover, .btn-group > .error-message__read-more:hover, .btn-group > .guess-response__action__btn:hover, .btn-group > .btn:focus, .btn-group > .action:focus, .btn-group > .answer__btn:focus, .btn-group > .error-message__read-more:focus, .btn-group > .guess-response__action__btn:focus, .btn-group > .btn:active, .btn-group > .action:active, .btn-group > .answer__btn:active, .btn-group > .error-message__read-more:active, .btn-group > .guess-response__action__btn:active, .btn-group > .btn.active, .btn-group > .active.action, .btn-group > .active.answer__btn, .btn-group > .active.error-message__read-more, .btn-group > .active.guess-response__action__btn,
+.btn-group > .btn:hover, .btn-group > .action:hover, .btn-group > .answer__btn:hover, .btn-group > .error-message__read-more:hover, .btn-group > .guess-response__action__btn:hover, .btn-group > .popup__action__btn:hover, .btn-group > .btn:focus, .btn-group > .action:focus, .btn-group > .answer__btn:focus, .btn-group > .error-message__read-more:focus, .btn-group > .guess-response__action__btn:focus, .btn-group > .popup__action__btn:focus, .btn-group > .btn:active, .btn-group > .action:active, .btn-group > .answer__btn:active, .btn-group > .error-message__read-more:active, .btn-group > .guess-response__action__btn:active, .btn-group > .popup__action__btn:active, .btn-group > .btn.active, .btn-group > .active.action, .btn-group > .active.answer__btn, .btn-group > .active.error-message__read-more, .btn-group > .active.guess-response__action__btn, .btn-group > .active.popup__action__btn,
 .btn-group-vertical > .btn:hover,
 .btn-group-vertical > .action:hover,
 .btn-group-vertical > .answer__btn:hover,
 .btn-group-vertical > .error-message__read-more:hover,
 .btn-group-vertical > .guess-response__action__btn:hover,
+.btn-group-vertical > .popup__action__btn:hover,
 .btn-group-vertical > .btn:focus,
 .btn-group-vertical > .action:focus,
 .btn-group-vertical > .answer__btn:focus,
 .btn-group-vertical > .error-message__read-more:focus,
 .btn-group-vertical > .guess-response__action__btn:focus,
+.btn-group-vertical > .popup__action__btn:focus,
 .btn-group-vertical > .btn:active,
 .btn-group-vertical > .action:active,
 .btn-group-vertical > .answer__btn:active,
 .btn-group-vertical > .error-message__read-more:active,
 .btn-group-vertical > .guess-response__action__btn:active,
+.btn-group-vertical > .popup__action__btn:active,
 .btn-group-vertical > .btn.active,
 .btn-group-vertical > .active.action,
 .btn-group-vertical > .active.answer__btn,
 .btn-group-vertical > .active.error-message__read-more,
-.btn-group-vertical > .active.guess-response__action__btn {
+.btn-group-vertical > .active.guess-response__action__btn,
+.btn-group-vertical > .active.popup__action__btn {
   z-index: 2;
 }
 /* line 21, ../../../../../opt/vagrant_ruby/lib/ruby/gems/1.8/gems/bootstrap-sass-3.0.3.0/vendor/assets/stylesheets/bootstrap/_button-groups.scss */
-.btn-group > .btn:focus, .btn-group > .action:focus, .btn-group > .answer__btn:focus, .btn-group > .error-message__read-more:focus, .btn-group > .guess-response__action__btn:focus,
+.btn-group > .btn:focus, .btn-group > .action:focus, .btn-group > .answer__btn:focus, .btn-group > .error-message__read-more:focus, .btn-group > .guess-response__action__btn:focus, .btn-group > .popup__action__btn:focus,
 .btn-group-vertical > .btn:focus,
 .btn-group-vertical > .action:focus,
 .btn-group-vertical > .answer__btn:focus,
 .btn-group-vertical > .error-message__read-more:focus,
-.btn-group-vertical > .guess-response__action__btn:focus {
+.btn-group-vertical > .guess-response__action__btn:focus,
+.btn-group-vertical > .popup__action__btn:focus {
   outline: none;
 }
 
 /* line 33, ../../../../../opt/vagrant_ruby/lib/ruby/gems/1.8/gems/bootstrap-sass-3.0.3.0/vendor/assets/stylesheets/bootstrap/_button-groups.scss */
-.btn-group .btn + .btn, .btn-group .action + .btn, .btn-group .answer__btn + .btn, .btn-group .error-message__read-more + .btn, .btn-group .guess-response__action__btn + .btn, .btn-group .btn + .action, .btn-group .action + .action, .btn-group .answer__btn + .action, .btn-group .error-message__read-more + .action, .btn-group .guess-response__action__btn + .action, .btn-group .btn + .answer__btn, .btn-group .action + .answer__btn, .btn-group .answer__btn + .answer__btn, .btn-group .error-message__read-more + .answer__btn, .btn-group .guess-response__action__btn + .answer__btn, .btn-group .btn + .error-message__read-more, .btn-group .action + .error-message__read-more, .btn-group .answer__btn + .error-message__read-more, .btn-group .error-message__read-more + .error-message__read-more, .btn-group .guess-response__action__btn + .error-message__read-more, .btn-group .btn + .guess-response__action__btn, .btn-group .action + .guess-response__action__btn, .btn-group .answer__btn + .guess-response__action__btn, .btn-group .error-message__read-more + .guess-response__action__btn, .btn-group .guess-response__action__btn + .guess-response__action__btn,
+.btn-group .btn + .btn, .btn-group .action + .btn, .btn-group .answer__btn + .btn, .btn-group .error-message__read-more + .btn, .btn-group .guess-response__action__btn + .btn, .btn-group .popup__action__btn + .btn, .btn-group .btn + .action, .btn-group .action + .action, .btn-group .answer__btn + .action, .btn-group .error-message__read-more + .action, .btn-group .guess-response__action__btn + .action, .btn-group .popup__action__btn + .action, .btn-group .btn + .answer__btn, .btn-group .action + .answer__btn, .btn-group .answer__btn + .answer__btn, .btn-group .error-message__read-more + .answer__btn, .btn-group .guess-response__action__btn + .answer__btn, .btn-group .popup__action__btn + .answer__btn, .btn-group .btn + .error-message__read-more, .btn-group .action + .error-message__read-more, .btn-group .answer__btn + .error-message__read-more, .btn-group .error-message__read-more + .error-message__read-more, .btn-group .guess-response__action__btn + .error-message__read-more, .btn-group .popup__action__btn + .error-message__read-more, .btn-group .btn + .guess-response__action__btn, .btn-group .action + .guess-response__action__btn, .btn-group .answer__btn + .guess-response__action__btn, .btn-group .error-message__read-more + .guess-response__action__btn, .btn-group .guess-response__action__btn + .guess-response__action__btn, .btn-group .popup__action__btn + .guess-response__action__btn, .btn-group .btn + .popup__action__btn, .btn-group .action + .popup__action__btn, .btn-group .answer__btn + .popup__action__btn, .btn-group .error-message__read-more + .popup__action__btn, .btn-group .guess-response__action__btn + .popup__action__btn, .btn-group .popup__action__btn + .popup__action__btn,
 .btn-group .btn + .btn-group,
 .btn-group .action + .btn-group,
 .btn-group .answer__btn + .btn-group,
 .btn-group .error-message__read-more + .btn-group,
 .btn-group .guess-response__action__btn + .btn-group,
+.btn-group .popup__action__btn + .btn-group,
 .btn-group .btn-group + .btn,
 .btn-group .btn-group + .action,
 .btn-group .btn-group + .answer__btn,
 .btn-group .btn-group + .error-message__read-more,
 .btn-group .btn-group + .guess-response__action__btn,
+.btn-group .btn-group + .popup__action__btn,
 .btn-group .btn-group + .btn-group {
   margin-left: -1px;
 }
@@ -8420,38 +8435,40 @@ input[type="button"].answer__btn {
   float: left;
 }
 /* line 49, ../../../../../opt/vagrant_ruby/lib/ruby/gems/1.8/gems/bootstrap-sass-3.0.3.0/vendor/assets/stylesheets/bootstrap/_button-groups.scss */
-.btn-toolbar > .btn + .btn, .btn-toolbar > .action + .btn, .btn-toolbar > .answer__btn + .btn, .btn-toolbar > .error-message__read-more + .btn, .btn-toolbar > .guess-response__action__btn + .btn, .btn-toolbar > .btn + .action, .btn-toolbar > .action + .action, .btn-toolbar > .answer__btn + .action, .btn-toolbar > .error-message__read-more + .action, .btn-toolbar > .guess-response__action__btn + .action, .btn-toolbar > .btn + .answer__btn, .btn-toolbar > .action + .answer__btn, .btn-toolbar > .answer__btn + .answer__btn, .btn-toolbar > .error-message__read-more + .answer__btn, .btn-toolbar > .guess-response__action__btn + .answer__btn, .btn-toolbar > .btn + .error-message__read-more, .btn-toolbar > .action + .error-message__read-more, .btn-toolbar > .answer__btn + .error-message__read-more, .btn-toolbar > .error-message__read-more + .error-message__read-more, .btn-toolbar > .guess-response__action__btn + .error-message__read-more, .btn-toolbar > .btn + .guess-response__action__btn, .btn-toolbar > .action + .guess-response__action__btn, .btn-toolbar > .answer__btn + .guess-response__action__btn, .btn-toolbar > .error-message__read-more + .guess-response__action__btn, .btn-toolbar > .guess-response__action__btn + .guess-response__action__btn,
+.btn-toolbar > .btn + .btn, .btn-toolbar > .action + .btn, .btn-toolbar > .answer__btn + .btn, .btn-toolbar > .error-message__read-more + .btn, .btn-toolbar > .guess-response__action__btn + .btn, .btn-toolbar > .popup__action__btn + .btn, .btn-toolbar > .btn + .action, .btn-toolbar > .action + .action, .btn-toolbar > .answer__btn + .action, .btn-toolbar > .error-message__read-more + .action, .btn-toolbar > .guess-response__action__btn + .action, .btn-toolbar > .popup__action__btn + .action, .btn-toolbar > .btn + .answer__btn, .btn-toolbar > .action + .answer__btn, .btn-toolbar > .answer__btn + .answer__btn, .btn-toolbar > .error-message__read-more + .answer__btn, .btn-toolbar > .guess-response__action__btn + .answer__btn, .btn-toolbar > .popup__action__btn + .answer__btn, .btn-toolbar > .btn + .error-message__read-more, .btn-toolbar > .action + .error-message__read-more, .btn-toolbar > .answer__btn + .error-message__read-more, .btn-toolbar > .error-message__read-more + .error-message__read-more, .btn-toolbar > .guess-response__action__btn + .error-message__read-more, .btn-toolbar > .popup__action__btn + .error-message__read-more, .btn-toolbar > .btn + .guess-response__action__btn, .btn-toolbar > .action + .guess-response__action__btn, .btn-toolbar > .answer__btn + .guess-response__action__btn, .btn-toolbar > .error-message__read-more + .guess-response__action__btn, .btn-toolbar > .guess-response__action__btn + .guess-response__action__btn, .btn-toolbar > .popup__action__btn + .guess-response__action__btn, .btn-toolbar > .btn + .popup__action__btn, .btn-toolbar > .action + .popup__action__btn, .btn-toolbar > .answer__btn + .popup__action__btn, .btn-toolbar > .error-message__read-more + .popup__action__btn, .btn-toolbar > .guess-response__action__btn + .popup__action__btn, .btn-toolbar > .popup__action__btn + .popup__action__btn,
 .btn-toolbar > .btn + .btn-group,
 .btn-toolbar > .action + .btn-group,
 .btn-toolbar > .answer__btn + .btn-group,
 .btn-toolbar > .error-message__read-more + .btn-group,
 .btn-toolbar > .guess-response__action__btn + .btn-group,
+.btn-toolbar > .popup__action__btn + .btn-group,
 .btn-toolbar > .btn-group + .btn,
 .btn-toolbar > .btn-group + .action,
 .btn-toolbar > .btn-group + .answer__btn,
 .btn-toolbar > .btn-group + .error-message__read-more,
 .btn-toolbar > .btn-group + .guess-response__action__btn,
+.btn-toolbar > .btn-group + .popup__action__btn,
 .btn-toolbar > .btn-group + .btn-group {
   margin-left: 5px;
 }
 
 /* line 55, ../../../../../opt/vagrant_ruby/lib/ruby/gems/1.8/gems/bootstrap-sass-3.0.3.0/vendor/assets/stylesheets/bootstrap/_button-groups.scss */
-.btn-group > .btn:not(:first-child):not(:last-child):not(.dropdown-toggle), .btn-group > .action:not(:first-child):not(:last-child):not(.dropdown-toggle), .btn-group > .answer__btn:not(:first-child):not(:last-child):not(.dropdown-toggle), .btn-group > .error-message__read-more:not(:first-child):not(:last-child):not(.dropdown-toggle), .btn-group > .guess-response__action__btn:not(:first-child):not(:last-child):not(.dropdown-toggle) {
+.btn-group > .btn:not(:first-child):not(:last-child):not(.dropdown-toggle), .btn-group > .action:not(:first-child):not(:last-child):not(.dropdown-toggle), .btn-group > .answer__btn:not(:first-child):not(:last-child):not(.dropdown-toggle), .btn-group > .error-message__read-more:not(:first-child):not(:last-child):not(.dropdown-toggle), .btn-group > .guess-response__action__btn:not(:first-child):not(:last-child):not(.dropdown-toggle), .btn-group > .popup__action__btn:not(:first-child):not(:last-child):not(.dropdown-toggle) {
   border-radius: 0;
 }
 
 /* line 60, ../../../../../opt/vagrant_ruby/lib/ruby/gems/1.8/gems/bootstrap-sass-3.0.3.0/vendor/assets/stylesheets/bootstrap/_button-groups.scss */
-.btn-group > .btn:first-child, .btn-group > .action:first-child, .btn-group > .answer__btn:first-child, .btn-group > .error-message__read-more:first-child, .btn-group > .guess-response__action__btn:first-child {
+.btn-group > .btn:first-child, .btn-group > .action:first-child, .btn-group > .answer__btn:first-child, .btn-group > .error-message__read-more:first-child, .btn-group > .guess-response__action__btn:first-child, .btn-group > .popup__action__btn:first-child {
   margin-left: 0;
 }
 /* line 62, ../../../../../opt/vagrant_ruby/lib/ruby/gems/1.8/gems/bootstrap-sass-3.0.3.0/vendor/assets/stylesheets/bootstrap/_button-groups.scss */
-.btn-group > .btn:first-child:not(:last-child):not(.dropdown-toggle), .btn-group > .action:first-child:not(:last-child):not(.dropdown-toggle), .btn-group > .answer__btn:first-child:not(:last-child):not(.dropdown-toggle), .btn-group > .error-message__read-more:first-child:not(:last-child):not(.dropdown-toggle), .btn-group > .guess-response__action__btn:first-child:not(:last-child):not(.dropdown-toggle) {
+.btn-group > .btn:first-child:not(:last-child):not(.dropdown-toggle), .btn-group > .action:first-child:not(:last-child):not(.dropdown-toggle), .btn-group > .answer__btn:first-child:not(:last-child):not(.dropdown-toggle), .btn-group > .error-message__read-more:first-child:not(:last-child):not(.dropdown-toggle), .btn-group > .guess-response__action__btn:first-child:not(:last-child):not(.dropdown-toggle), .btn-group > .popup__action__btn:first-child:not(:last-child):not(.dropdown-toggle) {
   border-bottom-right-radius: 0;
   border-top-right-radius: 0;
 }
 
 /* line 68, ../../../../../opt/vagrant_ruby/lib/ruby/gems/1.8/gems/bootstrap-sass-3.0.3.0/vendor/assets/stylesheets/bootstrap/_button-groups.scss */
-.btn-group > .btn:last-child:not(:first-child), .btn-group > .action:last-child:not(:first-child), .btn-group > .answer__btn:last-child:not(:first-child), .btn-group > .error-message__read-more:last-child:not(:first-child), .btn-group > .guess-response__action__btn:last-child:not(:first-child),
+.btn-group > .btn:last-child:not(:first-child), .btn-group > .action:last-child:not(:first-child), .btn-group > .answer__btn:last-child:not(:first-child), .btn-group > .error-message__read-more:last-child:not(:first-child), .btn-group > .guess-response__action__btn:last-child:not(:first-child), .btn-group > .popup__action__btn:last-child:not(:first-child),
 .btn-group > .dropdown-toggle:not(:first-child) {
   border-bottom-left-radius: 0;
   border-top-left-radius: 0;
@@ -8463,19 +8480,19 @@ input[type="button"].answer__btn {
 }
 
 /* line 76, ../../../../../opt/vagrant_ruby/lib/ruby/gems/1.8/gems/bootstrap-sass-3.0.3.0/vendor/assets/stylesheets/bootstrap/_button-groups.scss */
-.btn-group > .btn-group:not(:first-child):not(:last-child) > .btn, .btn-group > .btn-group:not(:first-child):not(:last-child) > .action, .btn-group > .btn-group:not(:first-child):not(:last-child) > .answer__btn, .btn-group > .btn-group:not(:first-child):not(:last-child) > .error-message__read-more, .btn-group > .btn-group:not(:first-child):not(:last-child) > .guess-response__action__btn {
+.btn-group > .btn-group:not(:first-child):not(:last-child) > .btn, .btn-group > .btn-group:not(:first-child):not(:last-child) > .action, .btn-group > .btn-group:not(:first-child):not(:last-child) > .answer__btn, .btn-group > .btn-group:not(:first-child):not(:last-child) > .error-message__read-more, .btn-group > .btn-group:not(:first-child):not(:last-child) > .guess-response__action__btn, .btn-group > .btn-group:not(:first-child):not(:last-child) > .popup__action__btn {
   border-radius: 0;
 }
 
 /* line 81, ../../../../../opt/vagrant_ruby/lib/ruby/gems/1.8/gems/bootstrap-sass-3.0.3.0/vendor/assets/stylesheets/bootstrap/_button-groups.scss */
-.btn-group > .btn-group:first-child > .btn:last-child, .btn-group > .btn-group:first-child > .action:last-child, .btn-group > .btn-group:first-child > .answer__btn:last-child, .btn-group > .btn-group:first-child > .error-message__read-more:last-child, .btn-group > .btn-group:first-child > .guess-response__action__btn:last-child,
+.btn-group > .btn-group:first-child > .btn:last-child, .btn-group > .btn-group:first-child > .action:last-child, .btn-group > .btn-group:first-child > .answer__btn:last-child, .btn-group > .btn-group:first-child > .error-message__read-more:last-child, .btn-group > .btn-group:first-child > .guess-response__action__btn:last-child, .btn-group > .btn-group:first-child > .popup__action__btn:last-child,
 .btn-group > .btn-group:first-child > .dropdown-toggle {
   border-bottom-right-radius: 0;
   border-top-right-radius: 0;
 }
 
 /* line 85, ../../../../../opt/vagrant_ruby/lib/ruby/gems/1.8/gems/bootstrap-sass-3.0.3.0/vendor/assets/stylesheets/bootstrap/_button-groups.scss */
-.btn-group > .btn-group:last-child > .btn:first-child, .btn-group > .btn-group:last-child > .action:first-child, .btn-group > .btn-group:last-child > .answer__btn:first-child, .btn-group > .btn-group:last-child > .error-message__read-more:first-child, .btn-group > .btn-group:last-child > .guess-response__action__btn:first-child {
+.btn-group > .btn-group:last-child > .btn:first-child, .btn-group > .btn-group:last-child > .action:first-child, .btn-group > .btn-group:last-child > .answer__btn:first-child, .btn-group > .btn-group:last-child > .error-message__read-more:first-child, .btn-group > .btn-group:last-child > .guess-response__action__btn:first-child, .btn-group > .btn-group:last-child > .popup__action__btn:first-child {
   border-bottom-left-radius: 0;
   border-top-left-radius: 0;
 }
@@ -8487,13 +8504,13 @@ input[type="button"].answer__btn {
 }
 
 /* line 109, ../../../../../opt/vagrant_ruby/lib/ruby/gems/1.8/gems/bootstrap-sass-3.0.3.0/vendor/assets/stylesheets/bootstrap/_button-groups.scss */
-.btn-group > .btn + .dropdown-toggle, .btn-group > .action + .dropdown-toggle, .btn-group > .answer__btn + .dropdown-toggle, .btn-group > .error-message__read-more + .dropdown-toggle, .btn-group > .guess-response__action__btn + .dropdown-toggle {
+.btn-group > .btn + .dropdown-toggle, .btn-group > .action + .dropdown-toggle, .btn-group > .answer__btn + .dropdown-toggle, .btn-group > .error-message__read-more + .dropdown-toggle, .btn-group > .guess-response__action__btn + .dropdown-toggle, .btn-group > .popup__action__btn + .dropdown-toggle {
   padding-left: 8px;
   padding-right: 8px;
 }
 
 /* line 113, ../../../../../opt/vagrant_ruby/lib/ruby/gems/1.8/gems/bootstrap-sass-3.0.3.0/vendor/assets/stylesheets/bootstrap/_button-groups.scss */
-.btn-group > .btn-lg + .dropdown-toggle, .btn-group-lg.btn-group > .btn + .dropdown-toggle, .btn-group-lg.btn-group > .action + .dropdown-toggle, .btn-group-lg.btn-group > .answer__btn + .dropdown-toggle, .btn-group-lg.btn-group > .error-message__read-more + .dropdown-toggle, .btn-group-lg.btn-group > .guess-response__action__btn + .dropdown-toggle {
+.btn-group > .btn-lg + .dropdown-toggle, .btn-group-lg.btn-group > .btn + .dropdown-toggle, .btn-group-lg.btn-group > .action + .dropdown-toggle, .btn-group-lg.btn-group > .answer__btn + .dropdown-toggle, .btn-group-lg.btn-group > .error-message__read-more + .dropdown-toggle, .btn-group-lg.btn-group > .guess-response__action__btn + .dropdown-toggle, .btn-group-lg.btn-group > .popup__action__btn + .dropdown-toggle {
   padding-left: 12px;
   padding-right: 12px;
 }
@@ -8510,29 +8527,30 @@ input[type="button"].answer__btn {
 }
 
 /* line 131, ../../../../../opt/vagrant_ruby/lib/ruby/gems/1.8/gems/bootstrap-sass-3.0.3.0/vendor/assets/stylesheets/bootstrap/_button-groups.scss */
-.btn .caret, .action .caret, .answer__btn .caret, .error-message__read-more .caret, .guess-response__action__btn .caret {
+.btn .caret, .action .caret, .answer__btn .caret, .error-message__read-more .caret, .guess-response__action__btn .caret, .popup__action__btn .caret {
   margin-left: 0;
 }
 
 /* line 135, ../../../../../opt/vagrant_ruby/lib/ruby/gems/1.8/gems/bootstrap-sass-3.0.3.0/vendor/assets/stylesheets/bootstrap/_button-groups.scss */
-.btn-lg .caret, .btn-group-lg > .btn .caret, .btn-group-lg > .action .caret, .btn-group-lg > .answer__btn .caret, .btn-group-lg > .error-message__read-more .caret, .btn-group-lg > .guess-response__action__btn .caret {
+.btn-lg .caret, .btn-group-lg > .btn .caret, .btn-group-lg > .action .caret, .btn-group-lg > .answer__btn .caret, .btn-group-lg > .error-message__read-more .caret, .btn-group-lg > .guess-response__action__btn .caret, .btn-group-lg > .popup__action__btn .caret {
   border-width: 5px 5px 0;
   border-bottom-width: 0;
 }
 
 /* line 140, ../../../../../opt/vagrant_ruby/lib/ruby/gems/1.8/gems/bootstrap-sass-3.0.3.0/vendor/assets/stylesheets/bootstrap/_button-groups.scss */
-.dropup .btn-lg .caret, .dropup .btn-group-lg > .btn .caret, .dropup .btn-group-lg > .action .caret, .dropup .btn-group-lg > .answer__btn .caret, .dropup .btn-group-lg > .error-message__read-more .caret, .dropup .btn-group-lg > .guess-response__action__btn .caret {
+.dropup .btn-lg .caret, .dropup .btn-group-lg > .btn .caret, .dropup .btn-group-lg > .action .caret, .dropup .btn-group-lg > .answer__btn .caret, .dropup .btn-group-lg > .error-message__read-more .caret, .dropup .btn-group-lg > .guess-response__action__btn .caret, .dropup .btn-group-lg > .popup__action__btn .caret {
   border-width: 0 5px 5px;
 }
 
 /* line 151, ../../../../../opt/vagrant_ruby/lib/ruby/gems/1.8/gems/bootstrap-sass-3.0.3.0/vendor/assets/stylesheets/bootstrap/_button-groups.scss */
-.btn-group-vertical > .btn, .btn-group-vertical > .action, .btn-group-vertical > .answer__btn, .btn-group-vertical > .error-message__read-more, .btn-group-vertical > .guess-response__action__btn,
+.btn-group-vertical > .btn, .btn-group-vertical > .action, .btn-group-vertical > .answer__btn, .btn-group-vertical > .error-message__read-more, .btn-group-vertical > .guess-response__action__btn, .btn-group-vertical > .popup__action__btn,
 .btn-group-vertical > .btn-group,
 .btn-group-vertical > .btn-group > .btn,
 .btn-group-vertical > .btn-group > .action,
 .btn-group-vertical > .btn-group > .answer__btn,
 .btn-group-vertical > .btn-group > .error-message__read-more,
-.btn-group-vertical > .btn-group > .guess-response__action__btn {
+.btn-group-vertical > .btn-group > .guess-response__action__btn,
+.btn-group-vertical > .btn-group > .popup__action__btn {
   display: block;
   float: none;
   width: 100%;
@@ -8548,57 +8566,59 @@ input[type="button"].answer__btn {
   clear: both;
 }
 /* line 161, ../../../../../opt/vagrant_ruby/lib/ruby/gems/1.8/gems/bootstrap-sass-3.0.3.0/vendor/assets/stylesheets/bootstrap/_button-groups.scss */
-.btn-group-vertical > .btn-group > .btn, .btn-group-vertical > .btn-group > .action, .btn-group-vertical > .btn-group > .answer__btn, .btn-group-vertical > .btn-group > .error-message__read-more, .btn-group-vertical > .btn-group > .guess-response__action__btn {
+.btn-group-vertical > .btn-group > .btn, .btn-group-vertical > .btn-group > .action, .btn-group-vertical > .btn-group > .answer__btn, .btn-group-vertical > .btn-group > .error-message__read-more, .btn-group-vertical > .btn-group > .guess-response__action__btn, .btn-group-vertical > .btn-group > .popup__action__btn {
   float: none;
 }
 /* line 169, ../../../../../opt/vagrant_ruby/lib/ruby/gems/1.8/gems/bootstrap-sass-3.0.3.0/vendor/assets/stylesheets/bootstrap/_button-groups.scss */
-.btn-group-vertical > .btn + .btn, .btn-group-vertical > .action + .btn, .btn-group-vertical > .answer__btn + .btn, .btn-group-vertical > .error-message__read-more + .btn, .btn-group-vertical > .guess-response__action__btn + .btn, .btn-group-vertical > .btn + .action, .btn-group-vertical > .action + .action, .btn-group-vertical > .answer__btn + .action, .btn-group-vertical > .error-message__read-more + .action, .btn-group-vertical > .guess-response__action__btn + .action, .btn-group-vertical > .btn + .answer__btn, .btn-group-vertical > .action + .answer__btn, .btn-group-vertical > .answer__btn + .answer__btn, .btn-group-vertical > .error-message__read-more + .answer__btn, .btn-group-vertical > .guess-response__action__btn + .answer__btn, .btn-group-vertical > .btn + .error-message__read-more, .btn-group-vertical > .action + .error-message__read-more, .btn-group-vertical > .answer__btn + .error-message__read-more, .btn-group-vertical > .error-message__read-more + .error-message__read-more, .btn-group-vertical > .guess-response__action__btn + .error-message__read-more, .btn-group-vertical > .btn + .guess-response__action__btn, .btn-group-vertical > .action + .guess-response__action__btn, .btn-group-vertical > .answer__btn + .guess-response__action__btn, .btn-group-vertical > .error-message__read-more + .guess-response__action__btn, .btn-group-vertical > .guess-response__action__btn + .guess-response__action__btn,
+.btn-group-vertical > .btn + .btn, .btn-group-vertical > .action + .btn, .btn-group-vertical > .answer__btn + .btn, .btn-group-vertical > .error-message__read-more + .btn, .btn-group-vertical > .guess-response__action__btn + .btn, .btn-group-vertical > .popup__action__btn + .btn, .btn-group-vertical > .btn + .action, .btn-group-vertical > .action + .action, .btn-group-vertical > .answer__btn + .action, .btn-group-vertical > .error-message__read-more + .action, .btn-group-vertical > .guess-response__action__btn + .action, .btn-group-vertical > .popup__action__btn + .action, .btn-group-vertical > .btn + .answer__btn, .btn-group-vertical > .action + .answer__btn, .btn-group-vertical > .answer__btn + .answer__btn, .btn-group-vertical > .error-message__read-more + .answer__btn, .btn-group-vertical > .guess-response__action__btn + .answer__btn, .btn-group-vertical > .popup__action__btn + .answer__btn, .btn-group-vertical > .btn + .error-message__read-more, .btn-group-vertical > .action + .error-message__read-more, .btn-group-vertical > .answer__btn + .error-message__read-more, .btn-group-vertical > .error-message__read-more + .error-message__read-more, .btn-group-vertical > .guess-response__action__btn + .error-message__read-more, .btn-group-vertical > .popup__action__btn + .error-message__read-more, .btn-group-vertical > .btn + .guess-response__action__btn, .btn-group-vertical > .action + .guess-response__action__btn, .btn-group-vertical > .answer__btn + .guess-response__action__btn, .btn-group-vertical > .error-message__read-more + .guess-response__action__btn, .btn-group-vertical > .guess-response__action__btn + .guess-response__action__btn, .btn-group-vertical > .popup__action__btn + .guess-response__action__btn, .btn-group-vertical > .btn + .popup__action__btn, .btn-group-vertical > .action + .popup__action__btn, .btn-group-vertical > .answer__btn + .popup__action__btn, .btn-group-vertical > .error-message__read-more + .popup__action__btn, .btn-group-vertical > .guess-response__action__btn + .popup__action__btn, .btn-group-vertical > .popup__action__btn + .popup__action__btn,
 .btn-group-vertical > .btn + .btn-group,
 .btn-group-vertical > .action + .btn-group,
 .btn-group-vertical > .answer__btn + .btn-group,
 .btn-group-vertical > .error-message__read-more + .btn-group,
 .btn-group-vertical > .guess-response__action__btn + .btn-group,
+.btn-group-vertical > .popup__action__btn + .btn-group,
 .btn-group-vertical > .btn-group + .btn,
 .btn-group-vertical > .btn-group + .action,
 .btn-group-vertical > .btn-group + .answer__btn,
 .btn-group-vertical > .btn-group + .error-message__read-more,
 .btn-group-vertical > .btn-group + .guess-response__action__btn,
+.btn-group-vertical > .btn-group + .popup__action__btn,
 .btn-group-vertical > .btn-group + .btn-group {
   margin-top: -1px;
   margin-left: 0;
 }
 
 /* line 176, ../../../../../opt/vagrant_ruby/lib/ruby/gems/1.8/gems/bootstrap-sass-3.0.3.0/vendor/assets/stylesheets/bootstrap/_button-groups.scss */
-.btn-group-vertical > .btn:not(:first-child):not(:last-child), .btn-group-vertical > .action:not(:first-child):not(:last-child), .btn-group-vertical > .answer__btn:not(:first-child):not(:last-child), .btn-group-vertical > .error-message__read-more:not(:first-child):not(:last-child), .btn-group-vertical > .guess-response__action__btn:not(:first-child):not(:last-child) {
+.btn-group-vertical > .btn:not(:first-child):not(:last-child), .btn-group-vertical > .action:not(:first-child):not(:last-child), .btn-group-vertical > .answer__btn:not(:first-child):not(:last-child), .btn-group-vertical > .error-message__read-more:not(:first-child):not(:last-child), .btn-group-vertical > .guess-response__action__btn:not(:first-child):not(:last-child), .btn-group-vertical > .popup__action__btn:not(:first-child):not(:last-child) {
   border-radius: 0;
 }
 /* line 179, ../../../../../opt/vagrant_ruby/lib/ruby/gems/1.8/gems/bootstrap-sass-3.0.3.0/vendor/assets/stylesheets/bootstrap/_button-groups.scss */
-.btn-group-vertical > .btn:first-child:not(:last-child), .btn-group-vertical > .action:first-child:not(:last-child), .btn-group-vertical > .answer__btn:first-child:not(:last-child), .btn-group-vertical > .error-message__read-more:first-child:not(:last-child), .btn-group-vertical > .guess-response__action__btn:first-child:not(:last-child) {
+.btn-group-vertical > .btn:first-child:not(:last-child), .btn-group-vertical > .action:first-child:not(:last-child), .btn-group-vertical > .answer__btn:first-child:not(:last-child), .btn-group-vertical > .error-message__read-more:first-child:not(:last-child), .btn-group-vertical > .guess-response__action__btn:first-child:not(:last-child), .btn-group-vertical > .popup__action__btn:first-child:not(:last-child) {
   border-top-right-radius: 4px;
   border-bottom-right-radius: 0;
   border-bottom-left-radius: 0;
 }
 /* line 183, ../../../../../opt/vagrant_ruby/lib/ruby/gems/1.8/gems/bootstrap-sass-3.0.3.0/vendor/assets/stylesheets/bootstrap/_button-groups.scss */
-.btn-group-vertical > .btn:last-child:not(:first-child), .btn-group-vertical > .action:last-child:not(:first-child), .btn-group-vertical > .answer__btn:last-child:not(:first-child), .btn-group-vertical > .error-message__read-more:last-child:not(:first-child), .btn-group-vertical > .guess-response__action__btn:last-child:not(:first-child) {
+.btn-group-vertical > .btn:last-child:not(:first-child), .btn-group-vertical > .action:last-child:not(:first-child), .btn-group-vertical > .answer__btn:last-child:not(:first-child), .btn-group-vertical > .error-message__read-more:last-child:not(:first-child), .btn-group-vertical > .guess-response__action__btn:last-child:not(:first-child), .btn-group-vertical > .popup__action__btn:last-child:not(:first-child) {
   border-bottom-left-radius: 4px;
   border-top-right-radius: 0;
   border-top-left-radius: 0;
 }
 
 /* line 188, ../../../../../opt/vagrant_ruby/lib/ruby/gems/1.8/gems/bootstrap-sass-3.0.3.0/vendor/assets/stylesheets/bootstrap/_button-groups.scss */
-.btn-group-vertical > .btn-group:not(:first-child):not(:last-child) > .btn, .btn-group-vertical > .btn-group:not(:first-child):not(:last-child) > .action, .btn-group-vertical > .btn-group:not(:first-child):not(:last-child) > .answer__btn, .btn-group-vertical > .btn-group:not(:first-child):not(:last-child) > .error-message__read-more, .btn-group-vertical > .btn-group:not(:first-child):not(:last-child) > .guess-response__action__btn {
+.btn-group-vertical > .btn-group:not(:first-child):not(:last-child) > .btn, .btn-group-vertical > .btn-group:not(:first-child):not(:last-child) > .action, .btn-group-vertical > .btn-group:not(:first-child):not(:last-child) > .answer__btn, .btn-group-vertical > .btn-group:not(:first-child):not(:last-child) > .error-message__read-more, .btn-group-vertical > .btn-group:not(:first-child):not(:last-child) > .guess-response__action__btn, .btn-group-vertical > .btn-group:not(:first-child):not(:last-child) > .popup__action__btn {
   border-radius: 0;
 }
 
 /* line 193, ../../../../../opt/vagrant_ruby/lib/ruby/gems/1.8/gems/bootstrap-sass-3.0.3.0/vendor/assets/stylesheets/bootstrap/_button-groups.scss */
-.btn-group-vertical > .btn-group:first-child > .btn:last-child, .btn-group-vertical > .btn-group:first-child > .action:last-child, .btn-group-vertical > .btn-group:first-child > .answer__btn:last-child, .btn-group-vertical > .btn-group:first-child > .error-message__read-more:last-child, .btn-group-vertical > .btn-group:first-child > .guess-response__action__btn:last-child,
+.btn-group-vertical > .btn-group:first-child > .btn:last-child, .btn-group-vertical > .btn-group:first-child > .action:last-child, .btn-group-vertical > .btn-group:first-child > .answer__btn:last-child, .btn-group-vertical > .btn-group:first-child > .error-message__read-more:last-child, .btn-group-vertical > .btn-group:first-child > .guess-response__action__btn:last-child, .btn-group-vertical > .btn-group:first-child > .popup__action__btn:last-child,
 .btn-group-vertical > .btn-group:first-child > .dropdown-toggle {
   border-bottom-right-radius: 0;
   border-bottom-left-radius: 0;
 }
 
 /* line 197, ../../../../../opt/vagrant_ruby/lib/ruby/gems/1.8/gems/bootstrap-sass-3.0.3.0/vendor/assets/stylesheets/bootstrap/_button-groups.scss */
-.btn-group-vertical > .btn-group:last-child > .btn:first-child, .btn-group-vertical > .btn-group:last-child > .action:first-child, .btn-group-vertical > .btn-group:last-child > .answer__btn:first-child, .btn-group-vertical > .btn-group:last-child > .error-message__read-more:first-child, .btn-group-vertical > .btn-group:last-child > .guess-response__action__btn:first-child {
+.btn-group-vertical > .btn-group:last-child > .btn:first-child, .btn-group-vertical > .btn-group:last-child > .action:first-child, .btn-group-vertical > .btn-group:last-child > .answer__btn:first-child, .btn-group-vertical > .btn-group:last-child > .error-message__read-more:first-child, .btn-group-vertical > .btn-group:last-child > .guess-response__action__btn:first-child, .btn-group-vertical > .btn-group:last-child > .popup__action__btn:first-child {
   border-top-right-radius: 0;
   border-top-left-radius: 0;
 }
@@ -8611,24 +8631,25 @@ input[type="button"].answer__btn {
   border-collapse: separate;
 }
 /* line 212, ../../../../../opt/vagrant_ruby/lib/ruby/gems/1.8/gems/bootstrap-sass-3.0.3.0/vendor/assets/stylesheets/bootstrap/_button-groups.scss */
-.btn-group-justified > .btn, .btn-group-justified > .action, .btn-group-justified > .answer__btn, .btn-group-justified > .error-message__read-more, .btn-group-justified > .guess-response__action__btn,
+.btn-group-justified > .btn, .btn-group-justified > .action, .btn-group-justified > .answer__btn, .btn-group-justified > .error-message__read-more, .btn-group-justified > .guess-response__action__btn, .btn-group-justified > .popup__action__btn,
 .btn-group-justified > .btn-group {
   float: none;
   display: table-cell;
   width: 1%;
 }
 /* line 217, ../../../../../opt/vagrant_ruby/lib/ruby/gems/1.8/gems/bootstrap-sass-3.0.3.0/vendor/assets/stylesheets/bootstrap/_button-groups.scss */
-.btn-group-justified > .btn-group .btn, .btn-group-justified > .btn-group .action, .btn-group-justified > .btn-group .answer__btn, .btn-group-justified > .btn-group .error-message__read-more, .btn-group-justified > .btn-group .guess-response__action__btn {
+.btn-group-justified > .btn-group .btn, .btn-group-justified > .btn-group .action, .btn-group-justified > .btn-group .answer__btn, .btn-group-justified > .btn-group .error-message__read-more, .btn-group-justified > .btn-group .guess-response__action__btn, .btn-group-justified > .btn-group .popup__action__btn {
   width: 100%;
 }
 
 /* line 225, ../../../../../opt/vagrant_ruby/lib/ruby/gems/1.8/gems/bootstrap-sass-3.0.3.0/vendor/assets/stylesheets/bootstrap/_button-groups.scss */
-[data-toggle="buttons"] > .btn > input[type="radio"], [data-toggle="buttons"] > .action > input[type="radio"], [data-toggle="buttons"] > .answer__btn > input[type="radio"], [data-toggle="buttons"] > .error-message__read-more > input[type="radio"], [data-toggle="buttons"] > .guess-response__action__btn > input[type="radio"],
+[data-toggle="buttons"] > .btn > input[type="radio"], [data-toggle="buttons"] > .action > input[type="radio"], [data-toggle="buttons"] > .answer__btn > input[type="radio"], [data-toggle="buttons"] > .error-message__read-more > input[type="radio"], [data-toggle="buttons"] > .guess-response__action__btn > input[type="radio"], [data-toggle="buttons"] > .popup__action__btn > input[type="radio"],
 [data-toggle="buttons"] > .btn > input[type="checkbox"],
 [data-toggle="buttons"] > .action > input[type="checkbox"],
 [data-toggle="buttons"] > .answer__btn > input[type="checkbox"],
 [data-toggle="buttons"] > .error-message__read-more > input[type="checkbox"],
-[data-toggle="buttons"] > .guess-response__action__btn > input[type="checkbox"] {
+[data-toggle="buttons"] > .guess-response__action__btn > input[type="checkbox"],
+[data-toggle="buttons"] > .popup__action__btn > input[type="checkbox"] {
   display: none;
 }
 
@@ -8713,12 +8734,14 @@ input[type="button"].answer__btn {
 .input-group-btn:first-child > .answer__btn,
 .input-group-btn:first-child > .error-message__read-more,
 .input-group-btn:first-child > .guess-response__action__btn,
+.input-group-btn:first-child > .popup__action__btn,
 .input-group-btn:first-child > .dropdown-toggle,
 .input-group-btn:last-child > .btn:not(:last-child):not(.dropdown-toggle),
 .input-group-btn:last-child > .action:not(:last-child):not(.dropdown-toggle),
 .input-group-btn:last-child > .answer__btn:not(:last-child):not(.dropdown-toggle),
 .input-group-btn:last-child > .error-message__read-more:not(:last-child):not(.dropdown-toggle),
-.input-group-btn:last-child > .guess-response__action__btn:not(:last-child):not(.dropdown-toggle) {
+.input-group-btn:last-child > .guess-response__action__btn:not(:last-child):not(.dropdown-toggle),
+.input-group-btn:last-child > .popup__action__btn:not(:last-child):not(.dropdown-toggle) {
   border-bottom-right-radius: 0;
   border-top-right-radius: 0;
 }
@@ -8736,12 +8759,14 @@ input[type="button"].answer__btn {
 .input-group-btn:last-child > .answer__btn,
 .input-group-btn:last-child > .error-message__read-more,
 .input-group-btn:last-child > .guess-response__action__btn,
+.input-group-btn:last-child > .popup__action__btn,
 .input-group-btn:last-child > .dropdown-toggle,
 .input-group-btn:first-child > .btn:not(:first-child),
 .input-group-btn:first-child > .action:not(:first-child),
 .input-group-btn:first-child > .answer__btn:not(:first-child),
 .input-group-btn:first-child > .error-message__read-more:not(:first-child),
-.input-group-btn:first-child > .guess-response__action__btn:not(:first-child) {
+.input-group-btn:first-child > .guess-response__action__btn:not(:first-child),
+.input-group-btn:first-child > .popup__action__btn:not(:first-child) {
   border-bottom-left-radius: 0;
   border-top-left-radius: 0;
 }
@@ -8757,24 +8782,24 @@ input[type="button"].answer__btn {
   white-space: nowrap;
 }
 /* line 118, ../../../../../opt/vagrant_ruby/lib/ruby/gems/1.8/gems/bootstrap-sass-3.0.3.0/vendor/assets/stylesheets/bootstrap/_input-groups.scss */
-.input-group-btn:first-child > .btn, .input-group-btn:first-child > .action, .input-group-btn:first-child > .answer__btn, .input-group-btn:first-child > .error-message__read-more, .input-group-btn:first-child > .guess-response__action__btn {
+.input-group-btn:first-child > .btn, .input-group-btn:first-child > .action, .input-group-btn:first-child > .answer__btn, .input-group-btn:first-child > .error-message__read-more, .input-group-btn:first-child > .guess-response__action__btn, .input-group-btn:first-child > .popup__action__btn {
   margin-right: -1px;
 }
 /* line 121, ../../../../../opt/vagrant_ruby/lib/ruby/gems/1.8/gems/bootstrap-sass-3.0.3.0/vendor/assets/stylesheets/bootstrap/_input-groups.scss */
-.input-group-btn:last-child > .btn, .input-group-btn:last-child > .action, .input-group-btn:last-child > .answer__btn, .input-group-btn:last-child > .error-message__read-more, .input-group-btn:last-child > .guess-response__action__btn {
+.input-group-btn:last-child > .btn, .input-group-btn:last-child > .action, .input-group-btn:last-child > .answer__btn, .input-group-btn:last-child > .error-message__read-more, .input-group-btn:last-child > .guess-response__action__btn, .input-group-btn:last-child > .popup__action__btn {
   margin-left: -1px;
 }
 
 /* line 125, ../../../../../opt/vagrant_ruby/lib/ruby/gems/1.8/gems/bootstrap-sass-3.0.3.0/vendor/assets/stylesheets/bootstrap/_input-groups.scss */
-.input-group-btn > .btn, .input-group-btn > .action, .input-group-btn > .answer__btn, .input-group-btn > .error-message__read-more, .input-group-btn > .guess-response__action__btn {
+.input-group-btn > .btn, .input-group-btn > .action, .input-group-btn > .answer__btn, .input-group-btn > .error-message__read-more, .input-group-btn > .guess-response__action__btn, .input-group-btn > .popup__action__btn {
   position: relative;
 }
 /* line 128, ../../../../../opt/vagrant_ruby/lib/ruby/gems/1.8/gems/bootstrap-sass-3.0.3.0/vendor/assets/stylesheets/bootstrap/_input-groups.scss */
-.input-group-btn > .btn + .btn, .input-group-btn > .action + .btn, .input-group-btn > .answer__btn + .btn, .input-group-btn > .error-message__read-more + .btn, .input-group-btn > .guess-response__action__btn + .btn, .input-group-btn > .btn + .action, .input-group-btn > .action + .action, .input-group-btn > .answer__btn + .action, .input-group-btn > .error-message__read-more + .action, .input-group-btn > .guess-response__action__btn + .action, .input-group-btn > .btn + .answer__btn, .input-group-btn > .action + .answer__btn, .input-group-btn > .answer__btn + .answer__btn, .input-group-btn > .error-message__read-more + .answer__btn, .input-group-btn > .guess-response__action__btn + .answer__btn, .input-group-btn > .btn + .error-message__read-more, .input-group-btn > .action + .error-message__read-more, .input-group-btn > .answer__btn + .error-message__read-more, .input-group-btn > .error-message__read-more + .error-message__read-more, .input-group-btn > .guess-response__action__btn + .error-message__read-more, .input-group-btn > .btn + .guess-response__action__btn, .input-group-btn > .action + .guess-response__action__btn, .input-group-btn > .answer__btn + .guess-response__action__btn, .input-group-btn > .error-message__read-more + .guess-response__action__btn, .input-group-btn > .guess-response__action__btn + .guess-response__action__btn {
+.input-group-btn > .btn + .btn, .input-group-btn > .action + .btn, .input-group-btn > .answer__btn + .btn, .input-group-btn > .error-message__read-more + .btn, .input-group-btn > .guess-response__action__btn + .btn, .input-group-btn > .popup__action__btn + .btn, .input-group-btn > .btn + .action, .input-group-btn > .action + .action, .input-group-btn > .answer__btn + .action, .input-group-btn > .error-message__read-more + .action, .input-group-btn > .guess-response__action__btn + .action, .input-group-btn > .popup__action__btn + .action, .input-group-btn > .btn + .answer__btn, .input-group-btn > .action + .answer__btn, .input-group-btn > .answer__btn + .answer__btn, .input-group-btn > .error-message__read-more + .answer__btn, .input-group-btn > .guess-response__action__btn + .answer__btn, .input-group-btn > .popup__action__btn + .answer__btn, .input-group-btn > .btn + .error-message__read-more, .input-group-btn > .action + .error-message__read-more, .input-group-btn > .answer__btn + .error-message__read-more, .input-group-btn > .error-message__read-more + .error-message__read-more, .input-group-btn > .guess-response__action__btn + .error-message__read-more, .input-group-btn > .popup__action__btn + .error-message__read-more, .input-group-btn > .btn + .guess-response__action__btn, .input-group-btn > .action + .guess-response__action__btn, .input-group-btn > .answer__btn + .guess-response__action__btn, .input-group-btn > .error-message__read-more + .guess-response__action__btn, .input-group-btn > .guess-response__action__btn + .guess-response__action__btn, .input-group-btn > .popup__action__btn + .guess-response__action__btn, .input-group-btn > .btn + .popup__action__btn, .input-group-btn > .action + .popup__action__btn, .input-group-btn > .answer__btn + .popup__action__btn, .input-group-btn > .error-message__read-more + .popup__action__btn, .input-group-btn > .guess-response__action__btn + .popup__action__btn, .input-group-btn > .popup__action__btn + .popup__action__btn {
   margin-left: -4px;
 }
 /* line 133, ../../../../../opt/vagrant_ruby/lib/ruby/gems/1.8/gems/bootstrap-sass-3.0.3.0/vendor/assets/stylesheets/bootstrap/_input-groups.scss */
-.input-group-btn > .btn:hover, .input-group-btn > .action:hover, .input-group-btn > .answer__btn:hover, .input-group-btn > .error-message__read-more:hover, .input-group-btn > .guess-response__action__btn:hover, .input-group-btn > .btn:active, .input-group-btn > .action:active, .input-group-btn > .answer__btn:active, .input-group-btn > .error-message__read-more:active, .input-group-btn > .guess-response__action__btn:active {
+.input-group-btn > .btn:hover, .input-group-btn > .action:hover, .input-group-btn > .answer__btn:hover, .input-group-btn > .error-message__read-more:hover, .input-group-btn > .guess-response__action__btn:hover, .input-group-btn > .popup__action__btn:hover, .input-group-btn > .btn:active, .input-group-btn > .action:active, .input-group-btn > .answer__btn:active, .input-group-btn > .error-message__read-more:active, .input-group-btn > .guess-response__action__btn:active, .input-group-btn > .popup__action__btn:active {
   z-index: 2;
 }
 
@@ -9294,12 +9319,12 @@ input[type="button"].answer__btn {
   margin-bottom: 8px;
 }
 /* line 347, ../../../../../opt/vagrant_ruby/lib/ruby/gems/1.8/gems/bootstrap-sass-3.0.3.0/vendor/assets/stylesheets/bootstrap/_navbar.scss */
-.navbar-btn.btn-sm, .btn-group-sm > .navbar-btn.btn, .btn-group-sm > .navbar-btn.action, .btn-group-sm > .navbar-btn.answer__btn, .btn-group-sm > .navbar-btn.error-message__read-more, .btn-group-sm > .navbar-btn.guess-response__action__btn {
+.navbar-btn.btn-sm, .btn-group-sm > .navbar-btn.btn, .btn-group-sm > .navbar-btn.action, .btn-group-sm > .navbar-btn.answer__btn, .btn-group-sm > .navbar-btn.error-message__read-more, .btn-group-sm > .navbar-btn.guess-response__action__btn, .btn-group-sm > .navbar-btn.popup__action__btn {
   margin-top: 10px;
   margin-bottom: 10px;
 }
 /* line 350, ../../../../../opt/vagrant_ruby/lib/ruby/gems/1.8/gems/bootstrap-sass-3.0.3.0/vendor/assets/stylesheets/bootstrap/_navbar.scss */
-.navbar-btn.btn-xs, .btn-group-xs > .navbar-btn.btn, .btn-group-xs > .navbar-btn.action, .btn-group-xs > .navbar-btn.answer__btn, .btn-group-xs > .navbar-btn.guess-response__action__btn, .navbar-btn.error-message__read-more {
+.navbar-btn.btn-xs, .btn-group-xs > .navbar-btn.btn, .btn-group-xs > .navbar-btn.action, .btn-group-xs > .navbar-btn.answer__btn, .btn-group-xs > .navbar-btn.guess-response__action__btn, .btn-group-xs > .navbar-btn.popup__action__btn, .navbar-btn.error-message__read-more {
   margin-top: 14px;
   margin-bottom: 14px;
 }
@@ -9715,7 +9740,7 @@ input[type="button"].answer__btn {
   display: none;
 }
 /* line 33, ../../../../../opt/vagrant_ruby/lib/ruby/gems/1.8/gems/bootstrap-sass-3.0.3.0/vendor/assets/stylesheets/bootstrap/_labels.scss */
-.btn .label, .action .label, .answer__btn .label, .error-message__read-more .label, .guess-response__action__btn .label {
+.btn .label, .action .label, .answer__btn .label, .error-message__read-more .label, .guess-response__action__btn .label, .popup__action__btn .label {
   position: relative;
   top: -1px;
 }
@@ -9794,7 +9819,7 @@ input[type="button"].answer__btn {
   display: none;
 }
 /* line 27, ../../../../../opt/vagrant_ruby/lib/ruby/gems/1.8/gems/bootstrap-sass-3.0.3.0/vendor/assets/stylesheets/bootstrap/_badges.scss */
-.btn .badge, .action .badge, .answer__btn .badge, .error-message__read-more .badge, .guess-response__action__btn .badge {
+.btn .badge, .action .badge, .answer__btn .badge, .error-message__read-more .badge, .guess-response__action__btn .badge, .popup__action__btn .badge {
   position: relative;
   top: -1px;
 }
@@ -10691,12 +10716,12 @@ button.close {
   clear: both;
 }
 /* line 104, ../../../../../opt/vagrant_ruby/lib/ruby/gems/1.8/gems/bootstrap-sass-3.0.3.0/vendor/assets/stylesheets/bootstrap/_modals.scss */
-.modal-footer .btn + .btn, .modal-footer .action + .btn, .modal-footer .answer__btn + .btn, .modal-footer .error-message__read-more + .btn, .modal-footer .guess-response__action__btn + .btn, .modal-footer .btn + .action, .modal-footer .action + .action, .modal-footer .answer__btn + .action, .modal-footer .error-message__read-more + .action, .modal-footer .guess-response__action__btn + .action, .modal-footer .btn + .answer__btn, .modal-footer .action + .answer__btn, .modal-footer .answer__btn + .answer__btn, .modal-footer .error-message__read-more + .answer__btn, .modal-footer .guess-response__action__btn + .answer__btn, .modal-footer .btn + .error-message__read-more, .modal-footer .action + .error-message__read-more, .modal-footer .answer__btn + .error-message__read-more, .modal-footer .error-message__read-more + .error-message__read-more, .modal-footer .guess-response__action__btn + .error-message__read-more, .modal-footer .btn + .guess-response__action__btn, .modal-footer .action + .guess-response__action__btn, .modal-footer .answer__btn + .guess-response__action__btn, .modal-footer .error-message__read-more + .guess-response__action__btn, .modal-footer .guess-response__action__btn + .guess-response__action__btn {
+.modal-footer .btn + .btn, .modal-footer .action + .btn, .modal-footer .answer__btn + .btn, .modal-footer .error-message__read-more + .btn, .modal-footer .guess-response__action__btn + .btn, .modal-footer .popup__action__btn + .btn, .modal-footer .btn + .action, .modal-footer .action + .action, .modal-footer .answer__btn + .action, .modal-footer .error-message__read-more + .action, .modal-footer .guess-response__action__btn + .action, .modal-footer .popup__action__btn + .action, .modal-footer .btn + .answer__btn, .modal-footer .action + .answer__btn, .modal-footer .answer__btn + .answer__btn, .modal-footer .error-message__read-more + .answer__btn, .modal-footer .guess-response__action__btn + .answer__btn, .modal-footer .popup__action__btn + .answer__btn, .modal-footer .btn + .error-message__read-more, .modal-footer .action + .error-message__read-more, .modal-footer .answer__btn + .error-message__read-more, .modal-footer .error-message__read-more + .error-message__read-more, .modal-footer .guess-response__action__btn + .error-message__read-more, .modal-footer .popup__action__btn + .error-message__read-more, .modal-footer .btn + .guess-response__action__btn, .modal-footer .action + .guess-response__action__btn, .modal-footer .answer__btn + .guess-response__action__btn, .modal-footer .error-message__read-more + .guess-response__action__btn, .modal-footer .guess-response__action__btn + .guess-response__action__btn, .modal-footer .popup__action__btn + .guess-response__action__btn, .modal-footer .btn + .popup__action__btn, .modal-footer .action + .popup__action__btn, .modal-footer .answer__btn + .popup__action__btn, .modal-footer .error-message__read-more + .popup__action__btn, .modal-footer .guess-response__action__btn + .popup__action__btn, .modal-footer .popup__action__btn + .popup__action__btn {
   margin-left: 5px;
   margin-bottom: 0;
 }
 /* line 109, ../../../../../opt/vagrant_ruby/lib/ruby/gems/1.8/gems/bootstrap-sass-3.0.3.0/vendor/assets/stylesheets/bootstrap/_modals.scss */
-.modal-footer .btn-group .btn + .btn, .modal-footer .btn-group .action + .btn, .modal-footer .btn-group .answer__btn + .btn, .modal-footer .btn-group .error-message__read-more + .btn, .modal-footer .btn-group .guess-response__action__btn + .btn, .modal-footer .btn-group .btn + .action, .modal-footer .btn-group .action + .action, .modal-footer .btn-group .answer__btn + .action, .modal-footer .btn-group .error-message__read-more + .action, .modal-footer .btn-group .guess-response__action__btn + .action, .modal-footer .btn-group .btn + .answer__btn, .modal-footer .btn-group .action + .answer__btn, .modal-footer .btn-group .answer__btn + .answer__btn, .modal-footer .btn-group .error-message__read-more + .answer__btn, .modal-footer .btn-group .guess-response__action__btn + .answer__btn, .modal-footer .btn-group .btn + .error-message__read-more, .modal-footer .btn-group .action + .error-message__read-more, .modal-footer .btn-group .answer__btn + .error-message__read-more, .modal-footer .btn-group .error-message__read-more + .error-message__read-more, .modal-footer .btn-group .guess-response__action__btn + .error-message__read-more, .modal-footer .btn-group .btn + .guess-response__action__btn, .modal-footer .btn-group .action + .guess-response__action__btn, .modal-footer .btn-group .answer__btn + .guess-response__action__btn, .modal-footer .btn-group .error-message__read-more + .guess-response__action__btn, .modal-footer .btn-group .guess-response__action__btn + .guess-response__action__btn {
+.modal-footer .btn-group .btn + .btn, .modal-footer .btn-group .action + .btn, .modal-footer .btn-group .answer__btn + .btn, .modal-footer .btn-group .error-message__read-more + .btn, .modal-footer .btn-group .guess-response__action__btn + .btn, .modal-footer .btn-group .popup__action__btn + .btn, .modal-footer .btn-group .btn + .action, .modal-footer .btn-group .action + .action, .modal-footer .btn-group .answer__btn + .action, .modal-footer .btn-group .error-message__read-more + .action, .modal-footer .btn-group .guess-response__action__btn + .action, .modal-footer .btn-group .popup__action__btn + .action, .modal-footer .btn-group .btn + .answer__btn, .modal-footer .btn-group .action + .answer__btn, .modal-footer .btn-group .answer__btn + .answer__btn, .modal-footer .btn-group .error-message__read-more + .answer__btn, .modal-footer .btn-group .guess-response__action__btn + .answer__btn, .modal-footer .btn-group .popup__action__btn + .answer__btn, .modal-footer .btn-group .btn + .error-message__read-more, .modal-footer .btn-group .action + .error-message__read-more, .modal-footer .btn-group .answer__btn + .error-message__read-more, .modal-footer .btn-group .error-message__read-more + .error-message__read-more, .modal-footer .btn-group .guess-response__action__btn + .error-message__read-more, .modal-footer .btn-group .popup__action__btn + .error-message__read-more, .modal-footer .btn-group .btn + .guess-response__action__btn, .modal-footer .btn-group .action + .guess-response__action__btn, .modal-footer .btn-group .answer__btn + .guess-response__action__btn, .modal-footer .btn-group .error-message__read-more + .guess-response__action__btn, .modal-footer .btn-group .guess-response__action__btn + .guess-response__action__btn, .modal-footer .btn-group .popup__action__btn + .guess-response__action__btn, .modal-footer .btn-group .btn + .popup__action__btn, .modal-footer .btn-group .action + .popup__action__btn, .modal-footer .btn-group .answer__btn + .popup__action__btn, .modal-footer .btn-group .error-message__read-more + .popup__action__btn, .modal-footer .btn-group .guess-response__action__btn + .popup__action__btn, .modal-footer .btn-group .popup__action__btn + .popup__action__btn {
   margin-left: -1px;
 }
 /* line 113, ../../../../../opt/vagrant_ruby/lib/ruby/gems/1.8/gems/bootstrap-sass-3.0.3.0/vendor/assets/stylesheets/bootstrap/_modals.scss */
@@ -11166,7 +11191,7 @@ button.close {
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
 }
 /* line 198, ../../../../../opt/vagrant_ruby/lib/ruby/gems/1.8/gems/bootstrap-sass-3.0.3.0/vendor/assets/stylesheets/bootstrap/_carousel.scss */
-.carousel-caption .btn, .carousel-caption .action, .carousel-caption .answer__btn, .carousel-caption .error-message__read-more, .carousel-caption .guess-response__action__btn {
+.carousel-caption .btn, .carousel-caption .action, .carousel-caption .answer__btn, .carousel-caption .error-message__read-more, .carousel-caption .guess-response__action__btn, .carousel-caption .popup__action__btn {
   text-shadow: none;
 }
 
@@ -12321,6 +12346,65 @@ a.menu__option, a.menu__option--checkbox {
   text-align: center;
   font-size: 13px;
   line-height: 1.3;
+}
+
+/* line 1, ../sass/blocks/_popup.scss */
+.popup-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  z-index: 10000;
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+/* line 11, ../sass/blocks/_popup.scss */
+.popup {
+  position: relative;
+  width: 80%;
+  height: 200px;
+  margin: 140px auto 0 auto;
+  background-image: url("/assets/img/bgpic.jpg");
+  border: 2px solid #fff;
+  border-radius: 10px;
+}
+
+/* line 21, ../sass/blocks/_popup.scss */
+.popup__content {
+  padding: 10px;
+  text-align: center;
+}
+
+/* line 26, ../sass/blocks/_popup.scss */
+.popup__content__title {
+  font-size: 30px;
+  font-weight: bold;
+}
+
+/* line 31, ../sass/blocks/_popup.scss */
+.popup__content__text {
+  margin-top: 20px;
+}
+
+/* line 35, ../sass/blocks/_popup.scss */
+.popup__content__highlight {
+  color: #e5b719;
+  font-weight: bold;
+}
+
+/* line 40, ../sass/blocks/_popup.scss */
+.popup__action {
+  position: absolute;
+  bottom: 10px;
+  width: 100%;
+  text-align: center;
+}
+
+/* line 47, ../sass/blocks/_popup.scss */
+.popup__action__btn {
+  border-radius: 0;
+  font-weight: bold;
 }
 
 /* line 1, ../sass/blocks/_quiz.scss */

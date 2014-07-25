@@ -12,7 +12,7 @@
     <link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
     <link rel="apple-touch-startup-image" href="/assets/img/startup.png">
 
-    <link href="/assets/css/styles.css?bust=v11" rel="stylesheet" media="screen">
+    <link href="/assets/css/styles.css?bust=v13" rel="stylesheet" media="screen">
 
     <!--[if lt IE 9]>
       <script src="/assets/js/vendor/html5shiv.js"></script>
@@ -300,7 +300,7 @@
           <%= totalPoints %>
         </div>
         <div class="result__body">
-          points
+          total points for this Quizzle
         </div>
       </div>
 
@@ -416,6 +416,47 @@
     <script type="text/html" id="modal-template">
 
       <%= message %>
+
+    </script>
+
+    <script type="text/html" id="reward-purchased-popup-template">
+
+      <div class="popup">
+
+        <div class="popup__content">
+          <div class="popup__content__title">Cha-Ching!</div>
+          <div>You have successfully redeemed the <strong><%= name %></strong> reward.</div>
+          <div class="popup__content__text">
+            It cost you <span class="popup__content__highlight"><%= cost %></span> points.
+          </div>
+        </div>
+
+        <div class="popup__action">
+          <a href="#" class="popup__action__btn js-popup-dismiss">
+            Excellent!
+          </a>
+        </div>
+
+      </div>
+
+    </script>
+
+    <script type="text/html" id="reward-unavailable-popup-template">
+
+      <div class="popup">
+
+        <div class="popup__content">
+          <div class="popup__content__title">Uh oh!</div>
+          <div>You don't have enough points for the <strong><%= name %></strong> reward yet. Keep doing Quizzles to earn more points!</div>
+        </div>
+
+        <div class="popup__action">
+          <a href="#" class="popup__action__btn js-popup-dismiss">
+            Fair enough
+          </a>
+        </div>
+
+      </div>
 
     </script>
 

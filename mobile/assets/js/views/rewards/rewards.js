@@ -8,7 +8,7 @@ define([
     'kinvey',
     'app',
 
-    'views/quiz/failure'
+    'views/popup',
 ], function (
     $,
     _,
@@ -16,7 +16,7 @@ define([
     Kinvey,
     App,
 
-    FailureView
+    PopupView
 ) {
 
     "use strict";
@@ -59,7 +59,11 @@ define([
                 console.log(response);
                 if (response.error) {
                     if (response.error.currency1 === "INSUFFICIENT_FUNDS") {
-                        App.EventBus.trigger('message', 'You haven\'t earned enough points to redeem this reward.');
+                        var popupView = new PopupView({
+                            template: 'reward-unavailable-popup',
+                            name: reward.get('name')
+                        });
+                        $('body').append(popupView.render().el);
                         return;
                     }
 
@@ -67,7 +71,15 @@ define([
                     return;
                 }
 
-                App.EventBus.trigger('message', 'You have successfully redeemed the ' + reward.get('name') + ' reward.');
+                App.playSound('purchase');
+                var popupView = new PopupView({
+                    template: 'reward-purchased-popup',
+                    name: reward.get('name'),
+                    cost: reward.get('currency1Cost')
+                });
+                $('body').append(popupView.render().el);
+
+                //App.EventBus.trigger('message', 'You have successfully redeemed the ' + reward.get('name') + ' reward.');
                 App.EventBus.trigger('cash:spend', reward.get('currency1Cost'));
             });
         }
