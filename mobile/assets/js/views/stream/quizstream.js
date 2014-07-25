@@ -38,6 +38,7 @@ define([
         },
 
         initialize: function (options) {
+            this.hasLoadedFirst = false;
             this.listenTo(this.collection, 'add', this._renderQuiz);
             this.listenTo(this.collection, 'fetch:updated', this._renderLoadMore);
             this.listenTo(this.collection, 'fetch:request', this._renderLoading);
@@ -73,6 +74,12 @@ define([
 
             //this.$el.find('.js-quizzes').append(quizView.render().el);
             this.$el.append(quizView.render().el);
+
+            if (!this.hasLoadedFirst) {
+                var $quiz = this.$el.find('.js-stream').last();
+                $('html, body').scrollTop($quiz.offset().top - 60);
+                this.hasLoadedFirst = true;
+            }
         },
 
         _renderNoModelsError: function () {
@@ -103,6 +110,8 @@ define([
         },
 
         _renderLoadMore: function () {
+            this.hasLoadedFirst = false;
+
             var streamActionView = new StreamActionView({
                 'collection': this.collection,
                 'label': 'Load More',
