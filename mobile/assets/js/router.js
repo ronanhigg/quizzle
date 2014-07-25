@@ -115,6 +115,7 @@ define([
         }),
 
         login: ensureLoggedOut(function () {
+            $('.js-loader').remove();
             var loginView = new LoginView();
             $('#main').html(loginView.render().el);
         }),
