@@ -46,7 +46,7 @@ define([
             ];
 
             this.listenTo(this.model, 'guess:correcttrivia', this._removeInstruction);
-            this.listenTo(this.model, 'guess:incorrect', this._removeInstruction);
+            this.listenTo(this.model, 'guess:incorrecttrivia', this._removeInstruction);
         },
 
         render: function () {

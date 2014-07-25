@@ -72,7 +72,7 @@ define([
                 App.player.trigger('points:trivia');
             } else {
                 App.playSound('incorrect');
-                this.model.trigger('guess:incorrect');
+                this.model.trigger('guess:incorrecttrivia');
             }
 
             this.remove();

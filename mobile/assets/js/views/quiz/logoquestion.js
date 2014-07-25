@@ -62,7 +62,7 @@ define([
                 App.player.trigger('points:logo');
             } else {
                 App.playSound('incorrect');
-                this.model.trigger('guess:incorrect');
+                this.model.trigger('guess:incorrectlogo');
             }
 
             this.remove();

@@ -67,7 +67,8 @@ define([
 
             this.listenTo(this.model, 'guess:correctlogo', this._renderTriviaQuestion);
             this.listenTo(this.model, 'guess:correcttrivia', this._renderPoints);
-            this.listenTo(this.model, 'guess:incorrect', this._renderFailureMessage);
+            this.listenTo(this.model, 'guess:incorrectlogo', this._renderLogoFailureViews);
+            this.listenTo(this.model, 'guess:incorrecttrivia', this._renderTriviaFailureViews);
         },
 
         render: function () {
@@ -115,7 +116,14 @@ define([
                 .before(successView.render().el);
         },
 
-        _renderFailureMessage: function () {
+        _renderLogoFailureViews: function () {
+            var failureView = new FailureView();
+
+            this.$el.find('.js-quiz-footer')
+                .before(failureView.render().el);
+        },
+
+        _renderTriviaFailureViews: function () {
             var failureView = new FailureView();
 
             this.$el.find('.js-quiz-footer')

@@ -12009,6 +12009,13 @@ body {
   border-radius: 0;
 }
 
+/* line 1, ../sass/blocks/_guess-response.scss */
+.guess-response {
+  width: 80%;
+  height: 200px;
+  margin: 0 auto;
+}
+
 /* line 1, ../sass/blocks/_instruction.scss */
 .instruction {
   margin: 10px 14px;
