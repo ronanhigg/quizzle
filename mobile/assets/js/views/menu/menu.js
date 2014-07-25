@@ -53,7 +53,8 @@ define([
             }
 
             $('.js-refresh-stream').on('click', function () {
-                App.router.play();
+                //App.router.play();
+                //App.EventBus.trigger('fetch:restart');
                 return false;
             });
 
