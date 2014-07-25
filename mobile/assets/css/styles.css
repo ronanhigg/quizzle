@@ -11977,6 +11977,12 @@ body {
   color: #fff;
 }
 
+/* line 56, ../sass/blocks/_actionbar.scss */
+.action-bar__action--rewards.active {
+  box-shadow: none;
+  text-shadow: 0px 0px 5px #fff;
+}
+
 /* line 1, ../sass/blocks/_answer.scss */
 .answer {
   background: rgba(0, 0, 0, 0.2);
@@ -12440,7 +12446,7 @@ a.menu__option, a.menu__option--checkbox {
 
 /* line 76, ../sass/blocks/_rewards.scss */
 .rewards__item__value {
-  font-size: 30px;
+  font-size: 26px;
   font-weight: bold;
 }
 

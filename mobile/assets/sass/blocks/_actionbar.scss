@@ -51,4 +51,10 @@ $action-side-margin: 14px;
 .action-bar__action--rewards {
     @extend .action-bar__action;
     @extend .ion-bag;
+
+
+    &.active {
+        box-shadow: none;
+        text-shadow: 0px 0px 5px #fff;
+    }
 }

@@ -113,7 +113,7 @@ define([
 
             var streamActionView = new StreamActionView({
                 'collection': this.collection,
-                'label': 'Load More',
+                'label': 'Get More Quizzles',
                 'action': 'load-more'
             });
 

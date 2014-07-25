@@ -125,6 +125,7 @@ define([
 
         play: ensureLogin(function () {
             App.EventBus.trigger('menu:hide');
+            $('.js-toggle-rewards').removeClass('active');
 
             var quizStreamView = new QuizStreamView({
                 collection: App.adDetections
@@ -134,6 +135,8 @@ define([
         }),
 
         rewards: ensureLogin(function () {
+
+            $('.js-toggle-rewards').addClass('active');
 
             var rewards = new RewardsCollection();
 

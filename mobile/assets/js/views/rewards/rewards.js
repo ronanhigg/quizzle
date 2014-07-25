@@ -34,10 +34,13 @@ define([
         },
 
         render: function () {
-            console.log(this.collection);
             this.$el.html(this.template({
                 'rewards': this.collection
             }));
+
+            $('body').scrollTop(0);
+            $('.js-loader').remove();
+
             return this;
         },
 
