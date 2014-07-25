@@ -44,6 +44,7 @@ define([
             this.listenTo(this.collection, 'fetch:nomodels', this._renderNoModelsError);
             this.listenTo(this.collection, 'fetch:succeeded', this._removeLoading);
             this.listenTo(this.collection, 'fetch:failed', this._renderConnectionError);
+            this.listenTo(App.EventBus, 'stream:next', this._jumpToNextQuiz);
         },
 
         render: function () {
@@ -139,6 +140,17 @@ define([
             if (this._errorMessageView !== undefined) {
                 this._errorMessageView.remove();
                 this._errorMessageView = undefined;
+            }
+        },
+
+        _jumpToNextQuiz: function (currentQuizId) {
+            var $currentQuiz = this.$el.find('.js-stream[data-id="' + currentQuizId + '"]');
+            var $nextQuiz = $currentQuiz.next('.js-stream');
+
+            if ($nextQuiz.length > 0) {
+                $('html, body').scrollTop($nextQuiz.offset().top - 60);
+            } else {
+                this.$el.find('.js-stream-action').trigger('click');
             }
         }
 

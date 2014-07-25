@@ -92,7 +92,8 @@ define([
                     messageNext: 'You\'ve unlocked a trivia question',
                     messagePoints: 'Plus, you get',
                     points: App.player.logoPoints,
-                    action: 'Alright!'
+                    action: 'Alright!',
+                    actionType: 'continue'
                 });
             }
 
@@ -125,7 +126,8 @@ define([
                 messageNext: 'You\'ve completed this Quizzle',
                 messagePoints: 'You got another',
                 points: App.player.triviaPoints,
-                action: 'Try the next Quizzle!'
+                action: 'Try the next Quizzle!',
+                actionType: 'next'
             });
 
             var successView = new SuccessView();
@@ -138,7 +140,8 @@ define([
             this._renderGuessResponse({
                 messageExcl: 'Too bad!',
                 messageNext: 'Pay attention at the next ad break and you might get it!',
-                action: 'Try the next Quizzle'
+                action: 'Try the next Quizzle',
+                actionType: 'next'
             });
 
             var failureView = new FailureView();
@@ -151,7 +154,8 @@ define([
             this._renderGuessResponse({
                 messageExcl: 'Tough luck!',
                 messageNext: 'You might get it the next time around.',
-                action: 'Try the next Quizzle'
+                action: 'Try the next Quizzle',
+                actionType: 'next'
             });
 
             var failureView = new FailureView();
@@ -161,6 +165,7 @@ define([
         },
 
         _renderGuessResponse: function (options) {
+            options.quizId = this.model.get('_id');
             var popup = new GuessResponseView(options);
             $('body').append(popup.render().el);
         }

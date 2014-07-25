@@ -28,7 +28,7 @@ define([
         },
 
         attributes: function () {
-            var classes = 'action';
+            var classes = 'action js-stream-action';
 
             return {
                 'class':  classes,
