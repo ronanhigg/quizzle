@@ -38,6 +38,8 @@ define([
             this._templateVars = {
                 answers: answers
             };
+
+            this._guessed = false;
         },
 
         render: function () {
@@ -64,6 +66,12 @@ define([
         },
 
         _guess: function (event) {
+            if (this._guessed) {
+                return;
+            }
+
+            this._guessed = true;
+
             var selectedIndex = $(event.currentTarget).data('index');
 
             if (selectedIndex === this._correctIndex) {
